@@ -12,7 +12,7 @@ export default {
   output: "components/dialogs/i18n/$LOCALE/dialogs.json",
 
   // Only generate non-English files (English uses inline defaults)
-  locales: ["zh"],
+  locales: ["zh", "fr", "de", "es", "nl"],
 
   // Use dialogs as the namespace for all dialog components
   defaultNamespace: "dialogs",
