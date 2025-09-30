@@ -19,32 +19,6 @@ import { verifyPassword } from "@tasktrove/utils"
 // Mock safe file operations
 vi.mock("@/lib/utils/safe-file-operations")
 
-// Mock the middleware
-vi.mock("@/lib/middleware/api-logger", () => ({
-  withApiLogging: (handler: (...args: unknown[]) => unknown) => handler,
-  logBusinessEvent: vi.fn(),
-  withFileOperationLogging: async (operation: () => Promise<unknown>) => {
-    try {
-      return await operation()
-    } catch (error) {
-      throw error // Re-throw to maintain test behavior
-    }
-  },
-  withPerformanceLogging: async (operation: () => Promise<unknown>) => {
-    try {
-      return await operation()
-    } catch (error) {
-      throw error // Re-throw to maintain test behavior
-    }
-  },
-  logSecurityEvent: vi.fn(),
-}))
-
-// Mock the API mutex
-vi.mock("@/lib/utils/api-mutex", () => ({
-  withMutexProtection: (handler: (...args: unknown[]) => unknown) => handler,
-}))
-
 const mockSafeReadDataFile = vi.mocked(safeReadDataFile)
 const mockSafeWriteDataFile = vi.mocked(safeWriteDataFile)
 const mockSaveBase64ToAvatarFile = vi.mocked(saveBase64ToAvatarFile)
@@ -94,7 +68,9 @@ describe("GET /api/user", () => {
     const data = await response.json()
 
     expect(response.ok).toBe(true)
-    expect(data).toEqual(mockUser)
+    expect(data.user).toEqual(mockUser)
+    expect(data.meta).toBeDefined()
+    expect(data.meta.count).toBe(1)
 
     // Verify that readFile was called
     expect(mockSafeReadDataFile).toHaveBeenCalled()
@@ -115,7 +91,9 @@ describe("GET /api/user", () => {
     const data = await response.json()
 
     expect(response.ok).toBe(true)
-    expect(data).toEqual(DEFAULT_USER)
+    expect(data.user).toEqual(DEFAULT_USER)
+    expect(data.meta).toBeDefined()
+    expect(data.meta.count).toBe(1)
   })
 
   it("should handle file system errors gracefully", async () => {

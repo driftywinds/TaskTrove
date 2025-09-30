@@ -74,9 +74,9 @@ describe("/api/data/initialize", () => {
       const data = await response.json()
 
       expect(response.status).toBe(403)
-      expect(data.status).toBe("error")
-      expect(data.message).toBe("Forbidden: Invalid request origin")
-      expect(data.timestamp).toBeDefined()
+      expect(data.code).toBe("INVALID_ORIGIN")
+      expect(data.error).toBe("Forbidden")
+      expect(data.message).toBe("Invalid request origin")
     })
 
     it("should accept requests from same origin", async () => {
@@ -134,8 +134,9 @@ describe("/api/data/initialize", () => {
       const data = await response.json()
 
       expect(response.status).toBe(403)
-      expect(data.status).toBe("error")
-      expect(data.message).toBe("Forbidden: Invalid request origin")
+      expect(data.code).toBe("INVALID_ORIGIN")
+      expect(data.error).toBe("Forbidden")
+      expect(data.message).toBe("Invalid request origin")
     })
   })
 
@@ -154,9 +155,9 @@ describe("/api/data/initialize", () => {
       const data = await response.json()
 
       expect(response.status).toBe(400)
-      expect(data.status).toBe("error")
-      expect(data.message).toBe("Data file already exists")
-      expect(data.details).toBe(
+      expect(data.code).toBe("INITIALIZATION_FORBIDDEN")
+      expect(data.error).toBe("Data file already exists")
+      expect(data.message).toBe(
         "Data file initialization is only allowed when no existing data file is present",
       )
     })
@@ -173,8 +174,8 @@ describe("/api/data/initialize", () => {
       const data = await response.json()
 
       expect(response.status).toBe(500)
-      expect(data.status).toBe("error")
-      expect(data.message).toContain("Failed to initialize data file")
+      expect(data.code).toBe("INITIALIZATION_FAILED")
+      expect(data.error).toBe("Failed to initialize data file")
       expect(data.message).toContain("File system error")
     })
 

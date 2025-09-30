@@ -15,26 +15,6 @@ vi.mock("@/lib/utils/recurring-task-processor", () => ({
   processRecurringTaskCompletion: vi.fn(),
 }))
 
-// Mock API logging middleware
-vi.mock("@/lib/middleware/api-logger", () => ({
-  withApiLogging: (handler: (...args: unknown[]) => unknown) => handler,
-  logBusinessEvent: vi.fn(),
-  withFileOperationLogging: async (operation: () => Promise<unknown>) => {
-    try {
-      return await operation()
-    } catch (error) {
-      throw error // Re-throw to maintain test behavior
-    }
-  },
-  withPerformanceLogging: async (operation: () => Promise<unknown>) => {
-    try {
-      return await operation()
-    } catch (error) {
-      throw error // Re-throw to maintain test behavior
-    }
-  },
-}))
-
 // Mock UUID generation
 vi.mock("uuid", () => ({
   v4: vi.fn(() => "550e8400-e29b-41d4-a716-446655440000"),

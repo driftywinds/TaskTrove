@@ -169,8 +169,8 @@ describe("/api/data/migrate", () => {
       const data = await response.json()
 
       expect(response.status).toBe(500)
-      expect(data.success).toBe(false)
-      expect(data.message).toContain("Migration failed: Failed to write migrated data file")
+      expect(data.code).toBe("MIGRATION_FAILED")
+      expect(data.message).toContain("Failed to write migrated data file")
 
       // Verify safeWriteDataFile was called and returned false
       expect(mockSafeWriteDataFile).toHaveBeenCalledWith({
@@ -191,8 +191,8 @@ describe("/api/data/migrate", () => {
       const data = await response.json()
 
       expect(response.status).toBe(500)
-      expect(data.success).toBe(false)
-      expect(data.message).toContain("Migration failed: File not found")
+      expect(data.code).toBe("MIGRATION_FAILED")
+      expect(data.message).toContain("File not found")
     })
 
     it("should handle JSON parse errors", async () => {
@@ -207,8 +207,8 @@ describe("/api/data/migrate", () => {
       const data = await response.json()
 
       expect(response.status).toBe(500)
-      expect(data.success).toBe(false)
-      expect(data.message).toContain("Migration failed")
+      expect(data.code).toBe("MIGRATION_FAILED")
+      expect(data.message).toBeTruthy()
     })
 
     it("should handle migration function errors", async () => {
@@ -235,8 +235,8 @@ describe("/api/data/migrate", () => {
       const data = await response.json()
 
       expect(response.status).toBe(500)
-      expect(data.success).toBe(false)
-      expect(data.message).toContain("Migration failed: Migration logic failed")
+      expect(data.code).toBe("MIGRATION_FAILED")
+      expect(data.message).toContain("Migration logic failed")
     })
 
     it("should handle backup write errors", async () => {
@@ -275,8 +275,8 @@ describe("/api/data/migrate", () => {
       const data = await response.json()
 
       expect(response.status).toBe(500)
-      expect(data.success).toBe(false)
-      expect(data.message).toContain("Migration failed: Backup write failed")
+      expect(data.code).toBe("MIGRATION_FAILED")
+      expect(data.message).toContain("Backup write failed")
     })
   })
 })

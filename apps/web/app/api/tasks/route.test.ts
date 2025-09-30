@@ -21,27 +21,6 @@ import { createMockEnhancedRequest } from "@/lib/utils/test-helpers"
 // Mock safe file operations
 vi.mock("@/lib/utils/safe-file-operations")
 
-// Mock the middleware
-vi.mock("@/lib/middleware/api-logger", () => ({
-  withApiLogging: (handler: (...args: unknown[]) => unknown) => handler,
-  logBusinessEvent: vi.fn(),
-  withFileOperationLogging: async (operation: () => Promise<unknown>) => {
-    try {
-      return await operation()
-    } catch (error) {
-      throw error // Re-throw to maintain test behavior
-    }
-  },
-  withPerformanceLogging: async (operation: () => Promise<unknown>) => {
-    try {
-      return await operation()
-    } catch (error) {
-      throw error // Re-throw to maintain test behavior
-    }
-  },
-  logSecurityEvent: vi.fn(),
-}))
-
 // Mock UUID
 vi.mock("uuid", () => ({
   v4: () => "12345678-1234-4123-8123-123456789012",

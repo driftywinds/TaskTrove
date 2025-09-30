@@ -20,6 +20,8 @@ import { DEFAULT_EMPTY_DATA_FILE } from "@/lib/types"
 // Mock the safe file operations directly
 vi.mock("@/lib/utils/safe-file-operations")
 
+// Mock NextAuth to prevent module loading issues
+
 // Mock the logger
 vi.mock("@/lib/utils/logger", () => ({
   log: {
