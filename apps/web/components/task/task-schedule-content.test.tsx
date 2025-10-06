@@ -43,7 +43,7 @@ let mockQuickAddTask: {
   dueDate?: Date
   recurring?: string
 } | null = null
-const mockUpdateTask = vi.fn()
+const mockUpdateTasks = vi.fn()
 const mockUpdateQuickAddTask = vi.fn()
 vi.mock("jotai", () => {
   const createMockAtom = () => {
@@ -70,7 +70,7 @@ vi.mock("jotai", () => {
       ) {
         return mockUpdateQuickAddTask
       }
-      return mockUpdateTask
+      return mockUpdateTasks
     }),
     atom: createMockAtom,
     Provider: vi.fn(({ children }) => children),
@@ -185,7 +185,7 @@ describe("TaskScheduleContent", () => {
 
   beforeEach(() => {
     vi.clearAllMocks()
-    mockUpdateTask.mockClear()
+    mockUpdateTasks.mockClear()
     mockUpdateQuickAddTask.mockClear()
     mockQuickAddTask = null
   })
@@ -235,12 +235,12 @@ describe("TaskScheduleContent", () => {
 
       fireEvent.click(screen.getByText("Today"))
 
-      expect(mockUpdateTask).toHaveBeenCalledWith({
-        updateRequest: {
+      expect(mockUpdateTasks).toHaveBeenCalledWith([
+        {
           id: TEST_TASK_ID_1,
           dueDate: expect.any(Date),
         },
-      })
+      ])
     })
 
     it("should call updateTask with correct parameters for tomorrow", () => {
@@ -251,12 +251,12 @@ describe("TaskScheduleContent", () => {
 
       fireEvent.click(screen.getByText("Tomorrow"))
 
-      expect(mockUpdateTask).toHaveBeenCalledWith({
-        updateRequest: {
+      expect(mockUpdateTasks).toHaveBeenCalledWith([
+        {
           id: TEST_TASK_ID_1,
           dueDate: expect.any(Date),
         },
-      })
+      ])
     })
 
     it("should show clear button when task has due date", () => {
@@ -280,14 +280,14 @@ describe("TaskScheduleContent", () => {
 
       fireEvent.click(screen.getByText("Clear"))
 
-      expect(mockUpdateTask).toHaveBeenCalledWith({
-        updateRequest: {
+      expect(mockUpdateTasks).toHaveBeenCalledWith([
+        {
           id: TEST_TASK_ID_1,
           dueDate: null,
           dueTime: null,
           recurring: null,
         },
-      })
+      ])
     })
   })
 
@@ -311,14 +311,14 @@ describe("TaskScheduleContent", () => {
 
       fireEvent.click(screen.getByText("Daily"))
 
-      expect(mockUpdateTask).toHaveBeenCalledWith(
-        expect.objectContaining({
-          updateRequest: expect.objectContaining({
+      expect(mockUpdateTasks).toHaveBeenCalledWith(
+        expect.arrayContaining([
+          expect.objectContaining({
             id: TEST_TASK_ID_1,
             recurring: "RRULE:FREQ=DAILY",
             dueDate: expect.any(Date),
           }),
-        }),
+        ]),
       )
     })
 
@@ -329,14 +329,14 @@ describe("TaskScheduleContent", () => {
       )
       fireEvent.click(screen.getByText("Weekly"))
 
-      expect(mockUpdateTask).toHaveBeenCalledWith(
-        expect.objectContaining({
-          updateRequest: expect.objectContaining({
+      expect(mockUpdateTasks).toHaveBeenCalledWith(
+        expect.arrayContaining([
+          expect.objectContaining({
             id: TEST_TASK_ID_1,
             recurring: "RRULE:FREQ=WEEKLY",
             dueDate: expect.any(Date),
           }),
-        }),
+        ]),
       )
     })
 
@@ -347,14 +347,14 @@ describe("TaskScheduleContent", () => {
       )
       fireEvent.click(screen.getByText("Monthly"))
 
-      expect(mockUpdateTask).toHaveBeenCalledWith(
-        expect.objectContaining({
-          updateRequest: expect.objectContaining({
+      expect(mockUpdateTasks).toHaveBeenCalledWith(
+        expect.arrayContaining([
+          expect.objectContaining({
             id: TEST_TASK_ID_1,
             recurring: "RRULE:FREQ=MONTHLY",
             dueDate: expect.any(Date),
           }),
-        }),
+        ]),
       )
     })
 
@@ -386,14 +386,14 @@ describe("TaskScheduleContent", () => {
       )
       fireEvent.click(screen.getByText("Clear"))
 
-      expect(mockUpdateTask).toHaveBeenCalledWith({
-        updateRequest: {
+      expect(mockUpdateTasks).toHaveBeenCalledWith([
+        {
           id: TEST_TASK_ID_1,
           dueDate: null,
           dueTime: null,
           recurring: null,
         },
-      })
+      ])
     })
 
     it("should display current recurring pattern", () => {
@@ -426,23 +426,23 @@ describe("TaskScheduleContent", () => {
       fireEvent.click(screen.getByText("Weekly"))
 
       // Should preserve the original due date by only updating recurring pattern
-      expect(mockUpdateTask).toHaveBeenCalledWith(
-        expect.objectContaining({
-          updateRequest: expect.objectContaining({
+      expect(mockUpdateTasks).toHaveBeenCalledWith(
+        expect.arrayContaining([
+          expect.objectContaining({
             id: TEST_TASK_ID_1,
             recurring: "RRULE:FREQ=WEEKLY",
             // dueDate should NOT be included - we preserve existing by not updating it
           }),
-        }),
+        ]),
       )
 
       // Verify dueDate is not in the update request (preserving existing)
-      expect(mockUpdateTask).toHaveBeenCalledWith(
-        expect.objectContaining({
-          updateRequest: expect.not.objectContaining({
+      expect(mockUpdateTasks).toHaveBeenCalledWith(
+        expect.arrayContaining([
+          expect.not.objectContaining({
             dueDate: expect.anything(),
           }),
-        }),
+        ]),
       )
     })
 
@@ -460,14 +460,14 @@ describe("TaskScheduleContent", () => {
       fireEvent.click(screen.getByText("Daily"))
 
       // Should calculate a new due date for tasks without one
-      expect(mockUpdateTask).toHaveBeenCalledWith(
-        expect.objectContaining({
-          updateRequest: expect.objectContaining({
+      expect(mockUpdateTasks).toHaveBeenCalledWith(
+        expect.arrayContaining([
+          expect.objectContaining({
             id: TEST_TASK_ID_1,
             recurring: "RRULE:FREQ=DAILY",
             dueDate: expect.any(Date), // Should get a calculated due date
           }),
-        }),
+        ]),
       )
     })
 
@@ -478,13 +478,13 @@ describe("TaskScheduleContent", () => {
       )
 
       // Clear any previous mock calls
-      mockUpdateTask.mockClear()
+      mockUpdateTasks.mockClear()
 
       // Click the Interval button
       fireEvent.click(screen.getByText("Interval"))
 
       // Should NOT immediately call updateTask - the interval button should only show the UI
-      expect(mockUpdateTask).not.toHaveBeenCalled()
+      expect(mockUpdateTasks).not.toHaveBeenCalled()
 
       // Should show the interval configuration UI
       expect(screen.getByText("Create a custom recurring pattern")).toBeInTheDocument()
@@ -522,26 +522,26 @@ describe("TaskScheduleContent", () => {
         <TaskScheduleContent taskId={mockTask.id} onClose={mockOnClose} defaultTab="recurring" />,
       )
 
-      mockUpdateTask.mockClear()
+      mockUpdateTasks.mockClear()
 
       // Click the Interval button to show config
       fireEvent.click(screen.getByText("Interval"))
 
       // Should not call updateTask yet
-      expect(mockUpdateTask).not.toHaveBeenCalled()
+      expect(mockUpdateTasks).not.toHaveBeenCalled()
 
       // Click Apply to apply the interval configuration
       fireEvent.click(screen.getByText("Apply"))
 
       // Should call updateTask exactly once
-      expect(mockUpdateTask).toHaveBeenCalledTimes(1)
-      expect(mockUpdateTask).toHaveBeenCalledWith(
-        expect.objectContaining({
-          updateRequest: expect.objectContaining({
+      expect(mockUpdateTasks).toHaveBeenCalledTimes(1)
+      expect(mockUpdateTasks).toHaveBeenCalledWith(
+        expect.arrayContaining([
+          expect.objectContaining({
             id: TEST_TASK_ID_1,
             recurring: "RRULE:FREQ=MONTHLY;BYDAY=MO;BYSETPOS=1",
           }),
-        }),
+        ]),
       )
     })
   })
@@ -581,13 +581,13 @@ describe("TaskScheduleContent", () => {
       // Click Set button
       fireEvent.click(screen.getByRole("button", { name: "Set" }))
 
-      expect(mockUpdateTask).toHaveBeenCalledWith({
-        updateRequest: {
+      expect(mockUpdateTasks).toHaveBeenCalledWith([
+        {
           id: TEST_TASK_ID_1,
           dueDate: expect.any(Date),
           dueTime: expect.any(Date),
         },
-      })
+      ])
     })
 
     it("should auto-fill minute to 00 when hour is set", () => {
@@ -642,12 +642,12 @@ describe("TaskScheduleContent", () => {
 
       fireEvent.click(screen.getByText("Clear Time"))
 
-      expect(mockUpdateTask).toHaveBeenCalledWith({
-        updateRequest: {
+      expect(mockUpdateTasks).toHaveBeenCalledWith([
+        {
           id: TEST_TASK_ID_1,
           dueTime: null,
         },
-      })
+      ])
     })
 
     it("should preserve existing time when setting new dates", () => {
@@ -662,13 +662,13 @@ describe("TaskScheduleContent", () => {
 
       fireEvent.click(screen.getByText("Today"))
 
-      expect(mockUpdateTask).toHaveBeenCalledWith({
-        updateRequest: {
+      expect(mockUpdateTasks).toHaveBeenCalledWith([
+        {
           id: TEST_TASK_ID_1,
           dueDate: expect.any(Date),
           dueTime: dueTime, // Should preserve existing time
         },
-      })
+      ])
     })
 
     it("should display time in 12-hour format when task has existing time", () => {
@@ -834,7 +834,7 @@ describe("TaskScheduleContent", () => {
           dueDate: expect.any(Date),
         },
       })
-      expect(mockUpdateTask).not.toHaveBeenCalled()
+      expect(mockUpdateTasks).not.toHaveBeenCalled()
     })
 
     it("should call updateQuickAddTask when setting recurring pattern for new task", () => {
@@ -852,7 +852,7 @@ describe("TaskScheduleContent", () => {
           }),
         }),
       )
-      expect(mockUpdateTask).not.toHaveBeenCalled()
+      expect(mockUpdateTasks).not.toHaveBeenCalled()
     })
 
     it("should preserve due date when setting recurring pattern for new task", () => {
@@ -984,12 +984,12 @@ describe("TaskScheduleContent", () => {
       expect(mockCalculateNextDueDateFn).toHaveBeenCalledWith("RRULE:FREQ=DAILY", dueDate, false)
 
       // Should call updateTask with the calculated next date
-      expect(mockUpdateTask).toHaveBeenCalledWith({
-        updateRequest: {
+      expect(mockUpdateTasks).toHaveBeenCalledWith([
+        {
           id: TEST_TASK_ID_1,
           dueDate: nextDate,
         },
-      })
+      ])
     })
 
     it("should handle weekly recurring pattern correctly", () => {
@@ -1013,12 +1013,12 @@ describe("TaskScheduleContent", () => {
       fireEvent.click(screen.getByText("Skip"))
 
       expect(mockCalculateNextDueDateFn).toHaveBeenCalledWith("RRULE:FREQ=WEEKLY", dueDate, false)
-      expect(mockUpdateTask).toHaveBeenCalledWith({
-        updateRequest: {
+      expect(mockUpdateTasks).toHaveBeenCalledWith([
+        {
           id: TEST_TASK_ID_1,
           dueDate: nextDate,
         },
-      })
+      ])
     })
 
     it("should handle case when calculateNextDueDate returns null", () => {
@@ -1045,7 +1045,7 @@ describe("TaskScheduleContent", () => {
         false,
       )
       // Should not call updateTask when calculateNextDueDate returns null
-      expect(mockUpdateTask).not.toHaveBeenCalled()
+      expect(mockUpdateTasks).not.toHaveBeenCalled()
     })
 
     it("should work with custom interval recurring patterns", () => {
@@ -1073,12 +1073,12 @@ describe("TaskScheduleContent", () => {
         dueDate,
         false,
       )
-      expect(mockUpdateTask).toHaveBeenCalledWith({
-        updateRequest: {
+      expect(mockUpdateTasks).toHaveBeenCalledWith([
+        {
           id: TEST_TASK_ID_1,
           dueDate: nextDate,
         },
-      })
+      ])
     })
 
     it("should advance due date by one day when task has no recurring pattern", () => {
@@ -1097,12 +1097,12 @@ describe("TaskScheduleContent", () => {
 
       // Should call updateTask with date advanced by one day
       const expectedNextDate = new Date("2024-01-16")
-      expect(mockUpdateTask).toHaveBeenCalledWith({
-        updateRequest: {
+      expect(mockUpdateTasks).toHaveBeenCalledWith([
+        {
           id: TEST_TASK_ID_1,
           dueDate: expectedNextDate,
         },
-      })
+      ])
 
       // Should not call calculateNextDueDate since there's no recurring pattern
       const mockCalculateNextDueDateFn = vi.mocked(calculateNextDueDate)
@@ -1254,12 +1254,12 @@ describe("TaskScheduleContent", () => {
 
       await waitFor(() => {
         expect(parseEnhancedNaturalLanguage).toHaveBeenCalledWith("tomorrow")
-        expect(mockUpdateTask).toHaveBeenCalledWith({
-          updateRequest: {
+        expect(mockUpdateTasks).toHaveBeenCalledWith([
+          {
             id: TEST_TASK_ID_1,
             dueDate: parsedResult.dueDate,
           },
-        })
+        ])
       })
 
       // Input should be cleared after parsing
@@ -1293,12 +1293,12 @@ describe("TaskScheduleContent", () => {
 
       await waitFor(() => {
         expect(parseEnhancedNaturalLanguage).toHaveBeenCalledWith("tomorrow")
-        expect(mockUpdateTask).toHaveBeenCalledWith({
-          updateRequest: {
+        expect(mockUpdateTasks).toHaveBeenCalledWith([
+          {
             id: TEST_TASK_ID_1,
             dueDate: parsedResult.dueDate,
           },
-        })
+        ])
       })
     })
 
@@ -1331,12 +1331,12 @@ describe("TaskScheduleContent", () => {
 
       await waitFor(() => {
         expect(convertTimeToHHMMSS).toHaveBeenCalledWith("3PM")
-        expect(mockUpdateTask).toHaveBeenCalledWith({
-          updateRequest: {
+        expect(mockUpdateTasks).toHaveBeenCalledWith([
+          {
             id: TEST_TASK_ID_1,
             dueTime: expect.any(Date),
           },
-        })
+        ])
       })
     })
 
@@ -1367,12 +1367,12 @@ describe("TaskScheduleContent", () => {
       await user.click(parseButton)
 
       await waitFor(() => {
-        expect(mockUpdateTask).toHaveBeenCalledWith({
-          updateRequest: {
+        expect(mockUpdateTasks).toHaveBeenCalledWith([
+          {
             id: TEST_TASK_ID_1,
             recurring: "RRULE:FREQ=DAILY",
           },
-        })
+        ])
       })
     })
 
@@ -1407,35 +1407,35 @@ describe("TaskScheduleContent", () => {
 
       await waitFor(() => {
         // Should call updateTask multiple times for different parsed elements
-        expect(mockUpdateTask).toHaveBeenCalledWith(
-          expect.objectContaining({
-            updateRequest: expect.objectContaining({
+        expect(mockUpdateTasks).toHaveBeenCalledWith(
+          expect.arrayContaining([
+            expect.objectContaining({
               id: TEST_TASK_ID_1,
               dueDate: parsedResult.dueDate,
             }),
-          }),
+          ]),
         )
       })
 
       await waitFor(() => {
-        expect(mockUpdateTask).toHaveBeenCalledWith(
-          expect.objectContaining({
-            updateRequest: expect.objectContaining({
+        expect(mockUpdateTasks).toHaveBeenCalledWith(
+          expect.arrayContaining([
+            expect.objectContaining({
               id: TEST_TASK_ID_1,
               dueTime: expect.any(Date),
             }),
-          }),
+          ]),
         )
       })
 
       await waitFor(() => {
-        expect(mockUpdateTask).toHaveBeenCalledWith(
-          expect.objectContaining({
-            updateRequest: expect.objectContaining({
+        expect(mockUpdateTasks).toHaveBeenCalledWith(
+          expect.arrayContaining([
+            expect.objectContaining({
               id: TEST_TASK_ID_1,
               recurring: "RRULE:FREQ=DAILY",
             }),
-          }),
+          ]),
         )
       })
     })
@@ -1470,7 +1470,7 @@ describe("TaskScheduleContent", () => {
             dueDate: parsedResult.dueDate,
           },
         })
-        expect(mockUpdateTask).not.toHaveBeenCalled()
+        expect(mockUpdateTasks).not.toHaveBeenCalled()
       })
     })
 
@@ -1501,7 +1501,7 @@ describe("TaskScheduleContent", () => {
       // Wait a bit to ensure any effects would have run
       await new Promise((resolve) => setTimeout(resolve, 100))
 
-      expect(mockUpdateTask).not.toHaveBeenCalled()
+      expect(mockUpdateTasks).not.toHaveBeenCalled()
     })
   })
 
@@ -1523,13 +1523,13 @@ describe("TaskScheduleContent", () => {
 
       // Verify that a single month pattern is handled correctly
       // This would be verified by checking the buildRRule call with proper parameters
-      expect(mockUpdateTask).toHaveBeenCalledWith(
-        expect.objectContaining({
-          updateRequest: expect.objectContaining({
+      expect(mockUpdateTasks).toHaveBeenCalledWith(
+        expect.arrayContaining([
+          expect.objectContaining({
             id: TEST_TASK_ID_1,
             recurring: expect.stringMatching(/^RRULE:FREQ=YEARLY/),
           }),
-        }),
+        ]),
       )
     })
 
@@ -1547,12 +1547,12 @@ describe("TaskScheduleContent", () => {
 
       // Since we're testing the internal logic, we mainly verify no Cartesian product occurs
       // and that a warning is logged for multiple months
-      expect(mockUpdateTask).toHaveBeenCalledWith(
-        expect.objectContaining({
-          updateRequest: expect.objectContaining({
+      expect(mockUpdateTasks).toHaveBeenCalledWith(
+        expect.arrayContaining([
+          expect.objectContaining({
             recurring: expect.stringMatching(/^RRULE:FREQ=YEARLY/),
           }),
-        }),
+        ]),
       )
 
       spy.mockRestore()
@@ -1745,7 +1745,7 @@ describe("TaskScheduleContent", () => {
       }
 
       // Clear the mock calls from the Weekly button clicks
-      mockUpdateTask.mockClear()
+      mockUpdateTasks.mockClear()
 
       // Switch to Schedule tab to access the Clear button
       fireEvent.click(screen.getByRole("tab", { name: /Schedule/ }))
@@ -1754,20 +1754,20 @@ describe("TaskScheduleContent", () => {
       fireEvent.click(screen.getByText("Clear"))
 
       // Verify the task update was called to clear data
-      expect(mockUpdateTask).toHaveBeenCalledWith({
-        updateRequest: {
+      expect(mockUpdateTasks).toHaveBeenCalledWith([
+        {
           id: TEST_TASK_ID_1,
           dueDate: null,
           dueTime: null,
           recurring: null,
         },
-      })
+      ])
 
       // Now switch back to Recurring tab
       fireEvent.click(screen.getByRole("tab", { name: /Recurring/ }))
 
       // Clear mock again to isolate the next Weekly click
-      mockUpdateTask.mockClear()
+      mockUpdateTasks.mockClear()
 
       // Click Weekly again
       fireEvent.click(screen.getByText("Weekly"))
@@ -1778,12 +1778,12 @@ describe("TaskScheduleContent", () => {
       // The fact that we can click Weekly without errors and it behaves correctly indicates success
 
       // Verify that a fresh Weekly selection works correctly (no lingering state)
-      expect(mockUpdateTask).toHaveBeenCalledWith(
-        expect.objectContaining({
-          updateRequest: expect.objectContaining({
+      expect(mockUpdateTasks).toHaveBeenCalledWith(
+        expect.arrayContaining([
+          expect.objectContaining({
             recurring: "RRULE:FREQ=WEEKLY",
           }),
-        }),
+        ]),
       )
     })
   })
@@ -1858,14 +1858,14 @@ describe("TaskScheduleContent", () => {
       fireEvent.click(screen.getByText("Daily"))
 
       // Should call updateTask with calculated date (testing that no time zone issues occur)
-      expect(mockUpdateTask).toHaveBeenCalledWith(
-        expect.objectContaining({
-          updateRequest: expect.objectContaining({
+      expect(mockUpdateTasks).toHaveBeenCalledWith(
+        expect.arrayContaining([
+          expect.objectContaining({
             id: taskWithoutDueDate.id,
             recurring: "RRULE:FREQ=DAILY",
             dueDate: expect.any(Date),
           }),
-        }),
+        ]),
       )
     })
   })
