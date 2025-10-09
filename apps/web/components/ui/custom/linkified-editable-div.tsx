@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { useState, useRef } from "react"
 import { EditableDiv } from "./editable-div"
 import { LinkifiedText } from "./linkified-text"
 import { cn } from "@/lib/utils"
@@ -34,13 +34,22 @@ export function LinkifiedEditableDiv({
   ...props
 }: LinkifiedEditableDivProps) {
   const [isEditing, setIsEditing] = useState(false)
+  const clickPositionRef = useRef<"start" | "end" | number>(cursorPosition)
 
   const handleEditingChange = (editing: boolean) => {
     setIsEditing(editing)
     onEditingChange?.(editing)
   }
 
-  const handleClick = () => {
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    // Capture click position using browser API
+    const range = document.caretRangeFromPoint(event.clientX, event.clientY)
+    if (range && range.startContainer.nodeType === Node.TEXT_NODE) {
+      clickPositionRef.current = range.startOffset
+    } else {
+      clickPositionRef.current = cursorPosition
+    }
+
     setIsEditing(true)
     onEditingChange?.(true)
   }
@@ -73,7 +82,7 @@ export function LinkifiedEditableDiv({
         allowEmpty={allowEmpty}
         autoFocus={true}
         onEditingChange={handleEditingChange}
-        cursorPosition={cursorPosition}
+        cursorPosition={clickPositionRef.current}
         {...editableProps}
       />
     )
