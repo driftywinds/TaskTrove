@@ -65,6 +65,7 @@
     "@radix-ui/react-visually-hidden": "catalog:",
     "@tanstack/query-core": "catalog:",
     "@tanstack/react-query": "catalog:",
+    "@tanstack/react-table": "catalog:",
     "@tanstack/react-virtual": "catalog:",
     "@tasktrove/atoms": "workspace:*",
     "@tasktrove/constants": "workspace:*",
