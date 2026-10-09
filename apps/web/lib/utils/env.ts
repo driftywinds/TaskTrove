@@ -3,7 +3,7 @@
  */
 
 export const isPro = (): boolean => {
-  return false
+  return true
 }
 
 export const isMobileApp = (): boolean => {

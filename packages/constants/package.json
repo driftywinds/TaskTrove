@@ -4,7 +4,7 @@
   "type": "module",
   "exports": {
     ".": {
-      "pro": "./src/defaults.pro.ts",
+      "pro": "./src/defaults.ts",
       "default": "./src/defaults.ts"
     }
   },

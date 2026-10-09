@@ -24,7 +24,7 @@ export const SETTINGS_CATEGORIES = [
 export const isValidCategory = (
   categoryId: string,
 ): categoryId is SettingsCategoryId => {
-  return !(categoryId === "productivity" || categoryId === "users");
+  return SETTINGS_CATEGORIES.some((category) => category === categoryId);
 };
 
 // Atom to track the active settings category

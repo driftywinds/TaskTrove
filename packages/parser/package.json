@@ -4,11 +4,11 @@
   "type": "module",
   "exports": {
     "./types": {
-      "pro": "./src/types.pro.ts",
+      "pro": "./src/types.ts",
       "default": "./src/types.ts"
     },
     "./core/parser": {
-      "pro": "./src/core/parser.pro.ts",
+      "pro": "./src/core/parser.ts",
       "default": "./src/core/parser.ts"
     },
     "./ParserResult": "./src/ParserResult.ts",

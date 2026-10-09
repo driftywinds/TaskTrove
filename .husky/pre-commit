@@ -1,4 +1,4 @@
-#!/usr/bin/env node
-// Pre-commit hook — pass-through that does nothing.
-// All checks removed for friction-free committing.
-process.exit(0)
+#!/bin/sh
+# Pre-commit hook — pass-through that does nothing.
+# All checks removed for friction-free committing (see FINDINGS.md §10).
+exit 0

@@ -2,12 +2,7 @@ import { renderHook, waitFor } from "@/test-utils"
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest"
 import { useUpdateChecker } from "./use-update-checker"
 
-const mockIsPro = vi.fn()
 const mockGetAppVersion = vi.fn()
-
-vi.mock("@/lib/utils/env", () => ({
-  isPro: () => mockIsPro(),
-}))
 
 vi.mock("@/lib/utils/version", () => ({
   getAppVersion: () => mockGetAppVersion(),
@@ -37,13 +32,10 @@ describe("useUpdateChecker", () => {
 
   afterEach(() => {
     fetchMock.mockReset()
-    mockIsPro.mockReset()
     mockGetAppVersion.mockReset()
   })
 
-  it("checks TaskTrove repository when not in Pro mode", async () => {
-    mockIsPro.mockReturnValue(false)
-
+  it("checks TaskTrove repository for updates", async () => {
     const { result } = renderHook(() => useUpdateChecker())
 
     await waitFor(() => expect(fetchMock).toHaveBeenCalled())
@@ -57,18 +49,5 @@ describe("useUpdateChecker", () => {
       latestVersion: release.tag_name,
       releaseUrl: release.html_url,
     })
-  })
-
-  it("switches to TaskTrovePro repository in Pro mode", async () => {
-    mockIsPro.mockReturnValue(true)
-
-    const { result } = renderHook(() => useUpdateChecker())
-
-    await waitFor(() => expect(fetchMock).toHaveBeenCalled())
-    expect(fetchMock).toHaveBeenCalledWith(
-      "https://api.github.com/repos/dohsimpson/TaskTrovePro/releases/latest",
-    )
-
-    await waitFor(() => expect(result.current.loading).toBe(false))
   })
 })

@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { isPro } from "@/lib/utils/env"
 import { getAppVersion } from "@/lib/utils/version"
 import { compareVersions } from "@tasktrove/utils/version"
 
@@ -35,7 +34,7 @@ export function useUpdateChecker(): UpdateInfo {
       try {
         const versionInfo = await getAppVersion()
         const currentVersion = versionInfo.version
-        const repository = isPro() ? "TaskTrovePro" : "TaskTrove"
+        const repository = "TaskTrove"
         const response = await fetch(
           `https://api.github.com/repos/dohsimpson/${repository}/releases/latest`,
         )
