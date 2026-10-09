@@ -207,29 +207,29 @@ a, b, c) => {
         })();
       }
       async function at(a) {
-        let b = await (0, ad.$7)(() => (0, ac.Gb)(), i(1123, 1110, 1099, 1140) + "file", a[k(587, 436, 435, 500)]);
+        let b = await (0, ad.$7)(() => (0, ac.Gb)(), "read-data-" + "file", a["context"]);
         if (!b) {
-          if (i(1012, 1024, 970, 1066) !== "jjMwe") {
-            return (0, ab.WX)(i(1075, 1056, 969, 1015) + "read data " + "file", "File readi" + "ng or vali" + "dation fai" + "led", 500, aa.c[i(1006, 1048, 970, 1043) + "READ_ERROR"]);
+          if ("AwGxo" !== "jjMwe") {
+            return (0, ab.WX)("Failed to " + "read data " + "file", "File readi" + "ng or vali" + "dation fai" + "led", 500, aa.c["DATA_FILE_" + "READ_ERROR"]);
           } else {
-            return _0x13e958("User not f" + "ound", "Authentica" + "ted user n" + i(903, 976, 988, 943) + "n data fil" + "e", 404, _0xf4f2d4[k(533, 636, 554, 586) + k(622, 574, 552, 647) + "_ERROR"]);
+            return _0x13e958("User not f" + "ound", "Authentica" + "ted user n" + "ot found i" + "n data fil" + "e", 404, _0xf4f2d4["DATA_FILE_" + "VALIDATION" + "_ERROR"]);
           }
         }
-        let c = Z.GN[i(1060, 1012, 1035, 1025)](b);
-        if (!c[k(532, 519, 688, 596)]) {
-          if (i(1076, 1056, 1010, 1079) === "vANXn") {
-            return (0, ab.WX)("Failed to " + "serialize " + "data file", "Serializat" + "ion failed", 500, aa.c["DATA_FILE_" + i(1165, 1107, 1185, 1104) + i(907, 966, 1031, 1000)]);
+        let c = Z.GN["safeParse"](b);
+        if (!c["success"]) {
+          if ("vANXn" === "vANXn") {
+            return (0, ab.WX)("Failed to " + "serialize " + "data file", "Serializat" + "ion failed", 500, aa.c["DATA_FILE_" + "VALIDATION" + "_ERROR"]);
           } else {
-            _0x52b108 += _0x48c93c - _0x5c61b1[k(699, 718, 738, 677)][i(1026, 1077, 1106, 1109)];
+            _0x52b108 += _0x48c93c - _0x5c61b1["comments"]["length"];
             _0x365218 = true;
           }
         }
-        let d = c[k(588, 600, 424, 501)];
-        let e = d[k(505, 694, 596, 606)]["map"](a => $.lO["safeParse"](a));
-        if (e[i(1094, 1015, 995, 1100)](a => !a[k(597, 596, 522, 596)])) {
-          return (0, ab.WX)(i(1041, 985, 989, 1015) + i(883, 905, 994, 970) + "user data", i(989, 1190, 1146, 1094) + "ion failed", 500, aa.c["DATA_FILE_" + i(1082, 1033, 1072, 1104) + "_ERROR"]);
+        let d = c["data"];
+        let e = d["user"]["map"](a => $.lO["safeParse"](a));
+        if (e["find"](a => !a["success"])) {
+          return (0, ab.WX)("Failed to " + "serialize " + "user data", "Serializat" + "ion failed", 500, aa.c["DATA_FILE_" + "VALIDATION" + "_ERROR"]);
         }
-        let f = e[k(507, 476, 418, 517)](a => {
+        let f = e["map"](a => {
           function b(a, b, c, d) {
             return aH(a - 253 - 272, b);
           }
@@ -245,14 +245,14 @@ a, b, c) => {
           return a[b(754, 832, 720, 812)];
         });
         let g = {};
-        g["count"] = f[i(1047, 1021, 1120, 1109)];
-        (0, ad.jf)("users_fetc" + "hed", g, a[i(1043, 932, 1009, 957)]);
+        g["count"] = f["length"];
+        (0, ad.jf)("users_fetc" + "hed", g, a["context"]);
         let h = {
           user: f,
           meta: {
-            count: f[k(677, 562, 707, 652)],
-            timestamp: new Date()[i(1048, 1086, 1065, 1001) + "g"](),
-            version: d[k(653, 479, 526, 551)] || i(1184, 1037, 1091, 1120)
+            count: f["length"],
+            timestamp: new Date()["toISOStrin" + "g"](),
+            version: d["version"] || "v0.7.0"
           }
         };
         function i(a, b, c, d) {
@@ -262,11 +262,11 @@ a, b, c) => {
         function k(a, b, c, d) {
           return aH(d - 272, b);
         }
-        j[i(1085, 1159, 1101, 1118) + i(1139, 1053, 1134, 1128)] = i(1016, 1021, 862, 950) + "no-store, must-reval" + i(1091, 994, 1062, 1050);
-        j["Pragma"] = i(1035, 1117, 999, 1088);
-        j[i(904, 1072, 881, 980)] = "0";
+        j["Cache-Cont" + "rol"] = "no-cache, " + "no-store, must-reval" + "idate";
+        j["Pragma"] = "no-cache";
+        j["Expires"] = "0";
         let l = {
-          [i(893, 895, 917, 986)]: j
+          ["headers"]: j
         };
         return W.NextResponse["json"](h, l);
       }
@@ -281,102 +281,102 @@ a, b, c) => {
       let aw = (0, ag.F0)((0, ae.D)((0, af.Z)((0, ad.kF)(at, au), av)));
       async function ax(a) {
         let b = await (0, ao.K)(a);
-        if (!b || !b[m(-523, -706, -619, -679)] || !b[x(1004, 987, 1089, 1016)].id) {
-          return (0, ab.WX)(m(-789, -840, -750, -694) + "tion requi" + x(1071, 1002, 970, 1024), x(1147, 1066, 1133, 1064) + x(908, 925, 951, 983) + x(1004, 943, 1068, 969) + m(-561, -612, -606, -522) + "n", 401, aa.c[m(-603, -703, -625, -529) + "TION_REQUI" + x(946, 973, 887, 959)]);
+        if (!b || !b["user"] || !b["user"].id) {
+          return (0, ab.WX)("Authentica" + "tion requi" + "red", "Cannot cre" + "ate user w" + "ithout aut" + "henticatio" + "n", 401, aa.c["AUTHENTICA" + "TION_REQUI" + "RED"]);
         }
         let c = b.user.id;
-        let d = await (0, ad.$7)(() => (0, ac.Gb)(), m(-479, -436, -542, -551) + x(1163, 981, 1023, 1075), a[m(-775, -731, -725, -706)]);
+        let d = await (0, ad.$7)(() => (0, ac.Gb)(), "read-data-" + "file", a["context"]);
         if (!d) {
-          return (0, ab.WX)("Failed to " + m(-558, -660, -651, -713) + x(1158, 1140, 1127, 1075), "File reading failed", 500, aa.c[x(897, 926, 899, 996) + "READ_ERROR"]);
+          return (0, ab.WX)("Failed to " + "read data " + "file", "File reading failed", 500, aa.c["DATA_FILE_" + "READ_ERROR"]);
         }
-        let e = d[x(979, 1102, 1064, 1016)][x(1056, 1052, 1047, 1053)](a => a.id === c);
+        let e = d["user"]["find"](a => a.id === c);
         if (!e) {
-          if (m(-646, -656, -694, -783) !== m(-589, -672, -694, -639)) {
-            return _0x313bad(m(-802, -751, -717, -760) + "ete self", "Admins can" + m(-637, -817, -740, -734) + x(1166, 1038, 1116, 1063) + m(-479, -656, -556, -538), 400, _0x42f251["INVALID_RE" + m(-586, -595, -550, -500)]);
+          if ("fkVim" !== "fkVim") {
+            return _0x313bad("Cannot del" + "ete self", "Admins can" + "not delete" + " their own" + " account", 400, _0x42f251["INVALID_RE" + "QUEST_BODY"]);
           } else {
-            return (0, ab.WX)(x(1111, 963, 972, 1013) + m(-566, -649, -598, -497), x(926, 946, 975, 885) + m(-668, -704, -687, -727) + x(825, 945, 853, 896) + "n data file", 404, aa.c[x(918, 961, 1029, 996) + x(976, 974, 1009, 1057) + m(-649, -644, -682, -724)]);
+            return (0, ab.WX)("User not f" + "ound", "Authentica" + "ted user n" + "ot found i" + "n data file", 404, aa.c["DATA_FILE_" + "VALIDATION" + "_ERROR"]);
           }
         }
-        if (e[x(1007, 933, 1060, 970)] !== m(-777, -739, -697, -722)) {
-          return (0, ab.WX)(m(-569, -524, -604, -607) + x(912, 1061, 1029, 980), x(884, 932, 1053, 973) + m(-733, -789, -737, -835) + m(-572, -611, -602, -683), 403, aa.c[m(-755, -730, -751, -752) + x(1031, 1086, 1011, 1007)]);
+        if (e["role"] !== "admin") {
+          return (0, ab.WX)("Permission" + " denied", "Only admin" + "s can crea" + "te users", 403, aa.c["AUTHORIZAT" + "ION_DENIED"]);
         }
         let f = await (0, ab.sv)(a, _.Oq);
         if (!f.success) {
-          return f[x(943, 902, 971, 930)];
+          return f["error"];
         }
         let {
           username: g,
           password: h,
           role: i,
           avatar: j
-        } = f[m(-753, -723, -724, -697)];
+        } = f["data"];
         let k = await (0, ap.YO)();
-        let l = k[x(1041, 984, 1194, 1088)]?.attributes[x(1048, 1015, 908, 993)][x(869, 963, 941, 912)];
+        let l = k["license"]?.attributes["metadata"]["seats"];
         function m(a, b, c, d) {
           return aH(c - -402 - -551, d);
         }
         let n = null;
-        if (typeof l === x(1070, 1061, 1078, 1050) && Number[x(1002, 915, 1003, 936)](l)) {
-          if (m(-749, -700, -716, -755) !== x(833, 974, 906, 919)) {
-            return _0x3afe2e(x(811, 973, 974, 885) + m(-707, -790, -700, -806) + m(-628, -698, -611, -665), x(986, 1087, 1134, 1064) + "ate user w" + m(-745, -716, -666, -678) + m(-623, -548, -606, -685) + "n", 401, _0x3b90db[x(1018, 1111, 966, 1010) + m(-591, -604, -637, -596) + "RED"]);
+        if (typeof l === "number" && Number["isFinite"](l)) {
+          if ("sWqfX" !== "sWqfX") {
+            return _0x3afe2e("Authentica" + "tion requi" + "red", "Cannot cre" + "ate user w" + "ithout aut" + "henticatio" + "n", 401, _0x3b90db["AUTHENTICA" + "TION_REQUI" + "RED"]);
           } else {
-            n = Math[m(-649, -663, -661, -683)](l);
+            n = Math["floor"](l);
           }
         } else if (typeof l == "string") {
-          let a = Number[x(1085, 1042, 1099, 1023)](l, 10);
+          let a = Number["parseInt"](l, 10);
           if (Number.isFinite(a)) {
             n = a;
           }
         }
         let o = n && n > 0 ? n : aq.NJ;
-        let p = Math[x(928, 940, 876, 946)](aq.lW, Math.max(aq.NJ, o));
-        if ((d.user[m(-648, -642, -573, -473)] || 0) >= p) {
-          return (0, ab.WX)("User limit reached", "Maximum of " + p + (x(986, 1057, 987, 987) + x(925, 995, 989, 971)), 400, aa.c[x(1135, 1143, 1092, 1092) + m(-496, -595, -550, -596)]);
+        let p = Math["min"](aq.lW, Math.max(aq.NJ, o));
+        if ((d.user["length"] || 0) >= p) {
+          return (0, ab.WX)("User limit reached", "Maximum of " + p + (" users all" + "owed"), 400, aa.c["INVALID_RE" + "QUEST_BODY"]);
         }
-        if (d[x(930, 986, 955, 1016)].some(a => a[m(-631, -806, -728, -713)].toLowerCase() === g[m(-525, -688, -591, -585) + "e"]())) {
-          return (0, ab.WX)(x(938, 964, 1103, 1035) + "lready exists", x(1038, 995, 1059, 989) + g + "\" is alrea" + x(798, 986, 915, 901), 400, aa.c[m(-556, -500, -543, -484) + m(-556, -620, -550, -612)]);
+        if (d["user"].some(a => a["username"].toLowerCase() === g["toLowerCas" + "e"]())) {
+          return (0, ab.WX)("Username a" + "lready exists", "Username \"" + g + "\" is alrea" + "dy taken", 400, aa.c["INVALID_RE" + "QUEST_BODY"]);
         }
         let q = await al(j);
-        if (!q[m(-682, -668, -629, -659)]) {
-          return (0, ab.WX)(q[x(837, 895, 917, 930)], q[m(-678, -739, -705, -610)], q[x(1020, 1008, 1134, 1036)] || 500, aa.c[m(-742, -731, -639, -652) + m(-700, -645, -634, -611) + "R"]);
+        if (!q["success"]) {
+          return (0, ab.WX)(q["error"], q["error"], q["code"] || 500, aa.c["DATA_FILE_" + "WRITE_ERRO" + "R"]);
         }
-        let r = q[x(970, 1163, 1009, 1077)];
+        let r = q["avatarPath"];
         let s = an(h);
         if (!s.success) {
-          return (0, ab.WX)(m(-619, -756, -667, -562) + m(-692, -859, -753, -708) + x(945, 959, 944, 958), "Password p" + x(1105, 975, 1013, 1052) + "failed", 500, aa.c[x(1064, 1117, 1002, 1015) + m(-654, -712, -644, -609) + "R"]);
+          return (0, ab.WX)("Failed to " + "hash passw" + "ord", "Password p" + "rocessing " + "failed", 500, aa.c["INTERNAL_S" + "ERVER_ERRO" + "R"]);
         }
         let t = {
           id: (0, Y.dB)((0, X.A)()),
-          username: g[x(973, 924, 847, 913)](),
-          password: s[x(988, 1007, 1043, 981) + m(-679, -650, -640, -664)] || "",
+          username: g["trim"](),
+          password: s["hashedPass" + "word"] || "",
           role: i,
           avatar: r || undefined
         };
-        let u = [...d[m(-561, -700, -619, -530)], t];
+        let u = [...d["user"], t];
         let v = {
           ...d
         };
-        v[x(1021, 937, 975, 1016)] = u;
+        v["user"] = u;
         let w = {};
         function x(a, b, c, d) {
           return aH(d - -305 - 987, c);
         }
         w.data = v;
-        if (!(await (0, ad.QA)(() => (0, ac.Ht)(w), "write-data-file", a[x(886, 889, 849, 910)], 500))) {
-          return (0, ab.WX)(m(-729, -605, -667, -682) + "save data", x(953, 928, 971, 1034) + "ng failed", 500, aa.c[x(972, 1014, 1049, 996) + "WRITE_ERROR"]);
+        if (!(await (0, ad.QA)(() => (0, ac.Ht)(w), "write-data-file", a["context"], 500))) {
+          return (0, ab.WX)("Failed to " + "save data", "File writi" + "ng failed", 500, aa.c["DATA_FILE_" + "WRITE_ERROR"]);
         }
         let y = {
-          [x(1138, 1157, 1078, 1080)]: t.id,
-          [x(827, 974, 836, 907)]: t.username,
-          [x(988, 870, 963, 970)]: t.role
+          ["userId"]: t.id,
+          ["username"]: t.username,
+          ["role"]: t.role
         };
-        (0, ad.jf)(m(-553, -718, -621, -675) + "ed", y, a[m(-707, -673, -725, -811)]);
+        (0, ad.jf)("user_creat" + "ed", y, a["context"]);
         let z = {
           success: true,
-          [m(-673, -709, -619, -549)]: t
+          ["user"]: t
         };
-        z[x(1048, 974, 1034, 1027)] = x(1055, 931, 1122, 1028) + x(934, 924, 948, 949) + x(949, 1039, 986, 1045);
-        return W.NextResponse[x(955, 1055, 880, 977)](z);
+        z["message"] = "User creat" + "ed success" + "fully";
+        return W.NextResponse["json"](z);
       }
       let ay = {};
       ay.endpoint = "/api/v1/us" + "er";
@@ -387,55 +387,55 @@ a, b, c) => {
       let aA = (0, ag.F0)((0, ae.D)((0, af.Z)((0, ad.kF)(ax, ay), az)));
       async function aB(a) {
         let b = await (0, ao.K)(a);
-        if (!b || !b.user || !b[v(1021, 1008, 1029, 969)].id) {
-          return (0, ab.WX)(w(471, 488, 570, 427) + "tion requi" + w(591, 627, 614, 657), v(951, 1120, 1021, 1123) + v(1007, 1042, 996, 1080) + "ithout aut" + w(586, 632, 586, 580) + "n", 401, aa.c[v(1073, 1019, 1023, 937) + v(906, 957, 1011, 1048) + w(666, 562, 624, 562)]);
+        if (!b || !b.user || !b["user"].id) {
+          return (0, ab.WX)("Authentica" + "tion requi" + "red", "Cannot upd" + "ate user w" + "ithout aut" + "henticatio" + "n", 401, aa.c["AUTHENTICA" + "TION_REQUI" + "RED"]);
         }
-        let c = b[w(633, 619, 673, 640)].id;
-        let d = await (0, ad.$7)(() => (0, ac.Gb)(), v(1179, 1004, 1106, 1118) + v(1145, 1013, 1088, 985), a.context);
+        let c = b["user"].id;
+        let d = await (0, ad.$7)(() => (0, ac.Gb)(), "read-data-" + "file", a.context);
         if (!d) {
-          return (0, ab.WX)(v(875, 1004, 981, 987) + w(505, 587, 612, 538) + "file", "File readi" + v(988, 1046, 1055, 1137), 500, aa.c[w(536, 599, 492, 495) + w(715, 685, 609, 656)]);
+          return (0, ab.WX)("Failed to " + "read data " + "file", "File readi" + "ng failed", 500, aa.c["DATA_FILE_" + "READ_ERROR"]);
         }
-        let e = d[v(970, 966, 1029, 1053)][v(1116, 1091, 1066, 1118)](a => a.id === c);
+        let e = d["user"]["find"](a => a.id === c);
         if (!e) {
-          if (w(625, 602, 651, 604) !== w(655, 602, 665, 497)) {
-            return _0x37ac68("Username a" + v(945, 905, 913, 993) + v(1060, 1057, 1081, 1177), v(942, 1102, 1002, 919) + _0x54048f + (v(1173, 1128, 1099, 1022) + w(463, 504, 459, 398)), 400, _0x24aab8[w(697, 695, 711, 632) + w(741, 688, 762, 752)]);
+          if ("TOMTn" !== "TOMTn") {
+            return _0x37ac68("Username a" + "lready exi" + "sts", "Username \"" + _0x54048f + ("\" is alrea" + "dy taken"), 400, _0x24aab8["INVALID_RE" + "QUEST_BODY"]);
           } else {
-            return (0, ab.WX)(v(943, 954, 1026, 1057) + v(1070, 955, 1050, 1124), "Authentica" + v(1021, 890, 961, 1059) + v(980, 835, 909, 832) + v(1065, 986, 1068, 1099) + "e", 404, aa.c[v(1077, 1004, 1009, 938) + v(1009, 1082, 1070, 1015) + v(902, 924, 966, 1040)]);
+            return (0, ab.WX)("User not f" + "ound", "Authentica" + "ted user n" + "ot found i" + "n data fil" + "e", 404, aa.c["DATA_FILE_" + "VALIDATION" + "_ERROR"]);
           }
         }
-        let f = e[v(1076, 935, 983, 1037)];
+        let f = e["role"];
         let g = await (0, ab.sv)(a, _.HS);
         if (!g.success) {
-          if (v(967, 970, 894, 807) !== w(489, 517, 531, 606)) {
-            return g[w(467, 533, 433, 472)];
+          if ("ozbEw" !== "zyIxh") {
+            return g["error"];
           } else {
-            return _0x25925a(_0x12f3df.error, _0x3146d0[v(892, 988, 943, 932)], _0x2e45b4[w(650, 639, 635, 624)] || 500, _0x58bd3c[w(609, 599, 548, 640) + w(697, 604, 537, 668) + "R"]);
+            return _0x25925a(_0x12f3df.error, _0x3146d0["error"], _0x2e45b4["code"] || 500, _0x58bd3c["DATA_FILE_" + "WRITE_ERRO" + "R"]);
           }
         }
-        let h = g[w(513, 514, 538, 437)];
+        let h = g["data"];
         let i;
         let j = false;
         if (h.id) {
-          if (f !== w(634, 541, 482, 578)) {
-            if (v(999, 1039, 1089, 1069) === v(1024, 1102, 1089, 1127)) {
-              return (0, ab.WX)(w(564, 634, 662, 604) + " denied", "Only admin" + w(491, 570, 573, 532) + w(557, 553, 527, 576) + "rs", 403, aa.c[w(395, 487, 516, 500) + "ION_DENIED"]);
+          if (f !== "admin") {
+            if ("CYYXy" === "CYYXy") {
+              return (0, ab.WX)("Permission" + " denied", "Only admin" + "s can edit" + " other use" + "rs", 403, aa.c["AUTHORIZAT" + "ION_DENIED"]);
             } else {
-              let a = _0x418081[w(703, 659, 730, 582)](_0x5dc96d, arguments);
+              let a = _0x418081["apply"](_0x5dc96d, arguments);
               _0x13e317 = null;
               return a;
             }
           }
           i = h.id;
           j = true;
-          if (i === c && h[w(623, 573, 536, 486)]) {
-            if (w(637, 607, 629, 612) !== v(962, 1099, 1059, 987)) {
-              return (0, ab.WX)(w(601, 528, 449, 541) + v(1142, 1053, 1083, 1046) + "le", v(941, 1021, 1035, 1044) + w(516, 511, 444, 471) + v(1164, 992, 1076, 1100) + w(501, 535, 608, 615) + v(907, 899, 905, 957) + v(835, 944, 910, 966), 400, aa.c[v(1117, 1181, 1105, 1095) + w(746, 688, 612, 632)]);
+          if (i === c && h["role"]) {
+            if ("WBMSF" !== "cIkRt") {
+              return (0, ab.WX)("Cannot cha" + "nge own ro" + "le", "Admins can" + "not modify" + " their own" + " role to p" + "revent loc" + "kout", 400, aa.c["INVALID_RE" + "QUEST_BODY"]);
             } else {
               _0x5af2e3 = false;
               if (_0x3e16b6) {
                 return function () {
                   if (_0x141a85) {
-                    let a = _0x33a808[v(1018, 797, 1069, 545)](_0x1d35f9, arguments);
+                    let a = _0x33a808["apply"](_0x1d35f9, arguments);
                     _0x1dfb66 = null;
                     return a;
                   }
@@ -447,55 +447,55 @@ a, b, c) => {
           }
         } else {
           i = (0, Y.dB)(c);
-          if (h[w(584, 573, 617, 507)] && f !== "admin") {
-            if (w(487, 543, 527, 624) === v(851, 1021, 953, 1050)) {
-              return (0, ab.WX)(w(586, 634, 575, 644) + w(576, 583, 609, 494), "Users cann" + v(1075, 1065, 1064, 1084) + w(697, 643, 610, 619) + v(931, 914, 983, 894), 403, aa.c.AUTHORIZATION_DENIED);
+          if (h["role"] && f !== "admin") {
+            if ("ttWfF" === "ttWfF") {
+              return (0, ab.WX)("Permission" + " denied", "Users cann" + "ot change " + "their own " + "role", 403, aa.c.AUTHORIZATION_DENIED);
             } else {
-              return _0x3c37d3(v(1012, 1076, 981, 1035) + w(545, 578, 657, 512), w(533, 637, 663, 597) + v(1011, 975, 1055, 1151), 500, _0x29362f[v(1047, 1106, 1009, 1072) + w(708, 604, 558, 697) + "R"]);
+              return _0x3c37d3("Failed to " + "save data", "File writi" + "ng failed", 500, _0x29362f["DATA_FILE_" + "WRITE_ERRO" + "R"]);
             }
           }
         }
-        let k = await al(h[w(694, 675, 595, 726)]);
-        if (!k[w(605, 609, 510, 709)]) {
-          return (0, ab.WX)(k.error, k[v(988, 935, 943, 881)], k[v(1097, 1101, 1049, 970)] || 500, aa.c.DATA_FILE_WRITE_ERROR);
+        let k = await al(h["avatar"]);
+        if (!k["success"]) {
+          return (0, ab.WX)(k.error, k["error"], k["code"] || 500, aa.c.DATA_FILE_WRITE_ERROR);
         }
-        let l = k[w(604, 680, 574, 652)];
-        let m = an(h[v(1117, 1046, 1038, 1042)]);
-        if (!m[w(681, 609, 543, 542)]) {
-          if (v(990, 956, 950, 868) !== v(1103, 1052, 1051, 1147)) {
-            return (0, ab.WX)(m.error, m[v(899, 1017, 943, 909)], 500, aa.c[w(623, 618, 528, 597) + v(901, 1010, 1004, 930) + "R"]);
+        let l = k["avatarPath"];
+        let m = an(h["password"]);
+        if (!m["success"]) {
+          if ("gmkBn" !== "BbIqJ") {
+            return (0, ab.WX)(m.error, m["error"], 500, aa.c["INTERNAL_S" + "ERVER_ERRO" + "R"]);
           } else {
-            return _0x20b575(v(1088, 1084, 1044, 1019) + v(1070, 889, 993, 945), v(991, 958, 986, 973) + w(548, 508, 498, 481) + "te users", 403, _0x464a69[v(874, 846, 897, 884) + w(695, 610, 563, 584)]);
+            return _0x20b575("Permission" + " denied", "Only admin" + "s can dele" + "te users", 403, _0x464a69["AUTHORIZAT" + "ION_DENIED"]);
           }
         }
-        if (m[w(541, 584, 602, 584) + v(1109, 1112, 1008, 1082)]) {
-          h[v(1062, 1138, 1038, 945)] = m[w(630, 584, 544, 570) + v(957, 999, 1008, 926)];
+        if (m["hashedPass" + "word"]) {
+          h["password"] = m["hashedPass" + "word"];
         }
-        let n = d[w(658, 619, 550, 706)][v(896, 931, 907, 874)](a => a.id === i);
+        let n = d["user"]["findIndex"](a => a.id === i);
         if (n === -1) {
-          return (0, ab.WX)(v(946, 975, 1026, 933) + w(608, 640, 723, 728), "User with " + v(937, 968, 939, 921) + i + v(955, 958, 942, 999), 404, aa.c[w(685, 599, 540, 690) + "VALIDATION" + v(873, 1057, 966, 934)]);
+          return (0, ab.WX)("User not f" + "ound", "User with " + "ID " + i + " not found", 404, aa.c["DATA_FILE_" + "VALIDATION" + "_ERROR"]);
         }
-        let o = d[v(1120, 1036, 1029, 972)][n];
+        let o = d["user"][n];
         if (!o) {
-          if (v(1096, 1006, 995, 1084) !== v(1027, 1095, 1018, 1102)) {
-            return (0, ab.WX)(w(622, 616, 630, 579) + w(687, 640, 591, 647), w(586, 595, 618, 586) + w(546, 496, 505, 535), 500, aa.c[v(927, 954, 1009, 1076) + "VALIDATION" + w(608, 556, 488, 609)]);
+          if ("KoopD" !== "egYSe") {
+            return (0, ab.WX)("User not f" + "ound", "User data " + "corrupted", 500, aa.c["DATA_FILE_" + "VALIDATION" + "_ERROR"]);
           } else {
-            return _0x16f7df(w(688, 634, 609, 553) + w(662, 583, 541, 560), w(601, 509, 472, 558) + "ot change " + w(539, 643, 611, 551) + "role", 403, _0x4a8f0e[v(863, 909, 897, 890) + "ION_DENIED"]);
+            return _0x16f7df("Permission" + " denied", "Users cann" + "ot change " + "their own " + "role", 403, _0x4a8f0e["AUTHORIZAT" + "ION_DENIED"]);
           }
         }
         let p = {
           ...o,
-          ...Object[w(502, 512, 456, 544) + "s"](Object.entries(h).filter(([a]) => a !== w(741, 675, 684, 680) && a !== v(817, 827, 915, 1019) && a !== "id"))
+          ...Object["fromEntrie" + "s"](Object.entries(h).filter(([a]) => a !== "avatar" && a !== "apiToken" && a !== "id"))
         };
         if (l != null) {
-          p[w(577, 675, 632, 629)] = l;
+          p["avatar"] = l;
         } else if (l === null) {
-          if (v(927, 874, 944, 957) !== v(1182, 994, 1091, 992)) {
-            p[v(1075, 1023, 1085, 1089)] = undefined;
+          if ("EchcL" !== "iuzew") {
+            p["avatar"] = undefined;
           } else {
-            let a = _0x26270d[v(1092, 1019, 992, 946)][v(1175, 998, 1075, 1165)];
-            _0x3b880b[v(923, 919, 992, 1057)] = _0x2c0a77[w(517, 582, 672, 577)].filter(a => a.userId !== _0x500059);
-            if (_0x42adb1[w(570, 582, 659, 538)][v(1060, 1054, 1075, 1066)] !== a) {
+            let a = _0x26270d["reactions"]["length"];
+            _0x3b880b["reactions"] = _0x2c0a77["reactions"].filter(a => a.userId !== _0x500059);
+            if (_0x42adb1["reactions"]["length"] !== a) {
               _0x59589d = true;
             }
           }
@@ -508,22 +508,22 @@ a, b, c) => {
               return a;
             }
           }
-        }(h[w(498, 505, 556, 601)], w(424, 505, 602, 491) in h);
+        }(h["apiToken"], "apiToken" in h);
         if (q != null) {
           p.apiToken = q;
         } else if (q === null) {
-          p[w(468, 505, 409, 494)] = undefined;
+          p["apiToken"] = undefined;
         }
         let r = {
           ...p
         };
         r.id = o.id;
-        let s = [...d[w(677, 619, 537, 525)]];
+        let s = [...d["user"]];
         s[n] = r;
         let t = {
           ...d
         };
-        t[v(1025, 1023, 1029, 924)] = s;
+        t["user"] = s;
         let u = {};
         function v(a, b, c, d) {
           return aH(c - 1246 - -551, a);
@@ -531,34 +531,34 @@ a, b, c) => {
         function w(a, b, c, d) {
           return aH(b - 836 - -551, d);
         }
-        u[w(595, 514, 615, 434)] = t;
-        if (!(await (0, ad.QA)(() => (0, ac.Ht)(u), w(411, 502, 609, 443) + v(939, 915, 970, 974), a.context, 500))) {
-          if (v(895, 941, 977, 980) !== w(495, 567, 596, 658)) {
-            return _0x198d48(w(546, 571, 504, 595) + w(677, 587, 520, 519) + v(1003, 1039, 1088, 1133), "File reading failed", 500, _0x2c75d9["DATA_FILE_" + v(1034, 1201, 1095, 1125)]);
+        u["data"] = t;
+        if (!(await (0, ad.QA)(() => (0, ac.Ht)(u), "write-data" + "-file", a.context, 500))) {
+          if ("qxbzk" !== "qxbzk") {
+            return _0x198d48("Failed to " + "read data " + "file", "File reading failed", 500, _0x2c75d9["DATA_FILE_" + "READ_ERROR"]);
           } else {
-            return (0, ab.WX)(v(1080, 1019, 981, 893) + v(907, 1058, 988, 1037), v(1123, 1079, 1047, 1130) + v(984, 1062, 1055, 968), 500, aa.c[w(617, 599, 503, 556) + v(1067, 1049, 1014, 1113) + "R"]);
+            return (0, ab.WX)("Failed to " + "save data", "File writi" + "ng failed", 500, aa.c["DATA_FILE_" + "WRITE_ERRO" + "R"]);
           }
         }
         (0, ad.jf)("user_updated", {
-          username: r[w(507, 510, 478, 513)],
+          username: r["username"],
           userId: r.id,
           fieldsUpdated: Object.keys(h),
           editedByAdmin: j
-        }, a[v(1027, 1016, 923, 819)]);
-        let x = $.lO[v(1024, 919, 991, 912)](r);
-        if (!x[w(641, 609, 599, 505)]) {
-          if (v(905, 848, 917, 883) === "WjCMd") {
-            return _0x1ec3e0(w(543, 634, 708, 605) + v(959, 917, 993, 912), v(953, 1054, 986, 967) + "s can crea" + v(1134, 1148, 1046, 957), 403, _0x5b02cd[w(518, 487, 545, 440) + v(975, 1016, 1020, 1030)]);
+        }, a["context"]);
+        let x = $.lO["safeParse"](r);
+        if (!x["success"]) {
+          if ("EbbWm" === "WjCMd") {
+            return _0x1ec3e0("Permission" + " denied", "Only admin" + "s can crea" + "te users", 403, _0x5b02cd["AUTHORIZAT" + "ION_DENIED"]);
           } else {
-            return (0, ab.WX)(v(974, 1025, 981, 1081) + v(879, 866, 936, 836) + w(474, 579, 657, 655), w(564, 650, 725, 703) + w(741, 669, 674, 723), 500, aa.c[v(1102, 992, 1009, 952) + w(729, 660, 599, 574) + "_ERROR"]);
+            return (0, ab.WX)("Failed to " + "serialize " + "user data", "Serializat" + "ion failed", 500, aa.c["DATA_FILE_" + "VALIDATION" + "_ERROR"]);
           }
         }
         let y = {
-          [w(581, 609, 592, 694)]: true
+          ["success"]: true
         };
-        y.user = x[v(932, 959, 924, 1023)];
-        y[w(639, 630, 661, 608)] = v(970, 1004, 1024, 1028) + v(1040, 976, 962, 984) + w(679, 648, 676, 652);
-        return W.NextResponse[v(1009, 1066, 990, 902)](y);
+        y.user = x["data"];
+        y["message"] = "User updat" + "ed success" + "fully";
+        return W.NextResponse["json"](y);
       }
       let aC = {};
       aC.endpoint = "/api/v1/us" + "er";
@@ -569,38 +569,38 @@ a, b, c) => {
       let aE = (0, ag.F0)((0, ae.D)((0, af.Z)((0, ad.kF)(aB, aC), aD)));
       async function aF(a) {
         let b = await (0, ao.K)(a);
-        if (!b || !b[s(-104, -23, -121, -61)] || !b[s(-79, -23, 24, -25)].id) {
-          return (0, ab.WX)("Authentication requi" + g(577, 509, 536, 544), g(542, 495, 497, 438) + g(357, 481, 417, 407) + g(398, 458, 570, 489) + "hentication", 401, aa.c[g(569, 504, 465, 530) + s(14, -41, -82, 5) + g(441, 420, 378, 479)]);
+        if (!b || !b["user"] || !b["user"].id) {
+          return (0, ab.WX)("Authentication requi" + "red", "Cannot del" + "ete user w" + "ithout aut" + "hentication", 401, aa.c["AUTHENTICA" + "TION_REQUI" + "RED"]);
         }
-        let c = b[s(-86, -23, -33, 59)].id;
-        let d = await (0, ad.$7)(() => (0, ac.Gb)(), "read-data-" + s(126, 36, 115, -41), a[g(389, 375, 386, 430)]);
+        let c = b["user"].id;
+        let d = await (0, ad.$7)(() => (0, ac.Gb)(), "read-data-" + "file", a["context"]);
         if (!d) {
-          if (g(531, 483, 586, 540) === "lWIId") {
-            return (0, ab.WX)(s(-29, -71, 16, -178) + s(11, -55, 42, -81) + g(652, 652, 629, 595), "File readi" + s(103, 3, 104, -96), 500, aa.c["DATA_FILE_" + s(-15, 43, -27, 78)]);
+          if ("lWIId" === "lWIId") {
+            return (0, ab.WX)("Failed to " + "read data " + "file", "File readi" + "ng failed", 500, aa.c["DATA_FILE_" + "READ_ERROR"]);
           } else {
             let a = _0x30dccd.parseInt(_0xf72b4e, 10);
-            if (_0x247af4[s(-153, -103, -104, -79)](a)) {
+            if (_0x247af4["isFinite"](a)) {
               _0x2cbb0e = a;
             }
           }
         }
-        let e = d[s(45, -23, -49, -95)][g(665, 513, 597, 573)](a => a.id === c);
+        let e = d["user"]["find"](a => a.id === c);
         if (!e) {
-          return (0, ab.WX)("User not f" + g(472, 512, 600, 557), s(-118, -154, -96, -260) + s(-45, -91, -135, -58) + s(-163, -143, -174, -224) + s(-14, 16, 9, -41) + "e", 404, aa.c[s(-90, -43, -141, -77) + s(-46, 18, 14, 55) + s(0, -86, -122, -105)]);
+          return (0, ab.WX)("User not f" + "ound", "Authentica" + "ted user n" + "ot found i" + "n data fil" + "e", 404, aa.c["DATA_FILE_" + "VALIDATION" + "_ERROR"]);
         }
-        if (e[s(-53, -69, 8, -105)] !== "admin") {
-          if (s(-149, -77, -69, -56) !== "SyFFQ") {
-            return _0xbdc8de[s(-93, -109, -134, -15)];
+        if (e["role"] !== "admin") {
+          if ("SyFFQ" !== "SyFFQ") {
+            return _0xbdc8de["error"];
           } else {
-            return (0, ab.WX)(g(640, 446, 499, 551) + g(415, 420, 503, 500), g(490, 403, 586, 493) + g(387, 344, 443, 425) + "te users", 403, aa.c["AUTHORIZAT" + g(474, 439, 531, 527)]);
+            return (0, ab.WX)("Permission" + " denied", "Only admin" + "s can dele" + "te users", 403, aa.c["AUTHORIZAT" + "ION_DENIED"]);
           }
         }
         let f = await (0, ab.sv)(a, _.h0);
-        if (!f[g(515, 489, 580, 526)]) {
-          if (g(371, 539, 454, 467) === s(-112, -150, -125, -88)) {
-            return _0x5c99ad[s(-191, -109, -89, -117)];
+        if (!f["success"]) {
+          if ("vcuvI" === "HypiQ") {
+            return _0x5c99ad["error"];
           } else {
-            return f[g(461, 410, 444, 450)];
+            return f["error"];
           }
         }
         function g(a, b, c, d) {
@@ -608,30 +608,30 @@ a, b, c) => {
         }
         let {
           userId: h
-        } = f[s(-55, -128, -86, -199)];
+        } = f["data"];
         if (h === c) {
-          if (g(443, 395, 465, 480) !== s(-55, -149, -149, -196)) {
-            return (0, ab.WX)(s(-23, -121, -139, -136) + "ete self", s(-68, -17, -32, 35) + "not delete their own" + g(492, 497, 588, 599), 400, aa.c[g(592, 513, 669, 612) + "QUEST_BODY"]);
+          if ("zSXDl" !== "gEslB") {
+            return (0, ab.WX)("Cannot del" + "ete self", "Admins can" + "not delete their own" + " account", 400, aa.c["INVALID_RE" + "QUEST_BODY"]);
           } else {
-            return _0x55a5f8(s(-89, -26, 54, -104) + "ound", s(39, -51, 51, -60) + g(434, 463, 467, 446) + _0xa7366f + g(356, 490, 521, 449), 404, _0x3d9262["DATA_FILE_" + g(567, 513, 626, 577) + "_ERROR"]);
+            return _0x55a5f8("User not f" + "ound", "User with " + "ID " + _0xa7366f + " not found", 404, _0x3d9262["DATA_FILE_" + "VALIDATION" + "_ERROR"]);
           }
         }
-        let i = d.user[g(500, 510, 369, 414)](a => a.id === h);
+        let i = d.user["findIndex"](a => a.id === h);
         if (i === -1) {
-          if (s(-173, -156, -120, -205) === g(346, 419, 474, 403)) {
-            return (0, ab.WX)(g(528, 505, 500, 533) + g(561, 475, 496, 557), s(26, -51, 25, -96) + s(-137, -113, -191, -45) + h + s(-147, -110, -133, -42), 404, aa.c["DATA_FILE_" + g(682, 681, 586, 577) + s(-46, -86, -163, -112)]);
+          if ("smqxS" === "smqxS") {
+            return (0, ab.WX)("User not f" + "ound", "User with " + "ID " + h + " not found", 404, aa.c["DATA_FILE_" + "VALIDATION" + "_ERROR"]);
           } else {
-            return _0x4e063c("Failed to serialize " + g(556, 405, 566, 496), g(584, 543, 581, 567) + s(-78, 27, 81, -7), 500, _0x591a85[s(-92, -43, 44, -94) + s(-35, 18, 124, 40) + s(-187, -86, -183, -9)]);
+            return _0x4e063c("Failed to serialize " + "user data", "Serializat" + "ion failed", 500, _0x591a85["DATA_FILE_" + "VALIDATION" + "_ERROR"]);
           }
         }
         let j = d.user[i];
         if (!j) {
-          return (0, ab.WX)(g(590, 626, 577, 533) + "ound", s(-51, -47, -17, -74) + g(368, 516, 380, 413), 500, aa.c[s(2, -43, -99, -15) + s(-53, 18, -48, 8) + s(-124, -86, -151, -42)]);
+          return (0, ab.WX)("User not f" + "ound", "User data " + "corrupted", 500, aa.c["DATA_FILE_" + "VALIDATION" + "_ERROR"]);
         }
-        d.user[s(40, 51, -5, 153)](i, 1);
+        d.user["splice"](i, 1);
         let k = 0;
         let l = 0;
-        d[g(352, 382, 425, 442)][s(-42, -73, -87, -19)](a => {
+        d["tasks"]["forEach"](a => {
           let b = false;
           function c(a, b, c, d) {
             return g(a - 477, d, c - 182, c - -175);
@@ -695,7 +695,7 @@ a, b, c) => {
           }
         });
         let m = 0;
-        d[g(627, 658, 618, 604)][s(-61, -73, -40, -29)](a => {
+        d["projects"]["forEach"](a => {
           function b(a, b, c, d) {
             return s(a, c - 1303, c - 6, d - 209);
           }
@@ -717,36 +717,36 @@ a, b, c) => {
             }
           }
         });
-        let n = d[g(548, 505, 602, 579) + "ts"][g(628, 587, 552, 582)];
-        d[g(608, 529, 494, 579) + "ts"] = d[g(637, 675, 617, 579) + "ts"][s(-92, -153, -230, -183)](a => a.userId !== h);
-        let o = n - d[s(21, 20, 22, -83) + "ts"].length;
+        let n = d["rewardEven" + "ts"]["length"];
+        d["rewardEven" + "ts"] = d["rewardEven" + "ts"]["filter"](a => a.userId !== h);
+        let o = n - d["rewardEven" + "ts"].length;
         let p = {
           data: d
         };
-        if (!(await (0, ad.QA)(() => (0, ac.Ht)(p), s(-117, -140, -41, -162) + "-file", a.context, 500))) {
-          if (s(-142, -87, -62, -137) !== s(-97, 4, 43, -67)) {
-            return (0, ab.WX)(s(9, -71, -20, -111) + "save data", g(490, 450, 458, 554) + s(110, 3, 45, -41), 500, aa.c[g(423, 595, 562, 516) + s(-129, -38, 13, 10) + "R"]);
+        if (!(await (0, ad.QA)(() => (0, ac.Ht)(p), "write-data" + "-file", a.context, 500))) {
+          if ("HKkKe" !== "KJKUk") {
+            return (0, ab.WX)("Failed to " + "save data", "File writi" + "ng failed", 500, aa.c["DATA_FILE_" + "WRITE_ERRO" + "R"]);
           } else {
             _0x5dd266 = true;
           }
         }
         let q = {
-          [s(95, 41, 65, 79)]: h
+          ["userId"]: h
         };
-        q[g(338, 408, 481, 427)] = j[g(471, 492, 334, 427)];
-        q["affectedTa" + g(563, 653, 503, 609)] = k;
-        q["affectedPr" + g(457, 449, 582, 546)] = m;
-        q[g(414, 335, 423, 437) + g(571, 705, 606, 611)] = l;
+        q["username"] = j["username"];
+        q["affectedTa" + "sks"] = k;
+        q["affectedPr" + "ojects"] = m;
+        q["affectedCo" + "mments"] = l;
         q.affectedRewardEvents = o;
-        (0, ad.jf)(g(505, 509, 659, 559) + "ed", q, a.context);
+        (0, ad.jf)("user_delet" + "ed", q, a.context);
         let r = {};
         function s(a, b, c, d) {
           return aH(b - -1344 - 987, a);
         }
-        r[g(523, 464, 463, 526)] = true;
-        r[s(-63, 10, -59, -87) + g(565, 545, 429, 485)] = h;
-        r[g(591, 442, 484, 547)] = s(-104, -27, 33, -60) + g(391, 478, 560, 469) + s(-92, 6, -30, -60);
-        return W.NextResponse[s(-146, -62, -48, -16)](r);
+        r["success"] = true;
+        r["deletedUse" + "rId"] = h;
+        r["message"] = "User delet" + "ed success" + "fully";
+        return W.NextResponse["json"](r);
       }
       let aG = {};
       function aH(a, b) {

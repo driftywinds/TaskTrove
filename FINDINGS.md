@@ -13,14 +13,22 @@
 >   calendar/productivity schemas, union-tolerant reads incl. official Pro image files)
 >   — commit `0caea81`
 > - ✅ Phase 5 stats + table views — commit `c1c16b6`
-> - 🔄 Phase 2 (multi-user auth/API/UI + mobile login) next; see
->   `plans/PLAN-pro-default.md` → "Next steps — Phase 2" for the task list
+> - ✅ Phase 2 **contracts extracted**: full `/api/v1/user` GET/POST/PATCH/DELETE decoded
+>   (module 50278, rotation 190, `decode-user-route.mjs`). All verbatim strings, admin
+>   guards, cascade logic, error messages, event names recovered. See
+>   `plans/PLAN-pro-default.md` → "Route contracts already extracted" for the full spec.
+> - 🔄 Phase 2 (multi-user auth/API/UI + mobile login) — implementation not yet started;
+>   see PLAN-pro-default.md → "Next steps — Phase 2" for the detailed task breakdown
 > - ⬜ Phases 3 (rewards), 4 (people), 6 (parity), 7 (calendar sync), 8 (verification)
 >
 > **New tooling:** `tools/deob/decode-module.mjs` fully decodes any webpack module in the
 > deobfuscated bundles (solves the string-array rotation via the checksum IIFE and inlines
 > every decode call) — far beyond webcrack's output. `tools/deob/PRO-SCHEMAS.md` is the
 > authoritative decoded contract (schemas, themes/levels, DataFile quirks).
+>
+> **Added for Phase 2:** `tools/deob/decode-user-route.mjs` — family-2 decoder for
+> `/api/v1/user` route (module 50278, rotation 190, target `635102`). Produces
+> `decoded-50278.js` with fully inlined strings.
 
 ---
 

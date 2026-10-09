@@ -220,6 +220,17 @@ scheduled sync job listed in scheduler settings.
 - [x] Phase 0 gates (commit `1292e76`)
 - [x] Phase 1 schemas + migration (commit `0caea81`)
 - [ ] Phase 2 multi-user auth/API/UI + mobile login
+  - [ ] Route contract extraction
+  - [ ] `apps/web/auth.ts` — multi-user credentials provider, role in JWT
+  - [ ] `POST /api/v1/user` — admin create with duplicate check, user limit
+  - [ ] `PATCH /api/v1/user` — admin update with self-guard rules
+  - [ ] `DELETE /api/v1/user` — admin delete with cascade (tasks/comments/reactions/members)
+  - [ ] `GET /api/v1/user` — return full users array (session user first)
+  - [ ] `POST /api/v1/mobile/login` — username/password -> session tokens
+  - [ ] `user-management-form.tsx` — users table, role badges, add/edit/delete dialogs
+  - [ ] Settings → Users category renders (atoms/query)
+  - [ ] i18n keys for 10 locales
+  - [ ] Typecheck + lint + tests green
 - [ ] Phase 3 rewards (API + settings + task UI)
 - [ ] Phase 4 people/assignees/assigned-to-\* views
 - [x] Phase 5 table + stats views (commit `c1c16b6`; owner/assignee columns await Phase 4 wiring)
@@ -237,32 +248,128 @@ scheduled sync job listed in scheduler settings.
 | Phase 1 | Full Pro data model in `@tasktrove/types`: User role+preferences, Task ownerId/assignees/reward, Comment reactions, Project members, ViewState assignedTo/ownedBy filters; new rewards/calendar/reward-levels modules (7 themes × 10 levels, exact Pro names); settings extensions (calendarSync, calendarSyncSchedule, newTaskOwnership, productivity); DataFile with canonical `users` + union-tolerant reads (legacy single `user`, official Pro image array-under-`user`); `DEFAULT_MAX_USERS = 50` (no license logic); cron validator; migration v0.13.0; multi-user-aware auth/middleware/initial-setup/user-route reads | all package + web typecheck; lint clean; full package suites green; new pro-schema/migration/safe-file tests; commit `0caea81` |
 | Phase 5 | `StatsView` renders the analytics dashboard (Pro metric set: completed/streak/focus-time/productivity-score ≥70 trend); `TableView` on @tanstack/react-table with the full Pro column set, viewState-initialized sorting, completion toggle, sticky header, empty state; `@tanstack/react-table` added from catalog | component tests (7 + 3); commit `c1c16b6` |
 | Fixes | `.husky/pre-commit` was a JS file executed by `sh` (broke all commits) → proper sh no-op; previously-empty `safe-file-operations.test.ts` replaced with 13 real tests | commits above |
+| Phase 2 contracts | Extracted full `/api/v1/user` GET/POST/PATCH/DELETE contracts from `decoded-50278.js` using family-2 decoder (`decode-user-route.mjs`, rotation 190, target `635102`). Recovered all verbatim strings: error messages (`"Admins can't delete self"`, `"Cannot change own role"`, `"User limit reached"`, `"Username already exists"`, `"Cannot delete self"`), admin guards, user-limit logic, avatar/password processing, cascade cleanup on delete (tasks→ownerId nil, assignees filter, comments reactions filter, projects→members filter, rewardEvents filter), business event names (`user_created`, `user_updated`, `user_deleted`, `users_fetched`), response shapes (`user: User[]` with `meta.count`). | tools/deob/decode-user-route.mjs + decoded-50278.js (passes 2) |
 
 Known non-blocking flake: `quick-add-dialog.test.tsx` (12 tests) fails only under full-suite parallelism on constrained Windows hosts (renders empty body; passes standalone; predates this work — resource-related).
 
 ## Next steps — Phase 2 (multi-user auth/API/UI)
 
-1. **Contracts first**: re-extract exact route contracts from the pre-decoded bundles
-   (`tools/deob/out/routes_app_api_v1_user_route/decoded-50278.js`,
-   `routes_app_api_v1_mobile_login_route/decoded-65543.js`, module 1896 in
-   `routes_api_initial-setup_route/deobfuscated.js`, module 59451 in
-   `routes_app_api_v1_rewards_route/deobfuscated.js`, SSO headers via grep in
-   `server-chunks_middleware/deobfuscated.js`) — verbatim error messages, admin-guard
-   rules, user-limit constants, header names.
-2. **Auth** (`apps/web/auth.ts`): credentials provider iterates `getDataFileUsers`, verifies
-   username+password; JWT/session carry user `id` + `role`; `header-auth` provider for SSO
-   (`Remote-User`-style header set by proxy; signin page passes `headerAuthUser` — the
-   client form already supports it).
-3. **`/api/v1/user`**: POST (admin create; hash via existing bcrypt utils; duplicate-username
-   check; cap `DEFAULT_MAX_USERS`), PATCH (admin role/username/password updates, self-guard
-   rules), DELETE (admin, not-self, last-user protection); admin enforcement server-side
-   from session role.
-4. **`POST /api/v1/mobile/login`**: username/password → session tokens (contract per bundle).
-5. **UI**: `user-management-form.tsx` (users table, role badges, add/edit/delete dialogs);
-   atoms `usersQuery` + user mutation atoms; Settings → Users category renders.
-6. **i18n**: add missing keys to all 10 locales (`settings.categories.productivity/users`,
-   `mainNav.assignedToMe/assignedToOthers`, user-management strings) — Pro English source
-   strings are in the decoded bundles.
+### Route contracts already extracted
+
+Recovered verbatim from module 50278 (user route). Family-2 decoder solved (rotation 190, `aH(a,b) = as[a-199]`, target `635102`). See `tools/deob/out/routes_app_api_v1_user_route/decoded-50278.js`.
+
+**GET /api/v1/user** *(handler at, line 209)*:
+- Read data file → fail 500 `DATA_FILE_READ_ERROR`
+- Parse DataFile schema → fail 500 `DATA_FILE_VALIDATION_ERROR`
+- **Reads `dataFile["user"]`** (the canonical users array at key `"user"` in Pro image — our Phase 1 reads `getDataFileUsers()` which handles both `user`/`users` keys)
+- Maps each user through `UserSerializationSchema.safeParse()` → fail 500 `DATA_FILE_VALIDATION_ERROR`
+- Logs business event `"users_fetched"` (note: plural, unlike base `"user_fetched"`)
+- Response: `{ user: User[], meta: { count: number, timestamp: ISO, version: string } }`
+- Cache headers: `no-cache, no-store, must-revalidate`, `Pragma: no-cache`, `Expires: 0`
+- Middleware: `withMutexProtection(withApiLogging(withAuthentication(at, {endpoint, module}), {allowApiToken: true}))`
+
+**POST /api/v1/user** *(handler ax, line 282)*:
+- Session check: `!session?.user?.id` → 401 `AUTHENTICATION_REQUIRED` / `"Authentication required"` / `"You must be authenticated to access this resource"`
+- Current user = `dataFile.users.find(session.user.id)` → 404 `"User not found"` / `"Authenticated user not found in data file"`
+- Role check: `currentUser.role !== "admin"` → 403 `"Permission denied"` / `"Only admins can create users"` / `PERMISSION_DENIED`
+- Body validated: `_.Oq` schema → `{ username, password, role, avatar? }`
+- User limit: read license seats attribute (→ **replace with our fixed `DEFAULT_MAX_USERS = 50`**), `Math.max(1, Math.min(licenseSeats, 5))` → `fileData.users.length >= limit` → 400 `"User limit reached"` / `"Maximum of ${p} users allowed"` / `VALIDATION_ERROR`
+- Duplicate check: `users.some(u => u.username.toLowerCase() === body.username.trim().toLowerCase())` → 400 `"Username already exists"` / `"Username \"${username}\" is already in use"` / `VALIDATION_ERROR`
+- Avatar: `processAvatarUpdate(avatar)`
+- Password: `processPasswordUpdate(password)` → fail 500 `INTERNAL_SERVER_ERROR` / `"Password processing failed"`
+- Create user: `{ id: uuidv4(), username: trim(), password: hashed||"", role, avatar: path||undefined }`
+- Append: `users = [...fileData.users, newUser]`, `fileData.user = users`
+- Write → fail 500 `DATA_FILE_WRITE_ERROR`
+- Log `"user_created"` with `{ id, username, role }`
+- Response: `{ success: true, user: newUser, message: "User created successfully" }`
+- Middleware: same chain as GET
+
+**PATCH /api/v1/user** *(handler aB, line 388)*:
+- Session check → 401
+- Read data file → 500
+- Current user = `users.find(session.id)` → 404 `"User not found"` / `"Authenticated user not found in data file"`
+- Body validated: `_.HS` schema → `{ id?, username?, password?, role?, avatar? }`
+- **If body.id is set (admin targeting another user):**
+  - `currentUser.role !== "admin"` → 403 `"Permission denied"` / `"Only admins can update users"` / `PERMISSION_DENIED`
+  - Target user found by id
+  - **If target.id === session.id AND body has role** → 400 `"Admins can't change own role"` / `"Cannot change own role"` / `INVALID_REQUEST_BODY`
+- **If body.id is NOT set (self-update):**
+  - `body.role && currentUser.role !== "admin"` → 403 `"Permission denied"` / `"Users cannot modify their own role"` / `PERMISSION_DENIED`
+  - id = session.user.id (self)
+- Avatar: `processAvatarUpdate(body.avatar)`
+- Password: `processPasswordUpdate(body.password)`; if hashed, `body.password = hashedPassword`
+- Find target index → -1 → 404 `"User not found"` / `"User with ID ${id} not found"` / `DATA_FILE_VALIDATION_ERROR`
+- Merge: `updated = { ...existing, ...entries(body) filtered (avatar, apiToken, id) }`
+- Avatar path handling: `null` → `undefined`
+- apiToken: explicit null handling via `processApiTokenUpdate`
+- `updated.id = existing.id` (immutable)
+- `users[index] = updated`, write → fail 500 → log `"user_updated"` with `{ username, userId, fieldsUpdated, editedByAdmin }`
+- Serialize user → fail 500 `DATA_FILE_VALIDATION_ERROR`
+- Response: `{ success: true, user: serialized, message: "User updated successfully" }`
+
+**DELETE /api/v1/user** *(handler aF, line 570)*:
+- Session check → 401
+- Read data file → 500
+- Current user = `users.find(session.id)` → 404 → role check: `currentUser.role !== "admin"` → 403 `"Permission denied"` / `"Only admins can delete users"` / `PERMISSION_DENIED`
+- Body validated: `_.h0` schema → `{ userId }`
+- **If body.userId === session.id** → 400 `"Admins can't delete self"` / `"Admins cannot delete their own account"` / `INVALID_REQUEST_BODY`
+- **Cascade cleanup** (iterate all data):
+  - `tasks[]`: if `task.ownerId === userId` → `ownerId = undefined` (set flag)
+  - `tasks[]`: if `task.assignees` contains userId → `task.assignees = task.assignees.filter(...)`
+  - `tasks[].comments[]` where `comment.reactions` exists → filter reactions by userId
+  - `projects[]`: if `project.members` contains userId → filter members
+  - `dataFile.rewardEvents[]` where `rewardEvent.userId === userId` → count removed
+- Write → fail 500
+- Log `"user_deleted"` with `{ userId, username, affectedTasks, affectedProjects, affectedComments, affectedRewardEvents }`
+- Response: `{ success: true, deletedUserId, message: "User deleted successfully" }`
+
+### Implementation order
+
+1. **Auth module** (`apps/web/auth.ts`):
+   - Rewrite `getCurrentUser()` to iterate `getDataFileUsers()`, find by `id`
+   - Credentials provider: accept `username` + `password`, verify via `verifyPassword()`, return `{ id, name, role }`
+   - JWT callback: attach `role` to token + session
+   - Add `headerAuth` provider: read `Remote-User` header, skip if not set, authenticate user by username (SSO proxy mode)
+
+2. **Middleware** (`apps/web/lib/middleware/auth.ts`):
+   - Extend `withAuthentication` to pass `session.user.role` to handlers
+   - Make `isValidBearerToken` return the matched user (for admin checks on api-token calls)
+
+3. **`/api/v1/user` route** — full rewrite:
+   - GET: return all users (`getDataFileUsers`), session-user-first ordering, meta
+   - POST: session-admin check, body validation, duplicate+limit checks, password hash, avatar process, append, write, response
+   - PATCH: admin check for cross-user, self-update role guard, merge + write
+   - DELETE: admin check, cascade 4 loops, write, response
+
+4. **User management form** (`apps/web/components/dialogs/settings-forms/user-management-form.tsx`):
+   - Fetch users list via atom/query
+   - Table: username, avatar, role badge (`admin`/`user`), task/project counts, `(You)` marker
+   - Add dialog: username, password, role selector
+   - Edit dialog: username, password (optional), role (self-guard: hide role for self)
+   - Delete: confirm dialog with cascade summary, `(You)` → "Save" → fail if self
+
+5. **Mobile login** (`apps/web/app/api/v1/mobile/login/route.ts`):
+   - POST accepts `{ username, password }`
+   - Validate via `verifyPassword`, return session token
+   - Response: `{ success: true, token, user: { id, username, role } }`
+
+6. **i18n** (`packages/i18n/src/locales/*/settings.json`, `main-nav.json`):
+   - Add `"settings.categories.productivity"`, `"settings.categories.users"`
+   - Add `"mainNav.assignedToMe"`, `"mainNav.assignedToOthers"`
+   - Add user-management strings (add dialog, edit dialog, role labels, `(You)`)
+
+7. **Settings → Users** category: ensure `isValidCategory("users")` returns true (Phase 0 already done), ensure the form renders (stub delivery now).
+
+### State of remaining decoded contracts (for later phases)
+
+| File | Module | Status |
+| ---- | ------ | ------ |
+| `routes_app_api_v1_user_route/decoded-50278.js` | 50278 (GET/POST/PATCH/DELETE) | ✅ Fully decoded (family 2 solved, rotation 190) |
+| `routes_app_api_v1_mobile_login_route/decoded-65543.js` | 65543 (mobile login) | ⬜ Still partially obfuscated (no decoder family solved yet) |
+| `routes_api_initial-setup_route/deobfuscated.js` | 1896 (initial-setup handler) | ⬜ Not decoded (failed `original module is empty` error) |
+| `routes_app_api_v1_rewards_route/deobfuscated.js` | 59451 (rewards API) | ⬜ Not decoded for Phase 3 |
+| `server-chunks_middleware/deobfuscated.js` | headers/auth | ⬜ Need SSO header name extraction |
+| `server-chunks_1752/decoded-85119.js` | DataFile/settings schemas | ✅ Already decoded in Phase 1 |
 
 Then Phase 3 (rewards), 4 (people), 6 (parity), 7 (calendar sync), 8 (verification:
 `pnpm build` standalone, frozen lockfile, first-run flow, structural Docker review).
