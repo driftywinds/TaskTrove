@@ -1,0 +1,13 @@
+{
+  "name": "tasktrove-deob",
+  "private": true,
+  "type": "module",
+  "description": "Deobfuscation workspace for the publicly distributed TaskTrove Pro Docker image. See README.md.",
+  "scripts": {
+    "deob": "pwsh -File deob-all.ps1"
+  },
+  "dependencies": {
+    "synchrony": "^0.10.2",
+    "webcrack": "^2.16.0"
+  }
+}

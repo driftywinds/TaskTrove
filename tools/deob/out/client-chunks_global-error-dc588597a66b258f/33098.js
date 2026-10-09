@@ -1,0 +1,1 @@
+Promise.resolve().then(require.t.bind(require, 22963, 23));
