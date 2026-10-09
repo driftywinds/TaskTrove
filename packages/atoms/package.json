@@ -5,24 +5,24 @@
   "type": "module",
   "exports": {
     "./data/base/atoms": {
-      "pro": "./src/data/base/atoms.pro.ts",
+      "pro": "./src/data/base/atoms.ts",
       "default": "./src/data/base/atoms.ts"
     },
     "./data/base/query": {
-      "pro": "./src/data/base/query.pro.ts",
+      "pro": "./src/data/base/query.ts",
       "default": "./src/data/base/query.ts"
     },
     "./data/tasks/ordering": "./src/data/tasks/ordering.ts",
     "./data/tasks/filters": {
-      "pro": "./src/data/tasks/filters.pro.ts",
+      "pro": "./src/data/tasks/filters.ts",
       "default": "./src/data/tasks/filters.ts"
     },
     "./mutations/entity-factory": {
-      "pro": "./src/mutations/entity-factory.pro.ts",
+      "pro": "./src/mutations/entity-factory.ts",
       "default": "./src/mutations/entity-factory.ts"
     },
     "./mutations/tasks": {
-      "pro": "./src/mutations/tasks.pro.ts",
+      "pro": "./src/mutations/tasks.ts",
       "default": "./src/mutations/tasks.ts"
     },
     "./mutations/settings": "./src/mutations/settings.ts",
@@ -31,15 +31,15 @@
     "./mutations/labels": "./src/mutations/labels.ts",
     "./mutations/projects": "./src/mutations/projects.ts",
     "./mutations/rewards": {
-      "pro": "./src/mutations/rewards.pro.ts",
+      "pro": "./src/mutations/rewards.ts",
       "default": "./src/mutations/rewards.ts"
     },
     "./utils/atom-helpers": {
-      "pro": "./src/utils/atom-helpers.pro.ts",
+      "pro": "./src/utils/atom-helpers.ts",
       "default": "./src/utils/atom-helpers.ts"
     },
     "./utils/filters": {
-      "pro": "./src/utils/filters.pro.ts",
+      "pro": "./src/utils/filters.ts",
       "default": "./src/utils/filters.ts"
     },
     "./utils/counts": "./src/utils/counts.ts",
@@ -48,46 +48,46 @@
     "./utils/test-helpers": "./src/utils/test-helpers.ts",
     "./utils/task-recent": "./src/utils/task-recent.ts",
     "./core/tasks": {
-      "pro": "./src/core/tasks.pro.ts",
+      "pro": "./src/core/tasks.ts",
       "default": "./src/core/tasks.ts"
     },
     "./core/projects": {
-      "pro": "./src/core/projects.pro.ts",
+      "pro": "./src/core/projects.ts",
       "default": "./src/core/projects.ts"
     },
     "./core/labels": "./src/core/labels.ts",
     "./core/settings": "./src/core/settings.ts",
     "./core/notifications": "./src/core/notifications.ts",
     "./core/notification-scheduler": {
-      "pro": "./src/core/notification-scheduler.pro.ts",
+      "pro": "./src/core/notification-scheduler.ts",
       "default": "./src/core/notification-scheduler.ts"
     },
     "./core/history": "./src/core/history.ts",
     "./core/groups": "./src/core/groups.ts",
     "./ui/views": {
-      "pro": "./src/ui/views.pro.ts",
+      "pro": "./src/ui/views.ts",
       "default": "./src/ui/views.ts"
     },
     "./ui/task-counts": {
-      "pro": "./src/ui/task-counts.pro.ts",
+      "pro": "./src/ui/task-counts.ts",
       "default": "./src/ui/task-counts.ts"
     },
     "./ui/filtered-tasks": "./src/ui/filtered-tasks.ts",
     "./ui/user-settings-atom": "./src/ui/user-settings-atom.ts",
     "./ui/focus-timer": "./src/ui/focus-timer.ts",
     "./ui/dialogs": {
-      "pro": "./src/ui/dialogs.pro.ts",
+      "pro": "./src/ui/dialogs.ts",
       "default": "./src/ui/dialogs.ts"
     },
     "./ui/keyboard-context": "./src/ui/keyboard-context.ts",
     "./ui/pomodoro": "./src/ui/pomodoro.ts",
     "./ui/app-refresh": "./src/ui/app-refresh.ts",
     "./ui/navigation": {
-      "pro": "./src/ui/navigation.pro.ts",
+      "pro": "./src/ui/navigation.ts",
       "default": "./src/ui/navigation.ts"
     },
     "./ui/task-focus": {
-      "pro": "./src/ui/task-focus.pro.ts",
+      "pro": "./src/ui/task-focus.ts",
       "default": "./src/ui/task-focus.ts"
     },
     "./ui/selection": "./src/ui/selection.ts",
@@ -95,20 +95,20 @@
     "./ui/drag": "./src/ui/drag.ts",
     "./ui/audio": "./src/ui/audio.ts",
     "./ui/mobile": {
-      "pro": "./src/ui/mobile.pro.ts",
+      "pro": "./src/ui/mobile.ts",
       "default": "./src/ui/mobile.ts"
     },
     "./features/analytics": "./src/features/analytics.ts",
     "./core/rewards": {
-      "pro": "./src/core/rewards.pro.ts",
+      "pro": "./src/core/rewards.ts",
       "default": "./src/core/rewards.ts"
     },
     "./ui/settings": {
-      "pro": "./src/ui/settings.pro.ts",
+      "pro": "./src/ui/settings.ts",
       "default": "./src/ui/settings.ts"
     },
     "./mutations/user": {
-      "pro": "./src/mutations/user.pro.ts",
+      "pro": "./src/mutations/user.ts",
       "default": "./src/mutations/user.ts"
     }
   },

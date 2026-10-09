@@ -8,7 +8,7 @@
   },
   "exports": {
     ".": {
-      "pro": "./src/index.pro.ts",
+      "pro": "./src/index.ts",
       "default": "./src/index.ts"
     },
     "./color": "./src/color.ts",
@@ -22,7 +22,7 @@
     "./time-estimation": "./src/time-estimation.ts",
     "./origin-validation": "./src/origin-validation.ts",
     "./shared-patterns": {
-      "pro": "./src/shared-patterns.pro.ts",
+      "pro": "./src/shared-patterns.ts",
       "default": "./src/shared-patterns.ts"
     },
     "./encryption": "./src/encryption.ts",

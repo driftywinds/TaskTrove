@@ -141,6 +141,8 @@ vi.mock("lucide-react", () => ({
   CheckSquare: () => <div data-testid="check-square-icon" />,
   AlertTriangle: () => <div data-testid="alert-triangle-icon" />,
   Archive: () => <div data-testid="archive-icon" />,
+  Table: () => <div data-testid="table-icon" />,
+  ChartNoAxesCombined: () => <div data-testid="chart-icon" />,
 }))
 
 // Mock atoms

@@ -5,54 +5,54 @@
   "type": "module",
   "exports": {
     "./defaults": {
-      "pro": "./src/defaults.pro.ts",
+      "pro": "./src/defaults.ts",
       "default": "./src/defaults.ts"
     },
     "./defaults.base": "./src/defaults.ts",
     "./utils": {
-      "pro": "./src/utils.pro.ts",
+      "pro": "./src/utils.ts",
       "default": "./src/utils.ts"
     },
     "./test-constants": {
-      "pro": "./src/test-constants.pro.ts",
+      "pro": "./src/test-constants.ts",
       "default": "./src/test-constants.ts"
     },
     "./id": {
-      "pro": "./src/id.pro.ts",
+      "pro": "./src/id.ts",
       "default": "./src/id.ts"
     },
     "./constants": {
-      "pro": "./src/constants.pro.ts",
+      "pro": "./src/constants.ts",
       "default": "./src/constants.ts"
     },
     "./validators": {
-      "pro": "./src/validators.pro.ts",
+      "pro": "./src/validators.ts",
       "default": "./src/validators.ts"
     },
     "./core": {
-      "pro": "./src/core.pro.ts",
+      "pro": "./src/core.ts",
       "default": "./src/core.ts"
     },
     "./core.pro": "./src/core.pro.ts",
     "./group": "./src/group.ts",
     "./settings": {
-      "pro": "./src/settings.pro.ts",
+      "pro": "./src/settings.ts",
       "default": "./src/settings.ts"
     },
     "./serialization": {
-      "pro": "./src/serialization.pro.ts",
+      "pro": "./src/serialization.ts",
       "default": "./src/serialization.ts"
     },
     "./api-requests": {
-      "pro": "./src/api-requests.pro.ts",
+      "pro": "./src/api-requests.ts",
       "default": "./src/api-requests.ts"
     },
     "./api-responses": {
-      "pro": "./src/api-responses.pro.ts",
+      "pro": "./src/api-responses.ts",
       "default": "./src/api-responses.ts"
     },
     "./data-file": {
-      "pro": "./src/data-file.pro.ts",
+      "pro": "./src/data-file.ts",
       "default": "./src/data-file.ts"
     },
     "./data-file.base": "./src/data-file.ts",
@@ -61,8 +61,12 @@
     "./notifications": "./src/notifications.ts",
     "./voice-commands": "./src/voice-commands.ts",
     "./api-errors": "./src/api-errors.ts",
+    "./rewards": {
+      "pro": "./src/rewards.ts",
+      "default": "./src/rewards.ts"
+    },
     "./reward-levels": {
-      "pro": "./src/reward-levels.pro.ts",
+      "pro": "./src/reward-levels.ts",
       "default": "./src/reward-levels.ts"
     },
     "./schema-version": "./src/schema-version.ts"
