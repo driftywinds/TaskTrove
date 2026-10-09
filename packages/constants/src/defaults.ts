@@ -142,6 +142,8 @@ export const STANDARD_VIEW_IDS = [
   "recent",
   "all",
   "completed",
+  "assigned-to-me",
+  "assigned-to-others",
   // "analytics",
   // "search",
   // "shortcuts",
@@ -152,6 +154,9 @@ export const STANDARD_VIEW_IDS = [
   "labels",
   "not-found",
 ] as const;
+
+/** Maximum number of users allowed on an instance (generous fixed cap; no license logic) */
+export const DEFAULT_MAX_USERS = 50;
 
 /** Standard view metadata for UI display */
 export const STANDARD_VIEW_METADATA: Record<
@@ -191,6 +196,16 @@ export const STANDARD_VIEW_METADATA: Record<
     title: "Completed",
     description: "Celebrate progress with tasks you've finished",
     iconType: "completed" as const,
+  },
+  "assigned-to-me": {
+    title: "Assigned to Me",
+    description: "See tasks assigned directly to you",
+    iconType: "assigned-to-me" as const,
+  },
+  "assigned-to-others": {
+    title: "Assigned to Others",
+    description: "See tasks assigned to other teammates",
+    iconType: "assigned-to-others" as const,
   },
   calendar: {
     title: "Calendar",

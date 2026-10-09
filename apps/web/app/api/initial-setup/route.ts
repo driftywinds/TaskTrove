@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { User } from "@tasktrove/types/core"
+import { getDataFileUsers } from "@tasktrove/types/data-file"
 import { InitialSetupResponse } from "@tasktrove/types/api-responses"
 import { ErrorResponse } from "@tasktrove/types/api-responses"
 import { safeReadDataFile, safeWriteDataFile } from "@/lib/utils/safe-file-operations"
@@ -33,10 +34,17 @@ async function initialSetup(
         request.context,
       ),
     initializeIfNeeded: () => initializeDataFileIfNeeded(),
-    isPasswordSet: (fileData) => fileData.user.password !== "",
+    isPasswordSet: (fileData) =>
+      getDataFileUsers(fileData).some((user) => user.password !== ""),
     buildUpdatedData: (fileData, { passwordHash, username }) => {
+      const users = getDataFileUsers(fileData)
+      const [firstUser, ...restUsers] = users
+      if (!firstUser) {
+        throw new Error("Data file contains no users")
+      }
+
       const updatedUser: User = {
-        ...fileData.user,
+        ...firstUser,
         ...(username && { username }),
         password: passwordHash,
       }
@@ -45,6 +53,7 @@ async function initialSetup(
         updatedData: {
           ...fileData,
           user: updatedUser,
+          users: [updatedUser, ...restUsers],
         },
         logEvent: {
           username: updatedUser.username,

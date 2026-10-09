@@ -15,7 +15,7 @@
  */
 
 import { describe, it, expect, beforeEach, vi, afterEach } from "vitest";
-import { createStore, atom, type WritableAtom } from "jotai";
+import { createStore, atom, type Atom, type WritableAtom } from "jotai";
 import type { UserSettings } from "@tasktrove/types/settings";
 import {
   DEFAULT_NOTIFICATION_SETTINGS,
@@ -91,7 +91,7 @@ describe("playSoundAtom", () => {
   const createMockSettingsAtom = (
     soundEnabled: boolean,
     hasGeneral: boolean = true,
-  ) => {
+  ): Atom<UserSettings | LegacySettings> => {
     if (hasGeneral) {
       const mockSettings: UserSettings = {
         data: {
@@ -144,12 +144,7 @@ describe("playSoundAtom", () => {
           // Check if sound is enabled in general settings
           if (!("general" in settings)) return;
           const generalSettings = settings.general;
-          if (!generalSettings || typeof generalSettings !== "object") return;
-          if (
-            !("soundEnabled" in generalSettings) ||
-            !generalSettings.soundEnabled
-          )
-            return;
+          if (!generalSettings.soundEnabled) return;
 
           await playSound(soundType, volume);
         } catch {

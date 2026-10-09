@@ -228,9 +228,14 @@ vi.mock("jotai", async (importOriginal) => {
   }
 })
 
-vi.mock("@tasktrove/types/constants", () => ({
-  INBOX_PROJECT_ID: "inbox",
-}))
+vi.mock("@tasktrove/types/constants", async () => {
+  const actual =
+    await vi.importActual<typeof import("@tasktrove/types/constants")>("@tasktrove/types/constants")
+  return {
+    ...actual,
+    INBOX_PROJECT_ID: "inbox",
+  }
+})
 
 vi.mock("@tasktrove/types/id", async () => {
   const actual = await vi.importActual<typeof import("@tasktrove/types/id")>("@tasktrove/types/id")

@@ -241,3 +241,33 @@ export function isValidViewMode(
 export function isValidSortDirection(value: unknown): value is "asc" | "desc" {
   return typeof value === "string" && ["asc", "desc"].includes(value);
 }
+
+/**
+ * Validates a 5-field cron expression (minute hour day-of-month month day-of-week).
+ * Supports `*` and numeric values per field; day-of-week accepts 0-7 (0 and 7 = Sunday).
+ * Used by Zod schema validation for calendar sync schedules.
+ */
+export function isValidCronExpression(value: string): boolean {
+  const fields = value.trim().split(/\s+/);
+  if (fields.length !== 5) return false;
+
+  const ranges: Array<{ min: number; max: number }> = [
+    { min: 0, max: 59 }, // minute
+    { min: 0, max: 23 }, // hour
+    { min: 1, max: 31 }, // day of month
+    { min: 1, max: 12 }, // month
+    { min: 0, max: 7 }, // day of week (0 and 7 = Sunday)
+  ];
+
+  for (let i = 0; i < fields.length; i++) {
+    const field = fields[i];
+    const range = ranges[i];
+    if (!field || !range) return false;
+    if (field === "*") continue;
+    if (!/^\d+$/.test(field)) return false;
+    const num = parseInt(field, 10);
+    if (num < range.min || num > range.max) return false;
+  }
+
+  return true;
+}

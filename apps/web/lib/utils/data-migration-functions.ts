@@ -7,6 +7,7 @@ import {
   DEFAULT_USER,
   DEFAULT_GENERAL_SETTINGS,
   DEFAULT_UI_SETTINGS,
+  DEFAULT_PRODUCTIVITY_SETTINGS,
 } from "@tasktrove/types/defaults"
 import { cleanupAllDanglingTasks } from "@tasktrove/types/utils"
 
@@ -405,6 +406,83 @@ export function v0120Migration(dataFile: Json): Json {
 
   if (isRecord(result.labelGroups)) {
     result.labelGroups = stripSlugFromGroup(result.labelGroups)
+  }
+
+  return JSON.parse(JSON.stringify(result))
+}
+
+export function v0130Migration(dataFile: Json): Json {
+  console.log("Migrating data file to multi-user pro schema (v0.13.0)...")
+
+  if (typeof dataFile !== "object" || dataFile === null || Array.isArray(dataFile)) {
+    throw new Error("Migration input must be a JSON object")
+  }
+
+  const result: Record<string, unknown> = {}
+  for (const [key, value] of Object.entries(dataFile)) {
+    result[key] = value
+  }
+
+  const isRecord = (value: unknown): value is Record<string, unknown> =>
+    typeof value === "object" && value !== null && !Array.isArray(value)
+
+  const ensureRole = (
+    user: Record<string, unknown>,
+    defaultRole: "admin" | "user",
+  ): Record<string, unknown> => {
+    if (user.role !== "admin" && user.role !== "user") {
+      console.log(`✓ Adding role (${defaultRole}) to user`)
+      return { ...user, role: defaultRole }
+    }
+    return user
+  }
+
+  // Normalize users: canonical key is `users`; legacy `user` may be a single
+  // object (base) or an array (official Pro image).
+  const userValue = result.user
+  const usersValue = result.users
+
+  if (Array.isArray(userValue)) {
+    console.log("✓ Moving users array from `user` key to canonical `users` key")
+    result.users = userValue.map((entry, index) =>
+      isRecord(entry) ? ensureRole(entry, index === 0 ? "admin" : "user") : entry,
+    )
+    delete result.user
+  } else if (isRecord(userValue)) {
+    result.user = ensureRole(userValue, "admin")
+    if (usersValue === undefined) {
+      console.log("✓ Creating `users` array from single user object")
+      result.users = [result.user]
+    }
+  } else if (Array.isArray(usersValue)) {
+    result.users = usersValue.map((entry, index) =>
+      isRecord(entry) ? ensureRole(entry, index === 0 ? "admin" : "user") : entry,
+    )
+  }
+
+  // Ensure productivity settings defaults
+  let settings: Record<string, unknown>
+  if (isRecord(result.settings)) {
+    settings = { ...result.settings }
+  } else {
+    console.log("⚠️ Settings missing or invalid - restoring defaults")
+    settings = JSON.parse(JSON.stringify(DEFAULT_USER_SETTINGS))
+  }
+
+  if (!isRecord(settings.productivity)) {
+    console.log("✓ Adding productivity settings defaults")
+    settings.productivity = JSON.parse(JSON.stringify(DEFAULT_PRODUCTIVITY_SETTINGS))
+  }
+  result.settings = settings
+
+  // Pro data file markers
+  if (!Array.isArray(result.rewardEvents)) {
+    console.log("✓ Adding empty rewardEvents array")
+    result.rewardEvents = []
+  }
+  if (result.edition !== "pro") {
+    console.log('✓ Setting edition to "pro"')
+    result.edition = "pro"
   }
 
   return JSON.parse(JSON.stringify(result))

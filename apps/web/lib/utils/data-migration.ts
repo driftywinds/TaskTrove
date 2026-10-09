@@ -12,6 +12,7 @@ import {
   v0100Migration,
   v0110Migration,
   v0120Migration,
+  v0130Migration,
 } from "@/lib/utils/data-migration-functions"
 
 const MIN_SUPPORTED_VERSION = createVersionString("v0.8.0")
@@ -32,6 +33,10 @@ export const migrationFunctions: MigrationStep[] = [
   {
     version: createVersionString("v0.12.0"),
     migrate: v0120Migration,
+  },
+  {
+    version: createVersionString("v0.13.0"),
+    migrate: v0130Migration,
   },
 ]
 

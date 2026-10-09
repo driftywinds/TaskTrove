@@ -442,10 +442,12 @@ describe("withAuthentication", () => {
       // Mock safeReadDataFile to return data file with matching API token
       mockSafeReadDataFile.mockResolvedValue({
         version: DEFAULT_DATA_VERSION,
+        rewardEvents: [],
         user: {
           id: createUserId(DEFAULT_UUID),
           username: "admin",
           password: "hashed-password",
+          role: "admin",
           apiToken: validToken,
         },
         settings: {
@@ -511,10 +513,12 @@ describe("withAuthentication", () => {
       // Mock safeReadDataFile to return data file with different API token
       mockSafeReadDataFile.mockResolvedValue({
         version: DEFAULT_DATA_VERSION,
+        rewardEvents: [],
         user: {
           id: createUserId(DEFAULT_UUID),
           username: "admin",
           password: "hashed-password",
+          role: "admin",
           apiToken: "different-token-456",
         },
         settings: {
@@ -582,10 +586,12 @@ describe("withAuthentication", () => {
       // Mock safeReadDataFile to return data file without API token
       mockSafeReadDataFile.mockResolvedValue({
         version: DEFAULT_DATA_VERSION,
+        rewardEvents: [],
         user: {
           id: createUserId(DEFAULT_UUID),
           username: "admin",
           password: "hashed-password",
+          role: "admin",
           // No apiToken field
         },
         settings: {
@@ -689,10 +695,12 @@ describe("withAuthentication", () => {
       // Mock safeReadDataFile to return data file with matching API token
       mockSafeReadDataFile.mockResolvedValue({
         version: DEFAULT_DATA_VERSION,
+        rewardEvents: [],
         user: {
           id: createUserId(DEFAULT_UUID),
           username: "admin",
           password: "hashed-password",
+          role: "admin",
           apiToken: validToken,
         },
         settings: {

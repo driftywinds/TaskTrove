@@ -2,16 +2,18 @@ import NextAuth from "next-auth"
 import Credentials from "next-auth/providers/credentials"
 import { z } from "zod"
 import { verifyPassword } from "@tasktrove/utils"
+import { getDataFileUsers } from "@tasktrove/types/data-file"
 import { safeReadUserFile } from "@/lib/utils/safe-file-operations"
 
 // Helper function to get current user from data file
+// (multi-user: the first user in the users list; Phase 2 adds per-user login)
 async function getCurrentUser() {
   try {
     const userData = await safeReadUserFile()
     if (!userData) {
       return null
     }
-    return userData.user
+    return getDataFileUsers(userData)[0] ?? null
   } catch (error) {
     console.error("Failed to read user data:", error)
     return null

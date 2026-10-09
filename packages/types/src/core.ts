@@ -22,6 +22,7 @@ import {
 } from "./constants";
 import { validateRRule } from "./validators";
 import { ProjectSectionSchema } from "./group";
+import { ReactionSchema, TaskRewardSchema } from "./rewards";
 
 // =============================================================================
 // CORE TASK SCHEMAS
@@ -55,7 +56,38 @@ export const TaskCommentSchema = z.object({
   createdAt: flexibleDateTimeSchema,
   /** User ID of the comment author */
   userId: UserIdSchema,
+  /** Reactions on the comment */
+  reactions: z.array(ReactionSchema).optional(),
 });
+
+/**
+ * User roles (Pro multi-user)
+ */
+export const UserRoleSchema = z.enum(["admin", "user"]);
+export type UserRole = z.infer<typeof UserRoleSchema>;
+
+/**
+ * Per-user preferences (Pro)
+ */
+export const UserPreferencesSchema = z.object({
+  /** Preferred theme name */
+  theme: z.string().optional(),
+  /** Preferred language code */
+  language: z.string().optional(),
+  /** Per-user notification toggles */
+  notifications: z
+    .object({
+      email: z.boolean().optional(),
+      push: z.boolean().optional(),
+      taskAssignments: z.boolean().optional(),
+      projectUpdates: z.boolean().optional(),
+    })
+    .optional(),
+  /** Whether rewards are enabled for this user */
+  rewardsEnabled: z.boolean().optional(),
+});
+
+export type UserPreferences = z.infer<typeof UserPreferencesSchema>;
 
 /**
  * Schema for a user account
@@ -78,6 +110,10 @@ export const UserSchema = z.object({
       "API token must be a 32-character hexadecimal string",
     )
     .optional(),
+  /** User role (multi-user). Defaults to "admin" so legacy single-user files parse. */
+  role: UserRoleSchema.default("admin"),
+  /** Per-user preferences */
+  preferences: UserPreferencesSchema.optional(),
 });
 
 /**
@@ -144,6 +180,10 @@ export const ViewStateSchema = z.object({
             .optional(),
         })
         .optional(),
+      /** Filter by assignee user IDs (Pro) */
+      assignedTo: z.array(UserIdSchema).optional(),
+      /** Filter by task owner user IDs (Pro) */
+      ownedBy: z.array(UserIdSchema).optional(),
     })
     .optional(),
 });
@@ -221,6 +261,12 @@ export const TaskSchema = z.object({
   estimation: z.number().optional(),
   /** Tracking ID for linking tasks */
   trackingId: TaskIdSchema.optional(),
+  /** ID of the user who owns this task (Pro) */
+  ownerId: UserIdSchema.optional(),
+  /** IDs of users assigned to this task (Pro) */
+  assignees: z.array(UserIdSchema).optional(),
+  /** Currency reward attached to this task (Pro) */
+  reward: TaskRewardSchema.optional(),
 });
 
 /**
@@ -235,6 +281,8 @@ export const ProjectSchema = z.object({
   color: z.string(),
   /** Array of sections within this project */
   sections: z.array(ProjectSectionSchema).min(1),
+  /** IDs of users who are members of this project (Pro) */
+  members: z.array(UserIdSchema).optional(),
 });
 
 /**
