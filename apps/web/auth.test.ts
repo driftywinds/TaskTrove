@@ -141,7 +141,12 @@ describe("auth module", () => {
     const { verifyPassword, safeReadUserFile } = await loadAuthModule("test-secret")
 
     safeReadUserFile.mockResolvedValue({
-      user: { id: createUserId(DEFAULT_UUID), username: "Test User", password: "hashed" },
+      user: {
+        id: createUserId(DEFAULT_UUID),
+        username: "Test User",
+        password: "hashed",
+        role: "admin",
+      },
     })
     verifyPassword.mockReturnValue(true)
 
@@ -160,6 +165,7 @@ describe("auth module", () => {
         id: createUserId("f47ac10b-58cc-4372-a567-0e02b2c3d479"),
         username: "Another User",
         password: "hashed",
+        role: "admin",
       },
     })
     verifyPassword.mockReturnValue(true)
@@ -174,7 +180,12 @@ describe("auth module", () => {
     const { verifyPassword, safeReadUserFile } = await loadAuthModule("test-secret")
 
     safeReadUserFile.mockResolvedValue({
-      user: { id: createUserId(DEFAULT_UUID), username: "Test User", password: "hashed" },
+      user: {
+        id: createUserId(DEFAULT_UUID),
+        username: "Test User",
+        password: "hashed",
+        role: "admin",
+      },
     })
     verifyPassword.mockReturnValue(false)
 

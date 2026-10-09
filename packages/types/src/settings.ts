@@ -6,6 +6,12 @@
 
 import { z } from "zod";
 import { STANDARD_VIEW_IDS } from "@tasktrove/constants";
+import {
+  CalendarSyncConnectionSchema,
+  CalendarSyncScheduleSchema,
+} from "./calendar";
+import { CurrencySchema, DEFAULT_CURRENCY_ID, WishlistItemSchema } from "./rewards";
+import { RewardThemeIdSchema } from "./reward-levels";
 
 // =============================================================================
 // DATA SETTINGS
@@ -25,6 +31,10 @@ export const DataSettingsSchema = z.object({
     /** Maximum number of backup files to keep (-1 for unlimited) */
     maxBackups: z.number(),
   }),
+  /** Calendar sync connections (Pro) */
+  calendarSync: z.array(CalendarSyncConnectionSchema).max(10).optional(),
+  /** Calendar sync background schedule (Pro) */
+  calendarSyncSchedule: CalendarSyncScheduleSchema.optional(),
 });
 
 /**
@@ -71,6 +81,8 @@ export const GeneralSettingsSchema = z.object({
   popoverHoverOpen: z.boolean(),
   /** Prefer day/month interpretation for ambiguous numeric dates (e.g., 1/2) */
   preferDayMonthFormat: z.boolean(),
+  /** Default ownership behavior for newly created tasks (Pro) */
+  newTaskOwnership: z.enum(["currentUser", "unassigned"]).optional(),
 });
 
 /**
@@ -119,6 +131,42 @@ export type UiSettings = z.infer<typeof UiSettingsSchema> & {
 };
 
 // =============================================================================
+// PRODUCTIVITY SETTINGS (PRO)
+// =============================================================================
+
+/**
+ * Productivity / rewards settings (Pro)
+ */
+export const ProductivitySettingsSchema = z.object({
+  /** Reward theme id */
+  rewardTheme: RewardThemeIdSchema.optional(),
+  /** Whether points rewards are enabled */
+  rewardsEnabled: z.boolean().optional(),
+  /** Maximum points that can be earned per day (0 = unlimited) */
+  dailyRewardPointCap: z.number().int().min(0).optional(),
+  /** Whether currency rewards are enabled */
+  currencyRewardsEnabled: z.boolean().optional(),
+  /** Custom currencies; must include the built-in default currency */
+  customCurrencies: z
+    .array(CurrencySchema)
+    .optional()
+    .refine(
+      (currencies) =>
+        currencies === undefined ||
+        (currencies.length !== 0 &&
+          currencies.some((currency) => currency.id === DEFAULT_CURRENCY_ID)),
+      { message: "customCurrencies must include the default currency" },
+    ),
+  /** Wishlist items redeemable with currency rewards */
+  wishlistItems: z.array(WishlistItemSchema).optional(),
+});
+
+/**
+ * Productivity settings type
+ */
+export type ProductivitySettings = z.infer<typeof ProductivitySettingsSchema>;
+
+// =============================================================================
 // USER SETTINGS
 // =============================================================================
 
@@ -130,6 +178,7 @@ export const UserSettingsSchema = z.object({
   notifications: NotificationSettingsSchema,
   general: GeneralSettingsSchema,
   uiSettings: UiSettingsSchema,
+  productivity: ProductivitySettingsSchema.optional(),
 });
 
 /**
@@ -145,6 +194,7 @@ export const PartialUserSettingsSchema = z.object({
   notifications: NotificationSettingsSchema.partial().optional(),
   general: GeneralSettingsSchema.partial().optional(),
   uiSettings: UiSettingsSchema.partial().optional(),
+  productivity: ProductivitySettingsSchema.partial().optional(),
 });
 
 /**

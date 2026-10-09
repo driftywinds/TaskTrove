@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from "vitest"
 import { POST } from "./route"
-import { DEFAULT_EMPTY_DATA_FILE } from "@tasktrove/types/defaults"
+import { DEFAULT_EMPTY_DATA_FILE, DEFAULT_USER } from "@tasktrove/types/defaults"
 import { createVersionString } from "@tasktrove/types/id"
 import { LATEST_DATA_VERSION } from "@tasktrove/types/schema-version"
 import { safeReadDataFile, safeWriteDataFile } from "@/lib/utils/safe-file-operations"
@@ -54,10 +54,7 @@ describe("/api/import", () => {
 
   const baseImportPayload = {
     ...DEFAULT_EMPTY_DATA_FILE,
-    user: {
-      ...DEFAULT_EMPTY_DATA_FILE.user,
-      id: DEFAULT_EMPTY_DATA_FILE.user.id,
-    },
+    user: DEFAULT_USER,
   }
 
   it("rejects import when current data version differs", async () => {

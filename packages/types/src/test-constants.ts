@@ -161,4 +161,5 @@ export const TEST_GROUPS_DATA: DataFileSerialization = {
     uiSettings: DEFAULT_UI_SETTINGS,
   },
   user: DEFAULT_USER_DATA,
+  rewardEvents: [],
 };

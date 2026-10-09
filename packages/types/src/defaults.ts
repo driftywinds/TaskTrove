@@ -5,6 +5,8 @@ import type { ProjectGroup, LabelGroup } from "./group";
 import type { DataFile, UserData } from "./data-file";
 import { createGroupId, createUserId } from "./id";
 import { LATEST_DATA_VERSION } from "./schema-version";
+import { DEFAULT_CURRENCY } from "./rewards";
+import type { ProductivitySettings } from "./settings";
 import {
   DEFAULT_SHOW_PLANNER,
   SIDE_PANEL_WIDTH_DEFAULT,
@@ -115,7 +117,7 @@ export function getDefaultSectionId(project: Project): GroupId | null {
 export const DEFAULT_NOTIFICATION_SETTINGS = {
   enabled: true,
   requireInteraction: true,
-};
+} as const;
 export const DEFAULT_GENERAL_SETTINGS = {
   startView: "all" as const, // Corresponds to DEFAULT_ROUTE "/all"
   soundEnabled: true,
@@ -124,6 +126,18 @@ export const DEFAULT_GENERAL_SETTINGS = {
   popoverHoverOpen: false,
   preferDayMonthFormat: false,
 } as const;
+
+/**
+ * Default productivity/rewards settings (Pro)
+ */
+export const DEFAULT_PRODUCTIVITY_SETTINGS: ProductivitySettings = {
+  rewardTheme: "default",
+  rewardsEnabled: true,
+  currencyRewardsEnabled: false,
+  customCurrencies: [DEFAULT_CURRENCY],
+  wishlistItems: [],
+};
+
 // weekStartsOn is optional; the default UI settings object should be empty
 export const DEFAULT_UI_SETTINGS: UiSettings = {};
 
@@ -177,18 +191,21 @@ export const DEFAULT_USER_SETTINGS: UserSettings = {
   notifications: DEFAULT_NOTIFICATION_SETTINGS,
   general: DEFAULT_GENERAL_SETTINGS,
   uiSettings: DEFAULT_UI_SETTINGS,
+  productivity: DEFAULT_PRODUCTIVITY_SETTINGS,
 };
 
 export const DEFAULT_USER: User = {
   id: createUserId(DEFAULT_UUID),
   username: "",
   password: "",
+  role: "admin",
 };
 
 export const DEFAULT_USER_DATA: UserData = DEFAULT_USER;
 
 /**
  * Default empty data structure for initializing a new TaskTrove data file
+ * (multi-user: `users` is canonical; `user` kept in sync for legacy readers)
  */
 export const DEFAULT_EMPTY_DATA_FILE: DataFile = {
   tasks: [],
@@ -198,5 +215,8 @@ export const DEFAULT_EMPTY_DATA_FILE: DataFile = {
   labelGroups: DEFAULT_LABEL_GROUP,
   settings: DEFAULT_USER_SETTINGS,
   user: DEFAULT_USER,
+  users: [DEFAULT_USER],
+  rewardEvents: [],
+  edition: "pro",
   version: DEFAULT_DATA_VERSION,
 };

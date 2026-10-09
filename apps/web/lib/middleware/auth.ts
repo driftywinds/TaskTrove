@@ -13,10 +13,11 @@ import type { ErrorResponse } from "@tasktrove/types/api-responses"
 import { ApiErrorCode } from "@tasktrove/types/api-errors"
 import type { EnhancedRequest } from "./api-logger"
 import { safeReadDataFile } from "@/lib/utils/safe-file-operations"
+import { getDataFileUsers } from "@tasktrove/types/data-file"
 import { isAuthEnabled } from "@/lib/utils/env"
 
 /**
- * Checks if the provided bearer token matches the user's API token
+ * Checks if the provided bearer token matches any user's API token
  * @param token - Bearer token from Authorization header
  * @returns true if token is valid, false otherwise
  */
@@ -25,10 +26,10 @@ async function isValidBearerToken(token: string): Promise<boolean> {
     const dataFile = await safeReadDataFile()
     if (!dataFile) return false
 
-    const apiToken = dataFile.user.apiToken
-    if (!apiToken) return false
-
-    return token === apiToken
+    const users = getDataFileUsers(dataFile)
+    return users.some(
+      (user) => user.apiToken !== undefined && token === user.apiToken,
+    )
   } catch {
     return false
   }

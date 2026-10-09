@@ -441,6 +441,11 @@ export const API_ROUTES = {
   V1_SETTINGS: createApiRoute("/api/v1/settings"),
   V1_SCHEDULER_JOBS: createApiRoute("/api/v1/scheduler/jobs"),
   V1_USER: createApiRoute("/api/v1/user"),
+  V1_REWARDS: createApiRoute("/api/v1/rewards"),
+  V1_CALENDAR: createApiRoute("/api/v1/calendar"),
+  V1_CALENDAR_DISCOVER: createApiRoute("/api/v1/calendar/discover"),
+  V1_CALENDAR_EVENTS: createApiRoute("/api/v1/calendar/events"),
+  V1_MOBILE_LOGIN: createApiRoute("/api/v1/mobile/login"),
   V1_ASSETS: createApiRoute("/api/v1/assets/[...path]"),
 
   // Root-level routes (NOT in v1/ directory) - session-only authentication

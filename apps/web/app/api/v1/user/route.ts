@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server"
 import type { User } from "@tasktrove/types/core"
-import { DataFileSerializationSchema } from "@tasktrove/types/data-file"
+import {
+  DataFileSerializationSchema,
+  getDataFileUsers,
+} from "@tasktrove/types/data-file"
 import { UserSerializationSchema } from "@tasktrove/types/serialization"
 import { UpdateUserRequestSchema } from "@tasktrove/types/api-requests"
 import { UpdateUserResponse, GetUserResponse } from "@tasktrove/types/api-responses"
@@ -61,7 +64,18 @@ async function getUser(
 
   const serializedData = dataSerializationResult.data
 
-  const serializationResult = UserSerializationSchema.safeParse(serializedData.user)
+  const users = getDataFileUsers(serializedData)
+  const firstUser = users[0]
+  if (!firstUser) {
+    return createErrorResponse(
+      "Failed to serialize user data",
+      "No user found in data file",
+      500,
+      ApiErrorCode.DATA_FILE_VALIDATION_ERROR,
+    )
+  }
+
+  const serializationResult = UserSerializationSchema.safeParse(firstUser)
   if (!serializationResult.success) {
     return createErrorResponse(
       "Failed to serialize user data",
@@ -85,7 +99,7 @@ async function getUser(
   const response: GetUserResponse = {
     user: serializedUser,
     meta: {
-      count: 1, // One user object
+      count: users.length,
       timestamp: new Date().toISOString(),
       version: serializedData.version || "v0.7.0",
     },
@@ -171,10 +185,21 @@ async function updateUser(
     )
   }
 
+  const existingUsers = getDataFileUsers(fileData)
+  const [currentUser, ...restUsers] = existingUsers
+  if (!currentUser) {
+    return createErrorResponse(
+      "Failed to read data file",
+      "No user found in data file",
+      500,
+      ApiErrorCode.DATA_FILE_READ_ERROR,
+    )
+  }
+
   // Merge partial user data with current user data, preserving required fields
   // Use processed avatar path if avatar was updated, otherwise keep existing avatar
   const updatedUser = {
-    ...fileData.user,
+    ...currentUser,
     ...Object.fromEntries(
       Object.entries(partialUser).filter(([key]) => key !== "avatar" && key !== "apiToken"),
     ),
@@ -195,13 +220,14 @@ async function updateUser(
   // For password: if not provided, preserve existing password (password is required)
   const cleanedUser: User = clearNullValues({
     ...updatedUser,
-    password: updatedUser.password || fileData.user.password,
+    password: updatedUser.password || currentUser.password,
   })
 
   // Update the data file with new user data
   const updatedFileData = {
     ...fileData,
     user: cleanedUser,
+    users: [cleanedUser, ...restUsers],
   }
 
   // Write updated data to file

@@ -6,6 +6,7 @@ import { compareVersions } from "@tasktrove/utils/version"
 import type { Json } from "@tasktrove/types/constants"
 import { createVersionString } from "@tasktrove/types/id"
 import { DEFAULT_EMPTY_DATA_FILE } from "@tasktrove/types/defaults"
+import { getDataFileUsers } from "@tasktrove/types/data-file"
 import { LATEST_DATA_VERSION } from "@tasktrove/types/schema-version"
 
 describe("Data Migration Utility", () => {
@@ -115,6 +116,115 @@ describe("Data Migration Utility", () => {
       expect(info.currentVersion).toEqual(createVersionString("v9.9.9"))
       expect(info.targetVersion).toMatch(/^v\d+\.\d+\.\d+$/)
       expect(info.needsMigration).toBe(false)
+    })
+  })
+
+  describe("v0.13.0 multi-user migration", () => {
+    const baseV0120Fixture = () =>
+      createJsonData({
+        tasks: [],
+        projects: [],
+        labels: [],
+        projectGroups: DEFAULT_EMPTY_DATA_FILE.projectGroups,
+        labelGroups: DEFAULT_EMPTY_DATA_FILE.labelGroups,
+        settings: {
+          data: {
+            autoBackup: { enabled: false, backupTime: "02:00", maxBackups: 5 },
+          },
+          notifications: { enabled: true, requireInteraction: true },
+          general: {
+            startView: "all",
+            soundEnabled: true,
+            linkifyEnabled: true,
+            markdownEnabled: true,
+            popoverHoverOpen: false,
+            preferDayMonthFormat: false,
+          },
+          uiSettings: {},
+        },
+        user: {
+          id: "12345678-1234-4234-8234-123456789abc",
+          username: "base",
+          password: "hashed",
+        },
+        version: "v0.12.0",
+      })
+
+    it("migrates a v0.12.0 base file to users + role + pro defaults", async () => {
+      const result = await migrateDataFile(baseV0120Fixture())
+
+      expect(result.version).toBe(LATEST_DATA_VERSION)
+      expect(result.edition).toBe("pro")
+      expect(result.rewardEvents).toEqual([])
+
+      // canonical users array created from the legacy single user object
+      expect(result.users).toHaveLength(1)
+      expect(result.users?.[0]?.username).toBe("base")
+      expect(result.users?.[0]?.role).toBe("admin")
+      // legacy `user` key stays in sync
+      expect(getDataFileUsers(result)).toEqual(result.users)
+
+      // productivity defaults added
+      expect(result.settings.productivity).toMatchObject({
+        rewardTheme: "default",
+        rewardsEnabled: true,
+        currencyRewardsEnabled: false,
+        customCurrencies: [
+          {
+            id: "00000000-0000-0000-0000-000000000000",
+            name: "coins",
+            exchangeRate: 1,
+          },
+        ],
+        wishlistItems: [],
+      })
+    })
+
+    it("moves an official Pro image users array from `user` to `users`", async () => {
+      const proImageFixture = createJsonData({
+        ...baseV0120Fixture(),
+        user: [
+          {
+            id: "12345678-1234-4234-8234-123456789abc",
+            username: "admin",
+            password: "hashed",
+            role: "admin",
+          },
+          {
+            id: "87654321-4321-4321-8321-210987654321",
+            username: "member",
+            password: "hashed",
+          },
+        ],
+        edition: "pro",
+      })
+
+      const result = await migrateDataFile(proImageFixture)
+
+      expect(result.users).toHaveLength(2)
+      expect(result.users?.[0]?.username).toBe("admin")
+      expect(result.users?.[1]?.role).toBe("user")
+      expect(result.user).toBeUndefined()
+      expect(result.edition).toBe("pro")
+    })
+
+    it("keeps an existing canonical users array and adds roles", async () => {
+      const fixture = createJsonData({
+        ...baseV0120Fixture(),
+        user: undefined,
+        users: [
+          {
+            id: "12345678-1234-4234-8234-123456789abc",
+            username: "admin",
+            password: "hashed",
+          },
+        ],
+      })
+
+      const result = await migrateDataFile(fixture)
+
+      expect(result.users).toHaveLength(1)
+      expect(result.users?.[0]?.role).toBe("admin")
     })
   })
 })
