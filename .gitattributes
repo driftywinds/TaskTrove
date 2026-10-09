@@ -1,0 +1,12 @@
+# Scripts executed by sh/bash MUST be LF: on Windows, `core.autocrlf=true`
+# checks them out with CRLF, and sh then treats the trailing \r as part of the
+# command ("npx lint-staged\r" -> command not found -> husky code 127).
+.husky/** text eol=lf
+*.sh text eol=lf
+
+# Node/Python entrypoints: LF for consistent diffs (both runtimes accept LF).
+*.mjs text eol=lf
+*.py text eol=lf
+
+# PowerShell scripts: CRLF is the native convention.
+*.ps1 text eol=crlf

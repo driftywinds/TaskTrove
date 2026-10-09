@@ -1,0 +1,808 @@
+"use strict";
+
+exports.id = 9069;
+exports.ids = [9069];
+exports.modules = {
+  9069: (a, b, c) => {
+    let d;
+    let e;
+    let f;
+    c.d(b, {
+      g: () => C,
+      B: () => E
+    });
+    var g = c(29276);
+    var h = c(62091);
+    var i = c(16119);
+    var j = c(27293);
+    var k = c(17255);
+    var l = c(43729);
+    var m = c(16854);
+    let n = (d = true, function (a, b) {
+      let c = d ? function () {
+        if (b) {
+          {
+            let c = b.apply(a, arguments);
+            b = null;
+            return c;
+          }
+        }
+      } : function () {};
+      d = false;
+      return c;
+    })(undefined, function () {
+      return n.toString().search("(((.+)+)+)+$").toString().constructor(n).search("(((.+)+)+)+$");
+    });
+    n();
+    let q = "calendar-refresh";
+    async function r(a) {
+      let {
+        cron: b,
+        enabled: c,
+        runOnInit: d
+      } = await s();
+      if (!c) {
+        if (a.unregister(q)) {
+          console.log("Calendar sync disabled. Existing calendar job removed from scheduler.");
+        } else {
+          console.log("Calendar sync disabled. No calendar job registered.");
+        }
+        return;
+      }
+      console.log("Scheduling calendar sync with cron '" + b + "'.");
+      let g = {
+        type: "cron",
+        expression: b
+      };
+      a.register({
+        id: q,
+        schedule: g,
+        runOnInit: d,
+        handler: async () => {
+          console.log("[" + new Date().toISOString() + "] Running scheduled calendar sync...");
+          try {
+            await (0, l.GX)();
+            console.log("[" + new Date().toISOString() + "] Scheduled calendar sync completed.");
+          } catch (c) {
+            console.error("[" + new Date().toISOString() + "] Scheduled calendar sync failed: " + (0, m.H)(c));
+          }
+        }
+      }, {
+        replace: true
+      });
+    }
+    async function s() {
+      try {
+        let c = await (0, k.Gb)();
+        if (!c) {
+          console.log("Could not load data file, using defaults (enabled: " + j.Bp + ", cron " + j.ad + ")");
+          let c = {
+            cron: j.ad,
+            enabled: j.Bp,
+            runOnInit: j.QR
+          };
+          return c;
+        }
+        let d = c.settings.data.calendarSyncSchedule;
+        let e = d?.enabled ?? j.Bp;
+        let f = d?.cron || j.ad;
+        let g = d?.runOnInit ?? j.QR;
+        let h = {
+          cron: f,
+          enabled: e,
+          runOnInit: g
+        };
+        return h;
+      } catch {
+        console.log("Could not load calendar sync settings, using defaults (enabled: " + j.Bp + ", cron " + j.ad + ")");
+        let c = {
+          cron: j.ad,
+          enabled: j.Bp,
+          runOnInit: j.QR
+        };
+        return c;
+      }
+    }
+    var t = c(66315);
+    (function (a, b) {
+      let c = a();
+      while (true) {
+        try {
+          var d;
+          var e;
+          var f;
+          var g;
+          var h;
+          var i;
+          var j;
+          var k;
+          var l;
+          if (-parseInt((d = -340, x(d - -774, -321))) / 1 * (-parseInt(x(442, -313)) / 2) + -parseInt((e = -345, f = -331, x(f - -774, e))) / 3 + -parseInt((g = -324, h = -307, x(h - -774, g))) / 4 * (-parseInt((i = -288, j = -304, x(j - -774, i))) / 5) + parseInt((k = -327, l = -326, x(l - -774, k))) / 6 + parseInt(x(463, 1291)) / 7 * (parseInt(x(438, 1241)) / 8) + -parseInt(x(454, 1263)) / 9 + -parseInt(x(441, 1246)) / 10 * (parseInt(x(449, 1286)) / 11) === 887846) {
+            break;
+          }
+          c.push(c.shift());
+        } catch (a) {
+          c.push(c.shift());
+        }
+      }
+    })(v, 0);
+    let u = (e = true, function (a, b) {
+      let c = e ? function () {
+        if (x(437, 992) === "pfqUA") {
+          _0x3327e6[x(456, -203)]("[" + _0x26029c + (x(462, 1028) + x(453, 1005) + "check comp") + x(451, 1026));
+        } else if (b) {
+          let c = b[x(465, -222)](a, arguments);
+          b = null;
+          return c;
+        }
+      } : function () {};
+      e = false;
+      return c;
+    })(undefined, function () {
+      return u.toString().search(x(447, 1232) + "+$").toString()[x(461, 223) + "r"](u).search("(((.+)+)+)+$");
+    });
+    function v() {
+      let a = ["825270UfdYxW", "ed: ", "replace", "4OjxkIY", " license c", "license-ch", "PyKiz", "16dCNVfQ", "message", "cron '", "3069470wEwXhH", "176106xGGzvZ", "2833380HqgAVR", "heck with ", "] Running ", "rGtTq", "(((.+)+)+)", "7711566trscfw", "22kKivwU", "ed:", "leted.", "fPqMR", "d license ", "14264739GxeBHo", "Wxihl", "log", "error", "register", "check comp", "toISOStrin", "constructo", "] Schedule", "3178742HGVxze", "license ch", "apply", "check fail", "36rIpqQJ", "cron", "expression"];
+      return (v = function () {
+        return a;
+      })();
+    }
+    u();
+    let w = x(436, -423) + "eck";
+    function x(a, b) {
+      let c = v();
+      return (x = function (a, b) {
+        return c[a -= 434];
+      })(a, b);
+    }
+    async function y(a) {
+      function b(a, b, c, d) {
+        return x(d - -48 - -857, a);
+      }
+      function c(a, b, c, d) {
+        return x(a - 218 - -857, c);
+      }
+      console[b(-435, -461, -466, -449)]("Scheduling" + c(-204, -186, -186, -202) + c(-195, -208, -200, -211) + b(-484, -474, -472, -465) + j.eX + "'.");
+      let d = {};
+      d.type = c(-171, -178, -180, -183);
+      d[b(-453, -417, -417, -436)] = j.eX;
+      let e = {
+        [b(-434, -415, -434, -433)]: true
+      };
+      a[c(-181, -165, -176, -194)]({
+        id: w,
+        schedule: d,
+        runOnInit: j.aw,
+        handler: async () => {
+          let a = new Date()[d(1227, 1262, 1238, 1245) + "g"]();
+          function d(a, c, d, e) {
+            return b(a, c - 409, d - 210, e - 1690);
+          }
+          function e(a, b, d, e) {
+            return c(a - 1357, b - 76, b, e - 453);
+          }
+          console[e(1174, 1194, 1172, 1167)]("[" + a + (d(1237, 1233, 1225, 1230) + "scheduled ") + d(1263, 1235, 1256, 1249) + "eck...");
+          try {
+            let b = await (0, t.VI)();
+            if (b.success) {
+              if (e(1170, 1159, 1158, 1159) === e(1170, 1180, 1150, 1156)) {
+                console[d(1241, 1247, 1249, 1241)]("[" + a + (e(1180, 1163, 1168, 1166) + e(1171, 1187, 1167, 1160) + d(1255, 1237, 1227, 1244) + d(1226, 1223, 1235, 1236)));
+              } else {
+                _0x3669f5[d(1237, 1260, 1262, 1242)]("[" + _0x4f471c + (e(1180, 1197, 1183, 1163) + e(1171, 1183, 1170, 1190) + d(1242, 1232, 1249, 1251) + d(1238, 1257, 1274, 1256)) + _0x24717c[d(1227, 1215, 1237, 1224)]);
+              }
+            } else if (e(1164, 1158, 1156, 1183) === e(1173, 1179, 1181, 1158)) {
+              let a = _0x3b8745.apply(_0x42c71a, arguments);
+              _0xa8421f = null;
+              return a;
+            } else {
+              console[d(1233, 1231, 1253, 1242)]("[" + a + ("] Schedule" + d(1257, 1249, 1251, 1238)) + "check fail" + d(1274, 1239, 1270, 1256) + b.message);
+            }
+          } catch (b) {
+            console[e(1175, 1176, 1173, 1188)]("[" + a + ("] Schedule" + d(1241, 1234, 1225, 1238)) + e(1184, 1177, 1181, 1186) + d(1237, 1249, 1240, 1235), b);
+          }
+        }
+      }, e);
+    }
+    (function (a, b) {
+      let c = a();
+      while (true) {
+        try {
+          var d;
+          var e;
+          var f;
+          var g;
+          var h;
+          var i;
+          var j;
+          var k;
+          var l;
+          var m;
+          var n;
+          var o;
+          var p;
+          var q;
+          var r;
+          var s;
+          var t;
+          if (parseInt((d = -152, e = -144, D(e - -454, d))) / 1 * (parseInt((f = -128, g = -139, D(g - -454, f))) / 2) + parseInt((h = -119, D(h - -454, -132))) / 3 * (parseInt((i = -151, j = -140, D(j - -454, i))) / 4) + -parseInt((k = -129, l = -125, D(l - -454, k))) / 5 * (parseInt((m = -137, D(m - -454, -129))) / 6) + parseInt(D(333, 738)) / 7 + -parseInt((n = -148, o = -143, D(o - -454, n))) / 8 * (-parseInt(D(313, 711)) / 9) + -parseInt((p = -136, q = -124, D(q - -454, p))) / 10 * (parseInt((r = -139, s = -131, D(s - -454, r))) / 11) + -parseInt((t = -135, D(t - -454, -122))) / 12 === 264529) {
+            break;
+          }
+          c.push(c.shift());
+        } catch (a) {
+          c.push(c.shift());
+        }
+      }
+    })(B, 0);
+    let z = (f = true, function (a, b) {
+      let c = f ? function () {
+        if (D(328, 1290) !== "foaqK") {
+          if (b) {
+            let c = b[D(332, 1292)](a, arguments);
+            b = null;
+            return c;
+          }
+        } else {
+          _0x442365.promise = null;
+          throw _0x26c288;
+        }
+      } : function () {};
+      f = false;
+      return c;
+    })(undefined, function () {
+      return z.toString().search(D(318, -168) + "+$").toString().constructor(z)[D(331, -156)](D(318, -325) + "+$");
+    });
+    z();
+    let A = "scheduler." + D(309, 775);
+    function B() {
+      let a = ["2654ceTNTz", "736Usfuvg", "promise", "37566PWQXXg", "4036HhoopQ", "278tksarb", "toString", "1032sviIYQ", "(((.+)+)+)", "6448044JmCwkR", "oZGSI", "Scheduler ", "log", "660ZymLVh", " calendar ", "d. Backup,", "constructo", "start", "nIuTv", "3350uDSYFZ", "32670uRaSpi", "search", "apply", "2514421lqtvIU", "initialize", "3fBFJXm", "bootstrap"];
+      return (B = function () {
+        return a;
+      })();
+    }
+    async function C() {
+      function a(a, b, c, d) {
+        return D(d - 364 - 464, c);
+      }
+      let b = (0, g.BY)(A, () => ({
+        promise: null
+      }));
+      function c(a, b, c, d) {
+        return D(d - 149 - 464, a);
+      }
+      if (!b[a(1133, 1131, 1128, 1140)]) {
+        b.promise = (async () => {
+          function b(b, c, d, e) {
+            return a(b - 116, c - 209, e, b - -1454);
+          }
+          await E();
+          console[b(-304, -304, -302, -297)](a(-254, -694, -206, 1149) + b(-292, -286, -296, -285) + b(-301, -304, -305, -295) + b(-302, -295, -308, -313) + "sync, and license check scheduled.");
+        })();
+      }
+      try {
+        await b[c(939, 938, 939, 925)];
+      } catch (d) {
+        if (c(932, 919, 939, 933) !== c(928, 931, 938, 933)) {
+          return _0x1a8ecd[c(926, 916, 943, 929)]()[a(1161, 1162, 1150, 1159)]("(((.+)+)+)+$").toString()[a(1142, 1149, 1165, 1154) + "r"](_0x31040e).search("(((.+)+)+)+$");
+        }
+        b.promise = null;
+        throw d;
+      }
+    }
+    function D(a, b) {
+      let c = B();
+      return (D = function (a, b) {
+        return c[a -= 309];
+      })(a, b);
+    }
+    async function E() {
+      let a = (0, i.K)();
+      await (0, h.j)(a);
+      await r(a);
+      await y(a);
+      a[D(327, -158)]();
+    }
+  },
+  16119: (a, b, c) => {
+    let d;
+    let e;
+    c.d(b, {
+      K: () => A
+    });
+    var f;
+    var g;
+    var h;
+    var i;
+    var j;
+    var k;
+    var l = c(29276);
+    var m = c(46277);
+    var n = c.n(m);
+    function o(a, b, c, d) {
+      return u(a - 340, c);
+    }
+    (function (a, b) {
+      let c = a();
+      while (true) {
+        try {
+          var d;
+          var e;
+          var f;
+          var g;
+          var h;
+          var i;
+          var j;
+          var k;
+          var l;
+          var m;
+          if (parseInt((d = -71, u(d - -363, -58))) / 1 + parseInt((e = -112, u(251, e))) / 2 * (-parseInt((f = -101, u(f - -363, -81))) / 3) + -parseInt(u(286, 652)) / 4 * (-parseInt((g = -103, h = -107, u(h - -363, g))) / 5) + -parseInt(u(269, -116)) / 6 + -parseInt((i = -105, u(247, i))) / 7 + -parseInt((j = -109, k = -130, u(k - -363, j))) / 8 + parseInt((l = -110, m = -115, u(m - -363, l))) / 9 * (parseInt(u(274, 607)) / 10) === 433450) {
+            break;
+          }
+          c.push(c.shift());
+        } catch (a) {
+          c.push(c.shift());
+        }
+      }
+    })(s, 0);
+    let p = (d = true, function (a, b) {
+      if (u(288, 343) === u(288, 827)) {
+        let c = d ? function () {
+          function c(a, b, c, d) {
+            return u(a - -137 - 84, b);
+          }
+          function d(a, b, c, d) {
+            return u(a - 272 - 84, b);
+          }
+          if (c(222, 185, 222, 224) !== d(606, 593, 629, 617)) {
+            if (b) {
+              if (d(639, 625, 618, 678) !== "ZDrly") {
+                let c = b.apply(a, arguments);
+                b = null;
+                return c;
+              } else {
+                let a = _0x4432e0[c(234, 257, 250, 232)] ?? false;
+                let b = {
+                  ..._0x11de0b[c(186, 196, 153, 214)]
+                };
+                let e = {
+                  ..._0x5b4216
+                };
+                e.runOnInit = a;
+                e[d(595, 631, 557, 600)] = b;
+                return e;
+              }
+            }
+          } else {
+            this[d(579, 582, 574, 606) + "e"](_0x2574ab.id);
+          }
+        } : function () {};
+        d = false;
+        return c;
+      }
+      if (_0x37a215) {
+        let a = _0xe7522[u(290, 372)](_0xcc7025, arguments);
+        _0x7f1de7 = null;
+        return a;
+      }
+    })(undefined, function () {
+      return p[u(226, -35)]().search(u(282, -328) + "+$")[u(226, -399)]()[u(231, -73) + "r"](p)[u(219, -365)](u(282, 3) + "+$");
+    });
+    p();
+    class q {
+      schedule(a, b, c) {
+        return new r(a, b, c);
+      }
+    }
+    class r {
+      constructor(a, b, c) {
+        function g(a, b, c, d) {
+          return u(a - 559, d);
+        }
+        function h(a, b, c, d) {
+          return u(d - 522, a);
+        }
+        this.expression = a;
+        this[g(780, 756, 753, 792)] = b;
+        this[h(742, 790, 730, 762)] = c;
+        this[h(739, 749, 756, 740)] = null;
+        this[g(791, 773, 785, 827)] = true;
+      }
+      [u(222, 264)]() {
+        function a(a, b, c, d) {
+          return u(c - 420 - 38, d);
+        }
+        if (this[a(670, 660, 690, 665)]) {
+          this[a(691, 693, 690, 680)] = false;
+          this[u(267, 931) + "xtTick"]();
+        }
+      }
+      [o(567, 546, 563, 597)]() {
+        function a(a, b, c, d) {
+          return o(c - 278, b - 45, b, d - 5);
+        }
+        if (!this[a(889, 821, 850, 859)]) {
+          this[a(816, 863, 850, 880)] = true;
+          if (this.timer) {
+            clearTimeout(this.timer);
+            this[u(218, 74)] = null;
+          }
+        }
+      }
+      [u(289, 318)]() {
+        this[u(227, 199)]();
+      }
+      [o(607, 622, 622, 581) + u(234, 245)]() {
+        if (this[b(1050, 1067, 1037, 1045)]) {
+          return;
+        }
+        let a = 0;
+        try {
+          let d = n()[c(-660, -630, -666, -656) + b(1102, 1060, 1079, 1074)](this.expression, {
+            tz: this[c(-639, -635, -667, -637)]?.[b(1063, 1082, 1038, 1062)]
+          })[c(-603, -616, -621, -601)]()[b(1109, 1126, 1098, 1097)]();
+          a = Math.max(0, d - Date[b(1101, 1145, 1121, 1107)]());
+        } catch (a) {
+          console.error("Failed to " + b(1035, 1067, 1070, 1043) + b(1118, 1111, 1101, 1098) + this[c(-596, -582, -610, -585)] + "':", a);
+          this.stop();
+          return;
+        }
+        function b(a, b, c, d) {
+          return u(d - 775 - 38, c);
+        }
+        function c(a, b, c, d) {
+          return o(b - -1215, b - 327, a, d - 116);
+        }
+        this[c(-627, -657, -630, -657)] = setTimeout(() => {
+          if (this[b(-687, -656, -676, -679)]) {
+            if (b(-695, -727, -700, -681) === "bQkMq") {
+              return;
+            } else {
+              _0x58dd10(this[b(-701, -726, -685, -688)]);
+              this[a(-422, -423, -443, -447)] = null;
+            }
+          }
+          function a(a, b, d, e) {
+            return c(d, e - 210, d - 88, e - 426);
+          }
+          function b(a, b, d, e) {
+            return c(d, a - -44, d - 124, e - 353);
+          }
+          this.handler();
+          this[b(-652, -684, -671, -631) + a(-414, -457, -446, -431)]();
+        }, a);
+      }
+    }
+    function s() {
+      let a = ["get", "schedule", "options", "' failed.", "logger", "KtICa", "job '", "parseExpre", "wtOtl", "2769480YKWuwi", "11852901goNgrQ", "timezone", "RpDwl", "328BXBfBQ", "type", "RfWRp", "set", "values", "5ObXlsB", "delete", "gaPFN", "next", "jobs", "ssion", "7653GQjvIn", "egistered.", "unregister", "sEeOr", "QXtpo", "scheduleNe", "normalizeJ", "2752308MXLvRk", "IJGqU", "hasJob", "error", "replace", "10RqUvlp", "fHCFd", "started", "has", "red.", "' is alrea", "BYGLu", "from", "(((.+)+)+)", "mveVl", "getTime", "ron '", "561764uhAfsS", "runOnInit", "KoqIQ", "destroy", "apply", "config", "565342LtWYhW", "expression", "now", "timer", "search", "Scheduler ", "handler", "start", "safeExecut", "bQkMq", "task", "toString", "stop", "engine", "RdVrg", "schedule c", "constructo", "stopped", "2532800eMrFiY", "xtTick", "mVXln", "mlPVR", "register"];
+      return (s = function () {
+        return a;
+      })();
+    }
+    let t = console;
+    function u(a, b) {
+      let c = s();
+      return (u = function (a, b) {
+        return c[a -= 218];
+      })(a, b);
+    }
+    class v {
+      constructor(a = {}) {
+        function e(a, b, d, e) {
+          return o(d - -985, b - 58, a, e - 370);
+        }
+        this[e(-385, -386, -385, -378)] = new Map();
+        this[e(-406, -371, -369, -360)] = false;
+        this[function (a, b, c, e) {
+          return o(b - -414, b - 471, 134, e - 90);
+        }(175, 154, 134, 153)] = a[e(-435, -381, -417, -399)] ?? new q();
+        this[e(-397, -438, -403, -430)] = a.logger ?? t;
+      }
+      [o(577, 594, 544, 565)](a, b) {
+        function c(a, b, c, d) {
+          return o(a - -1206, b - 331, c, d - 106);
+        }
+        let d = this[e(520, 481, 490, 496) + "ob"](a);
+        function e(a, b, c, d) {
+          return o(c - -118, b - 56, d, d - 421);
+        }
+        if (this[c(-606, -617, -579, -621)][c(-589, -585, -617, -564)](d.id)) {
+          if (c(-623, -590, -661, -638) !== "nSzkv") {
+            if (!b?.[c(-593, -607, -575, -617)]) {
+              throw Error(c(-646, -666, -635, -645) + e(427, 444, 466, 469) + d.id + (c(-587, -574, -583, -558) + "dy registe") + c(-588, -626, -605, -625));
+            }
+            this[e(481, 517, 486, 455)](d.id);
+          } else {
+            if (!this[c(-590, -564, -607, -582)]) {
+              return;
+            }
+            for (let {
+              task: a
+            } of this[c(-606, -613, -634, -588)][c(-611, -645, -588, -600)]()) {
+              a[e(448, 451, 449, 460)]();
+            }
+            this.started = false;
+          }
+        }
+        let f = this.engine[e(468, 456, 461, 461)](d[c(-627, -619, -644, -644)][e(532, 506, 515, 547)], () => {
+          function a(a, b, d, e) {
+            return c(a - 1591, b - 193, e, e - 190);
+          }
+          if (a(1005, 971, 1015, 1015) !== c(-600, -33, 69, -80)) {
+            this[a(948, 911, 985, 967) + "e"](d.id);
+          } else {
+            _0x1cdb1c.stop();
+          }
+        }, {
+          timezone: d[c(-627, -623, -596, -645)][c(-617, -597, -623, -626)]
+        });
+        let g = {
+          [c(-575, -575, -569, -559)]: d,
+          [e(459, 438, 447, 413)]: f
+        };
+        this[c(-606, -619, -619, -626)][c(-612, -607, -594, -578)](d.id, g);
+        if (this.started) {
+          if (c(-631, -649, -612, -657) !== e(452, 475, 457, 434)) {
+            return;
+          } else {
+            f[e(411, 434, 444, 457)]();
+          }
+        }
+        if (d[e(498, 518, 509, 529)]) {
+          if (e(421, 438, 451, 433) !== e(442, 488, 475, 503)) {
+            this[c(-643, -669, -651, -659) + "e"](d.id);
+          } else {
+            _0x54c13e[c(-644, -665, -607, -668)]();
+          }
+        }
+      }
+      unregister(a) {
+        function b(a, b, c, d) {
+          return o(d - -1284, b - 1, b, d - 193);
+        }
+        let c = this[b(-690, -651, -648, -684)].get(a);
+        return !!c && (c[b(-692, -684, -732, -719)][b(-722, -685, -716, -717)](), c[b(-738, -749, -695, -719)][u(289, 1148)]?.(), this[b(-669, -712, -654, -684)][b(-658, -719, -694, -687)](a), true);
+      }
+      [u(222, 282)]() {
+        if (this[a(738, 730, 727, 747)]) {
+          if (a(722, 712, 693, 683) === a(729, 712, 694, 711)) {
+            return;
+          } else {
+            return;
+          }
+        }
+        function a(a, b, c, d) {
+          return o(b - 114, b - 257, a, d - 270);
+        }
+        this[a(713, 730, 700, 714)] = true;
+        for (let {
+          task: b
+        } of this[o(600, 1167, 1186, 784)][o(595, 1162, 1137, 735)]()) {
+          if (a(724, 690, 696, 711) !== a(679, 690, 663, 666)) {
+            return;
+          } else {
+            b.start();
+          }
+        }
+      }
+      [o(567, 570, 585, 588)]() {
+        if (this[a(47, 29, 13, 62)]) {
+          for (let {
+            task: b
+          } of this.jobs[a(26, -8, -1, 35)]()) {
+            b.stop();
+          }
+          this[function (a, b, c, d) {
+            return u(276, 915);
+          }(0, 0, 915, 923)] = false;
+        }
+        function a(a, b, c, d) {
+          return o(a - -569, b - 276, b, d - 128);
+        }
+      }
+      async runNow(a) {
+        function b(a, b, c, d) {
+          return u(a - 203 - 38, d);
+        }
+        function c(a, b, c, d) {
+          return u(a - -998 - 38, b);
+        }
+        if (!this[b(501, 481, 494, 509)].has(a)) {
+          if (c(-690, -725, -713, -701) === b(511, 550, 475, 506)) {
+            throw Error(c(-740, -759, -710, -743) + b(485, 494, 512, 448) + a + "' is not r" + b(504, 519, 488, 501));
+          } else {
+            let a = this[c(-700, -666, -714, -726)][c(-722, -707, -710, -758)](_0x1de9df);
+            return !!a && (a.task.stop(), a[b(466, 481, 472, 477)][c(-671, -708, -633, -696)]?.(), this.jobs[b(498, 511, 474, 466)](_0x346ddf), true);
+          }
+        }
+        await this.safeExecute(a);
+      }
+      listJobs() {
+        function a(a, b, c, d) {
+          return u(b - -375 - 38, d);
+        }
+        return Array[a(-34, -56, -34, -21)](this[a(-63, -77, -67, -94)][o(595, -316, 106, -148)]()).map(({
+          config: b
+        }) => ({
+          id: b.id,
+          schedule: {
+            type: b[a(-79, -98, -115, -80)][a(-70, -85, -88, -117)],
+            expression: b[a(-111, -98, -84, -123)][a(-19, -44, -36, -34)]
+          }
+        }));
+      }
+      [o(611, 613, 593, 576)](a) {
+        function b(a, b, c, d) {
+          return o(c - -852, b - 266, a, d - 69);
+        }
+        return this[b(-289, -254, -252, -274)][b(-205, -205, -235, -215)](a);
+      }
+      isRunning() {
+        return this.started;
+      }
+      [o(608, 626, 636, 598) + "ob"](a) {
+        let b = a[e(24, 33, 5, 11)] ?? false;
+        function c(a, b, c, d) {
+          return u(b - 294 - 38, d);
+        }
+        let d = {
+          ...a
+        };
+        function e(a, b, c, d) {
+          return o(b - -594, b - 32, c, d - 437);
+        }
+        d[c(637, 619, 581, 594)] = b;
+        d[c(586, 571, 578, 563)] = {
+          ...a[e(10, -15, 5, 1)]
+        };
+        return d;
+      }
+      async [u(223, 285) + "e"](a) {
+        function b(a, b, c, d) {
+          return o(b - -532, b - 386, a, d - 416);
+        }
+        let c = this[d(770, 737, 747, 725)][b(54, 46, 44, 47)](a);
+        if (c) {
+          try {
+            await c[b(91, 99, 86, 102)][b(-1, 29, 12, 1)]();
+          } catch (c) {
+            if (d(723, 755, 733, 695) === b(81, 73, 86, 65)) {
+              return this[d(765, 786, 763, 754)];
+            }
+            this[b(46, 50, 44, 69)][d(789, 723, 759, 789)](d(701, 734, 707, 683) + "job '" + a + b(47, 49, 30, 26), c);
+          }
+        }
+        function d(a, b, c, d) {
+          return o(c - 147, b - 263, b, d - 53);
+        }
+      }
+    }
+    (function (a, b) {
+      let c = a();
+      while (true) {
+        try {
+          var d;
+          var e;
+          var f;
+          var g;
+          var h;
+          var i;
+          var j;
+          var k;
+          var l;
+          var m;
+          var n;
+          var o;
+          var p;
+          var q;
+          var r;
+          var s;
+          var t;
+          if (parseInt((d = -112, e = -121, z(e - -322, d))) / 1 + -parseInt((f = -352, z(185, f))) / 2 + parseInt((g = -315, h = -327, z(h - -538, g))) / 3 * (parseInt((i = -332, j = -345, z(j - -538, i))) / 4) + parseInt((k = -139, l = -130, z(l - -322, k))) / 5 * (-parseInt((m = -359, n = -343, z(n - -538, m))) / 6) + parseInt((o = -344, p = -342, z(p - -538, o))) / 7 + -parseInt((q = -351, r = -350, z(r - -538, q))) / 8 * (-parseInt((s = -322, t = -329, z(t - -538, s))) / 9) + -parseInt(z(194, -343)) / 10 === 314967) {
+            break;
+          }
+          c.push(c.shift());
+        } catch (a) {
+          c.push(c.shift());
+        }
+      }
+    })(y, 0);
+    let w = (e = true, function (a, b) {
+      let c = e ? function () {
+        if (b) {
+          if (z(203, 251) === "KhoHq") {
+            _0x2abda0 = false;
+            if (_0x2a9bf6) {
+              return function () {
+                if (_0x334012) {
+                  let a = _0xf87a9c[z(186, 65)](_0x52663f, arguments);
+                  _0x34cb2e = null;
+                  return a;
+                }
+              };
+            } else {
+              return function () {};
+            }
+          }
+          {
+            let c = b[z(186, -168)](a, arguments);
+            b = null;
+            return c;
+          }
+        }
+      } : function () {};
+      e = false;
+      return c;
+    })(undefined, function () {
+      return w[z(214, -55)]().search("(((.+)+)+)+$").toString()[z(191, -68) + "r"](w)[z(198, 522)](z(200, 519) + "+$");
+    });
+    w();
+    f = 803;
+    g = 0;
+    h = 0;
+    let x = z(197, 803) + (i = 800, j = 0, k = 0, z(190, 800));
+    function y() {
+      let a = ["state", "constructo", "5DwVkqq", "16eJNGsi", "5245600DugcYh", "1300164ljixIw", "2694356koPuWU", "scheduler.", "search", "stop", "(((.+)+)+)", "43393kTfhDH", "rnKkc", "vgLQv", "signalsBou", "opping sch", "ceived. St", "VJJxr", "eduler...", "9uAanCb", "JEnPu", "271047JsVFkv", "instance", "SIGINT", "toString", "exit", "GKKZU", "SIGTERM", "437450ykwgqY", "apply", "log", "3881992rWKosE", " signal re"];
+      return (y = function () {
+        return a;
+      })();
+    }
+    function z(a, b) {
+      let c = y();
+      return (z = function (a, b) {
+        return c[a -= 184];
+      })(a, b);
+    }
+    function A() {
+      let a = (0, l.BY)(x, () => ({
+        instance: null,
+        signalsBound: false
+      }));
+      function b(a, b, c, d) {
+        return z(d - -515 - 89, c);
+      }
+      if (!a[b(-214, -224, -219, -214)]) {
+        if (c(-420, -434, -440, -429) === c(-420, -426, -418, -422)) {
+          let a = a => {
+            function d(a, b, d, e) {
+              return c(b, a - 1552, d - 221, e - 301);
+            }
+            _0xd3e36c[d(1103, 1110, 1092, 1107)](a + (b(413, 704, 805, -237) + d(1122, 1126, 1121, 1133) + d(1121, 1115, 1121, 1114) + d(1124, 1137, 1123, 1121)));
+            _0xfdf93d.stop();
+            _0xb87a90[d(1131, 1144, 1141, 1131)](0);
+          };
+          _0x1bc008.on(b(-253, -255, -244, -242), () => a("SIGTERM"));
+          _0x1e4950.on(c(-417, -423, -429, -411), () => a(c(-413, -423, -423, -410)));
+        } else {
+          a[b(-199, -228, -207, -214)] = new v();
+        }
+      }
+      function c(a, b, c, d) {
+        return z(b - -725 - 89, a);
+      }
+      if (!a[b(-211, -222, -229, -222) + "nd"]) {
+        (function (a) {
+          function b(a, b, c, d) {
+            return z(c - -888 - 89, d);
+          }
+          let c = b => {
+            if (z(216, -343) === z(207, -354)) {
+              return _0x32559a(_0x42c10b, () => ({
+                instance: null,
+                signalsBound: false
+              }));
+            }
+            console[z(187, -380)](b + " signal received. Stopping sch" + z(208, -360));
+            a[z(199, -344)]();
+            process[z(215, -671)](0);
+          };
+          function d(a, b, c, d) {
+            return z(a - -366 - 594, d);
+          }
+          process.on(d(412, 411, 425, 422), () => c(d(412, 428, 406, 411)));
+          process.on(b(-590, -598, -586, -579), () => c(b(-601, -590, -586, -594)));
+        })(a.instance);
+        a.signalsBound = true;
+      }
+      return a[b(-218, -205, -202, -214)];
+    }
+  }
+};

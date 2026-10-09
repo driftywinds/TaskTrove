@@ -1,0 +1,8464 @@
+"use strict";
+
+(self.webpackChunk_N_E = self.webpackChunk_N_E || []).push([[1358], {
+  2846: (e, t, r) => {
+    let n;
+    r.d(t, {
+      FU: () => y,
+      jc: () => I,
+      ls: () => _,
+      u5: () => g,
+      yK: () => m
+    });
+    var o = r(22814);
+    var i = r(62759);
+    var u = r(10327);
+    var a = r(51547);
+    var l = r(70015);
+    var s = r(78730);
+    var c = r(84783);
+    var d = r(72133);
+    var f = r(52126);
+    let p = (n = true, function (e, t) {
+      let r = n ? function () {
+        if (t) {
+          let r = t.apply(e, arguments);
+          t = null;
+          return r;
+        }
+      } : function () {};
+      n = false;
+      return r;
+    })(undefined, function () {
+      return p.toString().search("(((.+)+)+)+$").toString().constructor(p).search("(((.+)+)+)+$");
+    });
+    p();
+    let m = (0, a.XO)("tasksAtom", (0, o.eU)(e => e(i.cY).data ?? [], async (e, t, r) => {
+      try {
+        let t = e(l.Oq);
+        await t.mutateAsync(r);
+      } catch (t) {
+        let e = {
+          error: t,
+          module: "tasks"
+        };
+        a.Rm.error(e, "Failed to update tasks in createTaskMutationAtom");
+        throw t;
+      }
+    }));
+    let _ = (0, a.XO)("taskByIdAtom", (0, o.eU)(e => (0, a.Uj)(() => {
+      let t = e(m);
+      let r = new Map();
+      for (let e of t) {
+        r.set(e.id, e);
+      }
+      return r;
+    }, "taskByIdAtom", new Map())));
+    let g = (0, o.eU)(e => e(i.Ou).data ?? [], async (e, t, r) => {
+      try {
+        let t = e(s.Ks);
+        await t.mutateAsync(r);
+      } catch (t) {
+        let e = {
+          error: t,
+          module: "projects"
+        };
+        a.Rm.error(e, "Failed to update projects");
+        throw t;
+      }
+    });
+    g.debugLabel = "projectsAtom";
+    let I = (0, a.XO)("labelsAtom", (0, o.eU)(e => e(i.bO).data ?? [], async (e, t, r) => {
+      try {
+        let t = e(c.B);
+        await t.mutateAsync(r);
+      } catch (t) {
+        let e = {
+          error: t,
+          module: "labels"
+        };
+        a.Rm.error(e, "Failed to update labels");
+        throw t;
+      }
+    }));
+    let y = (0, o.eU)(e => {
+      let t = e(i.jL);
+      if (t.data) {
+        return t.data;
+      }
+      return u.cL;
+    }, async (e, t, r) => {
+      try {
+        let t = e(d.l);
+        let i = {
+          settings: r
+        };
+        await t.mutateAsync(i);
+      } catch (e) {
+        {
+          let t = {
+            error: e,
+            module: "settings"
+          };
+          a.Rm.error(t, "Failed to update settings in settingsAtom");
+          throw e;
+        }
+      }
+    });
+    y.debugLabel = "settingsAtom";
+    let h = (0, o.eU)(e => e(i.$E).data ?? u.Az, async (e, t, r) => {
+      try {
+        let t = e(f.x0);
+        await t.mutateAsync(r);
+      } catch (e) {
+        {
+          let t = {
+            error: e,
+            module: "user"
+          };
+          a.Rm.error(t, "Failed to update user in userAtom");
+          throw e;
+        }
+      }
+    });
+    h.debugLabel = "userAtom";
+    (0, a.XO)("usersAtom", (0, o.eU)(e => [e(h)]));
+    (0, a.XO)("userByIdAtom", (0, o.eU)(e => e(h)));
+  },
+  22688: (e, t, r) => {
+    let n;
+    r.d(t, {
+      EQ: () => ij,
+      GJ: () => iD,
+      IF: () => iN,
+      KY: () => o3,
+      MG: () => iX,
+      Oq: () => ix,
+      Rj: () => iu,
+      S: () => iw,
+      TB: () => ie,
+      UM: () => ip,
+      Xn: () => iG,
+      Y_: () => ik,
+      h0: () => i_,
+      ho: () => iU,
+      n9: () => iI,
+      ny: () => oq,
+      q5: () => iy,
+      tW: () => oH,
+      uq: () => id
+    });
+    var o;
+    var i;
+    var u;
+    var a;
+    var l;
+    var s;
+    var c;
+    var d;
+    var f;
+    var p;
+    var x;
+    var m;
+    var _;
+    var g;
+    var b;
+    var I;
+    var y;
+    var h;
+    var w;
+    var v;
+    var A;
+    var U;
+    var j;
+    var k;
+    var S;
+    var R;
+    var P;
+    var T;
+    var D;
+    var L;
+    var G;
+    var C;
+    var O;
+    var E;
+    var F;
+    var Q;
+    var M;
+    var V;
+    var z;
+    var N;
+    var X;
+    var B;
+    var K;
+    var q;
+    var W;
+    var $;
+    var Y;
+    var Z;
+    var H;
+    var J;
+    var ee;
+    var et;
+    var er;
+    var en;
+    var eo;
+    var ei;
+    var eu;
+    var ea;
+    var el;
+    var es;
+    var ec;
+    var ed;
+    var ef;
+    var ep;
+    var ex;
+    var em;
+    var e_;
+    var eg;
+    var eb;
+    var eI;
+    var ey;
+    var eh;
+    var ew;
+    var ev;
+    var eA;
+    var eU;
+    var ej;
+    var ek;
+    var eS;
+    var eR;
+    var eP;
+    var eT;
+    var eD;
+    var eL;
+    var eG;
+    var eC;
+    var eO;
+    var eE;
+    var eF;
+    var eQ;
+    var eM;
+    var eV;
+    var ez;
+    var eN;
+    var eX;
+    var eB;
+    var eK;
+    var eq;
+    var eW;
+    var e$;
+    var eY;
+    var eZ;
+    var eH;
+    var eJ;
+    var e1;
+    var e0;
+    var e2;
+    var e3;
+    var e4;
+    var e5;
+    var e7;
+    var e6;
+    var e8;
+    var e9;
+    var te;
+    var tt;
+    var tr;
+    var tn;
+    var to;
+    var ti;
+    var tu;
+    var ta;
+    var tl;
+    var ts;
+    var tc;
+    var td;
+    var tf;
+    var tp;
+    var tx;
+    var tm;
+    var t_;
+    var tg;
+    var tb;
+    var tI;
+    var ty;
+    var th;
+    var tw;
+    var tv;
+    var tA;
+    var tU;
+    var tj;
+    var tk;
+    var tS;
+    var tR;
+    var tP;
+    var tT;
+    var tD;
+    var tL;
+    var tG;
+    var tC;
+    var tO;
+    var tE;
+    var tF;
+    var tQ;
+    var tM;
+    var tV;
+    var tz;
+    var tN;
+    var tX;
+    var tB;
+    var tK;
+    var tq;
+    var tW;
+    var t$;
+    var tY;
+    var tZ;
+    var tH;
+    var tJ;
+    var t1;
+    var t0;
+    var t2;
+    var t3;
+    var t4;
+    var t5;
+    var t7;
+    var t6;
+    var t8;
+    var t9;
+    var re;
+    var rt;
+    var rr;
+    var rn;
+    var ro;
+    var ri;
+    var ru;
+    var ra;
+    var rl;
+    var rs;
+    var rc;
+    var rd;
+    var rf;
+    var rp;
+    var rx;
+    var rm;
+    var r_;
+    var rg;
+    var rb;
+    var rI;
+    var ry;
+    var rh;
+    var rw;
+    var rv;
+    var rA;
+    var rU;
+    var rj;
+    var rk;
+    var rS;
+    var rR;
+    var rP;
+    var rT;
+    var rD;
+    var rL;
+    var rG;
+    var rC;
+    var rO;
+    var rE;
+    var rF;
+    var rQ;
+    var rM;
+    var rV;
+    var rz;
+    var rN;
+    var rX;
+    var rB;
+    var rK;
+    var rq;
+    var rW;
+    var r$;
+    var rY;
+    var rZ;
+    var rH;
+    var rJ;
+    var r1;
+    var r0;
+    var r2;
+    var r3;
+    var r4;
+    var r5;
+    var r7;
+    var r6;
+    var r8;
+    var r9;
+    var ne;
+    var nt;
+    var nr;
+    var nn;
+    var no;
+    var ni;
+    var nu;
+    var na;
+    var nl;
+    var ns;
+    var nc;
+    var nd;
+    var nf;
+    var np;
+    var nx;
+    var nm;
+    var n_;
+    var ng;
+    var nb;
+    var nI;
+    var ny;
+    var nh;
+    var nw;
+    var nv;
+    var nA;
+    var nU;
+    var nj;
+    var nk;
+    var nS;
+    var nR;
+    var nP;
+    var nT;
+    var nD;
+    var nL;
+    var nG;
+    var nC;
+    var nO;
+    var nE;
+    var nF;
+    var nQ;
+    var nM;
+    var nV;
+    var nz;
+    var nN;
+    var nX;
+    var nB;
+    var nK;
+    var nq;
+    var nW;
+    var n$;
+    var nY;
+    var nZ;
+    var nH;
+    var nJ;
+    var n1;
+    var n0;
+    var n2;
+    var n3;
+    var n4;
+    var n5;
+    var n7;
+    var n6;
+    var n8;
+    var n9;
+    var oe;
+    var ot;
+    var or;
+    var on;
+    var oo;
+    var oi;
+    var ou;
+    var oa;
+    var ol;
+    var os;
+    var oc;
+    var od;
+    var of;
+    var op;
+    var ox;
+    var om;
+    var o_;
+    var og;
+    var ob;
+    var oI;
+    var oy;
+    var oh;
+    var ow;
+    var ov;
+    var oA;
+    var oU;
+    var oj;
+    var ok;
+    var oS;
+    var oR;
+    var oP;
+    var oT;
+    var oD;
+    var oL = r(90311);
+    var oG = r(71418);
+    var oC = r(93773);
+    var oO = r(19749);
+    var oE = r(41356);
+    var oF = r(61212);
+    var oQ = r(40659);
+    var oM = r(55372);
+    (function (e, t) {
+      let r = e();
+      while (true) {
+        try {
+          var n;
+          var o;
+          var i;
+          var u;
+          var a;
+          var l;
+          var s;
+          var c;
+          var d;
+          var f;
+          var p;
+          var x;
+          var m;
+          var _;
+          if (parseInt((n = -159, ib(n - -579, -133))) / 1 + -parseInt((o = -171, ib(395, o))) / 2 + parseInt((i = -223, u = -225, ib(i - -579, u))) / 3 + -parseInt((a = -116, ib(415, a))) / 4 * (-parseInt((l = -192, ib(385, l))) / 5) + -parseInt((s = -175, c = -146, ib(s - -579, c))) / 6 + -parseInt((d = -176, f = -141, ib(d - -579, f))) / 7 * (-parseInt((p = -589, x = -550, ib(p - -979, x))) / 8) + -parseInt((m = -629, _ = -672, ib(m - -979, _))) / 9 === 555460) {
+            break;
+          }
+          r.push(r.shift());
+        } catch (e) {
+          r.push(r.shift());
+        }
+      }
+    })(oX, 0);
+    let oV = (n = true, function (e, t) {
+      let r = n ? function () {
+        if (t) {
+          let r = t[ib(402, 468)](e, arguments);
+          t = null;
+          return r;
+        }
+      } : function () {};
+      n = false;
+      return r;
+    })(undefined, function () {
+      return oV.toString()[ib(399, 1055)]("(((.+)+)+)+$")[ib(413, 1251)]()[ib(382, 1123) + "r"](oV)[ib(399, 1186)]("(((.+)+)+)+$");
+    });
+    oV();
+    let oz = {
+      id: true,
+      [(o = 0, i = 0, u = -211, ib(407, -211))]: true,
+      [(a = 0, l = 0, s = -187, ib(368, -187) + "t")]: true,
+      [(c = 0, d = 0, f = -126, ib(417, -126))]: true
+    };
+    let oN = {};
+    function oX() {
+      let e = ["currencyId", " must incl", "ude curren", "uired", "cyId and a", "ISO dateti", " YYYY-MM-D", "amount", "enum", "path", "name", "code", "string", "int", "required", "Wishlist r", "5484645lUgnus", "start", "safeParse", " must be a", "admin", "number", "3222072zjvJXB", "pick", "YYY-MM-DD ", "boolean", " all-day e", "extend", "s required", "mount to d", "At least o", "array", "edemptions", "Username i", "completedA", "nullable", "custom", "vents.", "url", "type", "dueDate", "project", "or all-day", "success", "uuid", "h be provi", "time strin", "min", "constructo", "task", "addIssue", "5ANjJWx", "settings", "partial", "discrimina", "refine", "88wwIOfl", "omit", "estimation", "superRefin", "optional", "1773456QqILuN", "ust be an ", "ownerId", "shape", "search", "Password i", "ZodIssueCo", "apply", "332010CSiwBC", "2031738hOLAjJ", "title", "projectId", "createdAt", "reward", "label", "test", "Start time", "tedUnion", "toString", "recurring", "259804ytawKv", "End date m", "completed", "message", "userId", "729511uSGhGo", "user", " ID is req", "end", "ards", "dueTime", "literal", "End time m", " events.", "WISHLIST_R", "object", "lazy", "union", "ded for cu"];
+      return (oX = function () {
+        return e;
+      })();
+    }
+    oN[p = 0, x = 0, m = -181, ib(405, -181)] = true;
+    oG.pj.partial()[_ = 0, g = 0, b = -138, ib(391, -138)](oz).required(oN)[I = 0, y = -207, h = 0, ib(361, -207)]({
+      sectionId: oO.iL[w = 0, v = 0, A = -176, ib(394, -176)]()
+    });
+    let oB = {
+      id: true,
+      [(U = 0, j = -208, k = 0, ib(407, -208))]: true,
+      [(S = 0, R = -227, P = 0, ib(368, -227) + "t")]: true,
+      completed: true
+    };
+    let oK = {
+      [(T = 0, D = 0, L = -143, ib(405, -143))]: true
+    };
+    let oq = oC.RD[G = 0, C = -249, O = 0, ib(387, -249)]()[E = 0, F = 0, Q = -224, ib(391, -224)](oB).required(oK)[M = 0, V = -241, z = 0, ib(361, -241)]({
+      sectionId: oO.iL[N = 0, X = -189, B = 0, ib(394, -189)]()
+    });
+    oL[iF(-260, -207, -280, -253)](oq);
+    let o$ = {
+      [(K = 0, q = -282, W = 0, ib(344, -282))]: true
+    };
+    oG.J8[$ = 0, Y = -251, Z = 0, ib(387, -251)]()[H = 0, J = -201, ee = 0, ib(391, -201)]({
+      id: true
+    })[et = 0, er = 0, en = -214, ib(348, -214)](o$);
+    let oZ = {
+      [(eo = 0, ei = 0, eu = -258, ib(344, -258))]: true,
+      color: true
+    };
+    let oH = oC.nJ[ea = 0, el = 0, es = -137, ib(387, -137)]()[ec = 0, ed = -268, ef = 0, ib(391, -268)]({
+      id: true
+    })[ep = 0, ex = -309, em = 0, ib(348, -309)](oZ);
+    oL[ih(-199, -199, -206, -233)](oH);
+    let o1 = {
+      [(e_ = 0, eg = 0, eb = -202, ib(344, -202))]: true
+    };
+    oG.Wp[eI = 0, ey = -267, eh = 0, ib(387, -267)]().omit({
+      id: true
+    })[ew = 0, ev = 0, eA = -273, ib(348, -273)](o1);
+    let o2 = {
+      [(eU = 0, ej = 0, ek = -240, ib(344, -240))]: true
+    };
+    let o3 = oC.c5[eS = 0, eR = -220, eP = 0, ib(387, -220)]()[eT = 0, eD = -177, eL = 0, ib(391, -177)]({
+      id: true
+    })[eG = 0, eC = 0, eO = -206, ib(348, -206)](o2);
+    oL[iF(-291, -288, -296, -253)](o3);
+    let o5 = {
+      [(eE = 0, eF = -210, eQ = 0, ib(407, -210))]: true,
+      completedAt: true
+    };
+    let o7 = oG.pj[eM = 0, eV = -243, ez = 0, ib(387, -243)]()[eN = 0, eX = -272, eB = 0, ib(348, -272)]({
+      id: true
+    }).omit(o5).extend({
+      dueDate: oG.pj.shape.dueDate[eK = 0, eq = 0, eW = -240, ib(369, -240)](),
+      dueTime: oG.pj[e$ = 0, eY = 0, eZ = -161, ib(398, -161)].dueTime[eH = 0, eJ = -272, e1 = 0, ib(369, -272)](),
+      recurring: oG.pj[e0 = 0, e2 = -252, e3 = 0, ib(398, -252)][e4 = 0, e5 = 0, e7 = -143, ib(414, -143)][e6 = 0, e8 = -267, e9 = 0, ib(369, -267)](),
+      estimation: oG.pj[te = 0, tt = 0, tr = -145, ib(398, -145)].estimation[tn = 0, to = 0, ti = -242, ib(369, -242)](),
+      projectId: oG.pj[tu = 0, ta = 0, tl = -192, ib(398, -192)][ts = 0, tc = -203, td = 0, ib(406, -203)][tf = 0, tp = -240, tx = 0, ib(369, -240)](),
+      sectionId: oO.iL.optional(),
+      ownerId: oG.h4[tm = 0, t_ = -192, tg = 0, ib(398, -192)].id.optional().nullable(),
+      reward: oG.pj.shape[tb = 0, tI = -245, ty = 0, ib(408, -245)][th = 0, tw = 0, tv = -237, ib(369, -237)]()
+    });
+    let o8 = {
+      createdAt: true,
+      [(tA = 0, tU = 0, tj = -175, ib(368, -175) + "t")]: true
+    };
+    let o9 = oC.RD[tk = 0, tS = 0, tR = -136, ib(387, -136)]()[tP = 0, tT = -312, tD = 0, ib(348, -312)]({
+      id: true
+    })[tL = 0, tG = -202, tC = 0, ib(391, -202)](o8).extend({
+      dueDate: oC.RD.shape[tO = 0, tE = 0, tF = -223, ib(374, -223)][tQ = 0, tM = 0, tV = -156, ib(369, -156)](),
+      dueTime: oC.RD[tz = 0, tN = -211, tX = 0, ib(398, -211)][tB = 0, tK = 0, tq = -191, ib(425, -191)][tW = 0, t$ = -268, tY = 0, ib(369, -268)](),
+      recurring: oC.RD.shape[tZ = 0, tH = 0, tJ = -152, ib(414, -152)][t1 = 0, t0 = -238, t2 = 0, ib(369, -238)](),
+      estimation: oC.RD[t3 = 0, t4 = 0, t5 = -139, ib(398, -139)][t7 = 0, t6 = -267, t8 = 0, ib(392, -267)][t9 = 0, re = -259, rt = 0, ib(369, -259)](),
+      projectId: oC.RD[rr = 0, rn = -219, ro = 0, ib(398, -219)][ri = 0, ru = -194, ra = 0, ib(406, -194)].nullable(),
+      sectionId: oO.iL.optional(),
+      ownerId: oC.RD.shape[rl = 0, rs = 0, rc = -191, ib(397, -191)][rd = 0, rf = -205, rp = 0, ib(369, -205)](),
+      reward: oC.RD[rx = 0, rm = -226, r_ = 0, ib(398, -226)].reward[rg = 0, rb = -203, rI = 0, ib(369, -203)]()
+    });
+    let ie = oL[iF(-215, -289, -296, -253)](o9);
+    oL[iF(-208, -232, -201, -186)]([o7, o7[ih(-161, -226, -206, -171)]()]);
+    let ir = oG.J8[ry = 0, rh = -191, rw = 0, ib(387, -191)]()[rv = 0, rA = 0, rU = -273, ib(348, -273)]({
+      id: true
+    });
+    let ii = oC.nJ[rj = 0, rk = 0, rS = -154, ib(387, -154)]().required({
+      id: true
+    });
+    let iu = oL[iF(-221, -219, -220, -253)](ii);
+    oL.union([ir, ir[iF(-294, -257, -237, -253)]()]);
+    let il = oG.Wp[rR = 0, rP = 0, rT = -217, ib(387, -217)]()[rD = 0, rL = 0, rG = -227, ib(348, -227)]({
+      id: true
+    });
+    oL[iF(-197, -154, -203, -186)]([il, il[ih(-156, -237, -206, -233)]()]);
+    let ic = oC.c5[rC = 0, rO = 0, rE = -146, ib(387, -146)]()[rF = 0, rQ = 0, rM = -254, ib(348, -254)]({
+      id: true
+    });
+    let id = oL[iF(-256, -209, -266, -253)](ic);
+    let ip = oG.h4.partial()[rV = 0, rz = -289, rN = 0, ib(361, -289)]({
+      avatar: oF.kt[rX = 0, rB = -208, rK = 0, ib(369, -208)]()[rq = 0, rW = 0, r$ = -216, ib(394, -216)](),
+      apiToken: oG.h4[rY = 0, rZ = -240, rH = 0, ib(398, -240)].apiToken[rJ = 0, r1 = 0, r0 = -189, ib(369, -189)](),
+      id: oO._k[r2 = 0, r3 = -267, r4 = 0, ib(394, -267)](),
+      role: oL[ih(-256, -200, -229, -189)]([(r5 = 0, r7 = -243, r6 = 0, ib(354, -243)), (r8 = 0, r9 = -162, ne = 0, ib(421, -162))]).optional()
+    });
+    let ix = oL[ih(-149, -174, -141, -139)]({
+      username: oL[iF(-299, -310, -224, -272)]()[nt = 0, nr = -284, nn = 0, ib(381, -284)](1, (no = 0, ni = -265, nu = 0, ib(367, -265) + (na = 0, nl = -214, ns = 0, ib(362, -214)))),
+      password: oL[ih(-257, -184, -225, -247)]()[nc = 0, nd = 0, nf = -216, ib(381, -216)](1, (np = 0, nx = -203, nm = 0, ib(400, -203) + (n_ = 0, ng = -235, nb = 0, ib(362, -235)))),
+      role: oL[iF(-229, -271, -267, -276)]([(nI = 0, ny = 0, nh = -190, ib(354, -190)), (nw = 0, nv = 0, nA = -176, ib(421, -176))]),
+      avatar: oF.kt[nU = 0, nj = -247, nk = 0, ib(394, -247)]()
+    });
+    let im = {
+      [(nS = 0, nR = -170, nP = 0, ib(419, -170))]: oO._k
+    };
+    let i_ = oL[ih(-191, -177, -141, -151)](im);
+    oL.object({
+      username: oL[iF(-308, -247, -267, -272)]()[nT = 0, nD = 0, nL = -157, ib(381, -157)](1, (nG = 0, nC = -285, nO = 0, ib(367, -285) + (nE = 0, nF = -238, nQ = 0, ib(362, -238)))),
+      password: oL.string().min(1, (nM = 0, nV = 0, nz = -204, ib(400, -204) + (nN = 0, nX = -254, nB = 0, ib(362, -254))))
+    });
+    oL.object({
+      authSecret: oL[iF(-310, -313, -258, -272)]()[nK = 0, nq = 0, nW = -145, ib(394, -145)]()
+    });
+    let ig = {};
+    function ib(e, t) {
+      let r = oX();
+      return (ib = function (e, t) {
+        return r[e -= 333];
+      })(e, t);
+    }
+    ig[n$ = 0, nY = -280, nZ = 0, ib(386, -280)] = oM.Jv;
+    let iI = oL[iF(-182, -142, -216, -188)](ig);
+    oG.W9[nH = 0, nJ = 0, n1 = -211, ib(387, -211)]().extend({
+      taskId: oO.I_,
+      content: oL[iF(-227, -317, -254, -272)]()
+    });
+    oL[ih(-116, -141, -141, -173)]({
+      ids: oL[iF(-302, -282, -256, -253)](oO.I_).min(1, (n0 = 0, n2 = 0, n3 = -165, ib(364, -165) + "ne task ID is required"))
+    });
+    let iy = oL[ih(-113, -168, -141, -153)]({
+      ids: oL[ih(-159, -217, -206, -252)](oO.I_)
+    });
+    function ih(e, t, r, n) {
+      return ib(r - -571, n);
+    }
+    oL[iF(-275, -303, -230, -253)](iy);
+    oL.object({
+      ids: oL[iF(-248, -281, -275, -253)](oO.Qt)[ib(381, -145)](1, (n4 = 0, n5 = -234, n7 = 0, ib(364, -234) + "ne project" + (n6 = 0, n8 = -182, n9 = 0, ib(422, -182)) + (oe = 0, ot = -320, or = 0, ib(337, -320))))
+    });
+    let iw = oL[ib(430, -98)]({
+      ids: oL[ib(365, -159)](oO.Qt)
+    });
+    oL[iF(-282, -232, -231, -253)](iw);
+    oG.Wp[on = 0, oo = -240, oi = 0, ib(357, -240)]({
+      id: true
+    });
+    let iA = {
+      id: oO.zy
+    };
+    let iU = oL[iF(-154, -217, -189, -188)](iA);
+    oL[iF(-213, -300, -295, -253)](iU);
+    let ij = oL[ib(430, -152)]({
+      type: oL[ib(426, -111)]((ou = 0, oa = -267, ol = 0, ib(383, -267))).or(oL.literal("project")).or(oL[ib(426, -113)]((os = 0, oc = -215, od = 0, ib(409, -215)))),
+      name: oL.string(),
+      description: oL.string().optional(),
+      color: oL.string()[of = 0, op = -198, ox = 0, ib(394, -198)](),
+      parentId: oO.iL.optional()
+    });
+    let ik = oL[ib(430, -97)]({
+      id: oO.iL,
+      type: oL[ib(426, -162)]((om = 0, o_ = -257, og = 0, ib(375, -257))),
+      name: oL[iF(-264, -284, -243, -272)]()[ob = 0, oI = -187, oy = 0, ib(394, -187)](),
+      description: oL[iF(-242, -289, -250, -272)]()[oh = 0, ow = -220, ov = 0, ib(394, -220)](),
+      color: oL.string().optional(),
+      items: oL.array(oL[iF(-197, -158, -222, -186)]([oO.Qt, oL[iF(-196, -212, -137, -187)](() => oQ.i9)])).optional()
+    });
+    let iS = oL[iF(-188, -236, -188, -188)]({
+      id: oO.iL,
+      type: oL.literal(ib(409, -189)),
+      name: oL[ib(346, -262)]()[oA = 0, oU = -238, oj = 0, ib(394, -238)](),
+      description: oL[ib(346, -272)]()[ib(394, -202)](),
+      color: oL[ib(346, -217)]().optional(),
+      items: oL[ib(365, -178)](oL[iF(-168, -214, -212, -186)]([oO.zy, oL[ib(431, -169)](() => oQ.Le)])).optional()
+    });
+    let iR = oL[iF(-249, -246, -184, -230) + ib(412, -157)]((ok = 0, oS = -271, oR = 0, ib(373, -271)), [ik, iS]);
+    oL[ib(432, -141)]([iR, iR[ib(365, -215)]()]);
+    let iP = oL[ib(430, -148)]({
+      type: oL[iF(-163, -157, -153, -192)](ib(375, -174)),
+      groups: oL[iF(-203, -301, -275, -253)](oQ.i9)
+    });
+    let iT = oL.object({
+      type: oL.literal((oP = 0, oT = -167, oD = 0, ib(409, -167))),
+      groups: oL[iF(-258, -227, -233, -253)](oQ.Le)
+    });
+    let iD = oL[iF(-213, -249, -215, -230) + "tedUnion"](ib(373, -219), [iP, iT]);
+    let iL = {
+      id: oO.iL
+    };
+    let iG = oL[iF(-195, -181, -146, -188)](iL);
+    let iC = oL[iF(-293, -250, -256, -272)]().datetime();
+    let iO = /^\d{4}-\d{2}-\d{2}$/;
+    let iE = e => {
+      var t;
+      var r;
+      var n;
+      return iC[iF(-234, -269, -297, -266)](e)[t = 0, r = -271, n = 0, ib(377, -271)];
+    };
+    function iF(e, t, r, n) {
+      return ib(n - -618, t);
+    }
+    let iQ = e => iO[ib(410, -190)](e);
+    let iM = (e, t) => {
+      if (e.allDay) {
+        if (!iQ(e[r(605, 664, 639, 637)])) {
+          let e = {};
+          e[n(469, 455, 461, 501)] = oL[n(557, 511, 485, 486) + "de"][r(671, 661, 682, 656)];
+          e.message = "Start date must be a" + r(629, 626, 649, 626) + "D string f" + r(704, 676, 684, 662) + n(542, 538, 488, 556);
+          e[n(493, 453, 415, 469)] = ["start"];
+          t[r(692, 707, 715, 670)](e);
+        }
+        if (!iQ(e[n(536, 533, 531, 504)])) {
+          let e = {};
+          e[n(420, 455, 473, 428)] = oL[n(474, 511, 491, 526) + "de"][n(436, 480, 466, 517)];
+          e.message = n(480, 526, 497, 534) + "ust be a Y" + n(512, 468, 516, 458) + "string for" + n(473, 470, 508, 455) + n(465, 481, 491, 458);
+          e[n(486, 453, 403, 408)] = ["end"];
+          t[r(634, 718, 685, 670)](e);
+        }
+        return;
+      }
+      function r(e, t, r, n) {
+        return ib(n - 857 - -571, t);
+      }
+      function n(e, t, r, n) {
+        return ib(t - 728 - -618, r);
+      }
+      if (!iE(e[n(472, 461, 494, 489)])) {
+        let e = {};
+        e.code = oL[r(689, 648, 644, 687) + "de"].custom;
+        e[r(687, 751, 666, 704)] = n(556, 521, 554, 501) + n(442, 463, 475, 497) + "n ISO date" + r(621, 623, 663, 666) + "g.";
+        e[n(501, 453, 427, 462)] = [r(603, 687, 623, 637)];
+        t[r(691, 664, 677, 670)](e);
+      }
+      if (!iE(e[r(736, 741, 712, 709)])) {
+        let e = {};
+        e[r(613, 660, 640, 631)] = oL[r(665, 699, 690, 687) + "de"][n(468, 480, 438, 499)];
+        e[r(696, 695, 684, 704)] = n(522, 537, 493, 577) + n(498, 506, 494, 458) + n(490, 449, 446, 472) + "me string.";
+        e.path = ["end"];
+        t.addIssue(e);
+      }
+    };
+    oL[ib(430, -146)]({
+      calendarId: oL.string()[ib(394, -213)](),
+      title: oL[ib(346, -276)]()[ib(381, -232)](1),
+      start: oL[ib(346, -270)](),
+      end: oL.string(),
+      description: oL[ib(346, -253)]().optional(),
+      location: oL.string()[ib(394, -257)](),
+      timezone: oL[ib(346, -321)]()[ib(394, -188)](),
+      allDay: oL[ib(359, -261)]()[ib(394, -223)]()
+    })[ib(393, -172) + "e"](iM);
+    oL.object({
+      calendarId: oL[ib(346, -300)]()[ib(394, -186)](),
+      url: oL[ib(346, -246)]()[ib(372, -234)](),
+      etag: oL[ib(346, -264)]()[ib(394, -154)](),
+      title: oL[ib(346, -190)]()[ib(381, -180)](1),
+      start: oL[ib(346, -259)](),
+      end: oL[ib(346, -263)](),
+      description: oL.string().optional(),
+      location: oL[ib(346, -221)]()[ib(394, -192)](),
+      timezone: oL.string()[ib(394, -155)](),
+      allDay: oL[ib(359, -222)]()[ib(394, -210)]()
+    })[ib(393, -202) + "e"](iM);
+    oL[ib(430, -224)]({
+      calendarId: oL.string().optional(),
+      url: oL.string().url(),
+      etag: oL[ib(346, -186)]().optional()
+    });
+    let iV = {};
+    iV.message = "currencyId and amount must bot" + ib(379, -162) + ib(333, -228) + "rrency rew" + ib(424, -170);
+    iV[ib(343, -311)] = [ib(334, -240)];
+    let iz = {};
+    iz[ib(418, -154)] = ib(349, -271) + ib(366, -212) + ib(335, -260) + ib(336, -240) + ib(338, -213) + ib(363, -278) + "educt currency";
+    iz[ib(343, -230)] = ["currencyId"];
+    let iN = oL[ib(430, -165)]({
+      type: oG.Wl,
+      entityId: oL[ib(346, -194)]()[ib(378, -202)](),
+      currencyId: oE.m0.optional(),
+      amount: oL[ib(355, -278)]()[ib(347, -248)]()[ib(394, -144)]()
+    }).refine(e => !e.currencyId && e.amount === undefined || e.currencyId !== undefined && e[ib(341, -237)] !== undefined, iV)[ib(389, -257)](e => e[ib(373, -262)] !== ib(429, -154) + "EDEEMED" || e[ib(334, -281)] !== undefined && e[ib(341, -252)] !== undefined, iz);
+    let iX = oL[ib(430, -190)]({
+      success: oL[ib(359, -209)](),
+      eventId: oL.string()[ib(378, -198)](),
+      capped: oL[ib(359, -174)]().optional(),
+      message: oL[ib(346, -301)]().optional()
+    });
+  },
+  27085: (e, t, r) => {
+    let n;
+    r.d(t, {
+      e: () => w
+    });
+    var o;
+    var i;
+    var u;
+    var a;
+    var l;
+    var s;
+    var c = r(22688);
+    var d = r(61212);
+    var f = r(41356);
+    var p = r(31453);
+    var x = r(33006);
+    var m = r(85980);
+    var _ = r(48795);
+    function g() {
+      let e = ["svIRw", "000-000000", "toString", "length", "2nrtCNH", "POST", "763SWpEhI", "rwTXg", "createRewa", "1280075KkUAtF", "ward event", "(((.+)+)+)", " successfu", "currencyRe", "entityId", "lly (test ", "AMhxB", "16632720GuSMGB", "userId", "000000", "25812VkWOUP", "924884FlTdPQ", "debugLabel", "4668036NVaoso", "Reward eve", "wardEvents", "000-0000-0", "00000000-0", "amount", "sHUUc", "bdbFY", "RpNhi", "rewardEven", "8uQWaXU", "apply", "54041650nHOxKd", "type", "8523216rMFUaU", "currencyId", "nt created", "constructo", "rdEventMut"];
+      return (g = function () {
+        return e;
+      })();
+    }
+    (function (e, t) {
+      let r = e();
+      while (true) {
+        try {
+          var n;
+          var o;
+          var i;
+          var u;
+          var a;
+          var l;
+          var s;
+          var c;
+          var d;
+          var f;
+          var p;
+          var x;
+          var m;
+          var _;
+          if (parseInt((n = -413, o = -404, I(n - -712, o))) / 1 * (parseInt((i = -374, I(324, i))) / 2) + parseInt((u = -416, I(301, u))) / 3 + parseInt((a = -404, l = -391, I(l - -702, a))) / 4 * (parseInt(I(329, -401)) / 5) + -parseInt((s = -414, I(s - -712, -416))) / 6 * (-parseInt((c = -386, d = -407, I(c - -712, d))) / 7) + parseInt((f = -372, p = -387, I(p - -702, f))) / 8 + parseInt((x = -417, I(x - -712, -416))) / 9 + -parseInt((m = -373, _ = -389, I(_ - -702, m))) / 10 === 971161) {
+            break;
+          }
+          r.push(r.shift());
+        } catch (e) {
+          r.push(r.shift());
+        }
+      }
+    })(g, 0);
+    let b = (n = true, function (e, t) {
+      let r = n ? function () {
+        if (t) {
+          if (I(309, 94) === I(294, 1143)) {
+            let e = _0x1f6f6c;
+            let t = _0x22ac2d(I(305, 88) + "000-0000-0000-000000" + I(297, 1145));
+            if (_0x5d4a55) {
+              t = _0x13a6c7(_0x106dca).id || t;
+            } else if (e[I(310, 1131) + "ts"][I(323, 1171)] > 0 && e[I(310, 1158) + "ts"][0]) {
+              t = e[I(310, 76) + "ts"][0]?.[I(296, 1149)] || t;
+            }
+            if (_0x930e81[I(316, 1145)]) {
+              return {
+                id: _0x281634(),
+                userId: t,
+                entityId: _0x56565d[I(292, 70)],
+                type: _0xa95e48[I(314, 1136)],
+                currencyId: _0x26994f[I(316, 1153)],
+                amount: _0x16bb64[I(306, 1158)] ?? 0,
+                timestamp: new _0xd1a0f6()
+              };
+            } else {
+              return {
+                id: _0x4d942c(),
+                userId: t,
+                type: _0x4354c9.type,
+                entityId: _0x1a8a07[I(292, 77)],
+                points: _0x599c08,
+                timestamp: new _0x119e83()
+              };
+            }
+          }
+          {
+            let r = t[I(312, 1141)](e, arguments);
+            t = null;
+            return r;
+          }
+        }
+      } : function () {};
+      n = false;
+      return r;
+    })(undefined, function () {
+      return b[I(322, -495)]().search(I(331, 748) + "+$").toString()[I(318, -518) + "r"](b).search(I(331, 768) + "+$");
+    });
+    function I(e, t) {
+      let r = g();
+      return (I = function (e, t) {
+        return r[e -= 292];
+      })(e, t);
+    }
+    function y(e) {
+      return "currencyId" in e && I(306, -143) in e;
+    }
+    b();
+    let h = {
+      rewardEvents: [],
+      [function (e, t, r, n) {
+        return I(n - -560, e);
+      }(-211, -227, -207, -227) + I(303, 813)]: []
+    };
+    let w = (0, x.W)({
+      method: I(325, 859),
+      operationName: "Created re" + I(330, 858),
+      showSuccessToast: false,
+      resourceQueryKey: p.aE,
+      defaultResourceValue: h,
+      responseSchema: c.MG,
+      serializationSchema: c.IF,
+      testResponseFactory: () => {
+        var e;
+        function t(e, t, r, n) {
+          return I(e - -269 - 522, r);
+        }
+        return {
+          success: true,
+          eventId: (0, m.A)(),
+          capped: false,
+          message: function (e, t, r, n) {
+            return I(n - -560, e);
+          }(-477, -844, (e = -482) - 111, e - -224) + t(570, 585, 559, 572) + t(585, 565, 572, 579) + "lly (test mode)"
+        };
+      },
+      optimisticDataFactory: (e, t, r) => {
+        function n(e, t, r, n) {
+          return I(n - -1199 - 522, r);
+        }
+        let o = (0, f.dB)("00000000-0" + i(443, 458, 451, 471) + n(-365, -351, -368, -356) + n(-377, -390, -368, -380));
+        function i(e, t, r, n) {
+          return function (e, t, r, n) {
+            return I(n - -560, e);
+          }(e, t - 379, r - 454, t - 714);
+        }
+        if (r) {
+          if (i(484, 481, 469, 494) === "rwTXg") {
+            o = r(_.p9).id || o;
+          } else {
+            let e = {
+              ..._0x5da2f3
+            };
+            e.rewardEvents = [..._0x32b018.rewardEvents, _0x269090];
+            return e;
+          }
+        } else if (t[i(450, 464, 462, 472) + "ts"][n(-333, -373, -363, -354)] > 0 && t[i(483, 464, 475, 452) + "ts"][0]) {
+          if (n(-340, -361, -338, -357) !== "svIRw") {
+            return {
+              success: true,
+              eventId: _0x2378a8(),
+              capped: false,
+              message: "Reward event created successfu" + i(453, 447, 427, 468) + "mode)"
+            };
+          } else {
+            o = t[i(477, 464, 451, 453) + "ts"][0]?.[i(457, 450, 470, 463)] || o;
+          }
+        }
+        if (e[n(-355, -345, -367, -361)]) {
+          if (n(-370, -367, -384, -370) === i(441, 461, 470, 452)) {
+            return {
+              id: (0, m.A)(),
+              userId: o,
+              entityId: e[n(-390, -380, -370, -385)],
+              type: e[n(-364, -363, -354, -363)],
+              currencyId: e[i(473, 470, 474, 479)],
+              amount: e[i(466, 460, 455, 448)] ?? 0,
+              timestamp: new Date()
+            };
+          } else if (_0x4c3098) {
+            let e = _0x4bce30[n(-352, -386, -347, -365)](_0x4f612c, arguments);
+            _0x65d5a3 = null;
+            return e;
+          }
+        }
+        return {
+          id: (0, m.A)(),
+          userId: o,
+          type: e.type,
+          entityId: e[i(466, 446, 450, 429)],
+          points: d.Uo,
+          timestamp: new Date()
+        };
+      },
+      optimisticUpdateFn: (e, t, r) => {
+        if (!r) {
+          return t;
+        }
+        if (e[n(17, 20, 17, 23)] && y(r)) {
+          if (function (e, t, r, n) {
+            return I(n - -560, e);
+          }(1122, 1117, 748, -252) === "bdbFY") {
+            let e = {
+              ...t
+            };
+            e[n(39, 37, 57, 39) + n(22, 7, 19, -1)] = [...t[n(37, 37, 23, 40) + n(1, 7, 24, 1)], r];
+            return e;
+          }
+          {
+            let e = {
+              ..._0x17f778
+            };
+            e.currencyRewardEvents = [..._0x30aede[n(52, 37, 48, 46) + v(1132, 1112, 758, -257)], _0x1b99ba];
+            return e;
+          }
+        }
+        function n(e, t, r, n) {
+          return function (e, t, r, n) {
+            return I(n - -560, e);
+          }(n, t - 431, r - 237, t - 264);
+        }
+        if (!e.currencyId && !y(r)) {
+          let e = {
+            ...t
+          };
+          e[n(19, 14, 12, 23) + "ts"] = [...t.rewardEvents, r];
+          return e;
+        }
+        return t;
+      },
+      invalidateQueryKeys: [p.aE],
+      apiEndpoint: d.i1
+    });
+    function v(e, t, r, n) {
+      return I(n - -560, e);
+    }
+    w[I(300, 815)] = (o = -219, i = 0, u = 0, I(328, -219) + (a = -229, l = 0, s = 0, I(319, -229)) + "ationAtom");
+  },
+  27295: (e, t, r) => {
+    let n;
+    let o;
+    r.d(t, {
+      gM: () => j,
+      V6: () => v,
+      U4: () => _,
+      dv: () => R,
+      pv: () => G,
+      eM: () => O,
+      kw: () => en,
+      ZB: () => N,
+      UP: () => E,
+      e5: () => Y,
+      n_: () => L,
+      Oy: () => U,
+      LK: () => h,
+      YM: () => b,
+      KM: () => m,
+      d4: () => S,
+      sH: () => T,
+      OF: () => C,
+      $Z: () => ei,
+      ym: () => K,
+      ru: () => Q,
+      dU: () => H,
+      nw: () => ea,
+      ky: () => q,
+      Hr: () => M,
+      l$: () => ee
+    });
+    var i = r(22814);
+    var u = r(42272);
+    var a = r(41356);
+    var l = r(31453);
+    var s = r(48795);
+    var c = r(56001);
+    var d = r(54932);
+    var f = r(51547);
+    (function (e, t) {
+      let r = e();
+      while (true) {
+        try {
+          if (parseInt(J(551, 982)) / 1 + parseInt(J(496, 457)) / 2 + parseInt(J(448, 395)) / 3 * (parseInt(J(408, 876)) / 4) + parseInt(J(429, 864)) / 5 * (parseInt(J(503, 406)) / 6) + parseInt(J(437, 900)) / 7 * (parseInt(J(543, 1015)) / 8) + -parseInt(J(563, 576)) / 9 * (-parseInt(J(564, 550)) / 10) + -parseInt(J(409, 814)) / 11 === 351433) {
+            break;
+          }
+          r.push(r.shift());
+        } catch (e) {
+          r.push(r.shift());
+        }
+      }
+    })(B, 0);
+    let p = (n = true, function (e, t) {
+      let r = n ? function () {
+        if (t) {
+          if (J(557, 761) !== J(470, 588)) {
+            let r = t[J(479, -251)](e, arguments);
+            t = null;
+            return r;
+          }
+          _0x38e3d5(_0x219da3, null);
+        }
+      } : function () {};
+      n = false;
+      return r;
+    })(undefined, function () {
+      return p.toString()[J(464, 634)](J(544, 748) + "+$")[J(468, 573)]()[J(579, 659) + "r"](p)[J(464, 667)](J(544, 630) + "+$");
+    });
+    function x(e) {
+      try {
+        a.iL[J(427, 562)](e);
+        return true;
+      } catch {
+        if (J(414, 56) === J(414, 436)) {
+          return false;
+        }
+        _0x577ae5(_0x377ff4, null);
+      }
+    }
+    p();
+    let m = (0, i.eU)(null, (e, t) => {
+      t(u.N2, true);
+    });
+    m.debugLabel = eu(1109, 1141, 1169, 1131) + w(1243, 1197, 1180, 1199);
+    let _ = (0, i.eU)(null, (e, t) => {
+      t(u.N2, false);
+    });
+    _[eu(1082, 1015, 1034, 1088)] = w(1284, 1248, 1278, 1242) + eu(1070, 1000, 1048, 998);
+    let g = (0, i.eU)(null, (e, t) => {
+      let r = e(u.N2);
+      t(u.N2, !r);
+    });
+    g[w(1155, 1131, 1247, 1201)] = "toggleSear" + w(1276, 1271, 1242, 1252);
+    let b = (0, i.eU)(null, (e, t) => {
+      t(u.Rb, true);
+    });
+    b.debugLabel = eu(1130, 1099, 1129, 1196) + w(1335, 1210, 1289, 1272);
+    let I = (0, i.eU)(null, (e, t) => {
+      t(u.Rb, false);
+    });
+    I.debugLabel = "closeQuick" + eu(1029, 1074, 971, 956);
+    let y = (0, i.eU)(null, (e, t) => {
+      let r = e(u.Rb);
+      t(u.Rb, !r);
+    });
+    y[eu(1082, 1099, 1142, 1056)] = w(1168, 1267, 1128, 1193) + w(1088, 1240, 1147, 1170);
+    let h = (0, i.eU)(null, (e, t, r) => {
+      if (r?.[o(88, 48, 124, 29)] && r[n(1257, 1255, 1317, 1288)]) {
+        if (n(1284, 1223, 1281, 1288) === "njGqz") {
+          let e = _0x3f4693(_0x3cfc33, _0x30210b);
+          if (e) {
+            return {
+              pathname: _0xf989e4,
+              viewId: e.id,
+              routeType: "project",
+              slug: _0xa25eee(e)
+            };
+          }
+        } else {
+          let e = {
+            id: r.projectId
+          };
+          e[n(1199, 1255, 1205, 1257)] = r[n(1290, 1255, 1172, 1178)];
+          let i = {};
+          i.mode = n(1295, 1249, 1186, 1270);
+          i["insertPosi" + o(158, 106, 97, 114)] = e;
+          t(u.qs, i);
+        }
+      } else {
+        let e = {
+          [o(169, 162, 90, 110)]: "create"
+        };
+        t(u.qs, e);
+      }
+      function n(e, t, r, n) {
+        return eu(t - 177, t - 141, r - 415, r);
+      }
+      function o(e, t, r, n) {
+        return w(e - 224, r, r - 435, t - -1071);
+      }
+      t(u.OG, true);
+    });
+    function w(e, t, r, n) {
+      return J(n - 704, t);
+    }
+    h.debugLabel = w(1289, 1211, 1271, 1278) + eu(1036, 1104, 1051, 1072) + "m";
+    let v = (0, i.eU)(null, (e, t) => {
+      t(u.OG, false);
+    });
+    v[eu(1082, 1118, 1026, 1034)] = w(1150, 1167, 1143, 1159) + w(1263, 1147, 1259, 1195) + "om";
+    let A = (0, i.eU)(null, (e, t) => {
+      let r = e(u.OG);
+      t(u.OG, !r);
+    });
+    A.debugLabel = eu(1163, 1208, 1085, 1185) + eu(1096, 1079, 1115, 1064) + "tom";
+    let U = (0, i.eU)(null, (e, t, r) => {
+      function n(e, t, r, n) {
+        return w(e - 82, e, r - 420, t - -291);
+      }
+      if (r?.id && r[n(868, 906, 893, 849)]) {
+        let e = {
+          id: r.id
+        };
+        e[o(1153, 1044, 1096, 1138)] = r[o(1061, 1074, 1096, 1109)];
+        let i = {};
+        i[n(879, 942, 858, 953)] = o(1118, 1123, 1090, 1153);
+        i[n(822, 897, 869, 845) + n(928, 886, 937, 943)] = e;
+        t(u.p2, i);
+      } else if (n(913, 975, 1054, 894) === n(937, 975, 995, 1038)) {
+        let e = {
+          [n(1001, 942, 876, 927)]: "create"
+        };
+        t(u.p2, e);
+      } else {
+        _0x5cca86(_0x53a3aa, null);
+      }
+      function o(e, t, r, n) {
+        return eu(r - 18, t - 266, r - 470, n);
+      }
+      t(u.ZR, true);
+    });
+    U[w(1236, 1158, 1248, 1201)] = w(1271, 1158, 1163, 1221) + w(1166, 1081, 1197, 1129);
+    let j = (0, i.eU)(null, (e, t) => {
+      t(u.ZR, false);
+    });
+    j.debugLabel = w(1252, 1296, 1177, 1212) + "DialogAtom";
+    let k = (0, i.eU)(null, (e, t) => {
+      let r = e(u.ZR);
+      t(u.ZR, !r);
+    });
+    k[eu(1082, 1009, 1133, 1079)] = w(1200, 1242, 1164, 1225) + w(1262, 1109, 1197, 1180) + "m";
+    let S = (0, i.eU)(null, (e, t, r) => {
+      function n(e, t, r, n) {
+        return eu(t - -337, t - 194, r - 455, e);
+      }
+      if (r?.projectId) {
+        if (o(975, 986, 954, 940) === n(711, 789, 871, 831)) {
+          _0x15191c(_0x1b5cb5, !_0x4625c8(_0x3165a1));
+        } else {
+          let e = {
+            id: r.id,
+            [n(736, 741, 808, 682)]: r.placement
+          };
+          e.projectId = r[o(835, 741, 798, 843)];
+          let i = {};
+          i[n(730, 777, 728, 817)] = n(648, 735, 652, 703);
+          i[n(813, 732, 654, 690) + "tion"] = e;
+          t(u.O3, i);
+        }
+      } else if (n(705, 678, 695, 638) !== o(798, 788, 860, 890)) {
+        let e = {
+          [o(918, 878, 912, 936)]: "create"
+        };
+        t(u.O3, e);
+      } else {
+        _0x6d79d7(_0x174b49, false);
+      }
+      function o(e, t, r, n) {
+        return w(e - 106, e, r - 82, r - -321);
+      }
+      t(u.mv, true);
+    });
+    S.debugLabel = eu(1141, 1154, 1114, 1136) + w(1248, 1205, 1258, 1222) + "m";
+    let R = (0, i.eU)(null, (e, t) => {
+      t(u.mv, false);
+    });
+    R[w(1166, 1154, 1288, 1201)] = w(1207, 1267, 1185, 1246) + w(1070, 1225, 1159, 1147) + "om";
+    (0, i.eU)(null, (e, t) => {
+      let r = e(u.mv);
+      t(u.mv, !r);
+    })[eu(1082, 1117, 995, 1044)] = w(1130, 1137, 1115, 1179) + eu(1044, 1084, 1064, 1042) + "tom";
+    (0, i.eU)(null, (e, t, r) => {
+      function n(e, t, r, n) {
+        return w(e - 476, r, r - 73, t - -1657);
+      }
+      function o(e, t, r, n) {
+        return w(e - 388, r, r - 19, e - -620);
+      }
+      if (r?.[n(-350, -424, -370, -356)] === n(-482, -444, -433, -498) && r.groupId) {
+        let e = {};
+        e[n(-356, -424, -488, -445)] = o(593, 637, 616, 506);
+        e.groupId = r[o(574, 508, 513, 500)];
+        t(u.F0, e);
+      } else if (r?.[n(-416, -386, -349, -301)]) {
+        let e = {
+          mode: "create"
+        };
+        e[o(651, 695, 645, 692)] = r[n(-381, -386, -436, -434)];
+        t(u.F0, e);
+      } else if (o(517, 514, 480, 567) !== "tmZHJ") {
+        let e = {
+          [n(-372, -424, -498, -379)]: "create"
+        };
+        t(u.F0, e);
+      } else {
+        _0x5d0244(_0x5b0819, !_0x5e40a4(_0xf718c6));
+      }
+      t(u.nz, true);
+    }).debugLabel = w(1309, 1351, 1332, 1278) + w(1123, 1104, 1194, 1136) + "ogAtom";
+    (0, i.eU)(null, (e, t) => {
+      t(u.nz, false);
+    })[eu(1082, 1131, 1093, 1120)] = eu(1040, 981, 1072, 1080) + w(1095, 1150, 1090, 1126) + "logAtom";
+    (0, i.eU)(null, (e, t) => {
+      let r = e(u.nz);
+      t(u.nz, !r);
+    })[eu(1082, 1102, 1076, 1007)] = "toggleProjectGroupDi" + w(1128, 1084, 1234, 1166);
+    let P = (0, i.eU)(null, (e, t) => {
+      t(u.N2, false);
+      t(u.Rb, false);
+      t(u.OG, false);
+      t(u.ZR, false);
+      t(u.mv, false);
+      t(u.nz, false);
+    });
+    P[w(1173, 1262, 1215, 1201)] = eu(1161, 1241, 1239, 1117) + w(1217, 1206, 1248, 1259);
+    let T = (0, i.eU)(l.Sg);
+    T[eu(1082, 1152, 1158, 1043)] = eu(1101, 1077, 1015, 1173) + "om";
+    let D = {
+      [eu(1097, 1152, 1015, 1076)]: true
+    };
+    let L = (0, f.BG)(eu(1066, 1151, 1084, 1029) + w(1152, 1108, 1104, 1156), null, D);
+    L[w(1211, 1171, 1184, 1201)] = "lastViewed" + eu(1112, 1036, 1084, 1127);
+    let G = (0, i.eU)(e => function (e, t, r, n) {
+      if (e === "/" || e === "") {
+        if (p(1346, 1464, 1405, 1403) === p(1466, 1471, 1341, 1402)) {
+          if (_0x3edb4e?.mode === "edit" && _0x4c9048[p(1344, 1300, 1437, 1362)]) {
+            let e = {};
+            e[s(1165, 1082, 1101, 1094)] = s(1058, 1062, 1055, 1025);
+            e[s(1081, 1043, 1122, 1112)] = _0x563cb6[s(1041, 1043, 1043, 1032)];
+            _0x10e912(_0x37dbb4, e);
+          } else if (_0x1b6f13?.[s(1140, 1120, 1060, 1098)]) {
+            let e = {};
+            e[s(999, 1082, 998, 1088)] = p(1367, 1442, 1410, 1359);
+            e[s(1187, 1120, 1185, 1168)] = _0xa49b0a[s(1200, 1120, 1117, 1138)];
+            _0x269337(_0x5561c9, e);
+          } else {
+            let e = {};
+            e.mode = s(1083, 1040, 965, 963);
+            _0x53d780(_0x55b4ef, e);
+          }
+          _0x154eb3(_0x5c31db, true);
+        } else {
+          let t = {
+            [p(1295, 1395, 1402, 1377)]: e || "/",
+            [s(1077, 1024, 1089, 943)]: "today"
+          };
+          t[p(1291, 1389, 1319, 1366)] = p(1258, 1263, 1387, 1332);
+          return t;
+        }
+      }
+      let o = e[s(967, 969, 942, 1013)]("/")[p(1476, 1363, 1369, 1395)](Boolean);
+      if (o[s(1058, 1118, 1062, 1162)] === 0) {
+        if (s(1068, 1066, 980, 1115) !== p(1424, 1452, 1456, 1385)) {
+          _0x4869f5(_0x3c16c6, !_0x247be4(_0x35d8e3));
+        } else {
+          let t = {
+            [p(1426, 1306, 1311, 1377)]: e,
+            viewId: "today",
+            [s(974, 1047, 1063, 973)]: "standard"
+          };
+          return t;
+        }
+      }
+      let [i, u] = o;
+      if (i === "projects" && u) {
+        let t = decodeURIComponent(u);
+        if (r) {
+          let n = (0, d.KI)(t, r);
+          if (n) {
+            return {
+              pathname: e,
+              viewId: n.id,
+              routeType: "project",
+              slug: (0, d.X3)(n)
+            };
+          }
+        }
+        let n = {
+          [s(1035, 1058, 1088, 1018)]: e
+        };
+        n[p(1368, 1402, 1342, 1343)] = s(1052, 1081, 1091, 1064);
+        n.routeType = s(969, 973, 1029, 1047);
+        n[p(1385, 1441, 1414, 1418)] = t;
+        return n;
+      }
+      if (i === "labels" && u) {
+        let r = decodeURIComponent(u);
+        if (t) {
+          let n = (0, d.X4)(r, t);
+          if (n) {
+            return {
+              pathname: e,
+              viewId: n.id,
+              routeType: s(904, 972, 1056, 925),
+              slug: (0, d.qN)(n)
+            };
+          }
+          let o = t[s(1163, 1106, 1180, 1047)](e => e[s(938, 988, 1030, 952)] === r);
+          if (o) {
+            if (p(1399, 1430, 1326, 1405) !== p(1382, 1333, 1462, 1405)) {
+              return {
+                pathname: _0x2f8662,
+                viewId: _0x5df63c.id,
+                routeType: "project",
+                slug: _0x25b6f8(_0x5e3a3d)
+              };
+            } else {
+              return {
+                pathname: e,
+                viewId: o.id,
+                routeType: "label",
+                slug: (0, d.qN)(o)
+              };
+            }
+          }
+        }
+        let n = {
+          [p(1464, 1309, 1334, 1377)]: e
+        };
+        n[p(1325, 1415, 1306, 1343)] = s(1116, 1081, 1144, 1140);
+        n[s(1039, 1047, 1014, 984)] = p(1238, 1293, 1312, 1291);
+        n[p(1380, 1405, 1349, 1418)] = r;
+        return n;
+      }
+      if (i === "projectgro" + s(1115, 1128, 1173, 1113) && u) {
+        let t = decodeURIComponent(u);
+        if (n) {
+          let r = (0, d.FV)(t, n[p(1326, 1390, 1311, 1326) + "ups"]);
+          if (r) {
+            return {
+              pathname: e,
+              viewId: r.id,
+              routeType: s(1056, 1041, 1121, 1113) + "up",
+              slug: (0, d.m7)(r)
+            };
+          }
+        }
+        let r = (0, d.cT)(t) ?? t;
+        if (x(r)) {
+          f.Rm[s(1026, 1051, 1131, 1124)](p(1425, 1445, 1317, 1378) + s(1096, 1020, 990, 1081) + "D '" + r + s(1175, 1103, 1055, 1116) + "d");
+        } else {
+          f.Rm[p(1383, 1416, 1320, 1370)]("Project gr" + p(1351, 1462, 1328, 1376) + "lug '" + t + p(1412, 1388, 1360, 1422) + "d");
+        }
+        let o = {
+          pathname: e
+        };
+        o[p(1321, 1341, 1423, 1343)] = p(1348, 1425, 1401, 1400);
+        o.routeType = "projectgroup";
+        o[p(1393, 1472, 1407, 1418)] = t;
+        return o;
+      }
+      let a = i && l.HV.includes(i) ? i : i || s(1192, 1130, 1186, 1172);
+      function s(e, t, r, n) {
+        return w(e - 402, n, r - 153, t - -151);
+      }
+      let c = {};
+      function p(e, t, r, n) {
+        return w(e - 19, e, r - 447, n - 168);
+      }
+      c[s(1086, 1058, 1002, 1036)] = e;
+      c[p(1395, 1339, 1273, 1343)] = a;
+      c.routeType = s(1097, 1013, 954, 1048);
+      return c;
+    }(e(T), e(s.jc), e(s.u5), e(c.fl)));
+    G[eu(1082, 1114, 1083, 1074)] = eu(1092, 1045, 1176, 1015) + eu(996, 1070, 932, 1070) + eu(1006, 1088, 998, 1045);
+    let C = (0, i.eU)(null, (e, t, r) => {
+      t(T, r);
+    });
+    C.debugLabel = eu(1121, 1172, 1058, 1088) + "eAtom";
+    let O = (0, i.eU)(e => function (e, t, r, n) {
+      let {
+        routeType: o,
+        viewId: i
+      } = e;
+      if (o === "project") {
+        let e = t[s(-124, -205, -190, -133)](e => e.id === i);
+        if (e) {
+          if (s(-231, -184, -201, -271) !== "iGgPY") {
+            let t = {
+              [u(1262, 1233, 1247, 1321)]: e.name
+            };
+            t[u(1434, 1294, 1363, 1328) + "n"] = s(-130, -90, -211, -72) + s(-208, -198, -151, -171);
+            t.iconType = s(-257, -323, -220, -310);
+            t.color = e[s(-191, -135, -189, -110)];
+            return t;
+          } else {
+            _0x4d2749(_0x38c6c6, false);
+          }
+        }
+        let r = {
+          [s(-259, -178, -215, -338)]: "Project"
+        };
+        r[u(1384, 1295, 1363, 1313) + "n"] = s(-130, -204, -50, -125) + s(-208, -284, -167, -288);
+        r[s(-163, -160, -147, -169)] = s(-257, -246, -178, -252);
+        r.color = s(-199, -138, -278, -245);
+        return r;
+      }
+      if (o === s(-258, -224, -320, -327)) {
+        let e = r.find(e => e.id === i);
+        if (e) {
+          if (u(1323, 1437, 1387, 1344) === "Theei") {
+            return false;
+          } else {
+            let t = {};
+            t[u(1199, 1178, 1247, 1291)] = e[s(-242, -270, -313, -218)];
+            t.description = u(1238, 1212, 1265, 1330) + " " + e.name + u(1289, 1327, 1330, 1292);
+            t[u(1313, 1344, 1343, 1278)] = s(-258, -261, -242, -242);
+            t[s(-191, -116, -256, -255)] = e[u(1233, 1372, 1315, 1346)];
+            return t;
+          }
+        }
+        let t = {};
+        t[u(1231, 1249, 1247, 1161)] = u(1296, 1377, 1354, 1412);
+        t[s(-143, -125, -193, -154) + "n"] = u(1232, 1342, 1265, 1324) + s(-176, -213, -141, -113);
+        t[s(-163, -87, -152, -113)] = u(1285, 1180, 1248, 1225);
+        t[s(-191, -247, -188, -140)] = "#6b7280";
+        return t;
+      }
+      if (o === u(1287, 1269, 1317, 1377) + "up") {
+        if (n && x(i)) {
+          let e = (0, a.Tf)(i);
+          let t = (0, d.L9)(n[s(-223, -154, -220, -249) + u(1328, 1436, 1404, 1333)], e);
+          if (t) {
+            let e = {};
+            e[s(-259, -299, -319, -299)] = t[u(1262, 1186, 1264, 1204)];
+            e[u(1437, 1343, 1363, 1409) + "n"] = "All tasks " + u(1364, 1343, 1361, 1391) + t.name;
+            e[s(-163, -149, -111, -97)] = u(1403, 1422, 1401, 1384);
+            e[u(1392, 1268, 1315, 1291)] = t[u(1366, 1355, 1315, 1325)] || l.ok;
+            return e;
+          }
+        }
+        let e = {};
+        e.title = s(-224, -178, -302, -242) + s(-249, -302, -260, -251);
+        e.description = "All tasks in project" + s(-236, -187, -216, -201);
+        e[s(-163, -243, -170, -134)] = s(-105, -40, -188, -20);
+        e[s(-191, -158, -262, -180)] = l.ok;
+        return e;
+      }
+      if (o === "filter") {
+        let e = {};
+        e[s(-259, -283, -283, -249)] = u(1400, 1293, 1339, 1291);
+        e[s(-143, -193, -88, -91) + "n"] = s(-111, -136, -123, -151) + "iew";
+        e[u(1416, 1362, 1343, 1282)] = "filter";
+        return e;
+      }
+      if (i in l.qy) {
+        if (s(-238, -242, -245, -164) === "BGeTA") {
+          return l.qy[i];
+        } else {
+          _0x1fb4a2(_0x5c5e5b, false);
+          _0x56c95e(_0x29eb78, false);
+          _0x266d1e(_0x507080, false);
+          _0x1b86a3(_0x124a56, false);
+          _0x45878a(_0x35ed94, false);
+          _0x4a1b72(_0x1a8778, false);
+        }
+      }
+      function u(e, t, r, n) {
+        return w(e - 192, n, r - 321, r - 125);
+      }
+      function s(e, t, r, n) {
+        return eu(e - -1262, t - 369, r - 37, n);
+      }
+      if (u(1431, 1372, 1366, 1440) === u(1300, 1403, 1329, 1371)) {
+        return _0x115e89 in _0x5a9b33;
+      }
+      {
+        let e = i[s(-137, -161, -116, -182)](0)[s(-253, -250, -231, -167) + "e"]() + i[s(-104, -32, -189, -60)](1);
+        let t = {
+          title: e,
+          [u(1321, 1296, 1363, 1426) + "n"]: "Page content"
+        };
+        t.iconType = u(1265, 1198, 1278, 1259);
+        return t;
+      }
+    }(e(G), e(s.u5), e(s.jc), e(c.fl)));
+    O.debugLabel = eu(1002, 968, 952, 956) + w(1316, 1203, 1252, 1243);
+    let E = (0, i.eU)(null);
+    E.debugLabel = w(1207, 1184, 1243, 1230) + w(1196, 1227, 1238, 1151);
+    let F = (0, i.eU)(null);
+    F[eu(1082, 1093, 1053, 1092)] = w(1209, 1183, 1256, 1186) + eu(1041, 1005, 1065, 983) + "om";
+    let Q = (0, i.eU)(null, (e, t, r) => {
+      t(E, r);
+    });
+    Q[w(1123, 1273, 1236, 1201)] = eu(1059, 1107, 1132, 996) + eu(1050, 1077, 1051, 1076) + w(1048, 1134, 1193, 1125);
+    let M = (0, i.eU)(null, (e, t) => {
+      t(E, null);
+    });
+    M.debugLabel = eu(1165, 1248, 1229, 1158) + w(1196, 1098, 1209, 1149) + "om";
+    let V = (0, i.eU)(null, (e, t, r) => {
+      t(F, r);
+    });
+    V.debugLabel = w(1289, 1356, 1255, 1278) + eu(1084, 1068, 1054, 1007) + w(1177, 1186, 1178, 1135);
+    let z = (0, i.eU)(null, (e, t) => {
+      t(F, null);
+    });
+    z[eu(1082, 1019, 1072, 1079)] = eu(1040, 954, 1100, 1058) + "ctColorPickerAtom";
+    let N = (0, i.eU)(null);
+    N[eu(1082, 1155, 1099, 1013)] = w(1209, 1245, 1213, 1161) + eu(1025, 1044, 1093, 1109);
+    let X = (0, i.eU)(null);
+    function B() {
+      let e = ["standard", "xSMrx", "alogAtom", "gGroupAtom", "search", "ngProjectA", "kAddAtom", "oup with I", "toString", "sks", "xSBep", "viewId", "editingSec", "tion", "startEditi", "toggleSect", "lDialogAto", "cEmgk", "#6b7280", "apply", "gSectionAt", "last-viewe", "projectCol", "close", "insertPosi", "hAtom", "color", "create", "projectgro", "toggleQuic", "groupId", "ctDialogAt", "openColorP", "placement", "routeType", "Atom", "302092yozMHO", "debugLabel", "warn", "tColorPick", "NEuto", " label", "editingGro", "3918nRMzVP", "oup with s", "pathname", "Project gr", "currentRou", "closeLabel", "edit", "Filter", "ectDialogA", "getOnInit", "rcxSD", "iconType", "Picker", "pathnameAt", "openLabelD", "nDialogAto", "sectionCol", "quickAdd", "toggleLabe", "nColorPick", "filter", "openSearch", "Label", "editingPro", "PathAtom", "not-found", "mode", "WSqSY", "WqhpO", "in ", "eMbpK", "descriptio", "icker", "setPathnam", "obCRZ", "closeSearc", "eInfoAtom", "charAt", "Fkkpq", "closeSecti", "10048UqclLX", "(((.+)+)+)", "openQuickA", "slug", "Project ta", "chAtom", "upIdAtom", "' not foun", "192635vEaYTo", "colorPicke", "find", "olorPicker", "alogsAtom", "openSectio", "roxJA", "oHrno", "PickerAtom", "ngGroupAto", "editing", "PDuAt", "45ITejKC", "632930QXtUTW", "length", "Filtered v", "parentId", "ddAtom", "ColorPicke", "closeColor", "lALbs", "folder", "slice", "openProjec", "ups", "closeAllDi", "inbox", "toggleProj", "constructo", "stopEditin", "12092PEgFlr", "13110537ClpRMr", "kerAtom", "teContextA", "rAtom", "labelColor", "UvpTC", "projectId", "split", "dynamicPag", "title", "label", "project", "tom", "ctGroupDia", "toggle", "toUpperCas", "ialogAtom", "ngLabelAto", "parse", "oup", "1095JYvuAw", "vGetC", "erAtom", "tGroupDial", "rlClg", "onColorPic", "name", "Tasks with", "3906hwXNWO", "ngSectionA", "BGeTA", "elIdAtom", " group", "gLabelAtom", "onDialogAt", "AddAtom", "gProjectAt", "VPpuv", "jectIdAtom", "39xewkBf", "default", "openGroupC", "tDialogAto", "d-path", "Project Gr", "projectGro", "closeProje", "orPickerAt", "editingLab", "open", "ionDialogA"];
+      return (B = function () {
+        return e;
+      })();
+    }
+    X[w(1192, 1288, 1225, 1201)] = w(1203, 1076, 1136, 1117) + eu(1144, 1213, 1170, 1114);
+    let K = (0, i.eU)(null, (e, t, r) => {
+      t(N, r);
+    });
+    K.debugLabel = eu(1059, 1101, 987, 1129) + eu(1011, 1064, 1073, 1085) + "m";
+    let q = (0, i.eU)(null, (e, t) => {
+      t(N, null);
+    });
+    q.debugLabel = eu(1165, 1164, 1241, 1162) + w(1133, 1164, 1149, 1146);
+    let W = (0, i.eU)(null, (e, t, r) => {
+      t(X, r);
+    });
+    W.debugLabel = "openLabelC" + w(1174, 1263, 1175, 1258) + "Atom";
+    let $ = (0, i.eU)(null, (e, t) => {
+      t(X, null);
+    });
+    $.debugLabel = eu(1093, 1121, 1124, 1046) + eu(1154, 1106, 1167, 1121) + eu(997, 1029, 1069, 1083);
+    let Y = (0, i.eU)(null);
+    Y[eu(1082, 1143, 1101, 1011)] = w(1193, 1217, 1227, 1176) + "tionIdAtom";
+    let Z = (0, i.eU)(null);
+    Z[eu(1082, 1093, 1092, 1109)] = w(1248, 1293, 1214, 1223) + w(1088, 1122, 1137, 1160) + "om";
+    let H = (0, i.eU)(null, (e, t, r) => {
+      t(Y, r);
+    });
+    function J(e, t) {
+      let r = B();
+      return (J = function (e, t) {
+        return r[e -= 408];
+      })(e, t);
+    }
+    H[eu(1082, 998, 1143, 1091)] = w(1261, 1113, 1248, 1178) + w(1170, 1085, 1114, 1142) + w(1208, 1161, 1062, 1125);
+    let ee = (0, i.eU)(null, (e, t) => {
+      t(Y, null);
+    });
+    ee[w(1118, 1201, 1181, 1201)] = "stopEditin" + w(1172, 1197, 1160, 1184) + "om";
+    let et = (0, i.eU)(null, (e, t, r) => {
+      t(Z, r);
+    });
+    et[eu(1082, 1006, 1054, 1095)] = w(1287, 1272, 1251, 1260) + eu(1107, 1040, 1120, 1169) + w(1074, 1177, 1051, 1135);
+    let er = (0, i.eU)(null, (e, t) => {
+      t(Z, null);
+    });
+    er[w(1163, 1285, 1135, 1201)] = w(1305, 1265, 1222, 1246) + eu(1019, 1091, 1077, 1053) + w(1160, 1083, 1123, 1114);
+    let en = (0, i.eU)(null);
+    en[eu(1082, 1140, 1099, 1054)] = eu(1087, 1071, 1071, 1063) + w(1191, 1206, 1270, 1253);
+    let eo = (0, i.eU)(null);
+    eo[w(1225, 1116, 1173, 1201)] = "groupColor" + w(1236, 1216, 1302, 1263);
+    let ei = (0, i.eU)(null, (e, t, r) => {
+      t(en, r);
+    });
+    function eu(e, t, r, n) {
+      return J(e - 585, n);
+    }
+    ei.debugLabel = w(1110, 1191, 1147, 1178) + w(1294, 1345, 1302, 1264) + "m";
+    let ea = (0, i.eU)(null, (e, t) => {
+      t(en, null);
+    });
+    ea[w(1237, 1192, 1287, 1201)] = eu(1165, 1159, 1137, 1224) + w(1114, 1103, 1196, 1167);
+    let el = (0, i.eU)(null, (e, t, r) => {
+      t(eo, r);
+    });
+    el.debugLabel = eu(1035, 1097, 967, 1020) + eu(1139, 1115, 1220, 1220) + w(1229, 1207, 1221, 1199);
+    let es = (0, i.eU)(null, (e, t) => {
+      t(eo, null);
+    });
+    es[w(1228, 1255, 1180, 1201)] = "closeGroup" + eu(1154, 1169, 1102, 1078) + w(1092, 1175, 1095, 1116);
+    let ec = {
+      [w(1235, 1180, 1222, 1162)]: m,
+      [w(1210, 1162, 1103, 1187)]: _,
+      [w(1082, 1174, 1067, 1127)]: g
+    };
+    let ed = {
+      [eu(1043, 972, 1044, 1002)]: b,
+      [eu(1068, 1130, 1068, 1134)]: I,
+      [w(1054, 1132, 1194, 1127)]: y
+    };
+    let ef = {
+      open: h,
+      [w(1131, 1130, 1117, 1187)]: v,
+      [w(1140, 1165, 1165, 1127)]: A
+    };
+    let ep = {
+      open: U,
+      [eu(1068, 1026, 1147, 1059)]: j,
+      [eu(1008, 1079, 935, 1090)]: k
+    };
+    let ex = {
+      [eu(1146, 1097, 1187, 1190)]: E,
+      colorPicker: F,
+      [eu(1059, 1020, 1108, 1055) + "ng"]: Q,
+      stopEditing: M,
+      ["openColorP" + eu(1120, 1073, 1187, 1135)]: V,
+      [w(1332, 1242, 1312, 1274) + w(1239, 1234, 1190, 1219)]: z
+    };
+    let em = {
+      editing: N,
+      colorPicker: X,
+      [eu(1059, 1073, 1047, 1053) + "ng"]: K,
+      [w(1266, 1323, 1276, 1284) + "g"]: q,
+      [eu(1077, 1002, 1122, 1006) + w(1166, 1189, 1298, 1239)]: W,
+      [w(1255, 1282, 1272, 1274) + w(1171, 1169, 1217, 1219)]: $
+    };
+    let e_ = {
+      [w(1301, 1212, 1334, 1265)]: Y,
+      colorPicker: Z,
+      startEditing: H,
+      [eu(1165, 1179, 1113, 1200) + "g"]: ee,
+      ["openColorP" + eu(1120, 1194, 1091, 1119)]: et,
+      [eu(1155, 1116, 1208, 1230) + w(1286, 1306, 1277, 1219)]: er
+    };
+    let eg = {
+      editing: en,
+      [eu(1137, 1075, 1126, 1146) + "r"]: eo,
+      [w(1220, 1199, 1161, 1178) + "ng"]: ei,
+      stopEditing: ea,
+      [w(1203, 1125, 1232, 1196) + eu(1120, 1103, 1162, 1131)]: el,
+      [eu(1155, 1194, 1188, 1089) + eu(1100, 1151, 1166, 1156)]: es
+    };
+    let eb = {
+      project: ex,
+      [eu(1004, 994, 1024, 927)]: em,
+      section: e_,
+      group: eg
+    };
+    let eI = {
+      [eu(1049, 1136, 1040, 1081)]: ec,
+      [w(1203, 1227, 1265, 1224)]: ed,
+      project: ef,
+      label: ep,
+      closeAll: P,
+      contextMenu: eb
+    };
+    (function (e, t) {
+      let r = e();
+      while (true) {
+        try {
+          var n;
+          var o;
+          var i;
+          var u;
+          var a;
+          var l;
+          var s;
+          var c;
+          if (-parseInt(eh(338, 587)) / 1 + -parseInt((n = -239, o = -249, eh(o - -588, n))) / 2 + -parseInt(eh(346, 597)) / 3 * (parseInt((i = -237, u = -241, eh(u - -588, i))) / 4) + parseInt(eh(324, 578)) / 5 * (-parseInt((a = -248, l = -248, eh(l - -588, a))) / 6) + -parseInt(eh(343, 582)) / 7 * (parseInt(eh(345, 596)) / 8) + -parseInt((s = -236, c = -240, eh(c - -588, s))) / 9 + -parseInt(eh(337, 576)) / 10 * (-parseInt(eh(332, 587)) / 11) === 644832) {
+            break;
+          }
+          r.push(r.shift());
+        } catch (e) {
+          r.push(r.shift());
+        }
+      }
+    })(ev, 0);
+    let ey = (o = true, function (e, t) {
+      let r = o ? function () {
+        if (eh(349, -499) === eh(349, 199)) {
+          if (t) {
+            if (eh(342, 188) !== eh(342, -497)) {
+              _0x1b7bb8[eh(350, 198)][eh(331, 165) + "te"](null, "", _0x1beee0);
+            } else {
+              let r = t[eh(336, 182)](e, arguments);
+              t = null;
+              return r;
+            }
+          }
+        } else {
+          let e = _0x51672f.split("/")[eh(327, -505)](_0x3b474f);
+          return _0xaa8b95[eh(334, -499)](1, e[eh(333, 186)] || 0);
+        }
+      } : function () {};
+      o = false;
+      return r;
+    })(undefined, function () {
+      return ey[eh(325, -667)]().search(eh(329, -364) + "+$")[eh(325, -386)]()[eh(328, -673) + "r"](ey)[eh(323, -679)](eh(329, -658) + "+$");
+    });
+    function eh(e, t) {
+      let r = ev();
+      return (eh = function (e, t) {
+        return r[e -= 323];
+      })(e, t);
+    }
+    function ew(e) {
+      return Math.max(1, e[eh(330, -276)]("/")[eh(327, -285)](Boolean).length || 0);
+    }
+    function ev() {
+      let e = ["1416MPBNlY", "1905504cbXbmc", "4xqoglX", "1065258BOkmDn", "GBMhr", "history", "search", "1120VPNsCM", "toString", "navigateAt", "filter", "constructo", "(((.+)+)+)", "split", "replaceSta", "11VlvzPL", "length", "max", "pushState", "apply", "35130310tIKPCb", "922356kdlVxO", "648174ORWPcY", "19302pSFRFs", "undefined", "ZeqAP", "5838qndYfX", "object"];
+      return (ev = function () {
+        return e;
+      })();
+    }
+    ey();
+    (0, i.eU)(null, (e, t, r) => {
+      let n = ew(e(T));
+      let o = ew(r);
+      if (eh(344, 61) !== eh(341, -43)) {
+        if (o > n) {
+          window[eh(350, -28)][eh(335, -36)](null, "", r);
+        } else {
+          window[eh(350, 86)].replaceState(null, "", r);
+        }
+      }
+      t(T, r || "/");
+    }).debugLabel = eh(326, -325) + "om";
+  },
+  33006: (e, t, r) => {
+    let n;
+    r.d(t, {
+      W: () => f
+    });
+    var o = r(57145);
+    var i = r(62759);
+    var u = r(51547);
+    var a = r(61212);
+    function l(e, t) {
+      let r = c();
+      return (l = function (e, t) {
+        return r[e -= 192];
+      })(e, t);
+    }
+    (function (e, t) {
+      let r = e();
+      while (true) {
+        try {
+          var n;
+          var o;
+          var i;
+          var u;
+          var a;
+          var s;
+          if (parseInt(l(218, 112)) / 1 * (-parseInt(l(230, 129)) / 2) + -parseInt(l(258, 124)) / 3 * (-parseInt(l(250, 113)) / 4) + parseInt((n = -464, o = -440, l(o - -710, n))) / 5 + -parseInt(l(199, 132)) / 6 * (-parseInt((i = -453, u = -470, l(u - -710, i))) / 7) + -parseInt(l(192, 76)) / 8 * (parseInt(l(211, -493)) / 9) + parseInt(l(210, -512)) / 10 * (parseInt(l(213, 97)) / 11) + -parseInt((a = -422, s = -448, l(s - -710, a))) / 12 === 470433) {
+            break;
+          }
+          r.push(r.shift());
+        } catch (e) {
+          r.push(r.shift());
+        }
+      }
+    })(c, 0);
+    let s = (n = true, function (e, t) {
+      let r = n ? function () {
+        if (t) {
+          if (l(244, 459) === l(216, 780)) {
+            let e = {
+              [l(261, 473)]: _0x863859,
+              [l(242, 848)]: _0x4c6afe
+            };
+            _0x1add6d[l(261, 497)](e, l(205, 772) + _0x526b63[l(241, 815) + "e"]() + l(239, 792));
+            _0x4df719[l(261, 431)](l(205, 820) + _0x1ad0f8[l(241, 793) + "e"]() + ": " + _0x368de2[l(266, 488)]);
+            let t = _0x2e01d5(_0x1fc923);
+            if (_0x1c527d?.[l(235, 799) + "ta"] !== _0x5b2da5) {
+              t[l(229, 823) + "ta"](_0x15477c, _0xe9688d.previousData);
+            }
+          } else {
+            let r = t[l(245, 844)](e, arguments);
+            t = null;
+            return r;
+          }
+        }
+      } : function () {};
+      n = false;
+      return r;
+    })(undefined, function () {
+      return s[l(256, 947)]()[l(248, 915)]("(((.+)+)+)+$").toString().constructor(s)[l(248, 953)](l(220, 325) + "+$");
+    });
+    function c() {
+      let e = ["getQueryDa", "applicatio", "onment: Si", "serialize ", "72258ybIDOz", " response:", "count", "Unknown va", " request: ", "statusText", "Failed to ", "info", "mulating ", " response", "Failed API", "1039240yNrUyq", "622179ngcqfl", "r response", "66MajRQr", "warn", "object", "dHzOg", "invalidate", "23prNXVf", " data: ", "(((.+)+)+)", "variables", "length", "Could not ", "rror", "queryKey", "Details", "status", "yaLEE", "setQueryDa", "14030Dejosy", "MyITJ", "cancelQuer", "test", "stringify", "previousDa", "lidation e", " successfu", "Queries", " via API", "371XlawET", "toLowerCas", "module", "success", "TYDIB", "apply", "forEach", "turned fro", "search", "data", "4GFuAqo", "Test envir", "lly", "No data re", "tZKMF", "UzSUB", "toString", "LUpMj", "1212447UbJyWR", "API Error ", "ies", "error", "13731888ZrEyvc", "ShJvj", "safeParse", "reportInpu", "message", "Data", "errorData", "V1_TASKS", "1241960ELTjKr", "Content-Ty", "ybyJz", "SHKQf", "16rgIFxY", "n/json", "taskIds"];
+      return (c = function () {
+        return e;
+      })();
+    }
+    async function d(e, t) {
+      var r;
+      var n;
+      var o;
+      var i;
+      var a;
+      let s = e[l(227, -261)] + " " + e[l(204, 806)];
+      try {
+        let c = await e.json();
+        s = c[r = -195, l(266, r)] || c[n = -239, o = -250, l(n - -500, o)] || s;
+        let d = {
+          [l(268, 857)]: c,
+          module: t
+        };
+        u.Rm.error(d, (i = -241, a = -218, l(i - -500, a) + l(226, 832)));
+      } catch (r) {
+        let e = {
+          parseError: r,
+          module: t
+        };
+        u.Rm.error(e, l(223, 840) + "parse erro" + l(212, -257));
+      }
+      throw Error(l(209, 813) + l(203, -270) + s);
+    }
+    function f(e) {
+      let {
+        method: t,
+        operationName: r,
+        responseSchema: n,
+        serializationSchema: s,
+        testResponseFactory: c,
+        resourceQueryKey: f,
+        defaultResourceValue: p,
+        invalidateQueryKeys: x = [f],
+        optimisticUpdateFn: m,
+        optimisticDataFactory: _,
+        logModule: g = "tasks",
+        apiEndpoint: b = a.QQ[l(269, 139)],
+        showSuccessToast: I = true
+      } = e;
+      return (0, o.vy)(e => ({
+        mutationFn: async e => {
+          if (f(132, 148, 157, 118) === "undefined" || I(-474, -480, -461, -438) === "production") {
+            let t = {};
+            t[I(-472, -486, -452, -462)] = I(-473, -459, -461, -466);
+            u.Rm[f(109, 75, 82, 109)](t, f(149, 169, 167, 154) + I(-532, -507, -497, -460) + f(96, 147, 137, 110) + r[I(-484, -465, -453, -462) + "e"]());
+            return c(e);
+          }
+          let o = e;
+          let a = s.safeParse(e, {
+            reportInput: true
+          });
+          if (!a.success) {
+            if (f(124, 163, 132, 134) !== "MyITJ") {
+              return _0x2fcde1 !== null && typeof _0x213249 === f(104, 139, 104, 118) && f(65, 129, 129, 97) in _0x3c84a3;
+            } else {
+              throw Error(f(145, 141, 127, 108) + "serialize " + r[f(131, 138, 111, 144) + "e"]() + I(-511, -487, -475, -440) + (a[I(-446, -430, -433, -458)].message || "Unknown va" + I(-448, -467, -458, -429) + f(161, 111, 133, 127)));
+            }
+          }
+          function f(e, t, r, n) {
+            return l(n - 45 - -142, r);
+          }
+          o = a[f(176, 114, 185, 152)];
+          let p = {};
+          p[I(-408, -460, -423, -391) + "pe"] = I(-464, -481, -498, -527) + I(-501, -481, -501, -541);
+          let x = await fetch(b, {
+            method: t,
+            headers: p,
+            body: JSON[f(123, 143, 129, 137)](o)
+          });
+          if (!x.ok) {
+            if (f(195, 167, 139, 175) === "RxJvC") {
+              return _0x243bd3 !== null && _0x1e9e94 !== _0x48ddc6;
+            } else {
+              await d(x, g);
+            }
+          }
+          let m = await x.json();
+          let _ = {};
+          function I(e, t, r, n) {
+            return l(r - -552 - -142, n);
+          }
+          _[I(-462, -432, -429, -397) + "t"] = true;
+          let y = n[I(-406, -414, -430, -416)](m, _);
+          if (!y.success) {
+            if (f(173, 155, 123, 160) !== f(143, 140, 178, 160)) {
+              _0x39cb08[I(-460, -430, -465, -449) + "ta"](_0x3fcf7c, _0x3bc260[I(-476, -484, -459, -441) + "ta"]);
+            } else {
+              throw Error(f(123, 142, 76, 108) + "parse " + r[I(-425, -484, -453, -449) + "e"]() + f(122, 69, 95, 103) + " " + (y[I(-412, -421, -433, -439)][f(133, 203, 150, 169)] || f(113, 144, 123, 105) + f(139, 149, 146, 139) + "rror"));
+            }
+          }
+          if (!y[I(-450, -451, -445, -434)]) {
+            throw Error(f(188, 131, 194, 156) + I(-435, -462, -447, -445) + "m " + r[f(121, 125, 106, 144) + "e"]() + I(-494, -458, -486, -501));
+          }
+          return y[f(151, 139, 126, 152)];
+        },
+        onMutate: async t => {
+          let r = e(i.lg);
+          let n = {};
+          function o(e, t, r, n) {
+            return l(n - -365 - -142, r);
+          }
+          n[d(-367, -363, -349, -359)] = f;
+          await r[d(-336, -330, -364, -352) + o(-252, -233, -224, -247)](n);
+          let u = r[o(-283, -283, -328, -312) + "ta"](f);
+          let a = _ ? _(t, u ?? p, e) : undefined;
+          let s = function (e, t, r, n) {
+            let o = e.getQueryData(t);
+            e[l(229, -286) + "ta"](t, e => {
+              function t(e, t, r, n) {
+                return l(t - 115 - -508, e);
+              }
+              if (e == null) {
+                if (t(-103, -130, -153, -116) === l(263, -545)) {
+                  return r(n);
+                }
+                {
+                  let e = _0x2671e7[l(195, -593) + "ta"](_0x42c19d);
+                  _0x42b10[t(-197, -164, -134, -183) + "ta"](_0x5d9cd3, e => _0x27642c(e) ? _0xe2f886(e) : _0x10fe3a(_0x54d2b6));
+                  return e;
+                }
+              }
+              return r(e);
+            });
+            return o;
+          }(r, f, e => m(t, e, a), p);
+          let c = {};
+          function d(e, t, r, n) {
+            return l(n - -442 - -142, r);
+          }
+          c[d(-369, -347, -317, -349) + "ta"] = s;
+          c[d(-334, -366, -323, -363)] = t;
+          c["optimistic" + o(-229, -209, -273, -240)] = a;
+          return c;
+        },
+        onSuccess: t => {
+          function n(e, t, r, n) {
+            return l(e - 988 - -142, r);
+          }
+          function o(e, t, r, n) {
+            return l(n - 198 - -142, r);
+          }
+          if (n(1119, 1142, 1160, 1153) === o(343, 341, 301, 310)) {
+            _0x43cf2d = false;
+            if (_0x18ef70) {
+              return function () {
+                if (_0x5eb156) {
+                  let e = _0xab97df[o(-303, -86, 166, 301)](_0x14ee4d, arguments);
+                  _0x1014fe = null;
+                  return e;
+                }
+              };
+            } else {
+              return function () {};
+            }
+          }
+          {
+            let a = !function (e) {
+              function t(e, t, r, n) {
+                return o(e - 224, t - 255, n, r - -971);
+              }
+              return e !== null && typeof e === t(-715, -722, -700, -692) && t(-722, -742, -721, -688) in e;
+            }(t) ? 1 : t[o(287, 232, 217, 250)][n(1068, 1033, 1058, 1101)];
+            let l = t === null || typeof t != "object" || !(n(1089, -681, -264, -501) in t) || t[n(1089, 1081, 1064, 1080)] !== false;
+            let s = l ? u.Rm.info : u.Rm[o(298, 290, 244, 270)];
+            let c = {
+              [o(260, 254, 286, 257)]: a,
+              [n(1088, 1103, 1124, 1107)]: g
+            };
+            s(c, r + n(1085, 1049, 1060, 1053));
+            if (l && I) {
+              u.oR[o(329, 258, 294, 299)](r + (o(306, 320, 303, 293) + o(337, 285, 317, 308)));
+            }
+            let d = e(i.lg);
+            x[n(1092, 1085, 1059, 1100)](e => {
+              let t = {
+                [o(441, 512, 515, 281)]: e
+              };
+              d[o(426, 437, 485, 273) + n(1084, 1051, 1223, 746)](t);
+            });
+          }
+        },
+        onError: (t, n, o) => {
+          function a(e, t, r, n) {
+            return l(r - -258 - -142, n);
+          }
+          function s(e, t, r, n) {
+            return l(e - 937 - -142, n);
+          }
+          if (a(-141, -172, -145, -173) === "UzSUB") {
+            let n = {
+              error: t,
+              [s(1037, 1029, 1067, 1046)]: g
+            };
+            u.Rm[a(-150, -139, -139, -141)](n, a(-181, -220, -195, -215) + r.toLowerCase() + s(1034, 1032, 1002, 1008));
+            u.oR[s(1056, 1065, 1067, 1024)](a(-173, -180, -195, -167) + r.toLowerCase() + ": " + t[a(-133, -139, -134, -112)]);
+            let l = e(i.lg);
+            if (o?.previousData !== undefined) {
+              if (s(1023, 1056, 990, 1062) === "wANNb") {
+                throw new _0x12a01d(s(1000, 1005, 974, 979) + s(993, 992, 984, 1017) + _0x34f4a6[a(-121, -153, -159, -121) + "e"]() + s(1014, 1045, 1054, 1038) + (_0x32214a[a(-156, -116, -139, -162)][s(1061, 1037, 1097, 1046)] || s(997, 1026, 1014, 958) + a(-191, -170, -164, -202) + s(1019, 1004, 1043, 1030)));
+              } else {
+                l.setQueryData(f, o[s(1030, 1062, 1069, 1057) + "ta"]);
+              }
+            }
+          } else {
+            throw new _0xc5d050(s(1048, 1041, 1053, 1015) + s(1042, 1049, 1038, 1082) + "m " + _0x1ea9ed.toLowerCase() + a(-214, -218, -192, -198));
+          }
+        }
+      }));
+    }
+    s();
+  },
+  42272: (e, t, r) => {
+    let n;
+    r.d(t, {
+      $j: () => _.$j,
+      A3: () => _.A3,
+      Ae: () => _.Ae,
+      CO: () => _.CO,
+      F0: () => _.F0,
+      Ij: () => _.Ij,
+      JB: () => _.JB,
+      JC: () => w,
+      N2: () => _.N2,
+      O3: () => _.O3,
+      OG: () => _.OG,
+      Rb: () => _.Rb,
+      Sc: () => _.Sc,
+      XA: () => _.XA,
+      XL: () => _.XL,
+      ZR: () => _.ZR,
+      ZS: () => _.ZS,
+      aQ: () => _.aQ,
+      c0: () => _.c0,
+      hI: () => v,
+      jG: () => _.jG,
+      kI: () => _.kI,
+      mv: () => _.mv,
+      nz: () => _.nz,
+      p2: () => _.p2,
+      pp: () => _.pp,
+      q3: () => h,
+      qs: () => _.qs,
+      xZ: () => _.xZ,
+      zr: () => _.zr
+    });
+    var o;
+    var i;
+    var u;
+    var a;
+    var l;
+    var s;
+    var c;
+    var d;
+    var f;
+    var p;
+    var x;
+    var m;
+    var _ = r(96809);
+    var g = r(51547);
+    (function (e, t) {
+      let r = e();
+      while (true) {
+        try {
+          var n;
+          var o;
+          var i;
+          var u;
+          var a;
+          var l;
+          var s;
+          var c;
+          var d;
+          var f;
+          var p;
+          var x;
+          var m;
+          if (parseInt((n = -106, o = -116, y(o - -240, n))) / 1 + parseInt((i = -130, y(113, i))) / 2 + -parseInt((u = -105, y(128, u))) / 3 + parseInt((a = -163, l = -167, y(a - -289, l))) / 4 * (-parseInt((s = -163, y(122, s))) / 5) + -parseInt((c = -129, y(116, c))) / 6 * (-parseInt((d = -179, f = -177, y(d - -289, f))) / 7) + -parseInt((p = -169, x = -174, y(p - -289, x))) / 8 + parseInt((m = -181, y(m - -289, -173))) / 9 === 838030) {
+            break;
+          }
+          r.push(r.shift());
+        } catch (e) {
+          r.push(r.shift());
+        }
+      }
+    })(I, 0);
+    let b = (n = true, function (e, t) {
+      let r = n ? function () {
+        if (t) {
+          let r = t[y(117, 572)](e, arguments);
+          t = null;
+          return r;
+        }
+      } : function () {};
+      n = false;
+      return r;
+    })(undefined, function () {
+      return b.toString().search("(((.+)+)+)+$")[y(112, -481)]()[y(121, -462) + "r"](b)[y(114, -100)]("(((.+)+)+)+$");
+    });
+    function I() {
+      let e = ["726588hYXjLD", "search", "-history-p", "2718pPFUSr", "apply", "hart-mode", "30d", "12500584hDzwGC", "constructo", "15615uCPuXK", "completion", "521692KSAPVO", "eriod", "796ruXSzV", "-history-v", "2128215BSxzBd", "11418300fLAUGs", "timeline", "24381DYGcoX", "iew-mode", "toString"];
+      return (I = function () {
+        return e;
+      })();
+    }
+    function y(e, t) {
+      let r = I();
+      return (y = function (e, t) {
+        return r[e -= 108];
+      })(e, t);
+    }
+    b();
+    let h = (0, g.BG)((o = 431, i = 0, u = 0, y(123, 431) + (a = 432, l = 0, s = 0, y(127, 432)) + (c = 438, d = 0, f = 0, y(111, 438))), (p = 424, x = 0, m = 0, y(109, 424)));
+    let w = (0, g.BG)(y(123, 879) + y(115, 868) + y(125, 897), y(119, 882));
+    let v = (0, g.BG)("completion-history-c" + y(118, 435), "daily");
+  },
+  48795: (e, t, r) => {
+    let n;
+    r.d(t, {
+      FU: () => U.FU,
+      Hx: () => Z,
+      Kg: () => C,
+      Ro: () => z,
+      Uw: () => Y,
+      _l: () => q,
+      eb: () => B,
+      hA: () => L,
+      jc: () => K,
+      ls: () => U.ls,
+      p9: () => Q,
+      u5: () => X,
+      vv: () => V,
+      yK: () => N,
+      zR: () => H,
+      zS: () => W
+    });
+    var o;
+    var i;
+    var u;
+    var a;
+    var l;
+    var s;
+    var c;
+    var d;
+    var f;
+    var p;
+    var x;
+    var m;
+    var _;
+    var g;
+    var b;
+    var I = r(22814);
+    var y = r(75984);
+    var h = r(50978);
+    var w = r(78730);
+    var v = r(84783);
+    var A = r(78563);
+    var U = r(2846);
+    var j = r(62759);
+    var k = r(10327);
+    var S = r(31453);
+    var R = r(51547);
+    (function (e, t) {
+      let r = e();
+      while (true) {
+        try {
+          if (-parseInt(O(498, 207)) / 1 * (-parseInt(O(467, 195)) / 2) + -parseInt(O(437, 175)) / 3 * (-parseInt(O(368, 702)) / 4) + -parseInt(O(432, 273)) / 5 * (-parseInt(O(348, 635)) / 6) + -parseInt(O(475, 313)) / 7 * (parseInt(O(466, 875)) / 8) + parseInt(O(470, 855)) / 9 + parseInt(O(371, 666)) / 10 + -parseInt(O(483, 896)) / 11 === 756682) {
+            break;
+          }
+          r.push(r.shift());
+        } catch (e) {
+          r.push(r.shift());
+        }
+      }
+    })($, 0);
+    let P = (n = true, function (e, t) {
+      let r = n ? function () {
+        if (O(451, 553) === O(410, 390)) {
+          let e = {
+            [O(347, 370)]: _0x27b117,
+            userId: _0x38c011,
+            [O(375, 345)]: _0x496212
+          };
+          e.module = O(430, 567);
+          _0x46a5e6[O(347, 496)](e, O(452, 490) + O(499, 435) + O(409, 472) + "rom tasks");
+          _0x275621[O(347, 365)](O(452, 372) + O(490, 554) + O(393, 441));
+          throw _0x719389;
+        }
+        if (t) {
+          let r = t[O(380, 378)](e, arguments);
+          t = null;
+          return r;
+        }
+      } : function () {};
+      n = false;
+      return r;
+    })(undefined, function () {
+      return P[O(471, 1266)]()[O(349, 1131)]("(((.+)+)+)+$").toString()[O(456, 1305) + "r"](P).search(O(415, 1238) + "+$");
+    });
+    P();
+    U.yK.debugLabel = (0, R.o0)(U.yK[F(707, 778, 775, 769)]);
+    U.u5.debugLabel = (0, R.o0)(U.u5[o = 0, i = 0, u = -452, O(350, -452)]);
+    U.jc.debugLabel = (0, R.o0)(U.jc[F(707, 782, 779, 703)]);
+    let T = {
+      [(a = 0, l = 0, s = -395, O(497, -395) + "endars")]: 0,
+      [F(844, 884, 816, 863) + (c = 0, d = 0, f = -484, O(373, -484))]: 0,
+      ["deletedCal" + F(730, 654, 800, 718)]: 0,
+      [(p = 0, x = 0, m = -357, O(443, -357) + (_ = 0, g = 0, b = -390, O(407, -390)))]: 0,
+      [F(759, 717, 792, 801) + F(764, 687, 773, 715)]: 0,
+      [F(722, 783, 774, 678) + "ects"]: 0
+    };
+    let D = {
+      calendars: [],
+      [F(770, 808, 806, 770)]: [],
+      [O(364, -530)]: T,
+      [F(727, 650, 698, 801) + "At"]: null
+    };
+    let L = (0, R.XO)("calendarSy" + F(858, 853, 786, 856), (0, I.eU)(e => e(j.Fm).data ?? D));
+    let G = (0, R.XO)("activityLogsAtom", (0, I.eU)([]));
+    let C = (0, I.eU)(null, (e, t, {
+      activity: r,
+      type: n,
+      userId: o
+    }) => {
+      function i(e, t, r, n) {
+        return F(r - -402, t - 70, e, n - 205);
+      }
+      function u(e, t, r, n) {
+        return O(n - 108 - -814, r);
+      }
+      try {
+        let a = {
+          timestamp: Date[i(371, 360, 400, 416)](),
+          activity: r,
+          type: n,
+          userId: o
+        };
+        let l = e(G);
+        t(G, [...l, a]);
+        let s = {
+          [u(-302, -182, -232, -259)]: r,
+          [u(-270, -305, -197, -237)]: n,
+          [i(413, 360, 369, 428)]: o,
+          [u(-221, -278, -240, -272)]: "pro-activity"
+        };
+        R.Rm.info(s, u(-270, -309, -267, -295) + i(373, 382, 403, 333) + u(-227, -344, -334, -290));
+      } catch (t) {
+        let e = {
+          [u(-423, -345, -419, -359)]: t,
+          [i(431, 330, 402, 389)]: r,
+          [u(-279, -223, -168, -237)]: n,
+          [i(366, 397, 389, 324)]: "pro-activity"
+        };
+        R.Rm[u(-370, -428, -327, -359)](e, i(483, 333, 407, 474) + i(403, 349, 390, 372) + "ty");
+      }
+    });
+    function O(e, t) {
+      let r = $();
+      return (O = function (e, t) {
+        return r[e -= 346];
+      })(e, t);
+    }
+    C[O(350, -502)] = O(433, -418) + F(755, 694, 757, 806);
+    let E = (0, I.eU)(k.Az.id);
+    function F(e, t, r, n) {
+      return O(e - 357, r);
+    }
+    E[F(707, 747, 719, 730)] = F(798, 725, 835, 806) + "rIdAtom";
+    let Q = (0, R.XO)("userAtom", (0, I.eU)(e => {
+      let t = e(E);
+      return e(q)[F(814, -628, -162, -199)](e => e.id === t) ?? k.Az;
+    }, async (e, t, r) => {
+      function n(e, t, r, n) {
+        return O(r - 772 - -814, e);
+      }
+      function o(e, t, r, n) {
+        return F(t - 294, t - 428, r, n - 299);
+      }
+      try {
+        if (n(419, 381, 400, 458) === "lPFoU") {
+          let e = {
+            [n(262, 320, 305, 325)]: _0x3a32fe,
+            taskId: _0x1f9cf8,
+            [o(1108, 1065, 1070, 1110)]: _0x3a788c,
+            [o(1049, 1085, 1007, 1084)]: "pro-tasks"
+          };
+          _0x20e983[o(999, 998, 997, 1009)](e, n(383, 425, 410, 377) + "assign user to task");
+          throw _0x1952eb;
+        }
+        {
+          if (typeof r === o(1109, 1050, 1127, 1111)) {
+            if (n(391, 520, 444, 486) !== o(1047, 1089, 1134, 1110)) {
+              t(E, r);
+              return;
+            } else {
+              let e = _0x10c9c8(_0x456646);
+              let t = _0x83f681(_0x3e51fe);
+              return _0x43a263(e, t);
+            }
+          }
+          let i = e(A.x);
+          await i[n(479, 454, 430, 458) + "c"](r);
+          let u = e(y.l);
+          let a = {
+            queryKey: S.CW
+          };
+          u.invalidateQueries(a);
+        }
+      } catch (e) {
+        if (o(1157, 1080, 1068, 1056) !== "DpUJU") {
+          _0x1a29c9(_0x17a897, _0x4720c3);
+          return;
+        }
+        {
+          let t = {
+            [o(1000, 998, 956, 1074)]: e
+          };
+          t[n(467, 334, 392, 413)] = o(1143, 1140, 1104, 1191);
+          R.Rm[n(248, 288, 305, 264)](t, "Failed to update use" + n(406, 466, 440, 375) + o(1062, 1139, 1104, 1077));
+          throw e;
+        }
+      }
+    }));
+    (0, I.eU)(null, async (e, t, {
+      taskId: r,
+      userId: n
+    }) => {
+      function o(e, t, r, n) {
+        return O(t - -36 - -814, e);
+      }
+      function i(e, t, r, n) {
+        return O(n - 1246 - -814, t);
+      }
+      try {
+        let u = e(U.ls)[i(897, 841, 907, 894)](r);
+        if (!u) {
+          let e = {
+            [o(-394, -459, -447, -436)]: r
+          };
+          e[i(834, 807, 825, 866)] = o(-355, -420, -353, -456);
+          R.Rm[i(753, 837, 797, 779)](e, o(-483, -450, -529, -409) + "ign user t" + o(-480, -496, -490, -540) + o(-523, -472, -434, -540));
+          throw Error(i(806, 757, 868, 817) + r + " not found");
+        }
+        let a = u[o(-433, -454, -496, -424)] || [];
+        if (a.includes(n)) {
+          if (i(864, 800, 899, 827) === "SkrXe") {
+            let e = _0x4e714f(_0x1e5843);
+            let t = new _0x1bb3f2();
+            for (let r of e) {
+              let e = r.trackingId || r.id;
+              let n = t[o(-397, -388, -360, -446)](e);
+              if (n) {
+                n[i(745, 850, 849, 815)](r.id);
+              } else {
+                t[i(903, 871, 962, 938)](e, [r.id]);
+              }
+            }
+            return t;
+          } else {
+            let e = {
+              [i(752, 892, 778, 823)]: r,
+              [o(-395, -436, -512, -494)]: n
+            };
+            e.module = i(848, 830, 782, 862);
+            R.Rm[i(960, 868, 964, 896)](e, o(-541, -488, -516, -451) + o(-517, -458, -477, -527) + o(-489, -487, -555, -467));
+            return;
+          }
+        }
+        let l = {
+          ...u
+        };
+        l[o(-523, -454, -402, -451)] = [...a, n];
+        let s = e(h.Oq);
+        await s.mutateAsync([l]);
+        let c = {};
+        c.activity = i(844, 766, 766, 820) + i(900, 915, 865, 881) + n + i(918, 913, 901, 855) + u[i(777, 826, 827, 840)] + "\"";
+        c[o(-393, -381, -402, -328)] = i(858, 843, 816, 849);
+        c[i(916, 913, 794, 846)] = n;
+        t(C, c);
+        let d = {
+          [o(-530, -459, -417, -409)]: r,
+          [i(907, 813, 886, 846)]: n,
+          module: "pro-tasks"
+        };
+        R.Rm.info(d, "User assigned to tas" + i(760, 777, 783, 826) + "ully");
+      } catch (e) {
+        if (o(-407, -449, -407, -526) !== i(900, 924, 959, 937)) {
+          let t = {
+            [o(-578, -503, -566, -495)]: e,
+            taskId: r,
+            [o(-413, -436, -436, -473)]: n
+          };
+          t.module = o(-454, -420, -366, -466);
+          R.Rm[i(765, 850, 855, 779)](t, o(-464, -398, -478, -409) + "assign use" + i(822, 805, 826, 809));
+          throw e;
+        }
+        {
+          let e = {
+            [i(859, 712, 719, 779)]: _0x349537,
+            [i(898, 781, 795, 823)]: _0x252c4d,
+            [o(-406, -436, -490, -400)]: _0x56cca1
+          };
+          e[o(-429, -416, -489, -355)] = o(-390, -420, -443, -427);
+          _0x1479bb[o(-513, -503, -462, -479)](e, o(-479, -398, -394, -387) + "unassign u" + i(820, 794, 776, 857) + i(874, 823, 905, 837));
+          throw _0x40eb2d;
+        }
+      }
+    })[O(350, -449)] = "assignTaskToUserAtom";
+    let M = (0, I.eU)(null, async (e, t, {
+      taskId: r,
+      userId: n
+    }) => {
+      function o(e, t, r, n) {
+        return O(r - 443 - -814, t);
+      }
+      function i(e, t, r, n) {
+        return F(n - -299, t - 346, t, n - 390);
+      }
+      try {
+        if (o(63, -27, 15, -64) === o(147, 60, 102, 166)) {
+          let e = _0x4bfcdf(_0x52ea82);
+          let t = new _0xffa5bc();
+          for (let r of e) {
+            t.set(r.id, r);
+          }
+          return t;
+        }
+        {
+          let u = e(U.ls).get(r);
+          if (!u) {
+            if (o(-33, 94, 18, 1) !== "PbMXp") {
+              let e = {
+                [o(-40, 47, 20, 50)]: r,
+                module: "pro-tasks"
+              };
+              R.Rm[i(379, 359, 352, 405)](e, "Cannot una" + i(469, 477, 461, 419) + " from non-" + i(488, 420, 354, 415) + "ask");
+              throw Error(o(-20, 54, 14, -31) + r + " not found");
+            } else {
+              let e = _0x230d9e(_0x26dc4c);
+              let t = _0xb22b99(_0x4df46b);
+              return _0x3f69e9(e, t);
+            }
+          }
+          let a = u.assignees || [];
+          if (!a[o(60, 127, 79, 56)](n)) {
+            if (i(485, 474, 412, 437) !== o(72, -49, 8, 17)) {
+              let e = {
+                [i(386, 470, 386, 449)]: _0x33d4d6,
+                userId: _0x315ef6
+              };
+              e[i(466, 469, 530, 492)] = o(139, 41, 59, 64);
+              _0x3f510c.info(e, o(-66, -29, -9, -72) + "dy assigne" + o(-15, 60, -8, 66));
+              return;
+            } else {
+              let e = {
+                [i(485, 398, 407, 449)]: r,
+                [o(15, 17, 43, 117)]: n
+              };
+              e[i(524, 493, 420, 492)] = i(488, 464, 553, 488);
+              R.Rm[i(519, 563, 490, 522)](e, o(-12, 128, 48, 55) + i(511, 428, 498, 440) + i(500, 499, 493, 504));
+              return;
+            }
+          }
+          let l = {
+            ...u,
+            assignees: a[i(616, 509, 491, 549)](e => e !== n)
+          };
+          let s = e(h.Oq);
+          await s[o(83, 101, 101, 69) + "c"]([l]);
+          let c = {};
+          c[i(456, 531, 432, 505)] = "Unassigned" + i(335, 404, 400, 411) + n + i(470, 466, 472, 404) + " \"" + u[o(-35, 104, 37, 20)] + "\"";
+          c.type = o(79, 8, 46, 17);
+          c[i(431, 421, 552, 472)] = n;
+          t(C, c);
+          let d = {
+            [o(-16, 11, 20, -55)]: r,
+            [i(493, 431, 444, 472)]: n
+          };
+          d[i(424, 535, 539, 492)] = i(495, 444, 445, 488);
+          R.Rm[i(472, 445, 458, 522)](d, o(106, 72, 129, 210) + i(541, 444, 422, 484) + o(75, 27, 41, -29) + o(74, 97, 45, -4));
+        }
+      } catch (e) {
+        if (i(567, 580, 512, 519) !== o(96, 99, 90, 165)) {
+          let e = _0x7f90bc.apply(_0x36af05, arguments);
+          _0x47030b = null;
+          return e;
+        }
+        {
+          let t = {
+            [i(464, 353, 351, 405)]: e,
+            [i(461, 388, 466, 449)]: r,
+            [i(494, 550, 485, 472)]: n,
+            [i(567, 479, 517, 492)]: "pro-tasks"
+          };
+          R.Rm[i(385, 475, 439, 405)](t, "Failed to unassign u" + i(446, 453, 509, 483) + o(-13, 39, 34, 67));
+          throw e;
+        }
+      }
+    });
+    M[F(707, 718, 640, 720)] = O(351, -486) + "skFromUser" + O(493, -354);
+    let V = (0, I.eU)(null, async (e, t, {
+      taskIds: r,
+      userId: n
+    }) => {
+      function o(e, t, r, n) {
+        return O(r - 1456 - -814, t);
+      }
+      let i = {};
+      function u(e, t, r, n) {
+        return F(r - -110, t - 128, e, n - 339);
+      }
+      i.assigned = 0;
+      i["alreadyAss" + o(1132, 1127, 1105, 1091)] = 0;
+      i[u(742, 796, 750, 758)] = 0;
+      try {
+        if (o(1014, 1038, 1082, 1011) !== u(619, 578, 653, 708)) {
+          let a = e(U.ls);
+          let l = [];
+          for (let e of r) {
+            if (o(1057, 1214, 1137, 1175) === "cuUmc") {
+              let e = {
+                timestamp: _0xf4ea96.now(),
+                activity: _0xeeff48,
+                type: _0x4aa05d,
+                userId: _0x5c2ecc
+              };
+              let t = _0x3f7d6d(_0x42de56);
+              _0x2665e1(_0xc84dd2, [...t, e]);
+              let r = {
+                activity: _0x10a5df,
+                [u(795, 691, 716, 668)]: _0x1518a1,
+                userId: _0x3a5cc0
+              };
+              r.module = o(1075, 1168, 1107, 1066) + "ty";
+              _0x234229[u(754, 658, 711, 778)](r, "Activity logged succ" + o(1111, 1116, 1058, 1052));
+            } else {
+              let t = a[o(1025, 1076, 1104, 1137)](e);
+              if (!t) {
+                i[o(1216, 1177, 1145, 1184)]++;
+                let t = {
+                  [u(580, 673, 638, 711)]: e,
+                  [u(662, 732, 681, 646)]: "pro-tasks"
+                };
+                R.Rm[u(729, 701, 743, 730)](t, o(1054, 1098, 1042, 1064) + u(671, 640, 707, 776) + "o non-exis" + o(1074, 970, 1020, 1031));
+                continue;
+              }
+              let r = t[u(601, 614, 643, 703)] || [];
+              if (r[u(642, 660, 697, 656)](n)) {
+                if (u(633, 661, 668, 745) === "lUojM") {
+                  let e = _0x19ee43(_0x35ffd7);
+                  return e[o(979, 987, 1045, 1112)]?.[u(593, 636, 644, 675) + "ts"] ?? [];
+                } else {
+                  i[o(1012, 987, 998, 1056) + o(1039, 1045, 1105, 1160)]++;
+                  continue;
+                }
+              }
+              let s = {
+                ...t
+              };
+              s.assignees = [...r, n];
+              l.push(s);
+              i[u(619, 718, 667, 616)]++;
+            }
+          }
+          if (l[u(711, 671, 700, 752)] > 0) {
+            if (u(704, 731, 724, 652) !== u(662, 614, 602, 661)) {
+              let r = e(h.Oq);
+              await r.mutateAsync(l);
+              let a = {};
+              a[u(713, 665, 694, 619)] = "Bulk assig" + o(989, 1059, 1066, 1090) + n + o(1214, 1205, 1146, 1132) + l[u(742, 725, 700, 716)] + " task(s)";
+              a.type = u(603, 633, 664, 679);
+              a[u(638, 641, 661, 716)] = n;
+              t(C, a);
+              let s = {
+                [u(612, 697, 661, 616)]: n
+              };
+              s[u(592, 560, 634, 579)] = l[o(1108, 1077, 1095, 1074)];
+              s[u(691, 644, 681, 690)] = "pro-tasks";
+              R.Rm[o(1080, 1049, 1106, 1136)](s, u(742, 716, 683, 690) + u(705, 702, 706, 782) + u(720, 697, 754, 764) + "l");
+              let c = i["alreadyAss" + u(736, 668, 710, 755)] > 0 ? u(548, 701, 628, 594) + "o " + i.assigned + u(757, 760, 693, 614) + (i[o(1055, 1116, 1062, 1074)] !== 1 ? "s" : "") + " (" + i[u(635, 595, 603, 535) + u(685, 650, 710, 631)] + (u(681, 698, 732, 745) + o(1086, 993, 1060, 1058)) : u(581, 658, 628, 640) + "o " + i[o(1003, 1136, 1062, 1098)] + o(1133, 1031, 1088, 1067) + (i[o(1020, 1090, 1062, 1142)] !== 1 ? "s" : "");
+              R.oR[u(741, 684, 691, 638)](c);
+            } else {
+              let e = {
+                [o(1057, 1070, 989, 919)]: _0xc5e1a8,
+                activity: _0x4d2c19,
+                type: _0x21b248
+              };
+              e.module = u(730, 793, 712, 731) + "ty";
+              _0x130524[u(661, 535, 594, 537)](e, o(1041, 1121, 1094, 1050) + "log activity");
+            }
+          } else if (i[u(683, 680, 603, 594) + "igned"] > 0) {
+            R.oR[u(661, 704, 711, 679)](o(987, 1084, 1004, 1051) + u(609, 617, 639, 574) + "d to all selected ta" + u(749, 817, 739, 717));
+          }
+          return i;
+        }
+        {
+          let e = _0x47dcf5.trackingId || _0x56f507.id;
+          let t = _0x59b128[u(767, 646, 709, 719)](e);
+          if (t) {
+            t.push(_0x5cd399.id);
+          } else {
+            _0x253d2d.set(e, [_0x58c876.id]);
+          }
+        }
+      } catch (t) {
+        let e = {
+          error: t,
+          [o(1096, 1048, 1056, 1033)]: n,
+          [o(977, 1039, 1017, 953)]: r,
+          [o(1024, 1019, 1076, 1088)]: "pro-tasks"
+        };
+        R.Rm[u(659, 565, 594, 664)](e, u(699, 639, 699, 649) + "bulk assign user to " + o(1072, 1180, 1121, 1093));
+        R.oR[o(1010, 1036, 989, 982)](o(1121, 1092, 1094, 1150) + o(1172, 1127, 1120, 1141) + "r");
+        throw t;
+      }
+    });
+    V[O(350, -385)] = "bulkAssign" + O(367, -387) + O(352, -412);
+    let z = (0, I.eU)(null, async (e, t, {
+      taskIds: r,
+      userId: n
+    }) => {
+      let o = {};
+      function i(e, t, r, n) {
+        return O(n - 1544 - -814, e);
+      }
+      function u(e, t, r, n) {
+        return O(t - 909 - -814, n);
+      }
+      o.unassigned = 0;
+      o[i(1153, 1145, 1179, 1152) + "d"] = 0;
+      o.notFound = 0;
+      try {
+        let a = e(U.ls);
+        let l = [];
+        for (let e of r) {
+          if (i(1122, 1049, 1086, 1090) === i(1153, 1154, 1083, 1102)) {
+            return _0x4f9f1a;
+          } else {
+            let t = a.get(e);
+            if (!t) {
+              o[i(1230, 1314, 1314, 1233)]++;
+              let t = {
+                [i(1122, 1158, 1184, 1121)]: e
+              };
+              t.module = i(1082, 1113, 1151, 1160);
+              R.Rm[i(1254, 1170, 1297, 1226)](t, "Cannot una" + i(1099, 1099, 1132, 1091) + i(1060, 1148, 1117, 1089) + i(1129, 1089, 1166, 1087) + i(1128, 1161, 1135, 1135));
+              continue;
+            }
+            let r = t[u(498, 491, 459, 431)] || [];
+            if (!r[i(1226, 1162, 1159, 1180)](n)) {
+              if (u(591, 589, 550, 657) === i(1251, 1148, 1276, 1224)) {
+                o.notAssigned++;
+                continue;
+              } else {
+                let e = {
+                  [u(406, 486, 493, 413)]: _0xe70c11
+                };
+                e[i(1093, 1233, 1143, 1164)] = u(472, 525, 604, 530);
+                _0x53749b[i(1011, 1117, 1062, 1077)](e, i(1198, 1103, 1164, 1158) + i(1094, 1165, 1084, 1091) + i(1074, 1037, 1018, 1089) + i(1141, 1168, 1040, 1087) + u(495, 500, 457, 528));
+                throw new _0x377e23(u(525, 480, 543, 474) + _0x3eab31 + u(572, 571, 640, 599));
+              }
+            }
+            l.push({
+              ...t,
+              assignees: r.filter(e => e !== n)
+            });
+            o[i(1093, 1124, 1180, 1161)]++;
+          }
+        }
+        if (l.length > 0) {
+          let r = e(h.Oq);
+          await r.mutateAsync(l);
+          let a = {};
+          a[i(1111, 1208, 1125, 1177)] = i(1115, 1235, 1203, 1169) + i(1063, 1057, 1136, 1104) + " " + n + " from " + l[i(1153, 1134, 1143, 1183)] + " task(s)";
+          a[u(638, 564, 599, 541)] = u(512, 512, 582, 482);
+          a[u(460, 509, 503, 556)] = n;
+          t(C, a);
+          let s = {
+            userId: n
+          };
+          s[i(1137, 1053, 1160, 1117)] = l[u(553, 548, 614, 504)];
+          s.module = u(450, 525, 602, 482);
+          R.Rm[u(607, 559, 564, 593)](s, "Bulk user " + i(1270, 1217, 1186, 1210) + "nt success" + i(1126, 1155, 1044, 1096));
+          let c = o.notAssigned > 0 ? "Unassigned" + u(534, 553, 477, 542) + o[i(1099, 1234, 1173, 1161)] + u(513, 541, 493, 558) + (o[u(537, 526, 449, 533)] !== 1 ? "s" : "") + " (" + o[u(532, 517, 529, 525) + "d"] + (i(1080, 1050, 1141, 1099) + u(444, 485, 529, 440)) : u(502, 576, 599, 653) + u(601, 553, 530, 598) + o[u(556, 526, 453, 497)] + " task" + (o[i(1214, 1171, 1215, 1161)] !== 1 ? "s" : "");
+          R.oR[i(1144, 1142, 1242, 1174)](c);
+        } else if (o[i(1094, 1166, 1214, 1152) + "d"] > 0) {
+          R.oR[u(605, 559, 637, 580)]("User not a" + i(1149, 1108, 1100, 1112) + i(1084, 1128, 1092, 1134) + "ted tasks");
+        }
+        return o;
+      } catch (t) {
+        let e = {
+          error: t,
+          [i(1091, 1084, 1196, 1144)]: n,
+          [u(520, 470, 534, 528)]: r,
+          module: "pro-tasks"
+        };
+        R.Rm[u(498, 442, 518, 396)](e, i(1115, 1259, 1224, 1182) + u(620, 594, 620, 586) + i(1082, 1110, 1107, 1139) + u(488, 549, 475, 468));
+        R.oR.error(i(1171, 1257, 1195, 1182) + i(1275, 1267, 1170, 1220) + "ser");
+        throw t;
+      }
+    });
+    z.debugLabel = "bulkUnassi" + F(741, 733, 770, 741) + "mUserAtom";
+    let N = (0, R.XO)(O(468, -305), (0, I.eU)(e => {
+      let t = e(U.yK);
+      let r = e(X);
+      let n = e(Q);
+      return (0, R.w3)(t, r, n);
+    }, async (e, t, r) => {
+      let n = e(h.Oq);
+      await n[F(829, 170, 315, 177) + "c"](r);
+    }));
+    let X = (0, R.XO)(F(841, 916, 885, 832) + "om", (0, I.eU)(e => {
+      let t = e(U.u5);
+      let r = e(Q);
+      return (0, R.wy)(t, r);
+    }, async (e, t, r) => {
+      let n = e(w.Ks);
+      await n.mutateAsync(r);
+    }));
+    let B = (0, R.XO)("unfilteredProjectsAtom", (0, I.eU)(e => {
+      let t = e(U.u5);
+      let r = e(Q);
+      if (r.role === "admin") {
+        return t;
+      } else {
+        return (0, R.wy)(t, r);
+      }
+    }));
+    let K = (0, R.XO)("labelsAtom", (0, I.eU)(e => {
+      let t = e(U.jc);
+      let r = e(Q);
+      return (0, R.DC)(t, r);
+    }, async (e, t, r) => {
+      let n = e(v.B);
+      await n.mutateAsync(r);
+    }));
+    let q = (0, R.XO)(F(715, 669, 706, 795), (0, I.eU)(e => e(j.sZ).data ?? [k.Az]));
+    let W = (0, R.XO)("userByIdAtom", (0, I.eU)(e => {
+      let t = e(q);
+      let r = new Map();
+      for (let e of t) {
+        r.set(e.id, e);
+      }
+      return r;
+    }));
+    function $() {
+      let e = ["pro-tasks", "unassigned", "276035goEXOT", "addActivit", "module", "log activi", "Bulk user ", "74715cJFULB", "Jbehf", "Bulk unass", "nJuKn", "sessionUse", "IrvqE", "createdObj", "success", "now", " task", "activity", "ogged succ", "ser ", "includes", "Kvsvh", "Failed to ", "length", "rom tasks", "trackingId", "constructo", "find", " from ", "assignment", "ign user t", "xktOc", "get", "igned", "info", "pro-activi", "4168vuRGqP", "8950hveWPe", "tasksAtom", "type", "5678496WPVHta", "toString", "mutateAsyn", "zDJxe", "wardEvents", "15302tsTBXL", " not found", "gIzze", "assign use", "tasks", "unassignme", "Unassigned", "r in userA", "17411944Fgnbzh", "projectsAt", " already a", "IcbLU", "updatedCal", "tom", "user", "unassign u", "filter", "sks", "Atom", "dFQsZ", "fapIc", "warn", "createdCal", "13EJrXPD", "bulk unass", "User unass", "ncAtom", "tsAtom", "notFound", " to ", "RmnAj", "set", " successfu", " from task", "error", "96tkfbOz", "search", "debugLabel", "unassignTa", "rAtom", " user ", "o non-exis", "tLDpH", "alreadyAss", "existent t", "usersAtom", " from non-", "jTalg", "ssign user", "User alrea", "d to task", "summary", "deletedObj", "ful", "TasksToUse", "164sNHaGA", " not assig", "lastSynced", "8849560vepSwx", "nUjhr", "endars", "igned user", "taskIds", "currencyRe", "r to task", "tent task", "ruxMK", "apply", "Assigned t", "ssigned to", "push", "gnTasksFro", "Task ", "FgHKf", "count", "Assigned u", "nxKeC", "ned)", "taskId", "dy assigne", "ser", "k successf", "ciSrR", "assignees", "rewardEven", "yLogAtom", "string", "Cannot ass", "lrPrz", "updatedObj", "data", " any selec", "ask", "EwaRu", "ects", "title", "ign user f", "chVZZ", "Activity l", " task succ", "objects", "userId", "(((.+)+)+)", "essfully", "task", "ssigned)", "User not a", "assigned", "UOhDb", "notAssigne", " to task \"", "ned user ", "ser from t", "igned from", "ckingIdAto", "Cannot una", "DpUJU"];
+      return ($ = function () {
+        return e;
+      })();
+    }
+    let Y = (0, R.XO)(F(754, 812, 723, 687) + O(502, -358), (0, I.eU)(e => {
+      let t = e(j.AJ);
+      function r(e, t, r, n) {
+        return F(t - 239, t - 417, r, n - 28);
+      }
+      return t[r(1022, 999, 931, 955)]?.[r(1002, 993, 923, 941) + "ts"] ?? [];
+    }));
+    let Z = (0, R.XO)(F(733, 659, 763, 781) + O(474, -272) + O(493, -304), (0, I.eU)(e => {
+      function t(e, t, r, n) {
+        return O(n - 414 - -814, t);
+      }
+      let r = e(j.AJ);
+      return r[t(-34, 3, -38, 3)]?.[t(-3, -4, 23, -24) + "wardEvents"] ?? [];
+    }));
+    let H = (0, R.XO)("tasksByTra" + F(784, 806, 823, 836) + "m", (0, I.eU)(e => {
+      let t = e(N);
+      let r = new Map();
+      for (let e of t) {
+        var n;
+        let t = e[F(812, -144, n = -48, n - 279)] || e.id;
+        let o = r.get(t);
+        if (o) {
+          o.push(e.id);
+        } else {
+          r[F(863, 1084, 1362, 1031)](t, [e.id]);
+        }
+      }
+      return r;
+    }));
+  },
+  50978: (e, t, r) => {
+    let n;
+    r.d(t, {
+      Oq: () => g,
+      Zs: () => y
+    });
+    var o = r(85980);
+    var i = r(22688);
+    var u = r(84852);
+    var a = r(41356);
+    var l = r(61212);
+    var s = r(31453);
+    var c = r(54932);
+    var d = r(33006);
+    var f = r(71420);
+    (function (e, t) {
+      let r = e();
+      while (true) {
+        try {
+          var n;
+          var o;
+          var i;
+          var u;
+          var a;
+          var l;
+          var s;
+          var c;
+          var d;
+          var f;
+          if (parseInt((n = -392, o = -372, m(n - -520, o))) / 1 + parseInt((i = -375, u = -383, m(i - -520, u))) / 2 * (-parseInt(m(149, 163)) / 3) + -parseInt((a = -381, m(a - -520, -377))) / 4 * (parseInt((l = -390, s = -412, m(l - -520, s))) / 5) + -parseInt(m(118, 153)) / 6 + parseInt(m(137, 170)) / 7 * (-parseInt(m(150, 167)) / 8) + -parseInt(m(159, 172)) / 9 * (-parseInt((c = -408, m(134, c))) / 10) + -parseInt((d = -363, f = -368, m(d - -520, f))) / 11 * (-parseInt(m(136, 141)) / 12) === 873465) {
+            break;
+          }
+          r.push(r.shift());
+        } catch (e) {
+          r.push(r.shift());
+        }
+      }
+    })(x, 0);
+    let p = (n = true, function (e, t) {
+      let r = n ? function () {
+        if (t) {
+          if (m(160, 18) !== m(147, -9)) {
+            let r = t[m(114, 830)](e, arguments);
+            t = null;
+            return r;
+          }
+          if (!_0x47f751) {
+            throw new _0x4f2bbe("Optimistic" + m(129, -28) + m(126, 5));
+          }
+          return [..._0x234e60, _0x51d83e];
+        }
+      } : function () {};
+      n = false;
+      return r;
+    })(undefined, function () {
+      return p[m(121, -837)]()[m(123, -509)](m(125, -503) + "+$").toString()[m(151, -461) + "r"](p).search(m(125, -826) + "+$");
+    });
+    function x() {
+      let e = ["10OFQNAr", "entity", "recurring", "response", "310900qbpFgX", "operation", "8160lTkEWf", "7GqxYqF", "update", "2346620aUxBDo", "deleteTask", "request", "completed", "Task creat", "isArray", "16NZZjKb", "get", "tEHpU", "Optimistic", "336624oqSYcj", "10951832NzWBgc", "constructo", "gYzGv", "success", "ed success", "dueDate", "gelbt", "48653dJPErm", "completedA", "297LMTQig", "WdsDx", "apply", "tom", "createTask", "Created ta", "2947590MltqHL", "debugLabel", "task", "toString", "schemas", "search", "labels", "(((.+)+)+)", "provided", "updateTask", "771073boCbFS", " task not "];
+      return (x = function () {
+        return e;
+      })();
+    }
+    function m(e, t) {
+      let r = x();
+      return (m = function (e, t) {
+        return r[e -= 114];
+      })(e, t);
+    }
+    p();
+    (0, d.W)({
+      method: "POST",
+      operationName: m(117, 472) + "sk",
+      resourceQueryKey: s.si,
+      defaultResourceValue: [],
+      responseSchema: u.c3,
+      serializationSchema: i.ny,
+      testResponseFactory: () => {
+        let e = (0, a.fP)((0, o.A)());
+        function t(e, t, r, n) {
+          return m(t - -1209 - 339, n);
+        }
+        let r = {
+          [t(-726, -717, -723, -700)]: true,
+          taskIds: [e]
+        };
+        r.message = t(-715, -727, -744, -715) + t(-727, -716, -731, -709) + "fully (test mode)";
+        return r;
+      },
+      optimisticDataFactory: e => ({
+        id: (0, a.fP)((0, o.A)()),
+        completed: s.KA,
+        subtasks: s.BH,
+        comments: s.Tn,
+        createdAt: new Date(),
+        completedAt: undefined,
+        ...e,
+        title: e.title || s.zg,
+        priority: e.priority || s.Jx,
+        projectId: e.projectId || l.ZB,
+        labels: e[m(124, 1074)] || [],
+        dueDate: e.dueDate ? e.dueDate instanceof Date ? e.dueDate : new Date(e[m(155, 373)]) : undefined,
+        recurringMode: e.recurringMode || s.C6
+      }),
+      optimisticUpdateFn: (e, t, r) => {
+        function n(e, t, r, n) {
+          return m(n - -1075 - 339, t);
+        }
+        if (!r) {
+          throw Error(n(-578, -597, -597, -588) + n(-609, -586, -624, -607) + "provided");
+        }
+        return [...t, r];
+      }
+    }).debugLabel = m(116, 446) + "MutationAtom";
+    let _ = {
+      [m(141, 312)]: i.TB,
+      response: u.Xn
+    };
+    let g = (0, f.Xt)({
+      entity: m(120, 479),
+      operation: m(138, 321),
+      schemas: _,
+      invalidateQueryKeys: [s.si, s.iu],
+      optimisticUpdateFn: (e, t) => {
+        let r = new Map((Array[o(1086, 1065, 1090, 1069)](e) ? e : [e]).map(e => [e.id, e]));
+        let n = t.map(e => {
+          function t(e, t, r, n) {
+            return o(r, t - 361, r - 378, n - -1084);
+          }
+          function n(e, t, r, n) {
+            return o(r, t - 186, r - 128, n - -288);
+          }
+          if (t(-7, -3, -18, -3) === n(816, 781, 790, 793)) {
+            let o;
+            let i = r[n(766, 776, 759, 783)](e.id);
+            if (!i) {
+              return e;
+            }
+            let u = {
+              ...i
+            };
+            let a = (0, c.j7)(u);
+            if (e[n(749, 780, 769, 769)] && e.completed === false && a[t(-7, -10, -6, -17)] === true) {
+              let {
+                completed: t,
+                completedAt: r,
+                ...n
+              } = a;
+              o = {
+                ...e,
+                ...n
+              };
+            } else {
+              o = {
+                ...e,
+                ...a
+              };
+              if (a[n(784, 779, 771, 779)] !== undefined && a[t(-9, -13, -16, -17)] !== e.completed) {
+                if (n(808, 803, 785, 789) !== "sKqGn") {
+                  if (a[t(-14, -40, 0, -17)] === true && e.completed === false) {
+                    o[t(21, -11, 5, -1) + "t"] = new Date();
+                  } else if (a[n(788, 776, 762, 779)] === false && e[t(1, -35, -3, -17)] === true) {
+                    o[t(6, -5, 9, -1) + "t"] = undefined;
+                  }
+                } else if (_0x242f2e) {
+                  let e = _0x2f2cf1[t(-41, -27, -34, -45)](_0x1d8c24, arguments);
+                  _0x59f528 = null;
+                  return e;
+                }
+              }
+            }
+            return (0, c.j7)(o);
+          }
+          {
+            let {
+              completed: e,
+              completedAt: t,
+              ...r
+            } = _0x1a086a;
+            _0x5643ce = {
+              ..._0x19bb50,
+              ...r
+            };
+          }
+        });
+        function o(e, t, r, n) {
+          return m(n - 586 - 339, e);
+        }
+        return n;
+      }
+    });
+    g[m(119, 447)] = m(127, 480) + "sMutationA" + m(115, 283);
+    let b = {
+      request: i.q5,
+      [m(133, 330)]: u.vu
+    };
+    let I = {
+      [m(131, 304)]: "task",
+      [m(135, 474)]: "delete",
+      [m(122, 447)]: b
+    };
+    let y = (0, f.Xt)(I);
+    y[m(119, 450)] = m(140, 464) + "MutationAtom";
+  },
+  52126: (e, t, r) => {
+    let n;
+    r.d(t, {
+      A1: () => A,
+      pP: () => j,
+      w5: () => v,
+      x0: () => I.x
+    });
+    var o;
+    var i;
+    var u;
+    var a;
+    var l;
+    var s;
+    var c = r(85980);
+    var d = r(22688);
+    var f = r(84852);
+    var p = r(41356);
+    var x = r(61212);
+    var m = r(10327);
+    var _ = r(31453);
+    var g = r(54932);
+    var b = r(33006);
+    var I = r(78563);
+    (function (e, t) {
+      let r = e();
+      while (true) {
+        try {
+          var n;
+          var o;
+          var i;
+          var u;
+          var a;
+          if (parseInt(U(412, 1018)) / 1 + parseInt(U(383, 961)) / 2 * (parseInt((n = -206, o = -212, U(o - -581, n))) / 3) + -parseInt(U(416, 1000)) / 4 * (parseInt(U(390, 988)) / 5) + -parseInt(U(413, 1016)) / 6 + -parseInt((i = -223, u = -202, U(u - -581, i))) / 7 * (-parseInt(U(392, 998)) / 8) + -parseInt((a = -207, U(a - -581, -206))) / 9 + parseInt(U(367, 967)) / 10 === 197662) {
+            break;
+          }
+          r.push(r.shift());
+        } catch (e) {
+          r.push(r.shift());
+        }
+      }
+    })(w, 0);
+    let y = (n = true, function (e, t) {
+      let r = n ? function () {
+        if (t) {
+          let r = t.apply(e, arguments);
+          t = null;
+          return r;
+        }
+      } : function () {};
+      n = false;
+      return r;
+    })(undefined, function () {
+      return y.toString()[U(402, 825)](U(414, 1113) + "+$")[U(370, 1095)]().constructor(y).search(U(414, 848) + "+$");
+    });
+    function h(e, t, r, n) {
+      return U(r - 635, e);
+    }
+    function w() {
+      let e = ["debugLabel", "User delet", "327480zULdsa", "752436NOFInS", "(((.+)+)+)", "ted-test-a", "88fwLmaE", "createUser", "DELETE", "t mode)", "562100pHKnov", "imistic-pl", "1761rXQYru", "toString", "user", "deleteUser", "fully (tes", "3479004QCNPWj", "tar/simula", "message", "deletedUse", "avatar", "257915EVJwPa", "role", "rId", "data", "982Ralxtq", "Deleted us", "updateUser", "MutationAt", "Updated us", "$2a$10$moc", "vatar.png", "50045cvvxzq", "username", "56dXxrLW", "$2a$10$opt", "V1_USER", "map", "POST", "userId", "PATCH", "success", "assets/ava", "ionAtom", "search", "ed success", "aceholder", "ked-hashed", "AdminMutat", "labels", "-password", "Created us"];
+      return (w = function () {
+        return e;
+      })();
+    }
+    y();
+    let v = (0, b.W)({
+      method: (o = 0, i = 705, u = 0, U(396, 705)),
+      operationName: (a = 0, l = 715, s = 0, U(409, 715) + "er"),
+      apiEndpoint: x.QQ[h(1036, 1014, 1029, 1004)],
+      resourceQueryKey: _.CW,
+      defaultResourceValue: [],
+      invalidateQueryKeys: [_.CW, _.$t],
+      responseSchema: f._5,
+      serializationSchema: d.Oq,
+      logModule: "user-admin",
+      testResponseFactory: e => {
+        let t = {
+          id: (0, p.dB)((0, c.A)()),
+          username: e[o(-308, -328, -324, -303)],
+          password: r(-324, -327, -303, -305) + r(-315, -310, -320, -337) + r(-281, -307, -307, -287),
+          role: e[o(-319, -296, -341, -305)],
+          avatar: e[o(-321, -324, -309, -313)] ? (0, x.FY)(r(-307, -315, -312, -308) + r(-318, -340, -355, -340) + r(-309, -300, -300, -298) + o(-310, -332, -304, -316)) : undefined
+        };
+        function r(e, t, r, n) {
+          return U(t - -1026 - 311, n);
+        }
+        let n = {};
+        function o(e, t, r, n) {
+          return U(e - -1010 - 311, r);
+        }
+        n[o(-300, -312, -293, -308)] = true;
+        n[o(-328, -335, -333, -332)] = t;
+        n.message = "User creat" + r(-308, -312, -317, -326) + o(-326, -340, -344, -342) + r(-287, -296, -302, -284);
+        return n;
+      },
+      optimisticUpdateFn: (e, t) => {
+        function r(e, t, r, n) {
+          return U(n - -12 - 311, t);
+        }
+        return [...t, {
+          id: (0, p.dB)((0, c.A)()),
+          username: e[h(161, -206, 1026, 97)],
+          password: r(666, 701, 695, 692) + r(643, 643, 682, 667) + r(685, 692, 703, 703),
+          role: e[h(142, -238, 1015, 78)],
+          avatar: undefined
+        }];
+      }
+    });
+    v[U(410, 731)] = h(1040, 1066, 1052, 1048) + U(386, 697) + "om";
+    let A = (0, b.W)({
+      method: h(1050, 1045, 1033, 1047),
+      operationName: h(1007, 1004, 1022, 1040) + "er",
+      apiEndpoint: x.QQ[U(394, 697)],
+      resourceQueryKey: _.CW,
+      defaultResourceValue: [],
+      invalidateQueryKeys: [_.CW, _.$t],
+      responseSchema: f.Xs,
+      serializationSchema: d.UM,
+      logModule: "user-admin",
+      testResponseFactory: e => {
+        let t = (0, g.j7)(e);
+        let r = e[o(74, 88, 82, 68)] !== undefined ? e[u(-75, -100, -92, -105)] === null ? undefined : (0, x.FY)(u(-82, -78, -90, -66) + u(-103, -103, -95, -106) + o(83, 112, 80, 105) + u(-83, -89, -83, -114)) : m.Az.avatar;
+        let n = {
+          ...m.Az,
+          ...t
+        };
+        function o(e, t, r, n) {
+          return h(t, t - 350, n - -945, n - 293);
+        }
+        n.id = e.id || m.Az.id;
+        n.avatar = r;
+        let i = {};
+        function u(e, t, r, n) {
+          return h(r, t - 121, t - -1113, n - 252);
+        }
+        i[o(95, 98, 72, 89)] = true;
+        i[u(-105, -107, -97, -95)] = n;
+        i[u(-90, -102, -128, -91)] = "User updat" + u(-60, -75, -98, -92) + o(78, 37, 77, 63) + "t mode)";
+        return i;
+      },
+      optimisticUpdateFn: (e, t) => {
+        let r = e.id || m.Az.id;
+        function n(e, t, r, n) {
+          return U(r - -563 - 311, t);
+        }
+        return t[n(149, 154, 143, 146)](t => {
+          var o;
+          if (t.id === r) {
+            return {
+              ...t,
+              ...(0, g.j7)(e),
+              avatar: t[o = 1317, n(902, 1317, 126, 920)]
+            };
+          } else {
+            return t;
+          }
+        });
+      }
+    });
+    function U(e, t) {
+      let r = w();
+      return (U = function (e, t) {
+        return r[e -= 367];
+      })(e, t);
+    }
+    A.debugLabel = U(385, 719) + U(406, 736) + U(401, 736);
+    let j = (0, b.W)({
+      method: h(1065, 1055, 1053, 1051),
+      operationName: U(384, 683) + "er",
+      apiEndpoint: x.QQ[h(1044, 1040, 1029, 1004)],
+      resourceQueryKey: _.CW,
+      defaultResourceValue: [],
+      invalidateQueryKeys: [_.CW, _.$t, ["data", "tasks"], [h(1011, 1028, 1017, 1000), "projects"], [h(997, 991, 1017, 1008), h(1036, 1057, 1042, 1067)]],
+      responseSchema: f.V_,
+      serializationSchema: d.h0,
+      logModule: "user-admin",
+      testResponseFactory: e => {
+        let t = {};
+        function r(e, t, r, n) {
+          return h(t, t - 251, r - -1385, n - 374);
+        }
+        function n(e, t, r, n) {
+          return h(e, t - 224, r - -1447, n - 202);
+        }
+        t[n(-418, -407, -413, -420)] = true;
+        t[n(-455, -429, -435, -444) + r(-362, -388, -369, -389)] = e[r(-359, -370, -353, -365)];
+        t[n(-428, -460, -436, -448)] = n(-375, -392, -401, -426) + n(-410, -416, -409, -399) + n(-440, -421, -439, -425) + "t mode)";
+        return t;
+      },
+      optimisticUpdateFn: (e, t) => t.filter(t => t.id !== e[h(-480, -795, 1032, -898)])
+    });
+    j[h(1051, 1063, 1045, 1028)] = h(991, 1002, 1007, 1023) + U(386, 682) + "om";
+  },
+  56001: (e, t, r) => {
+    let n;
+    let o;
+    r.d(t, {
+      vH: () => rT,
+      fl: () => rS,
+      rk: () => rL,
+      $Y: () => rR,
+      O4: () => rD
+    });
+    var i;
+    var u;
+    var a;
+    var l;
+    var s;
+    var c;
+    var d;
+    var f;
+    var p;
+    var x;
+    var m;
+    var _;
+    var g;
+    var b;
+    var I;
+    var y;
+    var h;
+    var w;
+    var v;
+    var A;
+    var U;
+    var j;
+    var k;
+    var S;
+    var R;
+    var P;
+    var T;
+    var D;
+    var L;
+    var G;
+    var C;
+    var O;
+    var E;
+    var F;
+    var Q;
+    var M;
+    var V;
+    var z;
+    var N;
+    var X;
+    var B;
+    var K;
+    var q;
+    var W;
+    var $;
+    var Y;
+    var Z;
+    var H;
+    var J;
+    var ee;
+    var et;
+    var er;
+    var en;
+    var eo;
+    var ei;
+    var eu;
+    var ea;
+    var el;
+    var es;
+    var ec;
+    var ed;
+    var ef;
+    var ep;
+    var ex;
+    var em;
+    var e_;
+    var eg;
+    var eb;
+    var eI;
+    var ey;
+    var eh;
+    var ew;
+    var ev;
+    var eA;
+    var eU;
+    var ej;
+    var ek;
+    var eS;
+    var eR;
+    var eP;
+    var eT;
+    var eD;
+    var eL;
+    var eG;
+    var eC;
+    var eO;
+    var eE;
+    var eF;
+    var eQ;
+    var eM;
+    var eV;
+    var ez;
+    var eN;
+    var eX;
+    var eB;
+    var eK;
+    var eq;
+    var eW;
+    var e$;
+    var eY;
+    var eZ;
+    var eH;
+    var eJ;
+    var e1;
+    var e0;
+    var e2;
+    var e3;
+    var e4;
+    var e5;
+    var e7;
+    var e6;
+    var e8;
+    var e9;
+    var te;
+    var tt;
+    var tr;
+    var tn;
+    var to;
+    var ti;
+    var tu;
+    var ta;
+    var tl;
+    var ts;
+    var tc;
+    var td;
+    var tf;
+    var tp;
+    var tx;
+    var tm;
+    var t_;
+    var tg;
+    var tb;
+    var tI;
+    var ty;
+    var th;
+    var tw;
+    var tv;
+    var tA;
+    var tU;
+    var tj;
+    var tk;
+    var tS;
+    var tR;
+    var tP;
+    var tT;
+    var tD;
+    var tL;
+    var tG;
+    var tC;
+    var tO;
+    var tE;
+    var tF;
+    var tQ;
+    var tM;
+    var tV;
+    var tz;
+    var tN;
+    var tX;
+    var tB;
+    var tK;
+    var tq;
+    var tW;
+    var t$;
+    var tY;
+    var tZ;
+    var tH;
+    var tJ;
+    var t1;
+    var t0;
+    var t2;
+    var t3;
+    var t4;
+    var t5;
+    var t7;
+    var t6;
+    var t8;
+    var t9;
+    var re;
+    var rt;
+    var rr;
+    var rn;
+    var ro;
+    var ri;
+    var ru = r(22814);
+    var ra = r(40659);
+    var rl = r(10327);
+    var rs = r(31453);
+    var rc = r(51547);
+    var rd = r(62759);
+    var rf = r(85980);
+    var rp = r(41356);
+    var rx = r(22688);
+    var rm = r(84852);
+    var r_ = r(61212);
+    var rg = r(33006);
+    (function (e, t) {
+      let r = e();
+      while (true) {
+        try {
+          var n;
+          var o;
+          var i;
+          var u;
+          var a;
+          var l;
+          var s;
+          var c;
+          var d;
+          if (-parseInt((n = -588, rI(386, n))) / 1 + parseInt(rI(447, 579)) / 2 + parseInt((o = -587, i = -605, rI(i - -995, o))) / 3 * (-parseInt(rI(392, 478)) / 4) + parseInt(rI(434, 567)) / 5 * (-parseInt((u = -549, a = -580, rI(a - -995, u))) / 6) + -parseInt(rI(412, 550)) / 7 + -parseInt(rI(388, 458)) / 8 * (parseInt(rI(374, -659)) / 9) + -parseInt((l = -640, s = -627, rI(s - -995, l))) / 10 * (-parseInt((c = -573, d = -595, rI(d - -995, c))) / 11) === 853794) {
+            break;
+          }
+          r.push(r.shift());
+        } catch (e) {
+          r.push(r.shift());
+        }
+      }
+    })(rU, 0);
+    let rb = (n = true, function (e, t) {
+      if (rI(431, 332) === rI(431, -116)) {
+        let r = n ? function () {
+          function r(e, t, r, n) {
+            return rI(n - 1344 - -564, e);
+          }
+          function n(e, t, r, n) {
+            return rI(n - -855 - -110, t);
+          }
+          if (t) {
+            if (r(1145, 1203, 1144, 1167) !== "ikBUz") {
+              if (_0x54c505[n(-531, -579, -519, -563)] === "project") {
+                let e = {
+                  ..._0x32fb65[n(-589, -556, -577, -582) + r(1173, 1129, 1150, 1171)]
+                };
+                e[r(1213, 1263, 1231, 1222)] = _0x200719[r(1171, 1149, 1205, 1161)];
+                let t = {
+                  ..._0x4f3905
+                };
+                t["projectGro" + n(-579, -574, -587, -574)] = e;
+                return t;
+              } else {
+                let e = {
+                  ..._0x101a72.labelGroups
+                };
+                e[n(-556, -524, -540, -523)] = _0x177488[r(1167, 1201, 1145, 1161)];
+                let t = {
+                  ..._0x37a17b
+                };
+                t[n(-570, -599, -534, -560) + "s"] = e;
+                return t;
+              }
+            } else {
+              let n = t[r(1236, 1213, 1243, 1221)](e, arguments);
+              t = null;
+              return n;
+            }
+          }
+        } : function () {};
+        n = false;
+        return r;
+      }
+      throw new _0x13b48c(rI(399, -208) + "ject group" + rI(397, -166) + rI(384, -144) + rI(421, 341) + rI(403, -127) + rI(446, -157));
+    })(undefined, function () {
+      return rb.toString().search(rI(373, -338) + "+$")[rI(425, 1096)]()[rI(440, 1177) + "r"](rb)[rI(394, -270)](rI(373, -275) + "+$");
+    });
+    function rI(e, t) {
+      let r = rU();
+      return (rI = function (e, t) {
+        return r[e -= 361];
+      })(e, t);
+    }
+    function ry(e, t, r, n) {
+      return rI(r - 575, t);
+    }
+    rb();
+    let rh = {
+      [rI(383, -297) + ry(959, 951, 966, 927)]: rl.Mr,
+      [rI(405, -306) + "s"]: rl.JN
+    };
+    let rw = (0, rg.W)({
+      method: rI(439, -295),
+      operationName: rI(361, -314) + ry(1046, 1036, 1018, 1007),
+      apiEndpoint: r_.QQ[ry(942, 927, 945, 933)],
+      resourceQueryKey: rs.Gd,
+      defaultResourceValue: rh,
+      responseSchema: rm.Mj,
+      serializationSchema: rx.EQ,
+      logModule: "groups",
+      testResponseFactory: () => ({
+        success: true,
+        groupIds: [(0, rp.Tf)((0, rf.A)())],
+        message: ry(978, 986, 1002, 1043) + ry(967, 942, 985, 982) + rI(372, -353) + rI(409, -337)
+      }),
+      optimisticDataFactory: e => {
+        if (e[n(-157, -99, -107, -133)] !== n(-146, -138, -134, -124)) {
+          if (t(1078, 1071, 1057, 1039) !== t(1041, 1071, 1067, 1069)) {
+            return typeof _0x275680 === t(1021, 1051, 1084, 1034) || _0x3daf0d.id !== _0x2d5900;
+          } else {
+            throw Error("Create pro" + n(-198, -193, -155, -157) + " mutation " + n(-165, -189, -178, -151) + n(-102, -98, -153, -114) + n(-152, -163, -155, -132) + n(-45, -64, -95, -89));
+          }
+        }
+        function t(e, t, r, n) {
+          return ry(e - 210, n, t - 72, n - 470);
+        }
+        let r = e[n(-169, -201, -129, -172)] ?? (0, rs.yp)(rs.Z0);
+        function n(e, t, r, n) {
+          return rI(n - 174 - -709, t);
+        }
+        return {
+          type: "project",
+          id: (0, rp.Tf)((0, rf.A)()),
+          name: e.name,
+          description: e[t(984, 1024, 1047, 1024) + "n"],
+          color: r,
+          items: []
+        };
+      },
+      optimisticUpdateFn: (e, t, r) => {
+        function n(e, t, r, n) {
+          return rI(r - 825 - -709, e);
+        }
+        function o(e, t, r, n) {
+          return ry(e - 185, n, t - 141, n - 397);
+        }
+        if (!r) {
+          throw Error(n(554, 521, 522, 545) + o(1127, 1130, 1087, 1120) + n(503, 489, 496, 531));
+        }
+        let i = {
+          ...t
+        };
+        i[o(1113, 1099, 1123, 1080) + n(516, 522, 507, 481)] = {
+          ...t[o(1058, 1099, 1120, 1140) + n(542, 470, 507, 544)]
+        };
+        i[o(1113, 1099, 1123, 1080) + n(516, 522, 507, 481)].items = [...t[n(484, 503, 499, 521) + n(502, 532, 507, 536)][o(1145, 1158, 1170, 1126)], r];
+        return i;
+      }
+    });
+    rw[ry(994, 955, 992, 1015)] = ry(998, 964, 982, 977) + rI(437, -273) + "tationAtom";
+    let rv = (0, rg.W)({
+      method: ry(1030, 1013, 1013, 1029),
+      operationName: "Updated gr" + rI(443, -280),
+      apiEndpoint: r_.QQ[ry(962, 953, 945, 938)],
+      resourceQueryKey: rs.Gd,
+      defaultResourceValue: rh,
+      responseSchema: rm.DO,
+      serializationSchema: rx.Y_,
+      logModule: rI(381, -351),
+      testResponseFactory: e => {
+        let t = {};
+        t[n(126, 157, 147, 157)] = n(196, 135, 156, 136);
+        t.id = e.id;
+        t[o(471, 473, 465, 496)] = e[n(70, 141, 111, 95)] || n(101, 174, 130, 165) + "oup";
+        t[n(96, 139, 122, 95) + "n"] = e[o(457, 517, 476, 451) + "n"];
+        t.color = e[o(471, 428, 462, 435)];
+        t.items = e[o(551, 554, 541, 576)] || [];
+        let r = {};
+        function n(e, t, r, n) {
+          return ry(e - 120, e, r - -830, n - 404);
+        }
+        function o(e, t, r, n) {
+          return ry(e - 143, e, r - -476, n - 358);
+        }
+        r[n(114, 99, 134, 136)] = true;
+        r[o(463, 513, 480, 493)] = [t];
+        r[o(508, 523, 521, 544)] = 1;
+        r[o(510, 506, 495, 454)] = n(106, 110, 116, 151) + n(171, 168, 155, 135) + o(514, 473, 471, 497) + n(136, 149, 154, 118);
+        return r;
+      },
+      optimisticUpdateFn: (e, t) => {
+        let r = Array.isArray(e) ? e : [e];
+        function n(e, t, r, n) {
+          return rI(r - 204 - -709, t);
+        }
+        let o = e => {
+          if (rI(382, 754) === rI(418, 767)) {
+            return _0x3a83a4;
+          }
+          {
+            let t = r[rI(365, 855)](t => t.id === e.id);
+            if (t) {
+              if (rI(420, 915) !== rI(376, 688)) {
+                return {
+                  ...e,
+                  ...(t[rI(366, 688)] && {
+                    name: t[rI(366, 901)]
+                  }),
+                  ...(t[rI(377, 704) + "n"] && {
+                    description: t[rI(377, 837) + "n"]
+                  }),
+                  ...(t.color && {
+                    color: t[rI(363, 696)]
+                  }),
+                  ...(t[rI(442, 987)] && {
+                    items: t[rI(442, 809)]
+                  })
+                };
+              }
+              {
+                if (!_0x280395) {
+                  throw new _0x19a4f6(rI(406, 904) + rI(414, 948) + " provided");
+                }
+                let e = {
+                  ..._0x526f56[rI(383, 749) + rI(391, 743)]
+                };
+                e.items = [..._0x24d7f6[rI(383, 881) + "ups"].items, _0x51acff];
+                let t = {
+                  ..._0x2033c4
+                };
+                t[rI(383, 709) + rI(391, 753)] = e;
+                return t;
+              }
+            }
+            return {
+              ...e,
+              items: e[rI(442, 942)][rI(435, 789)](e => {
+                function t(e, t, r, n) {
+                  return rI(n - -180 - 504, t);
+                }
+                if (typeof e === t(762, 741, 696, 728)) {
+                  if (rI(395, 345) === t(649, 676, 699, 688)) {
+                    return _0x22fdd5;
+                  } else {
+                    return e;
+                  }
+                } else if (t(777, 803, 816, 772) === "TyMmY") {
+                  return o(e);
+                } else {
+                  return _0x1eb7b3(_0x3a8a2c);
+                }
+              })
+            };
+          }
+        };
+        return {
+          ...t,
+          projectGroups: o(t[n(-118, -141, -122, -106) + n(-99, -71, -114, -139)])
+        };
+      }
+    });
+    rv[ry(958, 1032, 992, 978)] = "updateProj" + rI(437, -311) + rI(445, -282);
+    let rA = (0, rg.W)({
+      method: ry(1054, 1040, 1011, 1013),
+      operationName: ry(927, 917, 937, 920) + rI(443, -230),
+      apiEndpoint: r_.QQ[rI(370, -382)],
+      resourceQueryKey: rs.Gd,
+      defaultResourceValue: rh,
+      responseSchema: rm.vD,
+      serializationSchema: rx.Xn,
+      logModule: ry(919, 937, 956, 927),
+      testResponseFactory: e => ({
+        success: true,
+        groupIds: [e.id],
+        message: rI(444, -285) + "ted successfully (te" + rI(409, -264)
+      }),
+      optimisticUpdateFn: (e, t) => {
+        function r(e, t, r, n) {
+          return rI(t - -156 - -709, r);
+        }
+        if (t[r(-502, -482, -459, -466) + r(-451, -474, -457, -484)].id === e.id) {
+          if (r(-452, -446, -471, -450) !== "KtYZs") {
+            return t;
+          } else if (typeof _0x2c22fe === r(-454, -461, -427, -451)) {
+            return _0x48f006;
+          } else {
+            return _0x5b26d3(_0x2945d3);
+          }
+        }
+        function n(e, t, r, n) {
+          return rI(e - 802 - -709, t);
+        }
+        let o = (e, t) => {
+          function i(e, t, n, o) {
+            return r(e - 498, e - 139, o, o - 352);
+          }
+          function u(e, t, r, o) {
+            return n(t - -149, r, r - 85, o - 360);
+          }
+          return {
+            ...e,
+            items: e.items[u(406, 370, 396, 385)](e => {
+              function r(e, t, r, n) {
+                return u(e - 134, t - 77, n, n - 159);
+              }
+              if (u(851, 372, 880, 473) !== r(474, 449, 430, 426)) {
+                return {
+                  ..._0x13c7a8,
+                  items: _0x32f464.items.filter(e => typeof e === r(21, 425, -93, 226) || e.id !== _0x3a96c3)[r(417, 456, 450, 441)](e => {
+                    var t;
+                    var n;
+                    var o;
+                    if (typeof e === (t = 1088, n = 1063, o = 0, r(986, 425, 795, 1063))) {
+                      return e;
+                    } else {
+                      return _0x1aa67b(e, _0x2ab0f4);
+                    }
+                  })
+                };
+              } else {
+                return typeof e == "string" || e.id !== t;
+              }
+            })[i(-291, -290, -295, -315)](e => {
+              function r(e, t, r, n) {
+                return i(e - -127, t - 318, r - 441, t);
+              }
+              if (r(-421, -407, -401, -408) !== r(-421, -426, -397, -411)) {
+                if (_0x1b1846) {
+                  let e = _0x405dde[r(-412, -411, -413, -403)](_0x3a14d5, arguments);
+                  _0x5db314 = null;
+                  return e;
+                }
+              } else if (typeof e === i(-322, -314, -659, -239)) {
+                return e;
+              } else {
+                return o(e, t);
+              }
+            })
+          };
+        };
+        return {
+          ...t,
+          projectGroups: o(t[r(-493, -482, -479, -449) + n(484, 460, 521, 528)], e.id)
+        };
+      }
+    });
+    function rU() {
+      let e = ["roBYo", "on-project", "count", "GroupsMuta", "jcuRk", "toString", "filter", "Group crea", "lXEkJ", "k updated ", "diOFe", "LVxvL", "mLHmp", "EAXrp", "5qSeaRg", "map", "DELETE", "ectGroupMu", "PATCH", "POST", "constructo", "apply", "items", "oup", "Group dele", "tationAtom", "uest", "219390HLQkmP", "TyMmY", "Created gr", "Deleted gr", "color", "xWiVH", "find", "name", "successful", "12860NQNHPb", "EgWTe", "V1_GROUPS", "Group upda", "sfully (te", "(((.+)+)+)", "14848047QcxKsf", "length", "UtFwo", "descriptio", "ject group", "tionAtom", " provided", "groups", "nxnDY", "projectGro", "received n", "Updated Gr", "833743ywZdpM", "ikBUz", "8vvbKGq", "success", "3vLEnYM", "ups", "3128332yWXARy", "bulkUpdate", "search", "mKWfX", "message", " mutation ", "ed groups", "Create pro", "53471idTUwU", "Groups bul", "type", " group req", "string", "labelGroup", "Optimistic", "createProj", "ly (test m", "st mode)", "ted succes", "project", "11845904HpqSci", "Bulk updat", " group not", "3295596cagCRh", "deleteProj", "debugLabel", "UlxjP", "PkGGV"];
+      return (rU = function () {
+        return e;
+      })();
+    }
+    rA[rI(417, -318)] = ry(992, 952, 991, 955) + rI(437, -285) + "tationAtom";
+    (0, rg.W)({
+      method: rI(438, -311),
+      operationName: rI(413, -327) + ry(931, 941, 973, 1008),
+      apiEndpoint: r_.QQ[rI(370, -379)],
+      resourceQueryKey: rs.Gd,
+      defaultResourceValue: rh,
+      responseSchema: rm.DO,
+      serializationSchema: rx.GJ,
+      logModule: rI(381, -311),
+      testResponseFactory: e => ({
+        success: true,
+        groups: [],
+        count: e[ry(982, 958, 956, 987)][ry(949, 938, 950, 956)],
+        message: rI(401, -315) + ry(986, 1010, 1004, 1015) + ry(908, 958, 942, 983) + rI(408, -296) + "ode)"
+      }),
+      optimisticUpdateFn: (e, t) => {
+        function r(e, t, r, n) {
+          return ry(e - 358, e, n - -1210, n - 158);
+        }
+        function n(e, t, r, n) {
+          return rI(e - 1623 - -709, n);
+        }
+        if (e[n(1316, 1350, 1287, 1338)] === n(1325, 1334, 1325, 1366)) {
+          if (r(-245, -212, -222, -205) === "kNDMN") {
+            if (typeof _0x1f7a41 == "string") {
+              return _0x4e6b31;
+            } else {
+              return _0x326857(_0x389b46, _0xc92400);
+            }
+          } else {
+            let o = {
+              ...t
+            };
+            o["projectGro" + n(1305, 1312, 1284, 1349)] = {
+              ...t[r(-269, -278, -252, -252) + n(1305, 1290, 1318, 1346)]
+            };
+            o["projectGro" + n(1305, 1312, 1284, 1349)].items = e.groups;
+            return o;
+          }
+        }
+        if (n(1347, 1337, 1379, 1382) === n(1283, 1250, 1257, 1241)) {
+          let e = {
+            ..._0x3bf15f[r(-232, -269, -189, -230) + "s"]
+          };
+          e.items = _0x458a8f[r(-295, -239, -274, -254)];
+          let t = {
+            ..._0x1b5998
+          };
+          t[n(1319, 1352, 1355, 1284) + "s"] = e;
+          return t;
+        }
+        {
+          let o = {
+            ...t
+          };
+          o[n(1319, 1358, 1286, 1339) + "s"] = {
+            ...t[r(-224, -257, -249, -230) + "s"]
+          };
+          o[n(1319, 1358, 1286, 1339) + "s"][n(1356, 1332, 1400, 1317)] = e[r(-216, -265, -237, -254)];
+          return o;
+        }
+      }
+    })[rI(417, -322)] = ry(944, 1012, 968, 1010) + ry(1036, 1019, 998, 1014) + rI(379, -311);
+    (function (e, t) {
+      let r = e();
+      while (true) {
+        try {
+          var n;
+          var o;
+          var i;
+          var u;
+          var a;
+          var l;
+          var s;
+          if (-parseInt((n = -541, o = -518, rk(o - -789, n))) / 1 + parseInt((i = -633, u = -539, rk(u - -789, i))) / 2 * (parseInt(rk(252, 760)) / 3) + -parseInt(rk(345, 853)) / 4 * (-parseInt(rk(309, 709)) / 5) + -parseInt(rk(319, 768)) / 6 * (-parseInt((a = -566, l = -590, rk(l - -789, a))) / 7) + parseInt(rk(190, 606)) / 8 + -parseInt(rk(356, 937)) / 9 + -parseInt((s = -567, rk(s - -789, -534))) / 10 === 155474) {
+            break;
+          }
+          r.push(r.shift());
+        } catch (e) {
+          r.push(r.shift());
+        }
+      }
+    })(rK, 0);
+    let rj = (o = true, function (e, t) {
+      let r = o ? function () {
+        if (t) {
+          if (rk(263, 607) === rk(263, -742)) {
+            let r = t[rk(267, -763)](e, arguments);
+            t = null;
+            return r;
+          }
+          throw new _0x176efc("Invalid to" + rk(175, 469) + _0x465fd5);
+        }
+      } : function () {};
+      o = false;
+      return r;
+    })(undefined, function () {
+      return rj[rk(268, 820)]().search(rk(193, 703) + "+$")[rk(268, -801)]().constructor(rj).search(rk(193, -860) + "+$");
+    });
+    function rk(e, t) {
+      let r = rK();
+      return (rk = function (e, t) {
+        return r[e -= 164];
+      })(e, t);
+    }
+    rj();
+    let rS = (0, ru.eU)(e => {
+      var t;
+      var r;
+      let n = e(rd.iP);
+      if (n[function (e, t, r, n) {
+        return rk(n - 168, r);
+      }(313, 423, 494, 410)]) {
+        return n[function (e, t, r, n) {
+          return rk(r - -405, e);
+        }(-118, -188, -163, -146)];
+      }
+      let o = {};
+      o[rk(184, 431)] = (t = 0, r = 0, rk(183, -144));
+      o.id = rl.HN;
+      o.name = rk(217, 476) + "ts";
+      o[rk(339, 479)] = [];
+      let i = {};
+      i[rk(184, 277)] = rk(298, 494);
+      i.id = rl.gV;
+      i[rk(348, 535)] = rk(253, 418);
+      i[rk(339, 452)] = [];
+      let u = {
+        [rk(299, -175) + rk(334, 471)]: o,
+        [rk(354, -80) + "s"]: i
+      };
+      return u;
+    });
+    let rR = (0, ru.eU)(e => {
+      let t = e(rS);
+      let r = e => {
+        let t = [];
+        for (let n of e[rk(339, 1037)]) {
+          if (typeof n !== rk(245, 1086)) {
+            t[rk(344, 1428)](n);
+            t[rk(344, 1422)](...r(n));
+          }
+        }
+        return t;
+      };
+      return r(t[rk(299, 360) + rk(334, 515)]);
+    });
+    let rP = (0, ru.eU)(e => {
+      let t = e(rS);
+      let r = e => {
+        let t = [];
+        for (let n of e[rk(339, -407)]) {
+          if (rk(324, -82) === rk(324, -127)) {
+            if (typeof n === rk(245, -630)) {
+              continue;
+            }
+            t[rk(344, -57)](n);
+            t[rk(344, -399)](...r(n));
+          } else {
+            let e = {
+              projectId: _0x5768c5
+            };
+            _0x3fbae5[rk(279, -506)](e, "Project no" + rk(291, -543) + rk(182, -549) + "l");
+            return;
+          }
+        }
+        return t;
+      };
+      return r(t.labelGroups);
+    });
+    let rT = (0, ru.eU)(null, async (e, t, r) => {
+      var n;
+      var o;
+      var i;
+      var u;
+      var a;
+      var l;
+      var s;
+      var c;
+      var d;
+      var f;
+      var p;
+      var x;
+      var m;
+      let _ = e(rw);
+      let g = r[function (e, t, r, n) {
+        return rk(t - 152, r);
+      }(561, 498, 436, 443)] ?? (0, rs.yp)(rs.Z0);
+      let b = {};
+      b[n = 0, o = 342, i = 0, rk(184, 342)] = (u = 0, a = 315, l = 0, rk(183, 315));
+      b.name = r.name;
+      b[s = 0, c = 0, rk(308, -255) + "n"] = r[d = 0, f = 0, rk(308, -307) + "n"];
+      b[p = 0, x = 517, m = 0, rk(346, 517)] = g;
+      b[rk(256, -311)] = r.parentId;
+      return await _[rk(189, 283) + "c"](b);
+    });
+    let rD = (0, ru.eU)(null, async (e, t, r) => {
+      var n;
+      var o;
+      var i;
+      var u;
+      var a;
+      var l;
+      let s = e(rv);
+      let c = {
+        id: r.id
+      };
+      c[n = 0, o = 0, rk(184, -447)] = (i = 0, u = 0, rk(183, -320));
+      c[rk(348, -525)] = r[a = 0, l = 0, rk(348, -188)];
+      c[rk(308, -318) + "n"] = r[rk(308, -386) + "n"];
+      c.color = r.color;
+      c[rk(339, -581)] = r.items;
+      return await s[rk(189, -795) + "c"](c);
+    });
+    let rL = (0, ru.eU)(null, async (e, t, r) => {
+      let n = e(rA);
+      let o = {
+        id: r
+      };
+      return await n[rk(189, -59) + "c"](o);
+    });
+    let rG = (0, ru.eU)(e => t => e(rB)[rk(194, 1153)][rk(292, 1184)](t) ?? null);
+    let rC = (0, ru.eU)(e => e(rB)[rk(215, -537)]);
+    let rO = (0, ru.eU)(e => {
+      let t = e(rB);
+      return Array[rk(353, 236)](t["projectToG" + rk(200, -587)][rk(228, 173)]());
+    });
+    let rE = (0, ru.eU)(null, async (e, t, {
+      projectId: r,
+      groupId: n
+    }) => {
+      try {
+        let o = e(rG)(n);
+        if (!o) {
+          throw Error(rk(260, 504) + rk(246, 485) + "D " + n + rk(244, 593));
+        }
+        if (o[rk(339, 600)][rk(240, 579)](r)) {
+          let e = {
+            [rk(208, 578)]: r,
+            groupId: n
+          };
+          rc.Rm[rk(279, 517)](e, rk(213, 364) + rk(278, 508) + rk(200, 541));
+          return;
+        }
+        let i = [...o.items, r];
+        let u = {
+          id: n,
+          items: i
+        };
+        await t(rD, u);
+        let a = {
+          [rk(208, 442)]: r,
+          groupId: n
+        };
+        rc.Rm[rk(279, 691)](a, rk(302, 637) + rk(171, 466) + rk(323, 574) + rk(270, 576));
+      } catch (t) {
+        let e = {
+          error: t,
+          [rk(208, 533)]: r,
+          [rk(296, 546)]: n
+        };
+        rc.Rm[rk(166, 489)](e, "Failed to " + rk(280, 599) + rk(273, 613));
+        throw t;
+      }
+    });
+    let rF = (0, ru.eU)(null, async (e, t, {
+      projectId: r
+    }) => {
+      var n;
+      var o;
+      var i;
+      var u;
+      var a;
+      var l;
+      var s;
+      var c;
+      var d;
+      var f;
+      var p;
+      try {
+        if ((n = -236, o = -175, rk(n - -468, o)) !== "GLjUa") {
+          return _0x56660d[rk(242, 1076)];
+        }
+        {
+          let n = e(r$)(r);
+          if (!n) {
+            let e = {
+              [rk(208, 913)]: r
+            };
+            rc.Rm[rk(279, 957)](e, rk(331, 1097) + rk(326, 1052) + (i = -287, u = -190, rk(i - -468, u)));
+            return;
+          }
+          let o = n[a = -129, l = -161, rk(a - -468, l)].filter(e => e !== r);
+          let x = {
+            id: n.id,
+            items: o
+          };
+          await t(rD, x);
+          let m = {
+            [rk(208, 1038)]: r,
+            [(s = -172, c = -178, rk(s - -468, c))]: n.id
+          };
+          rc.Rm[rk(279, 1081)](m, rk(302, -124) + (d = -297, f = -289, rk(d - -468, f)) + (p = -195, rk(294, p)) + rk(329, 1062));
+        }
+      } catch (t) {
+        let e = {
+          [rk(166, -328)]: t,
+          [rk(208, 953)]: r
+        };
+        rc.Rm[rk(166, -383)](e, rk(322, -228) + rk(176, 879) + rk(254, 1023) + rk(270, -158));
+        throw t;
+      }
+    });
+    let rQ = (0, ru.eU)(null, async (e, t, {
+      projectId: r,
+      fromGroupId: n,
+      toGroupId: o
+    }) => {
+      try {
+        if (n === o) {
+          let e = {
+            [rk(208, 312)]: r,
+            [rk(296, 246)]: n
+          };
+          rc.Rm.info(e, rk(301, 332) + rk(207, 360) + rk(173, 212) + rk(230, 288));
+          return;
+        }
+        let e = {
+          [rk(208, 436)]: r
+        };
+        await t(rF, e);
+        let i = {
+          [rk(208, 425)]: r,
+          [rk(296, 219)]: o
+        };
+        await t(rE, i);
+        let u = {
+          projectId: r,
+          fromGroupId: n,
+          [rk(297, 300)]: o
+        };
+        rc.Rm[rk(279, 411)](u, "Project mo" + rk(276, 452) + "n groups");
+      } catch (t) {
+        let e = {
+          [rk(166, 130)]: t,
+          projectId: r,
+          [rk(216, 288) + "d"]: n,
+          [rk(297, 386)]: o
+        };
+        rc.Rm[rk(166, 112)](e, rk(322, 371) + "move proje" + rk(251, 325) + " groups");
+        throw t;
+      }
+    });
+    let rM = (0, ru.eU)(null, async (e, t, {
+      projectId: r,
+      fromGroupId: n,
+      toGroupId: o,
+      insertIndex: i
+    }) => {
+      try {
+        if (rk(305, 649) !== "HZCBz") {
+          throw new _0x4cbce5(rk(322, 614) + rk(164, 431) + " " + _0x1faffc);
+        }
+        {
+          if (o === rl.HN) {
+            let n = e(r$)(r);
+            if (n && n.id !== rl.HN) {
+              let e = n.items.filter(e => e !== r);
+              let o = {
+                id: n.id,
+                items: e
+              };
+              await t(rD, o);
+            }
+            let o = [...e(rS)["projectGro" + rk(334, 1115)].items];
+            let u = i;
+            let a = o[rk(312, 1265)](r);
+            if (a !== -1) {
+              o.splice(a, 1);
+              if (a < i) {
+                u = i - 1;
+              }
+            }
+            let l = u === -1 ? o[rk(209, 585)] : u;
+            o.splice(l, 0, r);
+            let s = {
+              id: rl.HN,
+              [rk(339, 1123)]: o
+            };
+            await t(rD, s);
+            let c = {
+              [rk(208, 1111)]: r,
+              insertIndex: i,
+              [rk(320, 505) + rk(300, 503)]: u,
+              [rk(247, 1026) + "rtIndex"]: l,
+              [rk(168, 457) + "dex"]: a
+            };
+            rc.Rm.info(c, rk(337, 1203) + "ved to roo" + rk(321, 668) + "ing indivi" + rk(198, 1028) + "e");
+            return;
+          }
+          let u = e(rS)[rk(299, 1126) + rk(334, 1262)];
+          if (u[rk(339, 1216)].some(e => typeof e === rk(245, 465) && e === r)) {
+            if (rk(285, 514) !== rk(336, 1125)) {
+              let e = u[rk(339, 686)][rk(355, 650)](e => e !== r);
+              let n = {
+                id: rl.HN,
+                [rk(339, 544)]: e
+              };
+              await t(rD, n);
+            } else {
+              _0xbd6981[rk(344, 716)](_0x89819);
+              _0x34cc40[rk(344, 653)](..._0x49ccf3(_0xb0518a));
+            }
+          } else if (n) {
+            let e = {
+              [rk(208, 574)]: r
+            };
+            await t(rF, e);
+          }
+          let a = e(rG)(o);
+          if (!a) {
+            throw Error(rk(260, 458) + "oup with ID " + o + " not found");
+          }
+          if (a[rk(339, 694)][rk(240, 1075)](r)) {
+            let e = {
+              projectId: r,
+              [rk(297, 591)]: o
+            };
+            rc.Rm[rk(279, 1200)](e, "Project al" + rk(211, 483) + rk(226, 1067) + "p");
+            return;
+          }
+          let l = [...a[rk(339, 1191)]];
+          let s = i === -1 ? l[rk(209, 1084)] : i;
+          l[rk(239, 1171)](s, 0, r);
+          let c = {
+            id: o,
+            [rk(339, 1284)]: l
+          };
+          await t(rD, c);
+          let d = {
+            projectId: r,
+            [rk(216, 443) + "d"]: n,
+            [rk(297, 518)]: o,
+            [rk(220, 448) + "x"]: i,
+            ["actualInse" + rk(205, 586)]: s
+          };
+          rc.Rm[rk(279, 1090)](d, rk(337, 1202) + "ved to gro" + rk(269, 1049) + rk(275, 1050));
+        }
+      } catch (t) {
+        let e = {
+          [rk(166, 1101)]: t,
+          projectId: r,
+          [rk(216, 1091) + "d"]: n,
+          [rk(297, 1138)]: o,
+          [rk(220, 509) + "x"]: i
+        };
+        rc.Rm[rk(166, 396)](e, rk(322, 625) + rk(341, 587) + rk(191, 392) + rk(233, 1062) + rk(306, 1226));
+        throw t;
+      }
+    });
+    let rV = (0, ru.eU)(null, async (e, t, {
+      projectId: r,
+      _insertIndex: n
+    }) => {
+      var o;
+      var i;
+      var u;
+      var a;
+      var l;
+      var s;
+      var c;
+      var d;
+      var f;
+      var p;
+      var x;
+      var m;
+      var _;
+      var g;
+      try {
+        let n = e(r$)(r);
+        if (!n) {
+          let e = {
+            projectId: r
+          };
+          rc.Rm[o = -101, i = -32, rk(i - -311, o)](e, rk(331, 1182) + rk(326, 9) + rk(181, 1097));
+          return;
+        }
+        if (n.id === rl.HN) {
+          let n = e(rS)[rk(299, 1226) + rk(334, 1126)];
+          if (!n.items[u = -127, a = -90, rk(a - -311, u)](e => typeof e === rk(245, -129) && e === r)) {
+            let e = {
+              [rk(208, 1098)]: r
+            };
+            rc.Rm[rk(279, 1053)](e, rk(331, 61) + rk(291, 1216) + " root level");
+            return;
+          }
+          let o = n.items[rk(355, 2)](e => e !== r);
+          let i = {
+            id: rl.HN,
+            [rk(339, 1260)]: o
+          };
+          await t(rD, i);
+          let d = {
+            [rk(208, -118)]: r
+          };
+          rc.Rm[l = -32, rk(l - -311, -39)](d, rk(259, 12) + "moved from" + rk(182, 941) + (s = -95, rk(290, s)) + "dividual u" + (c = -116, rk(274, c)));
+        } else {
+          if (rk(257, 1088) !== rk(257, 1183)) {
+            return _0x40b430[p = -43, rk(p - -311, 29)]()[rk(288, 1082)](rk(193, 1003) + "+$").toString()[x = -131, m = -80, rk(m - -311, x) + "r"](_0x2c256d)[_ = -63, g = -23, rk(g - -311, _)](rk(193, 948) + "+$");
+          }
+          {
+            let e = {
+              [rk(208, 1141)]: r
+            };
+            await t(rF, e);
+            let n = {
+              [(d = -147, f = -103, rk(f - -311, d))]: r
+            };
+            rc.Rm[rk(279, 1074)](n, "Project re" + rk(177, 1089) + " group");
+          }
+        }
+      } catch (e) {
+        if (rk(332, -15) === "ZVnYZ") {
+          let t = {
+            [rk(166, -128)]: e,
+            [rk(208, 1114)]: r
+          };
+          rc.Rm[rk(166, -171)](t, rk(322, 1075) + rk(176, 1040) + "ject from " + rk(270, 41));
+          throw e;
+        }
+        {
+          let e = {
+            error: _0x41d2fe,
+            [rk(208, 1012)]: _0x3d67b7,
+            [rk(296, -38)]: _0x177bed
+          };
+          _0x30b1af[rk(166, 918)](e, rk(322, 70) + rk(280, 54) + rk(273, 17));
+          throw _0x254382;
+        }
+      }
+    });
+    let rz = (0, ru.eU)(e => function e(t, r = 0, n = []) {
+      if (rk(330, 186) !== rk(304, 279)) {
+        return t[rk(310, 171)](t => {
+          function o(e, t, r, n) {
+            return rk(n - -73 - -67, t);
+          }
+          function i(e, t, r, n) {
+            return rk(r - 488 - -67, e);
+          }
+          if (o(33, 123, 0, 32) !== "pwqdA") {
+            let o = [...n, t.id];
+            let u = t[i(708, 763, 760, 689)][i(753, 743, 776, 710)](e => (0, ra.IZ)(e));
+            return {
+              group: t,
+              children: e(u, r + 1, o),
+              depth: r,
+              path: o
+            };
+          }
+          {
+            let e = {
+              error: _0x2fc41a,
+              [o(61, 31, 118, 68)]: _0x42b80f,
+              fromGroupId: _0x29e719,
+              toGroupId: _0xe59742
+            };
+            _0x51775c.error(e, o(197, 219, 122, 182) + i(760, 839, 762, 712) + o(140, 209, 187, 111) + i(699, 657, 664, 622));
+            throw _0x5875b2;
+          }
+        });
+      }
+      {
+        let e = {
+          projectId: _0x11d0fd
+        };
+        _0x563404[rk(279, 732)](e, rk(331, 939) + rk(326, 824) + " any group");
+        return;
+      }
+    }(e(rR)));
+    let rN = (0, ru.eU)(e => t => e(rB)[rk(327, -155)][rk(292, -281)](t) ?? []);
+    let rX = (0, ru.eU)(e => t => e(rB)[rk(264, 145) + "s"][rk(292, -114)](t) ?? 0);
+    let rB = (0, ru.eU)(e => {
+      let t = e(rR);
+      let r = new Map();
+      let n = new Map();
+      let o = new Map();
+      let i = [];
+      let u = new Map();
+      t.forEach(e => function e(t, a = []) {
+        var l;
+        var s;
+        var c;
+        var d;
+        var f;
+        var p;
+        i[l = 0, s = 0, c = 370, rk(344, 370)](t);
+        r.set(t.id, t);
+        u[m(1248, 1214, 1266, 1197)](t.id, [...a, t]);
+        let x = 0;
+        for (let r of t[m(1229, 1212, 1200, 1134)]) {
+          if (typeof r === (d = 1045, f = 0, p = 0, rk(245, 1045))) {
+            n[rk(358, 361)](r, t);
+            x++;
+          } else if ((0, ra.IZ)(r)) {
+            x += e(r, [...a, t]);
+          }
+        }
+        function m(e, t, r, n) {
+          return rk(e - 890, t);
+        }
+        o[rk(358, 452)](t.id, x);
+        return x;
+      }(e));
+      let a = {
+        [rk(194, 564)]: r,
+        [rk(277, -83) + "roup"]: n,
+        [rk(264, 13) + "s"]: o,
+        flatGroups: i,
+        [rk(327, 725)]: u
+      };
+      return a;
+    });
+    function rK() {
+      let e = ["push", "8XEiBTB", "color", "reorderGro", "name", "eordered i", "GroupAtom", "oup", "essfully r", "from", "labelGroup", "filter", "1920330otfvsk", "reorder gr", "set", "tToGroupAt", "move group", "unt", "error", "ontainingP", "existingIn", "ct to move", "Invalid to", "ccessfully", "oBXzD", "oups are t", "cUCqM", "Index ", "remove pro", "moved from", "newItemsCo", "projectsIn", "dividual u", " any group", " root leve", "project", "type", "upAtom", "ray using ", " reordered", "ready at t", "mutateAsyn", "357272HPpkCk", "ct to grou", "moveProjec", "(((.+)+)+)", "groupIndex", "rootProjec", "upBreadcru", "hziJx", "dual updat", "937363DtKauK", "roup", "removeProj", "upProjectC", "xAtom", "dUTjW", "rtIndex", "tBetweenGr", " target gr", "projectId", "length", "in group", "ready in t", "upWithInde", "Project al", "fromIndex", "flatGroups", "fromGroupI", "All Projec", "individual", "gjPuQ", "insertInde", "some", "2184580WLScZd", "mwAXi", " at index ", "findProjec", "arget grou", "tGroupsAto", "keys", "CXUdX", "he same", "constructo", "GLjUa", "p at speci", "ved within", "jectWithin", "ady at tar", "arget posi", "sAtom", "splice", "includes", "updateProj", "data", " groups", " not found", "string", "oup with I", "actualInse", "oject with", "dex", "29300jDKSmr", "ct between", "30kGfxwG", "All Labels", "ject from ", "rojectAtom", "parentId", "WPzjG", "ountAtom", "Project re", "Project gr", "flattenPro", "mbsAtom", "Dnnth", "groupCount", "toIndex", "Atom", "apply", "toString", "up at spec", "group", "11173qmGAam", "ToGroupAto", "t to group", "pdate", "ific index", "ved betwee", "projectToG", "ready in g", "info", "add projec", "newIndex", "vzdeC", "ectFromGro", " in group ", "ycXzo", "Invalid fr", "Group ", "search", "tion", "l using in", "t found at", "get", "ectGroupAt", " removed f", "jectGroups", "groupId", "toGroupId", "label", "projectGro", "sertIndex", "Source and", "Project su", "Project ", "QOUji", "HZCBz", "fic index", "Group alre", "descriptio", "348745lmQgRA", "map", "currentInd", "indexOf", "addProject", " within gr", "Group succ", "tGroupById", "findGroupC", "reorder pr", "12hzUjgg", "adjustedIn", "t level us", "Failed to ", " added to ", "MleMl", " update", "t found in", "groupPaths", "debugLabel", "rom group", "MOQnG", "Project no", "ZVnYZ", "vEFBV", "ups", "oupsAtom", "qswBp", "Project mo", "HuMEJ", "items", "zVOIA", "move proje", "groupAnaly", "get positi"];
+      return (rK = function () {
+        return e;
+      })();
+    }
+    let rq = (0, ru.eU)(null, async (e, t, {
+      groupId: r,
+      projectId: n,
+      newIndex: o
+    }) => {
+      function i(e, t, r, n) {
+        return rk(e - 652, r);
+      }
+      try {
+        let u = e(rG)(r);
+        if (!u) {
+          throw Error("Project group with ID " + r + " not found");
+        }
+        let a = u[rk(339, 439)][rk(312, 451)](n);
+        if (a === -1) {
+          throw Error(i(955, 980, 976, 1001) + n + " not found" + rk(284, 246) + r);
+        }
+        if (a === o) {
+          if (rk(282, 275) === rk(333, 376)) {
+            return _0x21c588(_0x58fbd0)[i(979, 920, 1001, 916)].get(_0x133e6b) ?? [];
+          }
+          {
+            let e = {
+              projectId: n,
+              [i(948, 1000, 870, 969)]: r,
+              [i(963, 997, 1028, 1007) + "ex"]: a
+            };
+            rc.Rm.info(e, rk(213, 346) + i(840, 763, 817, 839) + i(889, 811, 931, 812) + rk(289, 281));
+            return;
+          }
+        }
+        let l = [...u[rk(339, 316)]];
+        let s = l[i(891, 842, 830, 930)](a, 1)[0];
+        if (!s) {
+          if (i(871, 969, 798, 861) !== "gjPuQ") {
+            return _0x27480f(_0x2f4312)[rk(194, 307)][i(944, 1042, 882, 1033)](_0x1cc22b) ?? null;
+          } else {
+            throw Error(rk(322, 366) + "find proje" + i(821, 912, 851, 786));
+          }
+        }
+        l[rk(239, 206)](o, 0, s);
+        let c = {
+          id: r,
+          items: l
+        };
+        await t(rD, c);
+        let d = {
+          projectId: n,
+          groupId: r,
+          [rk(214, 337)]: a,
+          [i(917, 836, 977, 1003)]: o
+        };
+        rc.Rm.info(d, i(954, 1028, 902, 957) + "ccessfully" + rk(187, 265) + i(966, 1063, 943, 1034) + i(1003, 994, 1016, 908));
+      } catch (t) {
+        let e = {
+          [rk(166, 180)]: t,
+          [i(860, 854, 804, 947)]: n,
+          [rk(296, 315)]: r,
+          [i(933, 959, 987, 939)]: o
+        };
+        rc.Rm[rk(166, 304)](e, i(974, 980, 969, 1054) + "reorder project with" + rk(210, 291));
+        throw t;
+      }
+    });
+    (0, ru.eU)(null, async (e, t, {
+      groupId: r,
+      projectId: n,
+      newIndex: o
+    }) => {
+      var i;
+      var u;
+      var a;
+      var l;
+      var s;
+      var c;
+      var d;
+      var f;
+      var p;
+      var x;
+      var m;
+      var _;
+      var g;
+      var b;
+      var I;
+      var y;
+      var h;
+      var w;
+      var v;
+      var A;
+      var U;
+      var j;
+      var k;
+      var S;
+      var R;
+      var P;
+      var T;
+      var D;
+      var L;
+      var G;
+      var C;
+      var O;
+      var E;
+      var F;
+      var Q;
+      var M;
+      var V;
+      var z;
+      var N;
+      var X;
+      var B;
+      var K;
+      try {
+        if (r === rl.HN) {
+          i = -516;
+          if (rk(i - -854, -568) !== (u = -560, a = -657, rk(a - -861, u))) {
+            let r = [...e(rS)[l = -490, s = -555, rk(s - -854, l) + (c = -494, d = -527, rk(d - -861, c))][f = -515, rk(f - -854, -609)]];
+            let i = o;
+            let u = r[p = -549, rk(p - -861, -482)](n);
+            if (u !== -1) {
+              if (rk(229, -528) !== "CXUdX") {
+                let e = {
+                  [(x = -695, rk(x - -861, -625))]: _0x4f23cb,
+                  projectId: _0x11936c
+                };
+                _0x52a50e[m = -773, _ = -688, rk(_ - -854, m)](e, (g = -517, b = -532, rk(b - -854, g) + "remove project from " + rk(270, -537)));
+                throw _0x3d3437;
+              }
+              r.splice(u, 1);
+              if (u < o) {
+                i = o - 1;
+              }
+            }
+            let a = i === -1 ? r.length : i;
+            r.splice(a, 0, n);
+            let Q = {
+              id: rl.HN,
+              [(I = -500, y = -515, rk(y - -854, I))]: r
+            };
+            await t(rD, Q);
+            let M = {
+              [(h = -710, w = -653, rk(w - -861, h))]: n,
+              [(v = -503, A = -580, rk(A - -861, v))]: o,
+              [(U = -516, j = -534, rk(j - -854, U) + "sertIndex")]: i,
+              ["actualInse" + (k = -597, S = -656, rk(S - -861, k))]: a,
+              [rk(168, -655) + (R = -673, P = -605, rk(P - -854, R))]: u
+            };
+            rc.Rm.info(M, (T = -594, rk(337, T) + (D = -629, L = -620, rk(L - -854, D)) + (G = -611, rk(182, G)) + (C = -518, O = -571, rk(O - -861, C)) + (E = -691, rk(180, E)) + (F = -560, rk(274, F))));
+            return;
+          }
+          {
+            let e = {
+              [(Q = -594, rk(296, Q))]: _0x2584d5,
+              [(M = -542, V = -640, rk(V - -854, M))]: _0x41e978
+            };
+            _0x2758ca[z = -482, N = -575, rk(N - -854, z)](e, (X = -460, rk(307, X) + "ady at tar" + (B = -522, K = -511, rk(K - -854, B)) + "on"));
+            return;
+          }
+        }
+      } catch (t) {
+        let e = {
+          error: t,
+          [rk(208, -652)]: n,
+          [rk(296, -479)]: r,
+          [rk(281, -676)]: o
+        };
+        rc.Rm.error(e, "Failed to reorder pr" + rk(248, -536) + rk(210, -709));
+        throw t;
+      }
+    });
+    let rW = (0, ru.eU)(null, async (e, t, {
+      groupId: r,
+      fromIndex: n,
+      toIndex: o
+    }) => {
+      try {
+        if (rk(197, 691) !== "hziJx") {
+          let e = {
+            [rk(208, 667)]: _0x57c456
+          };
+          _0x5504aa[rk(279, 1218)](e, rk(331, 970) + rk(326, 846) + rk(181, 797));
+          return;
+        }
+        {
+          if (n === o) {
+            let e = {
+              [rk(296, 1136)]: r,
+              fromIndex: n
+            };
+            rc.Rm[rk(279, 1109)](e, rk(307, 866) + rk(236, 837) + rk(343, 989) + "on");
+            return;
+          }
+          let i = e(rS)[rk(299, 840) + rk(334, 823)][rk(339, 1162)];
+          if (n < 0 || n >= i[rk(209, 757)]) {
+            if (rk(223, 725) === "mCAvG") {
+              let e = {
+                [rk(166, 1120)]: _0x5b69ea,
+                [rk(208, 1057)]: _0x49ccd4,
+                groupId: _0x3450c1,
+                [rk(281, 1241)]: _0xbd6729
+              };
+              _0x5bb8b9[rk(166, 766)](e, rk(322, 1266) + rk(318, 776) + rk(248, 778) + "in group");
+              throw _0x59ad8b;
+            }
+            throw Error(rk(286, 861) + "omIndex " + n);
+          }
+          if (o < 0 || o >= i[rk(209, 1001)]) {
+            throw Error(rk(170, 945) + rk(175, 769) + o);
+          }
+          let u = i[n];
+          if (!u || typeof u === rk(245, 1058) || !("id" in u) || u.id !== r) {
+            if (rk(340, 837) !== rk(174, 1014)) {
+              throw Error(rk(287, 1137) + r + (rk(244, 766) + rk(224, 688)) + n);
+            }
+            {
+              let e = {
+                [rk(166, 1059)]: _0x460b01,
+                [rk(208, 1113)]: _0x3cacee,
+                [rk(296, 901)]: _0x4fbedf,
+                [rk(281, 1210)]: _0x4c21aa
+              };
+              _0x3f737d[rk(166, 943)](e, rk(322, 1103) + rk(318, 938) + "oject with" + rk(210, 726));
+              throw _0x454f1d;
+            }
+          }
+          let a = [...i];
+          let l = a[rk(239, 887)](n, 1)[0];
+          if (!l) {
+            throw Error(rk(322, 932) + rk(164, 957) + " " + r);
+          }
+          a[rk(239, 1200)](o, 0, l);
+          let s = {
+            id: rl.HN,
+            items: a
+          };
+          await t(rD, s);
+          let c = {
+            [rk(296, 922)]: r,
+            [rk(214, 695)]: n,
+            [rk(265, 866)]: o,
+            [rk(178, 1026) + rk(165, 1024)]: a.length
+          };
+          rc.Rm[rk(279, 829)](c, rk(315, 1184) + rk(352, 883) + rk(349, 1123) + "n mixed ar" + rk(186, 699) + rk(218, 776) + rk(325, 1278));
+        }
+      } catch (t) {
+        let e = {
+          error: t,
+          [rk(296, 767)]: r,
+          [rk(214, 1048)]: n,
+          toIndex: o
+        };
+        rc.Rm[rk(166, 715)](e, rk(322, 794) + rk(357, 1315) + "oup");
+        throw t;
+      }
+    });
+    let r$ = (0, ru.eU)(e => t => e(rB)[rk(277, 779) + rk(200, 560)][rk(292, 773)](t) ?? null);
+    let rY = (0, ru.eU)(e => e(rR));
+    rS[i = -307, u = 0, a = 0, rk(328, -307)] = "allGroupsAtom";
+    rR[l = 0, s = 0, c = -199, rk(328, -199)] = (d = 0, f = 0, p = -296, rk(299, -296) + "upsAtom");
+    rP[x = -337, m = 0, _ = 0, rk(328, -337)] = "labelGroup" + (g = -246, b = 0, I = 0, rk(238, -246));
+    rT[y = -270, h = 0, w = 0, rk(328, -270)] = (v = 0, A = 0, U = -269, rk(313, -269) + (j = -258, k = 0, S = 0, rk(350, -258)));
+    rD[R = -248, P = 0, T = 0, rk(328, -248)] = (D = -332, L = 0, G = 0, rk(241, -332) + (C = 0, O = 0, E = -279, rk(293, -279)) + "om");
+    rL[F = -303, Q = 0, M = 0, rk(328, -303)] = "deleteProj" + (V = -331, z = 0, N = 0, rk(293, -331)) + "om";
+    rG[X = -263, B = 0, K = 0, rk(328, -263)] = (q = 0, W = 0, $ = -284, rk(225, -284) + (Y = 0, Z = 0, H = -163, rk(316, -163)) + "Atom");
+    rC[J = -169, ee = 0, et = 0, rk(328, -169)] = (er = -270, en = 0, eo = 0, rk(261, -270) + (ei = 0, eu = 0, ea = -236, rk(295, -236)) + (el = 0, es = 0, ec = -276, rk(266, -276)));
+    rO[ed = -185, ef = 0, ep = 0, rk(328, -185)] = (ex = 0, em = 0, e_ = -372, rk(179, -372) + "GroupsAtom");
+    rE[eg = -308, eb = 0, eI = 0, rk(328, -308)] = (ey = 0, eh = 0, ew = -199, rk(313, -199) + (ev = 0, eA = 0, eU = -236, rk(272, -236)) + "m");
+    rF[ej = -268, ek = 0, eS = 0, rk(328, -268)] = (eR = -434, eP = 0, eT = 0, rk(201, -434) + (eD = 0, eL = 0, eG = -333, rk(283, -333)) + (eC = 0, eO = 0, eE = -463, rk(185, -463)));
+    rQ[eF = -328, eQ = 0, eM = 0, rk(328, -328)] = "moveProjec" + (eV = -361, ez = 0, eN = 0, rk(206, -361)) + (eX = 0, eB = 0, eK = -225, rk(335, -225));
+    rM[eq = -311, eW = 0, e$ = 0, rk(328, -311)] = (eY = 0, eZ = 0, eH = -372, rk(192, -372) + (eJ = 0, e1 = 0, e0 = -252, rk(359, -252)) + "om");
+    rV[e2 = 0, e3 = 0, e4 = -281, rk(328, -281)] = (e5 = -452, e7 = 0, e6 = 0, rk(201, -452) + (e8 = -205, e9 = 0, te = 0, rk(283, -205)) + (tt = 0, tr = 0, tn = -441, rk(212, -441)) + (to = -427, ti = 0, tu = 0, rk(203, -427)));
+    rq[ta = 0, tl = 0, ts = -155, rk(328, -155)] = "reorderPro" + (tc = -408, td = 0, tf = 0, rk(235, -408)) + (tp = -247, tx = 0, tm = 0, rk(350, -247));
+    t_ = 0;
+    tg = 0;
+    tb = -231;
+    rW.debugLabel = rk(347, -231) + (tI = 0, ty = 0, th = -306, rk(185, -306));
+    rz[tw = 0, tv = 0, tA = -340, rk(328, -340)] = "projectGroupTreeAtom";
+    rN[tU = 0, tj = 0, tk = -265, rk(328, -265)] = "projectGro" + (tS = -423, tR = 0, tP = 0, rk(196, -423)) + (tT = 0, tD = 0, tL = -333, rk(262, -333));
+    rX[tG = 0, tC = 0, tO = -223, rk(328, -223)] = (tE = -205, tF = 0, tQ = 0, rk(299, -205) + (tM = 0, tV = 0, tz = -411, rk(202, -411)) + (tN = -340, tX = 0, tB = 0, rk(258, -340)));
+    tK = 0;
+    tq = 0;
+    tW = -157;
+    rB.debugLabel = rk(342, -157) + "sisAtom";
+    r$[t$ = 0, tY = 0, tZ = -163, rk(328, -163)] = (tH = 0, tJ = 0, t1 = -175, rk(317, -175) + (t0 = -480, t2 = 0, t3 = 0, rk(167, -480)) + (t4 = -411, t5 = 0, t7 = 0, rk(255, -411)));
+    rY[t6 = 0, t8 = 0, t9 = -336, rk(328, -336)] = (re = -351, rt = 0, rr = 0, rk(195, -351) + (rn = -342, ro = 0, ri = 0, rk(227, -342)) + "m");
+  },
+  70015: (e, t, r) => {
+    let n;
+    r.d(t, {
+      Ei: () => h,
+      Oq: () => w,
+      Zs: () => x.Zs
+    });
+    var o = r(22814);
+    var i = r(85980);
+    var u = r(33006);
+    var a = r(22688);
+    var l = r(84852);
+    var s = r(41356);
+    var c = r(61212);
+    var d = r(31453);
+    var f = r(48795);
+    var p = r(51547);
+    var x = r(50978);
+    var m = r(27085);
+    var _ = r(99512);
+    var g = r(54932);
+    (function (e, t) {
+      let r = e();
+      while (true) {
+        try {
+          if (parseInt(y(400, 221)) / 1 + -parseInt(y(414, 272)) / 2 * (-parseInt(y(378, 13)) / 3) + -parseInt(y(422, 91)) / 4 * (-parseInt(y(403, 86)) / 5) + parseInt(y(401, 260)) / 6 + -parseInt(y(402, 225)) / 7 + -parseInt(y(399, 87)) / 8 * (parseInt(y(411, 73)) / 9) + parseInt(y(388, 30)) / 10 === 760887) {
+            break;
+          }
+          r.push(r.shift());
+        } catch (e) {
+          r.push(r.shift());
+        }
+      }
+    })(I, 0);
+    let b = (n = true, function (e, t) {
+      let r = n ? function () {
+        if (t) {
+          if (y(359, -111) !== y(359, -134)) {
+            let e = _0x25f308[y(405, 1345)](_0x176ccb, arguments);
+            _0x1406cb = null;
+            return e;
+          }
+          {
+            let r = t[y(405, 1318)](e, arguments);
+            t = null;
+            return r;
+          }
+        }
+      } : function () {};
+      n = false;
+      return r;
+    })(undefined, function () {
+      return b.toString()[y(419, 1340)](y(410, 644) + "+$")[y(379, 633)]()[y(363, 664) + "r"](b)[y(419, 719)](y(410, 710) + "+$");
+    });
+    function I() {
+      let e = ["taskId", "max", "debugLabel", "t mode)", "dPointCap", "7099952oesdNS", "569892BrdROK", "1446366ZsxagT", "8580740YGiYTa", "19930NuWmOO", "igger] Fai", "apply", "rewardsEna", "completed", "dueDate", "type", "(((.+)+)+)", "9QpvrhX", "mutateAsyn", "Idhfq", "10uASuuQ", "nts", "tsuVE", "isArray", "ask", "search", "projectId", "AOoip", "932SPFEsK", "wardsEnabl", "currencyRe", "iudSA", "cap reache", "bled", "ate reward", "amount", "Optimistic", "dailyRewar", "productivi", "entityId", "POST", "ly reward ", "GLatQ", "Created ta", "ntEsG", "recurringM", "led to cre", "eventType", "constructo", "g event", "ode", "ZESbV", "assignees", "MutationAt", "ETED", " task not ", " event:", "cydvZ", "events", "PLETED", "d, skippin", "userId", "rLxcj", "307413niuquq", "toString", "[reward-tr", "TASK_COMPL", "createTask", "info", "priority", "ownerId", "currencyId", "message", "6221550sKZOEF", "reward", "provided", "labels", "Task creat", "cap"];
+      return (I = function () {
+        return e;
+      })();
+    }
+    function y(e, t) {
+      let r = I();
+      return (y = function (e, t) {
+        return r[e -= 358];
+      })(e, t);
+    }
+    b();
+    let h = (0, u.W)({
+      method: y(434, 843),
+      operationName: y(358, 737) + "sk",
+      resourceQueryKey: d.si,
+      defaultResourceValue: [],
+      responseSchema: l.c3,
+      serializationSchema: a.ny,
+      testResponseFactory: () => {
+        let e = (0, s.fP)((0, i.A)());
+        let t = {};
+        function r(e, t, r, n) {
+          return y(t - -893 - 383, n);
+        }
+        t.success = true;
+        t.taskIds = [e];
+        t[r(-123, -123, -99, -108)] = y(392, 1068) + "ed successfully (tes" + r(-143, -113, -133, -125);
+        return t;
+      },
+      optimisticDataFactory: e => {
+        function t(e, t, r, n) {
+          return y(t - -936 - 383, n);
+        }
+        function r(e, t, r, n) {
+          return y(e - -991 - 383, r);
+        }
+        return {
+          id: (0, s.fP)((0, i.A)()),
+          completed: d.KA,
+          subtasks: d.BH,
+          comments: d.Tn,
+          createdAt: new Date(),
+          completedAt: undefined,
+          ...e,
+          title: e.title || d.zg,
+          priority: e[t(-132, -169, -177, -148)] || d.Jx,
+          projectId: e[r(-188, -196, -188, -209)] || c.ZB,
+          labels: e[r(-217, -250, -224, -232)] || [],
+          ownerId: e[r(-223, -229, -230, -202)],
+          assignees: e[t(-190, -186, -189, -209)],
+          dueDate: e[t(-169, -145, -131, -115)] ? e[r(-200, -160, -169, -187)] instanceof Date ? e[r(-200, -166, -222, -194)] : new Date(e[t(-144, -145, -165, -167)]) : undefined,
+          recurringMode: e[r(-248, -244, -252, -267) + t(-204, -188, -178, -210)] || d.C6
+        };
+      },
+      optimisticUpdateFn: (e, t, r) => {
+        function n(e, t, r, n) {
+          return y(t - -525 - 689, n);
+        }
+        if (!r) {
+          throw Error(n(630, 594, 591, 584) + y(370, 294) + n(579, 554, 551, 518));
+        }
+        return [...t, r];
+      }
+    });
+    h[y(396, 1063)] = y(382, 1055) + y(368, 1021) + "om";
+    let w = (0, o.eU)(e => {
+      let t = e(x.Oq);
+      return {
+        ...t,
+        mutateAsync: async r => {
+          var n;
+          var o;
+          var i;
+          var u;
+          var a;
+          var l;
+          var s;
+          var d;
+          var x;
+          var b;
+          var I;
+          var h;
+          var w;
+          var v;
+          var A;
+          function U(e, t, r, n) {
+            return y(r - 920, e);
+          }
+          if (y(377, -618) !== "CehGG") {
+            let j = e(f.yK);
+            let k = e(_.Uw);
+            let S = e(f.p9);
+            let R = e(f.FU);
+            let P = R.productivity?.[y(406, 51) + y(427, 212)] ?? true;
+            let T = R.productivity?.["currencyRe" + y(423, 825) + "ed"] ?? true;
+            let D = await t[y(412, -558) + "c"](r);
+            if (P) {
+              let t = e(m.e);
+              let f = Array[U(1328, 1361, 1337, 1315)](r) ? r : [r];
+              let _ = R[U(1349, 1359, 1352, 1361) + "ty"]?.[U(1336, 1348, 1351, 1382) + U(1309, 1357, 1318, 1339)];
+              let P = 0;
+              for (let e of f) {
+                if (U(1309, 1269, 1292, 1279) === U(1353, 1300, 1333, 1364)) {
+                  return _0x3ea151.productivity?.[U(1335, 1313, 1344, 1308) + "wardsEnabled"] ?? true;
+                } else if (e.completed !== undefined) {
+                  let r = j.find(t => t.id === e.id);
+                  if (r && r[U(1315, 1300, 1327, 1320)] !== e[y(407, -602)]) {
+                    if (U(1364, 1333, 1356, 1338) !== "GKswj") {
+                      let f = e[U(1343, 1361, 1327, 1324)] ? U(1294, 1335, 1301, 1274) + U(1267, 1251, 1289, 1278) : "TASK_UNCOM" + U(1298, 1282, 1294, 1267);
+                      let m = y(389, -602) in e ? e[y(389, -587)] : r.reward;
+                      let j = {
+                        [y(373, -654)]: k,
+                        [y(376, -574)]: S.id,
+                        cap: _,
+                        ["pointsPerT" + y(418, -533)]: c.Uo,
+                        ["pendingPoi" + U(1303, 1361, 1335, 1347)]: P
+                      };
+                      if (f === y(381, -586) + y(369, -626) && (0, g.a4)(j)) {
+                        if (y(366, -630) !== "XOHWB") {
+                          let t = {
+                            [y(394, -629)]: e.id,
+                            [y(393, -607)]: _,
+                            [y(376, -603)]: S.id
+                          };
+                          p.Rm[U(1342, 1275, 1303, 1342)](t, "[reward-trigger] Dai" + y(435, -583) + U(1338, 1314, 1346, 1364) + U(1319, 1275, 1295, 1333) + y(364, -611));
+                          continue;
+                        }
+                        if (_0x4fc158) {
+                          let e = _0x2a887d[U(1302, 1331, 1325, 1332)](_0x5580d9, arguments);
+                          _0x275c0b = null;
+                          return e;
+                        }
+                      }
+                      try {
+                        let r = {
+                          [(n = -608, y(409, n))]: f,
+                          [U(1373, 1354, 1353, 1370)]: e.id
+                        };
+                        await t.mutateAsync(r);
+                        if (T && m?.[U(1283, 1308, 1306, 1336)] && m[o = -560, i = -580, y(o - -989, i)] !== undefined) {
+                          let r = {
+                            [(u = -580, a = -566, y(u - -989, a))]: f,
+                            [U(1316, 1343, 1353, 1318)]: e.id
+                          };
+                          r[U(1310, 1329, 1306, 1280)] = m[l = -565, y(386, l)];
+                          r[s = -532, y(429, s)] = m[U(1380, 1369, 1349, 1387)];
+                          await t[d = -577, y(d - -989, -552) + "c"](r);
+                        }
+                        if (f === (x = -608, b = -591, y(x - -989, b) + (I = -620, h = -620, y(I - -989, h)))) {
+                          if (U(1306, 1309, 1341, 1357) !== "AOoip") {
+                            _0x5f0b71 = _0x24fcc5[U(1312, 1314, 1315, 1317)](0, _0x2b1e7e - _0x46a0b0);
+                          } else {
+                            P += c.Uo;
+                          }
+                        } else {
+                          P = Math[U(1312, 1319, 1315, 1317)](0, P - c.Uo);
+                        }
+                        let _ = {
+                          [U(1282, 1298, 1314, 1324)]: e.id,
+                          [U(1267, 1246, 1282, 1251)]: f
+                        };
+                        p.Rm[w = -606, y(w - -989, -624)](_, (v = -609, A = -621, y(v - -989, A) + "igger] Reward event created"));
+                      } catch (e) {
+                        if (y(416, -596) === y(425, -550)) {
+                          return _0x20e452[U(1368, 1323, 1352, 1348) + "ty"]?.[U(1358, 1310, 1326, 1327) + "bled"] ?? true;
+                        }
+                        p.Rm.error("[reward-tr" + U(1344, 1361, 1324, 1303) + U(1308, 1318, 1281, 1273) + "ate reward" + y(371, -645), e);
+                      }
+                    } else {
+                      _0x5392c7.error(U(1333, 1315, 1300, 1321) + "igger] Fai" + y(361, -628) + U(1333, 1380, 1348, 1381) + " event:", _0x42ea5b);
+                    }
+                  }
+                }
+              }
+            }
+            return D;
+          }
+          _0x2f86c6 = false;
+          if (_0x1eaadb) {
+            return function () {
+              if (_0x1f0f59) {
+                let e = _0x27fc81[U(96, -84, 1325, -372)](_0x3a6b33, arguments);
+                _0x528cac = null;
+                return e;
+              }
+            };
+          } else {
+            return function () {};
+          }
+        }
+      };
+    });
+    w[y(396, 817)] = "updateTasksMutationAtom";
+  },
+  71420: (e, t, r) => {
+    let n;
+    r.d(t, {
+      Xt: () => x
+    });
+    var o = r(85980);
+    var i = r(31453);
+    var u = r(33006);
+    var a = r(61212);
+    (function (e, t) {
+      let r = e();
+      while (true) {
+        try {
+          if (-parseInt(d(414, 537)) / 1 * (-parseInt(d(456, 686)) / 2) + parseInt(d(419, 583)) / 3 * (-parseInt(d(437, 643)) / 4) + -parseInt(d(453, 637)) / 5 + -parseInt(d(444, 638)) / 6 * (-parseInt(d(425, 590)) / 7) + parseInt(d(471, 668)) / 8 + -parseInt(d(415, 585)) / 9 + parseInt(d(435, 536)) / 10 * (parseInt(d(478, 622)) / 11) === 798691) {
+            break;
+          }
+          r.push(r.shift());
+        } catch (e) {
+          r.push(r.shift());
+        }
+      }
+    })(f, 0);
+    let l = (n = true, function (e, t) {
+      if (d(479, 955) === d(441, 551)) {
+        _0x455836 = false;
+        if (_0xf685e1) {
+          return function () {
+            if (_0x3ac3ec) {
+              let e = _0x446a17[d(424, 108)](_0x9f9d1e, arguments);
+              _0x47d890 = null;
+              return e;
+            }
+          };
+        } else {
+          return function () {};
+        }
+      }
+      {
+        let r = n ? function () {
+          if (t) {
+            let r = t[d(424, 897)](e, arguments);
+            t = null;
+            return r;
+          }
+        } : function () {};
+        n = false;
+        return r;
+      }
+    })(undefined, function () {
+      return l[d(442, 283)]()[d(473, 341)](d(458, -157) + "+$")[d(442, 277)]()[d(446, 306) + "r"](l).search(d(458, -135) + "+$");
+    });
+    function s(e) {
+      return typeof e === d(448, -24) && e !== null && "id" in e && typeof e.id === d(429, -72);
+    }
+    function c(e) {
+      if (typeof e !== d(448, 1286) || e === null || !(d(472, 1313) in e)) {
+        return false;
+      }
+      let t = e[d(472, 347)];
+      return Array[d(445, 1330)](t) && t[d(417, 271)](e => typeof e === d(429, 1260));
+    }
+    function d(e, t) {
+      let r = f();
+      return (d = function (e, t) {
+        return r[e -= 412];
+      })(e, t);
+    }
+    function f() {
+      let e = ["SYXbL", "25238byczTm", "y (test mo", "(((.+)+)+)", "uccessfull", "charAt", " deleted s", "V1_PROJECT", "V1_LABELS", "update", "DELETE", "Optimistic", "V1_SETTING", "PATCH", "POST", "setting", "9209296QVowMd", "ids", "search", " data requ", "tity \"", "request", "find", "20285727vEdbqr", "NtOnC", "label", "\" provided", "quayW", "response", "22usYjIY", "12714210XwSBDd", "project", "every", "length", "2435682wxLSao", "Unknown en", " create op", "V1_TASKS", "de)", "apply", "14ipeSod", "ired for ", "includes", "slice", "string", "hYGFO", "V1_GROUPS", "toUpperCas", "delete", "message", "10oUVuQg", "create", "4WzFuUA", "eration", "Qnchy", "KVxhs", "fYYuf", "toString", "map", "1365816DCDPRC", "isArray", "constructo", "group", "object", "jGfnG", "filter", "success", "data", "3524670zdbhRe", "task"];
+      return (f = function () {
+        return e;
+      })();
+    }
+    function p(e) {
+      return e[d(460, 958)](0)[d(432, -140) + "e"]() + e[d(428, -139)](1);
+    }
+    function x(e) {
+      let {
+        entity: t,
+        operation: r,
+        schemas: n,
+        apiEndpoint: l,
+        resourceQueryKey: f,
+        invalidateQueryKeys: x,
+        operationName: m,
+        logModule: _,
+        testResponseFactory: g,
+        optimisticDataFactory: b,
+        optimisticUpdateFn: I
+      } = e;
+      let y = f ?? function (e) {
+        switch (e) {
+          case d(454, 1140):
+            return i.si;
+          case "project":
+            return i.iu;
+          case d(480, 195):
+            return i.Fi;
+          case d(447, 179):
+            return i.Gd;
+          case d(470, 1207):
+            return i.bC;
+          default:
+            return [d(452, 165), e + "s"];
+        }
+      }(t);
+      let h = x ?? (t === d(416, 1078) || t === d(480, 1414) ? [y, i.Gd] : [y]);
+      let w = {
+        method: r === d(436, 1074) ? d(469, 1119) : r === "update" ? d(468, 1414) : d(465, 1097),
+        operationName: m ?? p(r) + "d " + t,
+        apiEndpoint: l ?? function (e) {
+          switch (e) {
+            case d(454, 574):
+              return a.QQ[d(422, 500)];
+            case d(416, 502):
+              return a.QQ[d(462, 500) + "S"];
+            case d(480, 561):
+              return a.QQ[d(463, 538)];
+            case "group":
+              return a.QQ[d(431, 506)];
+            case d(470, 530):
+              return a.QQ[d(467, 555) + "S"];
+            default:
+              throw Error("Unknown en" + d(475, 496) + e + d(481, 543));
+          }
+        }(t),
+        resourceQueryKey: y,
+        defaultResourceValue: [],
+        invalidateQueryKeys: h,
+        logModule: _ ?? t + "s",
+        responseSchema: n[d(413, 1352)],
+        serializationSchema: n[d(476, 1385)],
+        testResponseFactory: g ?? (e => {
+          let n;
+          let i = p(t);
+          let u = t + "Ids";
+          switch (r) {
+            case d(436, 217):
+              n = {
+                success: true,
+                [u]: [(0, o.A)()],
+                message: i + " created successfully (test mo" + d(423, 1066)
+              };
+              break;
+            case "update":
+              {
+                let t = Array[d(445, 1066)](e) ? e[d(443, 1064)](e => {
+                  function t(e, t, r, n) {
+                    return d(t - 462 - -188, n);
+                  }
+                  function r(e, t, r, n) {
+                    return d(r - -994 - 627, t);
+                  }
+                  if (r(60, 97, 73, 39) === "sWouk") {
+                    let e = _0x5cf33d[r(93, 102, 78, 51)](_0x3a366f) ? _0x29ed49 : [_0x41274b];
+                    return _0xee9336[t(736, 717, 733, 728)](t => {
+                      if (typeof t !== r(-86, 372, 81, 180) || t === null || !("id" in t)) {
+                        return t;
+                      }
+                      let n = e[r(1010, 1172, 110, 977)](e => typeof e === r(998, 1159, 81, 942) && e !== null && "id" in e && e.id === t.id);
+                      if (n) {
+                        return {
+                          ...t,
+                          ...n
+                        };
+                      } else {
+                        return t;
+                      }
+                    });
+                  }
+                  if (s(e)) {
+                    if (t(751, 723, 742, 700) === "jGfnG") {
+                      return e.id;
+                    } else {
+                      let e = _0x42c36b(_0x45b2fe) ? _0x484d59[t(720, 746, 717, 775)] : _0x5beae8(_0x3b7897) ? [_0x4e9489.id] : [];
+                      return _0x557abd[t(729, 724, 744, 745)](n => typeof n === t(688, 722, 750, 709) && n !== null && "id" in n && typeof n.id === t(704, 703, 720, 735) && !e[r(52, 31, 60, 52)](n.id));
+                    }
+                  }
+                  return (0, o.A)();
+                }) : s(e) ? [e.id] : [(0, o.A)()];
+                let r = {
+                  success: true,
+                  [u]: t
+                };
+                r[d(434, 1049)] = "" + i + (t.length > 1 ? "s" : "") + " updated successfull" + d(457, 271) + d(423, 222);
+                n = r;
+                break;
+              }
+            case d(433, 1078):
+              if (d(439, 245) === "Wzjwo") {
+                return _0x3f707a;
+              }
+              {
+                let t = c(e) ? e[d(472, 1110)] : s(e) ? [e.id] : [(0, o.A)()];
+                let r = {
+                  [d(451, 1073)]: true,
+                  [u]: t
+                };
+                r[d(434, 1042)] = "" + i + (t[d(418, 227)] > 1 ? "s" : "") + (d(461, 1061) + d(459, 304) + "y (test mo") + d(423, 1081);
+                n = r;
+                break;
+              }
+            default:
+              {
+                let e = {
+                  [d(451, 1107)]: true
+                };
+                n = e;
+              }
+          }
+          return n;
+        }),
+        optimisticDataFactory: b,
+        optimisticUpdateFn: I ?? function (e, t) {
+          return (r, n, o) => {
+            switch (t) {
+              case d(436, -17):
+                if (d(455, -526) === "SYXbL") {
+                  if (!o) {
+                    throw Error(d(466, -477) + d(474, -467) + d(426, -12) + e + " create op" + d(438, -519));
+                  }
+                  return [...n, o];
+                }
+                if (!_0x399d87) {
+                  throw new _0x2998ef(d(466, -37) + d(474, -494) + d(426, -57) + _0x4b9750 + (d(421, -518) + d(438, -531)));
+                }
+                return [..._0x15990c, _0x242724];
+              case d(464, -31):
+                {
+                  let e = Array[d(445, -502)](r) ? r : [r];
+                  let t = n[d(443, -539)](t => {
+                    function r(e, t, r, n) {
+                      return d(e - 1389 - -471, t);
+                    }
+                    function n(e, t, r, n) {
+                      return d(e - 1371 - -958, n);
+                    }
+                    if (n(843, 813, 862, 818) !== "pRcku") {
+                      if (typeof t !== n(861, 878, 867, 877) || t === null || !("id" in t)) {
+                        if (n(825, 858, 820, 836) === r(1330, 1351, 1342, 1345)) {
+                          return t;
+                        } else {
+                          switch (_0x66a4f8) {
+                            case r(1372, 1394, 1407, 1399):
+                              return _0x2338e2.V1_TASKS;
+                            case n(829, 819, 819, 859):
+                              return _0xeaa2b6[r(1380, 1366, 1388, 1372) + "S"];
+                            case n(893, 920, 913, 897):
+                              return _0x5a152a.V1_LABELS;
+                            case r(1365, 1371, 1362, 1378):
+                              return _0x2ad491[r(1349, 1348, 1362, 1366)];
+                            case "setting":
+                              return _0x49fea2[n(880, 894, 903, 896) + "S"];
+                            default:
+                              throw new _0xe1dda8(n(833, 825, 822, 837) + n(888, 857, 882, 883) + _0x4c11e9 + n(894, 866, 896, 929));
+                          }
+                        }
+                      }
+                      let o = e[n(890, 877, 923, 908)](e => typeof e === r(1366, 1382, 1335, 1369) && e !== null && "id" in e && e.id === t.id);
+                      if (o) {
+                        return {
+                          ...t,
+                          ...o
+                        };
+                      } else {
+                        return t;
+                      }
+                    }
+                    if (_0x20e920) {
+                      let e = _0x4ea4b3[r(1342, 1359, 1327, 1368)](_0x3a6aed, arguments);
+                      _0x272c80 = null;
+                      return e;
+                    }
+                  });
+                  return t;
+                }
+              case d(433, -70):
+                {
+                  let e = c(r) ? r[d(472, -504)] : s(r) ? [r.id] : [];
+                  return n[d(450, -21)](t => typeof t === d(448, -519) && t !== null && "id" in t && typeof t.id === d(429, -51) && !e[d(427, -531)](t.id));
+                }
+              default:
+                return n;
+            }
+          };
+        }(t, r)
+      };
+      return (0, u.W)(w);
+    }
+    l();
+  },
+  72133: (e, t, r) => {
+    let n;
+    r.d(t, {
+      l: () => x
+    });
+    var o = r(22688);
+    var i = r(84852);
+    var u = r(61212);
+    var a = r(10327);
+    var l = r(31453);
+    var s = r(54932);
+    var c = r(33006);
+    (function (e, t) {
+      let r = e();
+      while (true) {
+        try {
+          var n;
+          var o;
+          var i;
+          var u;
+          var a;
+          var l;
+          var s;
+          var c;
+          var d;
+          var f;
+          var x;
+          var m;
+          var _;
+          var g;
+          var b;
+          if (-parseInt((n = -287, o = -287, p(n - -635, o))) / 1 + -parseInt(p(328, -168)) / 2 + parseInt((i = -151, p(i - -488, -147))) / 3 + parseInt((u = -155, a = -147, p(a - -488, u))) / 4 * (-parseInt((l = -166, s = -158, p(s - -488, l))) / 5) + parseInt((c = -139, d = -144, p(d - -488, c))) / 6 + -parseInt((f = -144, x = -141, p(x - -488, f))) / 7 * (parseInt((m = -139, _ = -148, p(_ - -488, m))) / 8) + parseInt((g = -154, b = -146, p(b - -488, g))) / 9 === 248158) {
+            break;
+          }
+          r.push(r.shift());
+        } catch (e) {
+          r.push(r.shift());
+        }
+      }
+    })(f, 0);
+    let d = (n = true, function (e, t) {
+      let r = n ? function () {
+        if (p(331, -182) === "DgnQL") {
+          return _0x2c0155[p(343, -172)]()[p(346, -166)]("(((.+)+)+)+$")[p(343, 538)]().constructor(_0x371497)[p(346, -153)]("(((.+)+)+)+$");
+        }
+        if (t) {
+          if (p(349, -156) === "asiEx") {
+            return _0x44eb39(_0x374510, _0x234c8b[p(334, -179)]);
+          }
+          {
+            let r = t[p(332, -182)](e, arguments);
+            t = null;
+            return r;
+          }
+        }
+      } : function () {};
+      n = false;
+      return r;
+    })(undefined, function () {
+      return d.toString()[p(346, -132)](p(339, -143) + "+$")[p(343, 603)]()[p(338, 600) + "r"](d)[p(346, 625)](p(339, -147) + "+$");
+    });
+    function f() {
+      let e = ["(test mode", "495945YLSDsu", "constructo", "(((.+)+)+)", "1553304faYDnT", "4DBdTbO", "4905351owQaIC", "toString", "1398324ulTrxX", "success", "search", "14jypLSB", "240207etWOCE", "UOJPP", "PATCH", "126958hQnbZz", "ingsMutati", "16190wXOgfo", "AXjzE", "apply", "V1_SETTING", "settings", "debugLabel"];
+      return (f = function () {
+        return e;
+      })();
+    }
+    function p(e, t) {
+      let r = f();
+      return (p = function (e, t) {
+        return r[e -= 328];
+      })(e, t);
+    }
+    d();
+    let x = (0, c.W)({
+      method: p(350, -628),
+      operationName: "Updated settings",
+      apiEndpoint: u.QQ[p(333, -649) + "S"],
+      resourceQueryKey: l.bC,
+      defaultResourceValue: a.cL,
+      responseSchema: i.zf,
+      serializationSchema: o.n9,
+      logModule: "settings",
+      testResponseFactory: e => {
+        let t = (0, s.D9)(a.cL, e[n(539, 530, 528, 551)]);
+        let r = {};
+        function n(e, t, r, n) {
+          return p(e - 637 - -432, t);
+        }
+        function o(e, t, r, n) {
+          return p(n - 1234 - -432, r);
+        }
+        r[n(550, 550, 557, 551)] = true;
+        r[o(1124, 1142, 1128, 1136)] = t;
+        r.message = "Settings updated successfully " + o(1133, 1133, 1138, 1138) + ")";
+        return r;
+      },
+      optimisticUpdateFn: (e, t) => (0, s.D9)(t, e[p(334, -485)])
+    });
+    x[p(335, -95)] = "updateSett" + p(329, -667) + "onAtom";
+  },
+  72845: (e, t, r) => {
+    let n;
+    let o;
+    r.d(t, {
+      Dg: () => k,
+      tS: () => P,
+      X1: () => A,
+      eI: () => j,
+      tG: () => U
+    });
+    var i = r(22814);
+    var u = r(14333);
+    var a = r(16304);
+    var l = r(17127);
+    var s = r(48795);
+    var c = r(56001);
+    var d = r(27295);
+    var f = r(91307);
+    var p = r(91358);
+    var x = r(54932);
+    var m = r(53138);
+    var _ = r(70339);
+    var g = r(40659);
+    (function (e, t) {
+      let r = e();
+      while (true) {
+        try {
+          var n;
+          var o;
+          var i;
+          var u;
+          var a;
+          var l;
+          var s;
+          if (-parseInt((n = -253, y(175, n))) / 1 * (parseInt(y(144, 677)) / 2) + parseInt((o = -245, y(o - -442, -218))) / 3 * (parseInt(y(114, 585)) / 4) + -parseInt((i = -277, u = -291, y(i - -442, u))) / 5 + parseInt(y(167, 688)) / 6 + -parseInt((a = -255, l = -217, y(a - -442, l))) / 7 + -parseInt(y(129, 624)) / 8 * (parseInt(y(172, 691)) / 9) + parseInt((s = -318, y(s - -442, -335))) / 10 === 555491) {
+            break;
+          }
+          r.push(r.shift());
+        } catch (e) {
+          r.push(r.shift());
+        }
+      }
+    })(I, 0);
+    let b = (n = true, function (e, t) {
+      if (y(196, -367) === "OeCRu") {
+        let e = _0x1be7c6(_0x474be7);
+        let t = _0x3de81f(_0x1cb621, _0x5c4a6a.id);
+        let r = {
+          [y(153, 480)]: e,
+          [y(132, 409)]: _0x55b2f9.id
+        };
+        r[y(120, 440)] = y(130, 450);
+        _0x1c2eee(r, e, 1, y(130, 414), t);
+        if (_0x548c28?.[y(194, -359) + y(135, 486)]) {
+          _0x814ab0(_0x48373a, _0x35977e.id)[y(166, -333)]((e, t) => {
+            let r = _0x585b7a(e, _0x12496a);
+            function n(e, t, r, n) {
+              return y(r - 316 - 305, n);
+            }
+            let o = {};
+            function i(e, t, r, n) {
+              return y(e - 680 - -530, r);
+            }
+            o.pathname = r;
+            o[i(282, 295, 306, 278)] = e;
+            o[i(270, 227, 306, 253)] = n(831, 835, 801, 776) + "up";
+            _0x5093e7(o, r, 1.25 + t * 0.01, "project-gr" + n(728, 754, 733, 776));
+          });
+        }
+      } else {
+        let r = n ? function () {
+          if (t) {
+            let r = t[y(148, 832)](e, arguments);
+            t = null;
+            return r;
+          }
+        } : function () {};
+        n = false;
+        return r;
+      }
+    })(undefined, function () {
+      return b[y(113, 438)]()[y(159, 488)]("(((.+)+)+)+$")[y(113, 357)]().constructor(b)[y(159, 430)](y(177, 486) + "+$");
+    });
+    function I() {
+      let e = ["ups", "calendar", "debug", "lPBaR", "ute", "reason", "viewMode", "not-found", "aRpMk", "114IMzObd", "items", "collapsedS", "upcoming", "apply", "groups", "profile", "autoRollov", "/labels/", "pathname", "/completed", "kADlN", "standard", "all", "taskProjec", "search", "sectionId", "ections", "sort", "/projects/", "all-fallba", "3500350GLutDs", "forEach", "6570594nOvmIV", "today", "/all", "some", "label", "211257zXuyZB", "keys", "labels", "12605NQHpxl", "oups/", "(((.+)+)+)", "current-ro", "map", "projectgro", "route", "completed", "/today", "now", "string", "values", "6343050nrLUNv", "taskId", "path", "bvFUm", "find", "Ziffk", "recurringM", "projectGro", "updates", "HgBFR", "18zQRZFS", "cpCZf", "habits", "includes", "ode", "/inbox", "oup", "toString", "669620rTMpHY", "/habits", "inbox", "length", "BCQfA", "yVmgi", "routeType", "EuaIl", "priority", "list", "13909650lpQLNc", "/upcoming", "filter", "project-gr", "sections", "208RUsPES", "project", "/projectgr", "viewId", "task", "projectId"];
+      return (I = function () {
+        return e;
+      })();
+    }
+    function y(e, t) {
+      let r = I();
+      return (y = function (e, t) {
+        return r[e -= 107];
+      })(e, t);
+    }
+    function h(e, t, r, n) {
+      if (t[y(132, 407)] === y(142, 416)) {
+        return false;
+      }
+      switch (t[y(120, -746)]) {
+        case "project":
+          return e[y(134, -747)] === t.viewId;
+        case "label":
+          return e[y(174, 497)][y(109, -791)](t[y(132, -786)]);
+        case "projectgroup":
+          if (!n || !e[y(134, -811)]) {
+            return false;
+          }
+          return (0, _.BN)(n, t[y(132, -816)])[y(109, 453)](e.projectId);
+        case y(156, -784):
+          if (y(143, 416) === y(143, -741)) {
+            let n = t[y(132, -750)];
+            let o = (0, x._j)(e);
+            switch (n) {
+              case y(168, 452):
+                return !!o && (!!(0, u.c)(o) || !!(0, a.R)(o) && !(0, u.c)(o));
+              case y(147, -746):
+                return !!o && !!(0, l.G)(o) && !(0, u.c)(o);
+              case y(182, 467):
+                return e[y(182, -760)];
+              case y(108, -804):
+                return e[y(193, 457) + "ode"] === "autoRollover" && !e[y(182, 469)];
+              case "inbox":
+                return (0, x.$K)(e[y(134, -760)], r);
+              case y(157, 422):
+                return true;
+              default:
+                return false;
+            }
+          }
+          {
+            if (!_0x5ece6f || !!_0x3e3fed && _0x11f3b6 !== _0x4b956c[y(188, -721)] || _0x29dce3[y(132, -778)] !== _0x49037c) {
+              return _0x162839;
+            }
+            if (_0x44a125[y(170, 456)](e => e.id === _0x1abe44[y(188, -701)])) {
+              return _0x75cd6c;
+            }
+            let e = _0x5e9700.find(e => e.id === _0x2ef0c1[y(188, -737)]);
+            if (e) {
+              return [e, ..._0x40da22];
+            } else {
+              return _0x1d536f;
+            }
+          }
+        default:
+          return false;
+      }
+    }
+    function w({
+      task: e,
+      currentRoute: t,
+      projects: r,
+      labels: n,
+      groups: o,
+      routeContainsTask: i = h,
+      extraCandidates: s
+    }) {
+      var c;
+      let d = new Map();
+      let f = new Set(r[function (e, t, r, n) {
+        return y(t - -347, r);
+      }(-197, -168, -139, -178)](e => e.id));
+      let p = e.projectId ? r[w(343, 299, 279, 299)](t => t.id === e[w(207, 242, 239, 256)]) : undefined;
+      let b = n.filter(t => e[w(285, 282, 268, 263)][y(109, 251)](t.id));
+      let I = (e, r, n, o, i) => {
+        var u;
+        if ((u = e)[function (e, t, r, n) {
+          return y(n - 801, r);
+        }(920, 952, 888, 921)] === y(156, 961) && !function (e) {
+          return e !== y(136, 300) && e !== "analytics" && e !== y(150, 34) && e !== y(137, -55);
+        }(u.viewId)) {
+          return;
+        }
+        let a = e[c(-388, -375, -379, -335)] === t.routeType ? n - 0.1 : n;
+        let l = {
+          ...e
+        };
+        l[c(-334, -324, -346, -381)] = r;
+        let s = {};
+        function c(e, t, r, n) {
+          return y(r - -607 - 108, e);
+        }
+        function f(e, t, r, n) {
+          return y(r - 620 - 108, n);
+        }
+        s[f(870, 906, 909, 932)] = l;
+        s[c(-330, -288, -310, -333)] = r;
+        s[c(-423, -388, -377, -398)] = a;
+        s[f(847, 891, 868, 868)] = o;
+        s[c(-347, -332, -339, -336)] = i;
+        let p = d.get(r);
+        if (!p || p[c(-356, -417, -377, -383)] > s.priority) {
+          if (c(-347, -335, -309, -312) !== f(917, 886, 918, 962)) {
+            _0x3b224d = false;
+            if (_0xe35684) {
+              return function () {
+                if (_0xb515ab) {
+                  let e = _0x264ada[f(16, 312, 876, 361)](_0x16451a, arguments);
+                  _0x44b261 = null;
+                  return e;
+                }
+              };
+            } else {
+              return function () {};
+            }
+          } else {
+            d.set(r, s);
+          }
+        }
+      };
+      if (i(e, t, f, o)) {
+        I(t, t[y(153, -199)], 0, y(178, -183) + y(139, 214));
+      }
+      if (p) {
+        let t;
+        t = (0, m.X3)(p);
+        let r = y(163, -347) + encodeURIComponent(t);
+        let n = function (e, t) {
+          if (!e) {
+            return;
+          }
+          let r = e[y(128, 975)][y(191, 1088)](e => e[y(145, 0)][y(109, 7)](t));
+          return r?.id;
+        }(p, e.id);
+        let i = {
+          [y(153, 226)]: r,
+          [y(132, -174)]: p.id,
+          [y(120, -256)]: "project"
+        };
+        I(i, r, 1, y(130, -171), n);
+        if (o?.[y(194, 305) + y(135, 277)]) {
+          let e;
+          let t;
+          (c = p.id, e = [], (t = r => {
+            for (let n of r[y(145, -231)]) {
+              if (typeof n === y(185, -199) && n === c) {
+                if (y(138, -63) === y(138, -31)) {
+                  e.push(r.id);
+                  return true;
+                } else {
+                  let e = _0x1a1fd6[y(132, -177)];
+                  let t = _0x32f073(_0x1f6479);
+                  switch (e) {
+                    case y(168, -152):
+                      return _0x14e96c(t && (_0x3919eb(t) || _0x51cc5b(t) && !_0x52f66c(t)));
+                    case y(147, -158):
+                      return _0x30d528(t && _0x496a2d(t) && !_0x41de98(t));
+                    case y(182, -135):
+                      return _0x4ba8f3.completed;
+                    case y(108, -77):
+                      return _0x403c41[function (e, t, r, n) {
+                        return y(n - -195, r);
+                      }(33, 29, 27, -2) + "ode"] === "autoRollover" && !_0x23602f.completed;
+                    case y(116, -56):
+                      return _0x3ee65a(_0x2229a2.projectId, _0xc48f9);
+                    case "all":
+                      return true;
+                    default:
+                      return false;
+                  }
+                }
+              }
+              if ((0, g.IZ)(n) && t(n)) {
+                e.push(r.id);
+                return true;
+              }
+            }
+            return false;
+          })(o.projectGroups), Array.from(new Set(e)))[y(166, -218)]((e, t) => {
+            let r = function (e, t) {
+              if (!t) {
+                return y(131, 634) + y(176, 647) + e;
+              }
+              let r = (0, _.L9)(t[n(701, 707, 729, 706) + n(642, 653, 680, 648)], e);
+              function n(e, t, r, n) {
+                return y(e - 507, t);
+              }
+              let o = r ? (0, m.m7)(r) : e;
+              return y(131, 550) + "oups/" + encodeURIComponent(o);
+            }(e, o);
+            let n = {};
+            function i(e, t, r, n) {
+              return y(r - -1023 - 108, t);
+            }
+            n[i(-736, -755, -762, -793)] = r;
+            n[i(-794, -771, -783, -747)] = e;
+            n.routeType = y(180, 626) + "up";
+            I(n, r, 1.25 + t * 0.01, "project-gr" + i(-811, -806, -803, -805));
+          });
+        }
+      }
+      function w(e, t, r, n) {
+        return y(t - 108, n);
+      }
+      b[y(166, 252)]((e, t) => {
+        let r;
+        function n(e, t, r, n) {
+          return y(e - 279 - 108, r);
+        }
+        r = (0, m.qN)(e);
+        let o = y(152, 602) + encodeURIComponent(r);
+        let i = {
+          pathname: o,
+          viewId: e.id
+        };
+        i[n(507, 506, 464, 546)] = n(558, 544, 558, 522);
+        I(i, o, 1.5 + t * 0.05, y(171, -690));
+      });
+      let v = (0, x._j)(e);
+      let A = (0, x.$K)(e[y(134, -210)], f);
+      if (v && ((0, u.c)(v) || (0, a.R)(v) && !(0, u.c)(v))) {
+        let e = {};
+        e[y(153, 273)] = y(183, 330);
+        e[y(132, 248)] = y(168, -157);
+        e[y(120, 207)] = y(156, -217);
+        I(e, y(183, 322), 2, y(168, -146));
+      }
+      if (v && (0, l.G)(v) && !(0, u.c)(v)) {
+        if (y(192, 302) !== "Ziffk") {
+          return _0x1c4bbd[y(120, -252)] !== y(156, -157) || _0x48e3bf(_0x5b0914[y(132, 235)]);
+        }
+        {
+          let e = {
+            [y(153, -149)]: "/upcoming"
+          };
+          e.viewId = y(147, 243);
+          e.routeType = "standard";
+          I(e, y(125, -196), 2.1, "upcoming");
+        }
+      }
+      if (e[y(182, -172)]) {
+        let e = {};
+        e.pathname = y(154, 273);
+        e[y(132, 239)] = "completed";
+        e[y(120, 255)] = y(156, -199);
+        I(e, "/completed", 2.2, y(182, 319));
+      }
+      if (e["recurringM" + y(110, 191)] === y(151, -185) + "er" && !e[y(182, 312)]) {
+        if (y(155, -184) !== y(155, 249)) {
+          let e = _0x5567e0(_0x4fc3fc, _0x190321);
+          let t = {
+            pathname: e,
+            viewId: _0x4bcc5b
+          };
+          t[y(120, 186)] = y(180, 272) + "up";
+          _0x336fc3(t, e, 1.25 + _0x16d8c5 * 0.01, y(127, -240) + y(112, 248));
+        } else {
+          let e = {};
+          e[y(153, 229)] = y(115, -224);
+          e[y(132, -257)] = y(108, 207);
+          e.routeType = y(156, 239);
+          I(e, "/habits", 2.3, y(108, 222));
+        }
+      }
+      if (A) {
+        let e = {};
+        e[y(153, -225)] = y(111, 243);
+        e[y(132, 267)] = y(116, 227);
+        e.routeType = y(156, 283);
+        I(e, y(111, -205), 2.6, "inbox");
+      }
+      let U = {};
+      U.pathname = y(169, 292);
+      U[y(132, 203)] = y(157, -225);
+      U[y(120, 268)] = y(156, 278);
+      I(U, "/all", 3, y(164, 256) + "ck");
+      if (s) {
+        let t = {
+          [y(133, -208)]: e,
+          projectIds: f,
+          [y(158, 284) + "t"]: p,
+          taskLabels: b,
+          [y(149, 266)]: o
+        };
+        s(I, t);
+      }
+      return Array.from(d[y(186, -199)]())[y(162, -144)]((e, t) => e.priority - t[y(122, -242)]);
+    }
+    b();
+    function v(e, t, r, n) {
+      let o = r(f.vG);
+      let i = (0, f.VV)(o, e);
+      let u = t && i[y(146, -318) + y(161, -325)] ? i["collapsedS" + function (e, t, r, n) {
+        return y(n - 949, t);
+      }(1064, 1138, 1147, 1110)][y(126, 1050)](e => e !== t) : i[y(146, -332) + y(161, -349)];
+      let a = {};
+      if (i[y(141, 1106)] !== y(123, 1109)) {
+        if (y(107, 1033) !== y(119, -349)) {
+          a[y(141, 1073)] = "list";
+        } else {
+          let e = _0xa7ce72(_0x34f3b6);
+          return y(163, -305) + _0xdd2ba1(e);
+        }
+      }
+      if (u !== i[y(146, 1100) + "ections"]) {
+        a[y(146, -313) + y(161, -357)] = u;
+      }
+      if (Object[y(173, -320)](a)[y(117, 1089)] > 0) {
+        let t = {
+          [y(132, -327)]: e,
+          [y(195, -323)]: a
+        };
+        n(f.db, t);
+      }
+    }
+    function A(e, t, r, n, o) {
+      if (!r || !!n && n !== r.taskId || r[i(935, 885, 915, 926)] !== o || e.some(e => e.id === r[i(972, 986, 949, 982)])) {
+        return e;
+      }
+      function i(e, t, r, n) {
+        return y(n - 794, e);
+      }
+      let u = t.find(e => e.id === r.taskId);
+      if (u) {
+        return [u, ...e];
+      } else {
+        return e;
+      }
+    }
+    let U = (0, i.eU)(null);
+    let j = (0, i.eU)(null);
+    let k = (0, i.eU)(null, (e, t) => {
+      let r = e(U);
+      let n = e(p.Xv);
+      t(j, null);
+      if (r && r[y(188, 932)] !== n) {
+        t(U, null);
+      }
+    });
+    (0, i.eU)(null, (e, t, r) => {
+      var n;
+      var o;
+      var i;
+      var u;
+      var a;
+      var l;
+      var f;
+      var p;
+      var x;
+      let m = e(s.yK);
+      function _(e, t, r, n) {
+        return y(n - 115, t);
+      }
+      let g = e(s.u5);
+      let b = e(s.jc);
+      let I = e(c.fl);
+      let h = e(d.pv);
+      let A = m[_(309, 261, 322, 306)](e => e.id === r);
+      if (!A) {
+        if (_(280, 235, 209, 236) !== (n = 0, o = 0, y(118, -371))) {
+          return;
+        } else {
+          let e = _0x2f5f94(_0x258d71(_0x17e93d), _0x1aa11c);
+          let t = _0x14e755 && e[_(239, 222, 222, 261) + P(-332, -339, -360, -333)] ? e[P(-369, -389, -383, -348) + P(-317, -352, -343, -333)][_(273, 284, 254, 241)](e => e !== _0x536169) : e[_(273, 283, 305, 261) + _(249, 267, 248, 276)];
+          let r = {};
+          if (e[_(278, 271, 251, 256)] !== _(204, 265, 193, 238)) {
+            r[_(232, 261, 243, 256)] = (i = 0, u = 0, y(123, -326));
+          }
+          if (t !== e["collapsedS" + P(-353, -321, -343, -333)]) {
+            r[_(257, 235, 294, 261) + _(285, 254, 320, 276)] = t;
+          }
+          if (_0x5dc507[P(-281, -300, -290, -321)](r)[_(266, 215, 234, 232)] > 0) {
+            let e = {
+              [_(276, 274, 275, 247)]: _0xb50e05,
+              [_(307, 287, 320, 310)]: r
+            };
+            _0xf81a4f(_0x2c81a5, e);
+          }
+        }
+      }
+      let k = {
+        [_(225, 240, 286, 248)]: A,
+        currentRoute: h,
+        projects: g,
+        labels: b,
+        [_(223, 233, 306, 264)]: I
+      };
+      let S = w(k)[0];
+      if (!S) {
+        return;
+      }
+      let R = {
+        taskId: r,
+        viewId: String(S.route[_(252, 230, 242, 247)]),
+        routeType: S[P(-330, -289, -326, -313)].routeType,
+        sectionId: S[_(272, 286, 254, 275)]
+      };
+      function P(e, t, r, n) {
+        return y(n - -494, r);
+      }
+      if (S[_(291, 257, 302, 296)][_(279, 263, 229, 235)] === _(260, 237, 222, 245) || S.route[a = 0, l = 0, f = -375, y(120, -375)] === "standard" || S[P(-319, -294, -346, -313)][p = 0, x = 0, y(120, -384)] === "label" || S[P(-303, -319, -296, -313)].routeType === _(258, 251, 310, 295) + "up") {
+        v(R[P(-351, -402, -321, -362)], R[P(-292, -294, -359, -334)], e, t);
+      }
+      t(U, R);
+      t(j, {
+        taskId: r,
+        targetPath: S[_(259, 298, 290, 304)],
+        route: S.route,
+        sectionId: S[y(160, -356)],
+        createdAt: Date[_(328, 256, 303, 299)](),
+        reason: S.reason
+      });
+    });
+    (function (e, t) {
+      let r = e();
+      while (true) {
+        try {
+          if (parseInt(T(454, 342)) / 1 + parseInt(T(437, 300)) / 2 + -parseInt(T(426, 28)) / 3 + -parseInt(T(421, 310)) / 4 + parseInt(T(445, 331)) / 5 * (-parseInt(T(447, 48)) / 6) + parseInt(T(416, 22)) / 7 * (-parseInt(T(417, 18)) / 8) + -parseInt(T(438, 63)) / 9 * (-parseInt(T(456, 77)) / 10) === 189249) {
+            break;
+          }
+          r.push(r.shift());
+        } catch (e) {
+          r.push(r.shift());
+        }
+      }
+    })(R, 0);
+    let S = (o = true, function (e, t) {
+      if (T(441, 1408) === "skZDd") {
+        let r = o ? function () {
+          function r(e, t, r, n) {
+            return T(n - -1301 - 949, r);
+          }
+          function n(e, t, r, n) {
+            return T(t - -701 - 949, r);
+          }
+          if (r(87, 81, 84, 92) === n(677, 692, 702, 683)) {
+            if (t) {
+              if (n(709, 699, 706, 678) === "HCCNS") {
+                let r = t[n(664, 666, 648, 677)](e, arguments);
+                t = null;
+                return r;
+              } else {
+                _0xf33288(_0x583470, _0x4d5db8.task, _0x4348e8.id);
+              }
+            }
+          } else {
+            _0x189eed(_0x298226[r(98, 91, 85, 79)], _0x4aacc9.sectionId, _0x39e335, _0x2108ca);
+          }
+        } : function () {};
+        o = false;
+        return r;
+      }
+      return _0x594614(_0x5636b9 && _0x546ecd?.[T(434, 491)](_0x184332));
+    })(undefined, function () {
+      return S.toString()[T(435, -159)](T(442, -222) + "+$")[T(423, -256)]()[T(439, -152) + "r"](S)[T(435, -249)](T(442, -262) + "+$");
+    });
+    function R() {
+      let e = ["assignees", "standard", "36599EbUoLC", "vBNzu", "190uifUkR", "7WFpPAn", "515392LoRTNi", "apply", "to-me", "routeType", "315468edzFUm", "to-others", "toString", "sectionId", "/assigned-", "82119jKYWVh", "o-others", "ownerId", "projectgro", "pathname", "viewId", "find", "label", "includes", "search", "path", "660526Termxj", "76158sfYJTv", "constructo", "fcrRO", "skZDd", "(((.+)+)+)", "o-me", "KQKBT", "2445VbzsBH", "assigned-t", "2058vkLLNY", "reason", "route", "length", "HCCNS"];
+      return (R = function () {
+        return e;
+      })();
+    }
+    S();
+    let P = (0, i.eU)(null, (e, t, r) => {
+      let n = e(s.yK);
+      let o = e(s.u5);
+      let i = e(s.jc);
+      let u = e(c.fl);
+      let a = e(d.pv);
+      let l = e(s.p9);
+      let f = n[A(542, 548, 542, 551)](e => e.id === r);
+      if (!f) {
+        return;
+      }
+      let p = w({
+        task: f,
+        currentRoute: a,
+        projects: o,
+        labels: i,
+        groups: u,
+        routeContainsTask: (e, t, r, n) => function (e, t, r, n, o) {
+          var i;
+          var u;
+          var a;
+          var l;
+          var s;
+          var c;
+          var d;
+          var f;
+          var p;
+          var x;
+          var m;
+          var _;
+          if (h(e, t, r, n)) {
+            return true;
+          }
+          if (t[g(469, 486, 460, 488)] === (i = 482, u = 0, a = 0, T(453, 482))) {
+            let r = e[g(501, 514, 482, 484)];
+            let n = e[g(477, 468, 476, 481)];
+            if (t[g(480, 468, 489, 494)] === T(446, 550) + (l = 507, s = 0, c = 0, T(443, 507))) {
+              return !!o && !!r?.[d = 467, f = 0, p = 0, T(434, 467)](o);
+            }
+            if (t[g(480, 476, 464, 472)] === "assigned-t" + (x = 474, m = 0, _ = 0, T(427, 474))) {
+              return !!o && n === o && !!r && !!(r.length > 0) && !r[g(483, 474, 486, 470)](o);
+            }
+          }
+          function g(e, t, r, n) {
+            return T(e - 49, t);
+          }
+          return false;
+        }(e, t, r, n, l.id),
+        extraCandidates: (e, t) => {
+          (function (e, t, r) {
+            let n = t[function (e, t, r, n) {
+              return T(n - 540, t);
+            }(980, 1011, 974, 992)];
+            let o = t[T(428, 954)];
+            if (r && n?.includes(r)) {
+              var i;
+              var u;
+              var a;
+              var l;
+              var s;
+              var c;
+              var d;
+              var f;
+              var p;
+              var x;
+              var m;
+              var _;
+              var g;
+              var b;
+              var I;
+              let t = {};
+              t[i = 0, u = 1279, a = 0, T(430, 1279)] = (l = 0, s = 1300, c = 0, T(425, 1300) + T(419, 973));
+              d = 0;
+              f = 1299;
+              p = 0;
+              t.viewId = T(446, 1299) + (x = 0, m = 1292, _ = 0, T(443, 1292));
+              t.routeType = T(453, 976);
+              e(t, "/assigned-" + (g = 0, b = 1260, I = 0, T(419, 1260)), 2.35, "assigned-to-me");
+            }
+            if (r && o === r && n && n.length > 0 && !n[T(434, 1299)](r)) {
+              if (T(440, 991) !== T(440, 995)) {
+                if (_0xd1c0cd(_0x224d99, _0x25eb1c, _0x2c63bb, _0x6c124c)) {
+                  return;
+                }
+                if (_0x41d308.routeType === T(453, 987)) {
+                  let e = _0x102f4f[T(452, 986)];
+                  let t = _0x337ae2[T(428, 949)];
+                  if (_0x23552f[T(431, 1287)] === "assigned-t" + T(443, 1315)) {
+                    return _0x4a7f4b(_0x3589de && e?.[T(434, 961)](_0x5e25b2));
+                  }
+                  if (_0x54732c[T(431, 972)] === T(446, 966) + "o-others") {
+                    _0x48f495(_0x1fc615 && t === _0x3dd63b && e && e[T(450, 1010)] > 0 && !e.includes(_0xa65099));
+                  }
+                }
+              } else {
+                let t = {};
+                t[T(430, 975)] = T(425, 947) + "to-others";
+                t[T(431, 971)] = T(446, 995) + T(427, 1287);
+                t[T(420, 1272)] = T(453, 1312);
+                e(t, T(425, 965) + T(422, 1282), 2.4, T(446, 1294) + "o-others");
+              }
+            }
+          })(e, t.task, l.id);
+        }
+      })[0];
+      if (!p) {
+        var x;
+        var m;
+        var _;
+        var g;
+        var b;
+        var I;
+        x = 0;
+        m = 559;
+        _ = 0;
+        if (T(455, 559) === (g = 0, b = 556, I = 0, T(455, 556))) {
+          return;
+        } else {
+          return _0x57888d(_0x53ff11 && _0x378969 === _0x1c789c && _0x4d74cd && _0x2ebf72[A(578, 561, 560, 574)] > 0 && !_0x51e0d8[T(434, 1328)](_0x5a3532));
+        }
+      }
+      let y = {
+        taskId: r,
+        viewId: String(p.route.viewId),
+        routeType: p.route[T(420, 1303)],
+        sectionId: p[T(424, 1321)]
+      };
+      function A(e, t, r, n) {
+        return T(r - 110, t);
+      }
+      if (p[T(449, 1345)][T(420, 1305)] === "project" || p.route.routeType === T(453, 556) || p.route[T(420, 535)] === T(433, 533) || p.route[T(420, 512)] === T(429, 1289) + "up") {
+        v(y[T(431, 543)], y[T(424, 514)], e, t);
+      }
+      t(U, y);
+      t(j, {
+        taskId: r,
+        targetPath: p[T(436, 1303)],
+        route: p[T(449, 1347)],
+        sectionId: p[T(424, 1307)],
+        createdAt: Date.now(),
+        reason: p[T(448, 568)]
+      });
+    });
+    function T(e, t) {
+      let r = R();
+      return (T = function (e, t) {
+        return r[e -= 416];
+      })(e, t);
+    }
+  },
+  78563: (e, t, r) => {
+    let n;
+    r.d(t, {
+      x: () => x
+    });
+    var o = r(22688);
+    var i = r(84852);
+    var u = r(61212);
+    var a = r(10327);
+    var l = r(31453);
+    var s = r(54932);
+    var c = r(33006);
+    (function (e, t) {
+      let r = e();
+      while (true) {
+        try {
+          if (parseInt(f(278, 672)) / 1 + -parseInt(f(296, 671)) / 2 + parseInt(f(302, 1249)) / 3 + parseInt(f(301, 668)) / 4 * (parseInt(f(290, 1258)) / 5) + -parseInt(f(284, 664)) / 6 * (-parseInt(f(289, 1259)) / 7) + -parseInt(f(273, 1217)) / 8 * (-parseInt(f(276, 1243)) / 9) + -parseInt(f(287, 655)) / 10 === 620649) {
+            break;
+          }
+          r.push(r.shift());
+        } catch (e) {
+          r.push(r.shift());
+        }
+      }
+    })(p, 0);
+    let d = (n = true, function (e, t) {
+      let r = n ? function () {
+        if (t) {
+          let r = t.apply(e, arguments);
+          t = null;
+          return r;
+        }
+      } : function () {};
+      n = false;
+      return r;
+    })(undefined, function () {
+      return d.toString()[f(283, 380)]("(((.+)+)+)+$")[f(280, 359)]()[f(282, -437) + "r"](d)[f(283, 371)](f(298, -429) + "+$");
+    });
+    function f(e, t) {
+      let r = p();
+      return (f = function (e, t) {
+        return r[e -= 272];
+      })(e, t);
+    }
+    function p() {
+      let e = ["3200397bEJAul", "ed success", "8aRXrgh", "fully (tes", "PATCH", "10035081hAWaPW", "debugLabel", "467917ivNdZG", "V1_USER", "toString", "ted-test-a", "constructo", "search", "373668LwXuCp", "updateUser", "vatar.png", "13582670XnQcsh", "avatar", "28gwehpY", "450NxcNzS", "success", "Updated us", "MutationAt", "tar/simula", "t mode)", "2070062DaSZLo", "User updat", "(((.+)+)+)", "user", "message", "5116nkqghk"];
+      return (p = function () {
+        return e;
+      })();
+    }
+    d();
+    let x = (0, c.W)({
+      method: f(275, 113),
+      operationName: f(292, 120) + "er",
+      apiEndpoint: u.QQ[f(279, 305)],
+      resourceQueryKey: l.$t,
+      defaultResourceValue: a.Az,
+      responseSchema: i.Xs,
+      serializationSchema: o.UM,
+      logModule: f(299, 126),
+      testResponseFactory: e => {
+        let t = a.Az.avatar;
+        if (e.avatar !== undefined) {
+          t = e[o(1280, 1272, 1284, 1274)] === null ? undefined : (0, u.FY)("assets/ava" + o(1293, 1278, 1264, 1264) + o(1273, 1265, 1273, 1266) + n(1078, 1081, 1092, 1091));
+        }
+        let r = {
+          ...a.Az,
+          ...(0, s.j7)(e),
+          avatar: t
+        };
+        function n(e, t, r, n) {
+          return f(r - 764 - 42, n);
+        }
+        function o(e, t, r, n) {
+          return f(t - 942 - 42, n);
+        }
+        let i = {
+          [o(1266, 1275, 1270, 1276)]: true,
+          [o(1270, 1283, 1288, 1283)]: r
+        };
+        i[n(1108, 1097, 1106, 1093)] = o(1294, 1281, 1279, 1266) + o(1254, 1256, 1247, 1247) + o(1272, 1258, 1263, 1249) + n(1115, 1108, 1101, 1102);
+        return i;
+      },
+      optimisticUpdateFn: (e, t) => ({
+        ...t,
+        ...(0, s.j7)(e),
+        avatar: t.avatar
+      })
+    });
+    x[f(277, 313)] = f(285, 312) + f(293, 117) + "om";
+  },
+  78730: (e, t, r) => {
+    let n;
+    r.d(t, {
+      Ks: () => q,
+      kn: () => X,
+      tG: () => Y
+    });
+    var o;
+    var i;
+    var u;
+    var a;
+    var l;
+    var s;
+    var c;
+    var d;
+    var f;
+    var p;
+    var x;
+    var m;
+    var _;
+    var g;
+    var b;
+    var I;
+    var y;
+    var h;
+    var w;
+    var v;
+    var A;
+    var U;
+    var j;
+    var k;
+    var S;
+    var R;
+    var P;
+    var T;
+    var D;
+    var L;
+    var G = r(85980);
+    var C = r(22688);
+    var O = r(84852);
+    var E = r(41356);
+    var F = r(31453);
+    var Q = r(71420);
+    function M(e, t) {
+      let r = z();
+      return (M = function (e, t) {
+        return r[e -= 179];
+      })(e, t);
+    }
+    (function (e, t) {
+      let r = e();
+      while (true) {
+        try {
+          var n;
+          var o;
+          var i;
+          var u;
+          var a;
+          var l;
+          var s;
+          var c;
+          var d;
+          var f;
+          var p;
+          var x;
+          var m;
+          var _;
+          var g;
+          var b;
+          if (-parseInt((n = -575, o = -560, M(n - -760, o))) / 1 * (-parseInt(M(198, 144)) / 2) + -parseInt((i = -566, M(i - -760, -565))) / 3 * (-parseInt(M(180, -562)) / 4) + -parseInt((u = -557, M(201, u))) / 5 * (parseInt((a = -568, l = -568, M(a - -760, l))) / 6) + parseInt((s = -558, c = -568, M(s - -760, c))) / 7 * (parseInt((d = -555, f = -536, M(d - -760, f))) / 8) + -parseInt((p = -567, M(p - -760, -564))) / 9 * (-parseInt(M(186, 127)) / 10) + parseInt((x = -572, M(x - -760, -585))) / 11 + parseInt((m = -578, _ = -586, M(m - -760, _))) / 12 * (-parseInt((g = -551, b = -567, M(g - -760, b))) / 13) === 867071) {
+            break;
+          }
+          r.push(r.shift());
+        } catch (e) {
+          r.push(r.shift());
+        }
+      }
+    })(z, 0);
+    let V = (n = true, function (e, t) {
+      if (M(195, 147) === M(195, 825)) {
+        let r = n ? function () {
+          if (t) {
+            let r = t[M(203, -651)](e, arguments);
+            t = null;
+            return r;
+          }
+        } : function () {};
+        n = false;
+        return r;
+      }
+      if (_0x3120a0) {
+        let e = _0x159cfb[M(203, 866)](_0x1df901, arguments);
+        _0xb2c51a = null;
+        return e;
+      }
+    })(undefined, function () {
+      return V[M(187, 576)]()[M(215, 614)](M(190, -734) + "+$")[M(187, -744)]()[M(196, -713) + "r"](V).search(M(190, -745) + "+$");
+    });
+    function z() {
+      let e = ["color", "(((.+)+)+)", "name", "1422oeqdYI", "4941UvScaC", "6YZWPhu", "ZDsqW", "constructo", "nAtom", "19946sCrVBi", "request", "deleteProj", "29570OyvgvJ", "42TVYnjU", "apply", "Default", "1607192sQKroa", "ectsMutati", "schemas", "project", "9715407lBjxep", "section", "ectMutatio", "entity", "delete", "#6b7280", "search", "operation", "create", "2948008IempzB", "response", "36TGyinM", "debugLabel", "onAtom", "31DlJocj", "1500XLkuUT", "toString", "15837745YtClGt"];
+      return (z = function () {
+        return e;
+      })();
+    }
+    V();
+    let N = {
+      [M(199, 764)]: C.tW,
+      response: O.w0
+    };
+    let X = (0, Q.Xt)({
+      entity: (o = 770, i = 0, u = 0, M(208, 770)),
+      operation: (a = 736, l = 0, s = 0, M(179, 736)),
+      schemas: N,
+      optimisticDataFactory: (e, t) => {
+        function r(e, t, r, n) {
+          return M(e - 404 - 545, n);
+        }
+        function n(e, t, r, n) {
+          return M(n - -157 - 545, r);
+        }
+        return {
+          ...e,
+          id: (0, E.Np)((0, G.A)()),
+          name: e[n(585, 588, 596, 579)],
+          color: e[n(592, 594, 561, 577)] ?? (0, F.yp)(F.Z0),
+          sections: e.sections ?? [{
+            id: (0, E.Tf)(F.sD),
+            name: n(603, 585, 601, 592),
+            color: r(1163, 1157, 1156, 1172),
+            type: r(1159, 1156, 1151, 1156),
+            items: []
+          }]
+        };
+      }
+    });
+    X[M(183, 758)] = "createProj" + (c = 761, d = 0, f = 0, M(211, 761)) + M(197, 752);
+    let B = {
+      [M(199, 788)]: C.Rj,
+      [M(181, 750)]: O.jn
+    };
+    let K = {};
+    K.entity = M(208, 785);
+    K[p = 762, x = 0, m = 0, M(216, 762)] = "update";
+    K[_ = 763, g = 0, b = 0, M(207, 763)] = B;
+    let q = (0, Q.Xt)(K);
+    q.debugLabel = "updateProj" + M(206, 776) + M(184, 742);
+    let W = {
+      [(I = 739, y = 0, h = 0, M(199, 739))]: C.S,
+      [(w = 732, v = 0, A = 0, M(181, 732))]: O.xB
+    };
+    let $ = {};
+    $[U = 741, j = 0, k = 0, M(212, 741)] = (S = 765, R = 0, P = 0, M(208, 765));
+    T = 769;
+    D = 0;
+    L = 0;
+    $.operation = M(213, 769);
+    $.schemas = W;
+    let Y = (0, Q.Xt)($);
+    Y[M(183, 736)] = M(200, 764) + M(211, 785) + M(197, 780);
+  },
+  81774: (e, t, r) => {
+    r.d(t, {
+      $$: () => T,
+      B$: () => G,
+      B0: () => y,
+      DQ: () => B,
+      Hq: () => N,
+      Q8: () => O,
+      T5: () => W,
+      UE: () => S,
+      VV: () => p,
+      Vz: () => et,
+      aP: () => g,
+      b0: () => C,
+      db: () => b,
+      go: () => er,
+      ig: () => w,
+      iz: () => _,
+      js: () => J,
+      kC: () => ee,
+      mG: () => Z,
+      nf: () => P,
+      q5: () => j,
+      t: () => ei,
+      v$: () => K,
+      vG: () => x,
+      vN: () => eu,
+      yx: () => R
+    });
+    var n = r(22814);
+    var o = r(71418);
+    var i = r(10327);
+    var u = r(31453);
+    var a = r(51547);
+    var l = r(42272);
+    var s = r(91358);
+    var c = r(48795);
+    function d(e, t) {
+      let r = Q();
+      return (d = function (e, t) {
+        return r[e -= 398];
+      })(e, t);
+    }
+    function f(e) {
+      if (e === d(446, -16)) {
+        if (d(588, 39) !== d(490, -56)) {
+          let e = {
+            ...i.wn
+          };
+          e.showCompleted = true;
+          return e;
+        }
+        {
+          let e = {
+            error: _0xb5b968
+          };
+          e[d(421, 1239)] = d(479, 1458);
+          _0x4c7110[t(1244, 1312, 1325, 1385)](e, "Error seri" + d(547, 61) + d(596, 1507));
+          return _0x8610f3[t(1338, 1506, 1430, 1389)]({});
+        }
+      }
+      function t(e, t, r, n) {
+        return d(r - 905, e);
+      }
+      return {
+        ...i.wn
+      };
+    }
+    function p(e, t) {
+      let r = f(t);
+      if (t in e) {
+        if (d(571, 973) === "ifgqk") {
+          return _0x425216.stringify(_0x197d5c);
+        }
+        {
+          let n = e[t];
+          if (n) {
+            return {
+              ...r,
+              ...n
+            };
+          }
+        }
+      }
+      return {
+        ...r
+      };
+    }
+    (function (e, t) {
+      let r = e();
+      while (true) {
+        try {
+          if (-parseInt(d(430, 1224)) / 1 + parseInt(d(478, 1386)) / 2 + -parseInt(d(565, 1441)) / 3 * (-parseInt(d(582, 1370)) / 4) + parseInt(d(413, 1245)) / 5 + -parseInt(d(427, 1301)) / 6 * (parseInt(d(592, 1367)) / 7) + parseInt(d(472, 1306)) / 8 * (-parseInt(d(473, 664)) / 9) + -parseInt(d(521, 1342)) / 10 * (-parseInt(d(435, 677)) / 11) === 479230) {
+            break;
+          }
+          r.push(r.shift());
+        } catch (e) {
+          r.push(r.shift());
+        }
+      }
+    })(Q, 0);
+    let x = (0, a.BG)("view-states", function () {
+      let e;
+      let t = (e = true, function (t, r) {
+        {
+          let n = e ? function () {
+            if (d(432, -308) !== d(432, -323)) {
+              let e = {
+                [d(419, 797) + "ers"]: _0x455723
+              };
+              _0xcdaa36(_0x4396f0, e);
+            } else if (r) {
+              if (d(467, -186) === d(520, 737)) {
+                _0x18226d(_0xce4963, _0x20c775.id);
+                _0x1229a6(_0x173a33, true);
+              } else {
+                let e = r[d(403, 773)](t, arguments);
+                r = null;
+                return e;
+              }
+            }
+          } : function () {};
+          e = false;
+          return n;
+        }
+      })(this, function () {
+        if (d(518, 404) === d(518, 1259)) {
+          return t[d(597, 1352)]()[d(522, 386)](d(577, 525) + "+$").toString().constructor(t).search(d(577, 1357) + "+$");
+        }
+        _0x5090da(_0x2d9810, {
+          ...(_0x294cec(_0xc96eee)[d(419, 392) + d(474, 453)] || _0x263256),
+          ..._0x908aba
+        });
+      });
+      t();
+      let r = {};
+      for (let e of u.HV) {
+        r[e] = f(e);
+      }
+      return r;
+    }(), {
+      getOnInit: true,
+      serialize: e => {
+        try {
+          if (d(405, 542) !== d(523, 623)) {
+            return JSON[d(525, 638)](e);
+          }
+          {
+            let e = _0xdaa3a7(_0x128d38)[d(453, 524) + "th"];
+            return _0x22e7e2(e);
+          }
+        } catch (e) {
+          if (d(415, -104) === d(415, -78)) {
+            let t = {
+              [d(420, -93)]: e,
+              [d(421, 7)]: "views"
+            };
+            a.Rm[d(420, 475)](t, d(573, 680) + d(547, -38) + "ew states");
+            return JSON[d(525, 587)]({});
+          }
+          {
+            let e = _0x3a76ab(_0x4b0c77)[0];
+            if (e) {
+              _0x24531c(_0x396cdc, e.id);
+              _0xc1a681(_0x40a2fa, true);
+            }
+          }
+        }
+      },
+      deserialize: e => {
+        var t;
+        var r;
+        var n;
+        var u;
+        var l;
+        var s;
+        var c;
+        var p;
+        var x;
+        var m;
+        var _;
+        var g;
+        var b;
+        var I;
+        var y;
+        var h;
+        var w;
+        var v;
+        var A;
+        var U;
+        var j;
+        var k;
+        var S;
+        var R;
+        var P;
+        var T;
+        var D;
+        var L;
+        var G;
+        var C;
+        let O;
+        if (!e || e === (t = 563, r = 0, n = 0, d(439, 563)) || e === "undefined") {
+          if ((u = 795, l = 0, s = 0, d(560, 795)) === "mTwjw") {
+            return {};
+          } else {
+            delete _0x2f8d22[function (e, t, r, n) {
+              return d(e - 239, n);
+            }(723, 806, 636, 813)];
+          }
+        }
+        try {
+          O = JSON[function (e, t, r, n) {
+            return d(r - 199, e);
+          }(712, 825, 747, 671)](e);
+        } catch (t) {
+          let e = {
+            [(c = 522, p = 0, x = 0, d(420, 522))]: t,
+            [(m = 0, _ = 0, g = 714, d(421, 714))]: "views"
+          };
+          a.Rm[b = 0, I = 0, y = 579, d(420, 579)](e, (h = 692, w = 0, v = 0, d(544, 692) + (A = 0, U = 0, j = 865, d(583, 865)) + (k = 0, S = 0, R = 701, d(539, 701)) + (P = 599, T = 0, D = 0, d(442, 599))));
+          return {};
+        }
+        let E = o.Jk[L = 0, G = 0, C = 708, d(431, 708)](O);
+        if (E.success) {
+          return E[d(503, 679)];
+        }
+        let F = {
+          module: "views"
+        };
+        F[d(420, 750)] = E[d(420, 720)];
+        a.Rm[d(590, 819)](F, d(502, 785) + d(489, 714) + "iled, atte" + d(463, 686) + d(486, 781));
+        let Q = function (e) {
+          let t = {};
+          if (typeof e !== w(677, 710, 645, 685) || e === null) {
+            var r;
+            var n;
+            var u;
+            var l;
+            var s;
+            var c;
+            var p;
+            var x;
+            var m;
+            var _;
+            var g;
+            var b;
+            var I;
+            var y;
+            var h;
+            if ((r = 1108, n = 0, u = 0, d(553, 1108)) !== "Ywsgj") {
+              return _0x5345ab(_0x4d15a9)[l = 1152, s = 0, c = 0, d(570, 1152) + "e"];
+            } else {
+              let e = {};
+              e[w(667, 637, 645, 579)] = (p = 1094, x = 0, m = 0, d(479, 1094));
+              a.Rm[_ = 1326, g = 0, b = 0, d(590, 1326)](e, w(631, 554, 671, 622) + (I = 1125, y = 0, h = 0, d(452, 1125)) + "ata type, " + w(686, 658, 562, 652) + "empty object");
+              return t;
+            }
+          }
+          function w(e, t, r, n) {
+            return d(n - 158, e);
+          }
+          for (let [r, n] of Object[w(662, 812, 803, 730)](e)) {
+            if (w(735, 640, 741, 687) === "sFIVT") {
+              if (typeof _0x12a428 != "number" || _0x41a743.isNaN(_0x9e2ade)) {
+                return _0x4e0fec;
+              }
+              return _0x190082(_0x1c69fe);
+            } else {
+              if (typeof n !== d(527, 1173) || n === null || Array[w(655, 651, 479, 565)](n)) {
+                if (d(449, 1000) === "NRMji") {
+                  continue;
+                }
+                {
+                  _0x57ef4c(_0x4c9347, false);
+                  _0x53cced(_0x37def9, null);
+                  let e = {
+                    [w(610, 688, 688, 594) + d(499, 1153)]: false
+                  };
+                  _0x27c91e(_0x11d5eb, e);
+                }
+              }
+              let e = o.Ol[w(509, 615, 666, 589)](n);
+              if (e[d(426, 1026)]) {
+                t[r] = e[d(503, 1054)];
+              } else if (w(590, 617, 585, 641) === w(630, 651, 654, 641)) {
+                let o = {};
+                if (typeof n === w(608, 769, 591, 685) && n !== null) {
+                  if (w(671, 689, 679, 691) === d(533, 1273)) {
+                    for (let [e, t] of Object[w(749, 720, 752, 730)](n)) {
+                      if (d(507, 1161) === "gUYyo") {
+                        _0xfbec49 = false;
+                        if (_0x376f0a) {
+                          return function () {
+                            if (_0x415190) {
+                              let e = _0x4b1e50[function (e, t, r, n) {
+                                return d(403, 816);
+                              }(0, 816, 0, 907)](_0x12eee1, arguments);
+                              _0x51cc00 = null;
+                              return e;
+                            }
+                          };
+                        } else {
+                          return function () {};
+                        }
+                      }
+                      if (e in i.wn) {
+                        if (e === "viewMode" && (t === d(585, 1300) || t === "kanban" || t === w(649, 709, 727, 645) || t === w(565, 724, 675, 654) || t === d(569, 1188))) {
+                          o[w(560, 683, 701, 642)] = t;
+                        } else if (e === w(561, 536, 650, 619) + "ion" && (t === "asc" || t === w(821, 732, 789, 721))) {
+                          o.sortDirection = t;
+                        } else if (e === d(543, 1088) && typeof t === w(717, 652, 667, 627)) {
+                          if (d(554, 1204) !== "kmjhJ") {
+                            let e = {
+                              [d(570, 1240) + "e"]: _0x1d6d71
+                            };
+                            _0x4f6455(_0x5e433d, e);
+                          } else {
+                            o[d(543, 1167)] = t;
+                          }
+                        } else if (e === "showComple" + d(561, 1166) && typeof t === w(633, 661, 646, 695)) {
+                          o[w(660, 676, 682, 659) + w(712, 787, 682, 719)] = t;
+                        } else if (e === d(557, 1128) + "ed" && typeof t == "boolean") {
+                          o[d(557, 1186) + "ed"] = t;
+                        } else if (e === d(570, 1151) + "e" && typeof t == "boolean") {
+                          if (w(504, 635, 608, 557) === "MWLjR") {
+                            o.showOverdue = t;
+                          } else {
+                            let e = _0x121b36[_0x2fb22c];
+                            if (e) {
+                              return {
+                                ..._0x3b7fa3,
+                                ...e
+                              };
+                            }
+                          }
+                        } else if (e === d(454, 1068) + "y" && typeof t === w(634, 696, 683, 627)) {
+                          o[d(454, 1138) + "y"] = t;
+                        } else if (e === w(523, 597, 615, 594) + w(698, 640, 709, 657) && typeof t === d(537, 1195)) {
+                          if (w(607, 654, 641, 671) !== w(574, 740, 715, 671)) {
+                            return _0x26ef77(_0x132aaa)[w(625, 667, 681, 594) + d(499, 1177)];
+                          } else {
+                            o[d(436, 995) + w(678, 587, 703, 657)] = t;
+                          }
+                        } else if (e === d(535, 1125) + "r" && typeof t === w(702, 752, 658, 695)) {
+                          o[w(679, 624, 660, 693) + "r"] = t;
+                        } else if (e === d(485, 1152) + "w" && typeof t === w(658, 751, 755, 695)) {
+                          o.compactView = t;
+                        } else if (e === d(462, 1191) + "ections" && Array[d(407, 1150)](t)) {
+                          o[w(640, 638, 535, 620) + d(488, 1222)] = t[w(600, 599, 672, 583)](e => typeof e == "string");
+                        }
+                      }
+                    }
+                  } else {
+                    let e = _0x3bc129(_0x44b5a8);
+                    let t = {
+                      [w(743, 627, 758, 700)]: e,
+                      [d(510, 1187)]: _0x57b2db
+                    };
+                    _0x1e131b(_0x2510ea, t);
+                  }
+                }
+                t[r] = {
+                  ...f(r),
+                  ...o
+                };
+                a.Rm[w(587, 637, 674, 602)]({
+                  module: "views",
+                  viewId: r,
+                  preservedFields: Object[w(780, 697, 685, 704)](o),
+                  validationError: e[d(420, 1153)][w(559, 620, 611, 609)]
+                }, w(608, 767, 625, 672) + d(595, 1257) + d(568, 1193) + d(517, 1219) + w(568, 564, 743, 650));
+              } else {
+                _0x4922aa[_0x44236a] = _0x159cf3(_0x405b69);
+              }
+            }
+          }
+          return t;
+        }(O);
+        a.Rm.info({
+          module: d(479, 703),
+          preservedViews: Object.keys(Q)[d(433, 760)]
+        }, d(418, 577) + d(422, 704) + d(455, 646));
+        return Q;
+      }
+    });
+    x[el(788, 810, 892, 833)] = X(1147, 1246, 1305, 1316) + X(1371, 1359, 1371, 1401);
+    let m = {};
+    m[el(744, 679, 751, 660)] = X(1192, 1262, 1357, 1275) + el(746, 826, 900, 755);
+    let _ = (0, a.BG)("global-vie" + el(672, 653, 725, 666), i.dk, {
+      deserialize: e => (0, a.GH)(e, i.dk, m)
+    });
+    _.debugLabel = el(827, 731, 701, 662) + "OptionsAtom";
+    let g = (0, a.XO)(X(1237, 1237, 1194, 1330) + "wAtom", (0, n.eU)("today"));
+    let b = (0, n.eU)(null, (e, t, {
+      viewId: r,
+      updates: n
+    }) => {
+      let o = e(x);
+      let u = {
+        ...(o[r] ?? i.wn),
+        ...n
+      };
+      let a = {
+        ...o
+      };
+      a[r] = u;
+      t(x, a);
+    });
+    b.debugLabel = "updateViewStateAtom";
+    let I = (0, n.eU)(null, (e, t, r) => {
+      let n = {
+        [X(1360, 1287, 1346, 1121)]: r
+      };
+      t(y, n);
+    });
+    I[el(721, 810, 848, 748)] = X(1247, 1226, 1186, 1292) + el(813, 840, 764, 892);
+    let y = (0, n.eU)(null, (e, t, r) => {
+      let n = e(g);
+      let o = {
+        ...r
+      };
+      function i(e, t, r, n) {
+        return X(e, t - -826, r - 134, n - 56);
+      }
+      function u(e, t, r, n) {
+        return el(e - 389, n - 105, r - 136, t);
+      }
+      if (n === "calendar" && o.viewMode) {
+        delete o.viewMode;
+      }
+      if (i(414, 413, 348, 460) + i(421, 476, 406, 516) in r) {
+        let n = {};
+        n[u(720, 776, 754, 792) + i(519, 476, 491, 485)] = r[u(806, 763, 779, 792) + "nel"];
+        t(P, n);
+        delete o["showSidePa" + i(414, 476, 553, 404)];
+        if (r[i(475, 413, 444, 426) + i(483, 476, 523, 488)]) {
+          let r = e(c.yK)[0];
+          if (r) {
+            t(s.dV, r.id);
+            t(l.CO, true);
+          }
+        } else {
+          t(l.CO, false);
+          t(s.dV, null);
+        }
+      }
+      if (Object[u(838, 979, 912, 902)](o).length > 0) {
+        if (u(811, 778, 774, 827) === u(911, 806, 967, 880)) {
+          return _0x57de0a(_0x316cfe).showArchived ?? false;
+        } else {
+          let e = {
+            viewId: n,
+            [i(584, 487, 398, 470)]: o
+          };
+          t(b, e);
+        }
+      }
+    });
+    y[el(857, 810, 895, 894)] = X(1440, 1361, 1396, 1302) + X(1205, 1253, 1262, 1339);
+    let h = (0, n.eU)(null, (e, t, {
+      sortBy: r,
+      sortDirection: n
+    }) => {
+      let o = {};
+      if (r !== undefined) {
+        o[el(-348, 794, -61, 318)] = r;
+      }
+      if (n !== undefined) {
+        o[el(-430, 712, -143, 209) + X(230, 1308, 186, -200)] = n;
+      }
+      t(y, o);
+    });
+    h[X(1460, 1362, 1336, 1283)] = X(1169, 1241, 1253, 1181) + el(747, 807, 773, 716);
+    let w = (0, n.eU)(null, (e, t, r) => {
+      let n = {
+        searchQuery: r
+      };
+      t(y, n);
+    });
+    w.debugLabel = X(1311, 1273, 1177, 1329) + "ueryAtom";
+    let v = (0, n.eU)(null, (e, t, r) => {
+      let n = {
+        [X(1077, 1304, 662, 972) + X(1219, 1364, 804, 1032)]: r
+      };
+      t(y, n);
+    });
+    v[el(877, 810, 766, 788)] = X(1396, 1387, 1329, 1400) + "pletedAtom";
+    let A = (0, n.eU)(null, (e, t, r) => {
+      let n = {
+        [el(1254, 821, 975, 1475) + "e"]: r
+      };
+      t(y, n);
+    });
+    A[el(799, 810, 908, 741)] = X(1295, 1284, 1360, 1194) + X(1367, 1269, 1272, 1175);
+    let U = (0, n.eU)(null, (e, t, r) => {
+      let n = {
+        [X(-127, 1288, -350, -32) + "w"]: r
+      };
+      t(y, n);
+    });
+    U[el(858, 810, 816, 833)] = el(735, 661, 651, 596) + el(744, 716, 657, 746);
+    let j = (0, n.eU)(null, (e, t, r) => {
+      let n = e(N);
+      let o = n.includes(r) ? n[el(-584, 676, -243, -192)](e => e !== r) : [...n, r];
+      let i = {
+        [el(-422, 713, -265, -207) + X(-436, 1291, -627, -704)]: o
+      };
+      t(y, i);
+    });
+    j[el(833, 810, 734, 854)] = el(829, 779, 775, 790) + el(941, 845, 901, 840) + el(811, 840, 934, 823);
+    let k = (0, n.eU)(null, (e, t, r) => {
+      let n = {
+        ["activeFilt" + el(323, 725, 79, 483)]: r
+      };
+      t(y, n);
+    });
+    k[X(1284, 1362, 1290, 1402)] = "setActiveF" + X(1395, 1341, 1332, 1263);
+    let S = (0, n.eU)(null, (e, t) => {
+      function r(e, t, r, n) {
+        return el(e - 36, t - 160, r - 359, n);
+      }
+      let n = {
+        [r(745, 830, 800, 872) + r(887, 885, 886, 889)]: u.LH
+      };
+      t(y, n);
+    });
+    S[el(818, 810, 746, 785)] = "clearActiv" + X(1403, 1389, 1447, 1435) + "om";
+    let R = (0, n.eU)(null, (e, t, r) => {
+      var n;
+      t(k, {
+        ...(e(T)["activeFilt" + (n = 656, el(501, 725, 531, 656))] || u.LH),
+        ...r
+      });
+    });
+    R[X(1311, 1362, 1335, 1429)] = X(1278, 1251, 1293, 1273) + "ersAtom";
+    let P = (0, n.eU)(null, (e, t, r) => {
+      let n = {
+        ...e(_),
+        ...r
+      };
+      t(_, n);
+    });
+    P[el(888, 810, 749, 748)] = X(1349, 1296, 1318, 1395) + el(871, 803, 720, 745) + "onsAtom";
+    let T = (0, n.eU)(e => {
+      let t = e(g);
+      let r = e(x)[t] ?? i.wn;
+      let n = e(H);
+      let o = {
+        ...r
+      };
+      function u(e, t, r, n) {
+        return X(r, t - -286, r - 493, n - 196);
+      }
+      o["showSidePa" + u(939, 1016, 956, 981)] = n;
+      o[u(935, 1001, 902, 1076)] = t === el(-412, 738, -378, -292) ? el(-325, 738, -359, -225) : r[u(1089, 1001, 945, 997)];
+      return o;
+    });
+    T[el(805, 810, 892, 719)] = X(1171, 1237, 1333, 1312) + X(1390, 1329, 1236, 1303);
+    let D = (0, n.eU)(e => {
+      var t;
+      return e(T)[X(-315, (t = -338) - -1625, -697, t - 102)] === "list";
+    });
+    D[el(711, 810, 776, 726)] = X(1148, 1211, 1286, 1192) + el(779, 807, 773, 856);
+    let L = (0, n.eU)(e => {
+      var t;
+      return e(T)[X(746, 1287, 629, 392)] === el((t = -212) - 283, t - -978, -491, -134);
+    });
+    L[X(1311, 1362, 1358, 1365)] = X(1373, 1337, 1320, 1415) + el(627, 667, 741, 583);
+    let G = (0, n.eU)(e => e(T)[X(385, 1287, 227, 111)] === X(518, 1290, 230, 244));
+    G[el(753, 810, 793, 804)] = X(1363, 1367, 1334, 1304) + "ViewAtom";
+    let C = (0, n.eU)(null);
+    C[X(1375, 1362, 1295, 1290)] = "selectedCa" + el(676, 711, 695, 650) + X(1284, 1359, 1284, 1340);
+    let O = (0, n.eU)(e => e(T)[X(1209, 1257, 783, 814) + "y"]);
+    O[el(764, 810, 838, 828)] = "searchQuer" + el(753, 663, 695, 591);
+    let E = (0, n.eU)(e => {
+      var t;
+      var r;
+      var n;
+      let o = e(T);
+      let i = {};
+      function u(e, t, r, n) {
+        return X(e, n - 39, r - 114, n - 64);
+      }
+      i[u(1294, 1307, 1326, 1259)] = o[t = 848, r = 0, n = 873, X(848, 1346, 653, 463)];
+      i[u(1333, 1381, 1291, 1324)] = o["sortDirect" + u(1394, 1345, 1373, 1347)];
+      return i;
+    });
+    E.debugLabel = el(822, 727, 766, 696) + X(1271, 1359, 1318, 1443);
+    let F = (0, n.eU)(e => e(T)[X(1009, 1304, 864, 870) + "ted"]);
+    function Q() {
+      let e = ["Options", "table", "ZhYfW", "projectIds", "nel", "XimDW", "showComple", "Schema val", "data", "customRang", "ion", "isNaN", "bfcsY", "min", "hasActiveF", "updates", "sidePanelW", "some", "xwBeJ", "Migrated V", "kanban", "erCount", "l data pre", "xYFEe", "wState", "HWipD", "300470vMNiyf", "search", "FeaKH", "Gujql", "stringify", "wStateAtom", "object", "toggleSect", "ugprp", "wAtom", "peopleOwne", "preset", "NyvCa", "isKanbanVi", "showPlanne", "iMap", "boolean", "iltersAtom", "or view st", "idth", "resetSideP", "viewId", "sortBy", "Error pars", "resetCurre", "keys", "alizing vi", "parse", "gneesColla", "tom", "ntViewStat", "alViewOpti", "Ywsgj", "kmjhJ", "resetViewS", "Atom", "showArchiv", "setViewOpt", "debugLabel", "mTwjw", "ted", "toggleTask", "desc", "isCalendar", "78xHpehZ", "rCollapsed", "eFilters", "ith partia", "stats", "showOverdu", "IOrsJ", "entries", "Error seri", "dueDateFil", "w options", "priorities", "(((.+)+)+)", "tedAtom", "updateView", "iewStateAt", "psed", "5144cjPRqd", "ing JSON f", "setShowCom", "list", "eFiltersAt", "View", "ZHdvG", "eAtom", "warn", "SidePanel", "394219KSJMNz", "anelStateA", "ionCollaps", "iewState w", "ew states", "toString", "PanelWithV", "MWLjR", "ions", "TTwzd", "w-options", "apply", "ter", "jPddw", "rdue", "isArray", "isListView", "IdGLI", "setCompact", "completed", "yAtom", "3178610jZTmkm", "labels", "yNijp", "ewAtom", "field", "ViewStates", "activeFilt", "error", "module", " migration", "setViewMod", "peopleAssi", "filter", "success", "78KEoDxP", "label", "ersAtom", "731858ccafak", "safeParse", "eQIKG", "length", "currentVie", "165PWAaOI", "showSidePa", "idthAtom", "setSorting", "null", "globalShow", "ilters", "ates", "viewStates", "info", "thAtom", "recent", "values", "updateFilt", "NRMji", "ionsAtom", "issues", "ewStates d", "sideBarWid", "searchQuer", " completed", "clearActiv", "State", "tateAtom", "global vie", "lendarDate", "sortDirect", "collapsedS", "mpting mig", "Invalid Vi", "ViewAtom", "rdueAtom", "cGLQE", "dismissedU", "string", "setSearchQ", "qusBx", "766112vxEQQa", "9tcpmxk", "ers", "tate", "sortConfig", "function", "1838220yVxEKM", "views", "globalView", "setShowOve", "direction", "OxGIW", "viewMode", "compactVie", "ration", "calendar", "ections", "idation fa", "rWSuf", "getViewSta", "servation", "updateGlob", "returning "];
+      return (Q = function () {
+        return e;
+      })();
+    }
+    F.debugLabel = "showComple" + el(875, 829, 854, 733);
+    let M = (0, n.eU)(e => e(T).showArchived ?? false);
+    M[X(1380, 1362, 1428, 1374)] = el(873, 808, 720, 788) + "edAtom";
+    let V = (0, n.eU)(e => e(T).showOverdue);
+    V[el(852, 810, 800, 711)] = el(863, 821, 812, 728) + "eAtom";
+    let z = (0, n.eU)(e => {
+      var t;
+      return e(T)[el(-482, 736, (t = -67) - 193, t) + "w"];
+    });
+    z.debugLabel = "compactVie" + el(788, 781, 701, 853);
+    let N = (0, n.eU)(e => {
+      function t(e, t, r, n) {
+        return X(e, r - -866, r - 142, n - 211);
+      }
+      return e(T)[t(480, 418, 399, 392) + t(410, 405, 425, 463)] || [];
+    });
+    function X(e, t, r, n) {
+      return d(t - 803, e);
+    }
+    N.debugLabel = "collapsedSectionsAtom";
+    let B = (0, n.eU)(e => {
+      var t;
+      var r;
+      return e(T)[el((t = -425) - 42, t - -1095, (r = -510) - 138, r) + X(687, 1277, 125, 142)] || u.LH;
+    });
+    B[X(1318, 1362, 1401, 1420)] = el(595, 670, 648, 752) + X(1324, 1232, 1248, 1191);
+    let K = (0, n.eU)(e => {
+      function t(e, t, r, n) {
+        return el(e - 320, r - -1237, r - 422, t);
+      }
+      let r = e(B);
+      return Object[X(464, 1250, 398, -66)](r)[t(-563, -538, -474, -536)](e => {
+        function r(e, t, r, n) {
+          var o;
+          var i;
+          o = t - 326;
+          i = n - 47;
+          return X(n, o - -817, o - 35, i - 451);
+        }
+        function n(e, r, n, o) {
+          return t(e - 250, e, r - 644, o - 293);
+        }
+        if (Array[n(131, 65, 110, 127)](e)) {
+          if (r(685, 713, 749, 705) === r(760, 713, 787, 647)) {
+            return e[n(151, 91, 14, 120)] > 0;
+          } else {
+            _0xbc17e5 = _0x2d77b1[r(800, 860, 940, 923)](_0x2cf7b0);
+          }
+        }
+        if (typeof e === n(159, 185, 108, 251) && e !== null) {
+          return Object[r(776, 759, 841, 810)](e)[n(32, 91, 117, 61)] > 0;
+        } else {
+          return !!e;
+        }
+      });
+    });
+    K[el(747, 810, 795, 868)] = X(1266, 1312, 1218, 1284) + X(1392, 1341, 1428, 1345);
+    let q = (0, n.eU)(e => {
+      let t = e(B);
+      function r(e, t, r, n) {
+        return el(e - 156, r - -245, r - 411, t);
+      }
+      let n = 0;
+      if (t[r(564, 510, 504, 587)]?.length) {
+        n += t[r(479, 503, 504, 580)][o(-264, -337, -358, -335)];
+      }
+      if (t[r(345, 493, 420, 415)] === null) {
+        if (o(-356, -210, -291, -375) === "XimDW") {
+          n += 1;
+        } else {
+          let e = {
+            [o(-374, -324, -307, -266)]: _0x2d2a6c
+          };
+          _0x5e6716(_0x1b8c42, e);
+        }
+      } else if (t[o(-446, -327, -377, -343)] && t.labels[r(438, 488, 439, 520)] > 0) {
+        n += t.labels[o(-354, -326, -358, -357)];
+      }
+      function o(e, t, r, n) {
+        return el(e - 288, r - -1042, r - 177, e);
+      }
+      if (t[o(-171, -226, -215, -145)]?.length) {
+        n += t[o(-295, -248, -215, -152)][r(482, 528, 439, 364)];
+      }
+      if (t[o(-369, -446, -380, -452)] !== undefined) {
+        n++;
+      }
+      if (t[r(609, 633, 580, 588) + o(-341, -427, -387, -462)] && (t[r(482, 524, 580, 533) + r(443, 483, 410, 491)][o(-236, -265, -259, -177)] || t[o(-239, -290, -217, -249) + "ter"][r(477, 550, 510, 525) + "e"])) {
+        n++;
+      }
+      return n;
+    });
+    q[X(1452, 1362, 1434, 1388)] = X(1209, 1222, 1236, 1155) + "erCountAtom";
+    let W = (0, n.eU)(e => {
+      var t;
+      var r;
+      return e(_)[X(-105, 1314, -260, -154) + el((t = -202) - 13, t - -993, (r = -269) - 138, r)];
+    });
+    W.debugLabel = "sidePanelW" + X(1155, 1240, 1336, 1300);
+    let $ = e => Math[el(828, 759, 712, 786)](u.Mf, Math.max(u.gE, e));
+    let Y = e => {
+      function t(e, t, r, n) {
+        return X(n, r - -447, r - 160, n - 353);
+      }
+      if (typeof e != "number" || Number[t(879, 900, 862, 901)](e)) {
+        if (t(701, 708, 765, 721) !== t(814, 948, 853, 765)) {
+          return u.T8;
+        } else {
+          _0x158fd7[el(283, 712, 560, 562) + el(338, 756, 719, 721)] = _0x185e3f;
+        }
+      }
+      return $(e);
+    };
+    let Z = (0, n.eU)(e => {
+      var t;
+      var r;
+      return Y(e(_)[t = 0, r = 243, X(243, 1256, -93, 139) + "th"]);
+    }, (e, t, r) => {
+      var n;
+      var o;
+      var i;
+      let u = Y(e(_)[o = 0, X(i = -243, 1256, -387, i - 386) + "th"]);
+      let a = $(typeof r == "function" ? r(u) : r);
+      let l = {
+        [X(n = -169, 1256, -398, n - 386) + "th"]: a
+      };
+      t(P, l);
+    });
+    Z[X(1426, 1362, 1452, 1305)] = el(774, 704, 634, 674) + el(687, 696, 684, 770);
+    let H = (0, n.eU)(e => e(_).showSidePanel);
+    H.debugLabel = el(731, 691, 640, 662) + "SidePanelA" + el(747, 801, 799, 752);
+    let J = (0, n.eU)(e => e(_)[X(1325, 1334, 1418, 1311) + X(1316, 1369, 1341, 1348)], (e, t, r) => {
+      var n;
+      let o = {
+        [el(567, 782, 625, 774) + el(-357, (n = -152) - -969, n - 146, -137)]: r
+      };
+      t(P, o);
+    });
+    J.debugLabel = "peopleOwne" + X(1435, 1369, 1408, 1466) + X(1369, 1359, 1262, 1396);
+    let ee = (0, n.eU)(e => e(_)[X(1308, 1227, 1309, 1294) + "gneesCollapsed"], (e, t, r) => {
+      function n(e, t, r, n) {
+        return X(r, t - -1024, r - 151, n - 63);
+      }
+      let o = {
+        [n(204, 203, 183, 214) + n(315, 328, 360, 343) + n(371, 360, 408, 394)]: r
+      };
+      t(P, o);
+    });
+    ee[el(710, 810, 726, 722)] = el(756, 675, 659, 702) + el(803, 800, 876, 756) + "psedAtom";
+    let et = (0, n.eU)(e => e(_)[el(703, 719, 628, 817) + "i"] ?? {}, (e, t, r) => {
+      let n = e(_)[i(-117, -69, -114, -109) + "i"] ?? {};
+      let o = typeof r === i(-57, -157, -105, -40) ? r(n) : r;
+      function i(e, t, r, n) {
+        return el(e - 370, r - -833, r - 71, t);
+      }
+      let u = {
+        [i(-105, -29, -114, -46) + "i"]: o
+      };
+      t(P, u);
+    });
+    et[X(1379, 1362, 1320, 1375)] = el(811, 719, 686, 798) + "iMapAtom";
+    let er = e => (0, n.eU)(t => t(x)[e] ?? i.wn);
+    let en = (0, n.eU)(null, (e, t) => {
+      let r = e(g);
+      let n = {
+        [el(-42, 793, -186, 154)]: r,
+        [el(189, 761, -223, 206)]: i.wn
+      };
+      t(b, n);
+    });
+    en[X(1382, 1362, 1307, 1402)] = X(1310, 1348, 1291, 1428) + X(1354, 1354, 1327, 1427) + el(936, 840, 859, 860);
+    let eo = (0, n.eU)(null, (e, t, r) => {
+      var n;
+      var o;
+      var u;
+      let a = {
+        [(n = -284, u = 0, el(-351, (o = -301) - -1094, o - 126, -284))]: r,
+        [el(-683, 761, -445, -382)]: i.wn
+      };
+      t(b, a);
+    });
+    eo[X(1407, 1362, 1276, 1265)] = el(777, 806, 844, 894) + X(1241, 1261, 1283, 1181);
+    let ei = (0, n.eU)(null, (e, t, r) => {
+      let n = e(l.CO);
+      let o = e(s.Xv);
+      let i = e(H);
+      if (n && o === r.id) {
+        t(eu);
+      } else {
+        t(s.dV, r.id);
+        t(l.CO, true);
+        if (!i) {
+          let e = {
+            [el(201, 687, 271, 627) + el(779, 750, 1219, 1204)]: true
+          };
+          t(P, e);
+        }
+      }
+    });
+    ei.debugLabel = el(893, 813, 893, 770) + el(589, 649, 562, 690) + el(782, 831, 786, 875) + "om";
+    let eu = (0, n.eU)(null, (e, t) => {
+      var r;
+      t(l.CO, false);
+      t(s.dV, null);
+      let n = {
+        [X(-213, (r = -124) - -1363, r - 24, -689) + el(45, 750, 31, 277)]: false
+      };
+      t(P, n);
+    });
+    eu[X(1448, 1362, 1282, 1284)] = X(1356, 1344, 1353, 1359) + el(749, 844, 909, 865) + X(1408, 1353, 1441, 1378);
+    let ea = {};
+    function el(e, t, r, n) {
+      return d(t - 251, n);
+    }
+    ea[el(760, 694, 753, 770)] = x;
+    ea[el(684, 685, 655, 782) + "w"] = g;
+    ea[X(1149, 1237, 1328, 1139) + X(1361, 1322, 1346, 1303)] = T;
+    ea["globalView" + X(1211, 1298, 1231, 1239)] = _;
+    ea[X(1310, 1382, 1413, 1359) + el(744, 708, 802, 722)] = b;
+    ea[X(1395, 1361, 1449, 1450) + el(584, 651, 707, 715)] = y;
+    ea[X(1209, 1296, 1326, 1228) + el(735, 803, 846, 822) + "ons"] = P;
+    ea.setViewMode = I;
+    ea[X(1161, 1241, 1196, 1338)] = h;
+    ea[X(1293, 1273, 1211, 1255) + "uery"] = w;
+    ea[X(1473, 1387, 1413, 1453) + "pleted"] = v;
+    ea[el(667, 732, 734, 701) + el(669, 657, 658, 562)] = A;
+    ea[el(664, 661, 659, 634) + el(897, 838, 923, 768)] = U;
+    ea[el(788, 779, 856, 861) + "ionCollapse"] = j;
+    ea[el(710, 796, 778, 783) + X(1414, 1354, 1429, 1406) + "e"] = en;
+    ea[el(735, 806, 766, 830) + el(780, 726, 634, 670)] = eo;
+    ea[X(1385, 1344, 1266, 1290) + "anelState"] = eu;
+    ea.setActiveFilters = k;
+    ea[el(716, 707, 783, 667) + X(1424, 1370, 1411, 1274)] = S;
+    ea[X(1192, 1251, 1324, 1195) + el(800, 725, 661, 666)] = R;
+    ea.isListView = D;
+    ea[el(703, 785, 845, 860) + "ew"] = L;
+    ea[el(743, 815, 882, 908) + el(778, 838, 757, 916)] = G;
+    ea.selectedCalendarDate = C;
+    ea.searchQuery = O;
+    ea[X(1211, 1279, 1327, 1349)] = E;
+    ea[el(741, 752, 806, 817) + "ted"] = F;
+    ea[el(868, 808, 809, 853) + "ed"] = M;
+    ea.showOverdue = V;
+    ea[X(1353, 1288, 1301, 1360) + "w"] = z;
+    ea[el(751, 713, 807, 773) + el(676, 739, 816, 793)] = N;
+    ea[el(677, 762, 687, 844) + el(696, 791, 731, 790)] = W;
+    ea.sideBarWidth = Z;
+    ea[X(1158, 1243, 1256, 1241) + el(805, 842, 775, 848)] = H;
+    ea[el(740, 782, 704, 855) + el(748, 817, 885, 744)] = J;
+    ea[X(1179, 1227, 1260, 1172) + el(856, 800, 791, 711) + el(831, 832, 856, 928)] = ee;
+    ea[X(1346, 1271, 1214, 1211) + X(1285, 1339, 1345, 1429)] = et;
+    ea[X(1235, 1222, 1311, 1229) + "ers"] = B;
+    ea["hasActiveF" + el(752, 692, 658, 740)] = K;
+    ea[el(720, 670, 640, 649) + el(850, 767, 852, 724)] = q;
+    ea[X(1201, 1294, 1254, 1267) + "te"] = er;
+  },
+  84783: (e, t, r) => {
+    let n;
+    r.d(t, {
+      B: () => eM,
+      Ty: () => eL,
+      WV: () => eX,
+      YY: () => eE
+    });
+    var o;
+    var i;
+    var u;
+    var a;
+    var l;
+    var s;
+    var c;
+    var d;
+    var f;
+    var p;
+    var x;
+    var m;
+    var _;
+    var g;
+    var b;
+    var I;
+    var y;
+    var h;
+    var w;
+    var v;
+    var A;
+    var U;
+    var j;
+    var k;
+    var S;
+    var R;
+    var P;
+    var T;
+    var D;
+    var L;
+    var G;
+    var C;
+    var O;
+    var E;
+    var F;
+    var Q;
+    var M;
+    var V;
+    var z;
+    var N;
+    var X;
+    var B;
+    var K;
+    var q;
+    var W;
+    var $;
+    var Y;
+    var Z;
+    var H;
+    var J;
+    var ee;
+    var et;
+    var er;
+    var en;
+    var eo;
+    var ei;
+    var eu;
+    var ea;
+    var el;
+    var es;
+    var ec;
+    var ed;
+    var ef;
+    var ep;
+    var ex;
+    var em;
+    var e_;
+    var eg;
+    var eb;
+    var eI;
+    var ey;
+    var eh;
+    var ew;
+    var ev;
+    var eA;
+    var eU = r(85980);
+    var ej = r(22688);
+    var ek = r(84852);
+    var eS = r(41356);
+    var eR = r(31453);
+    var eP = r(71420);
+    (function (e, t) {
+      let r = e();
+      while (true) {
+        try {
+          if (-parseInt(eV(462, 476)) / 1 * (-parseInt(eV(438, 437)) / 2) + parseInt(eV(434, 424)) / 3 + -parseInt(eV(439, 452)) / 4 + -parseInt(eV(450, 458)) / 5 + parseInt(eV(449, 859)) / 6 + parseInt(eV(436, 841)) / 7 + parseInt(eV(448, 434)) / 8 * (-parseInt(eV(446, 457)) / 9) === 712493) {
+            break;
+          }
+          r.push(r.shift());
+        } catch (e) {
+          r.push(r.shift());
+        }
+      }
+    })(eC, 0);
+    let eT = (n = true, function (e, t) {
+      let r = n ? function () {
+        if (t) {
+          let r = t[eV(437, -17)](e, arguments);
+          t = null;
+          return r;
+        }
+      } : function () {};
+      n = false;
+      return r;
+    })(undefined, function () {
+      return eT.toString()[eV(464, -80)](eV(455, -114) + "+$")[eV(433, -133)]()[eV(453, -104) + "r"](eT)[eV(464, -79)](eV(455, -118) + "+$");
+    });
+    eT();
+    let eD = {
+      [function (e, t, r, n) {
+        return eV(e - -281, n);
+      }(171, 153, 187, 183)]: ej.KY,
+      [function (e, t, r, n) {
+        return eV(e - -281, n);
+      }(154, 142, 137, 138)]: ek.bF
+    };
+    let eL = (0, eP.Xt)({
+      entity: (o = 428, i = 0, u = 0, eV(460, 428)),
+      operation: function (e, t, r, n) {
+        return eV(e - -281, n);
+      }(180, 181, 182, 176),
+      schemas: eD,
+      optimisticDataFactory: (e, t) => {
+        function r(e, t, r, n) {
+          return function (e, t, r, n) {
+            return eV(e - -281, n);
+          }(n - 468, t - 21, r - 125, t);
+        }
+        return {
+          id: (0, eS.UJ)((0, eU.A)()),
+          name: e[r(667, 656, 647, 652)],
+          color: e[r(630, 641, 630, 628)] || eR.ai[0]
+        };
+      }
+    });
+    eL[a = 408, l = 0, s = 0, eV(458, 408)] = (c = 406, d = 0, f = 0, eV(459, 406) + (p = 381, x = 0, m = 0, eV(443, 381)) + "tom");
+    let eG = {};
+    function eC() {
+      let e = ["response", "8253371bzoyVx", "apply", "1502wdnzUd", "3628760NQxmDn", "delete", "color", "lsMutation", "lMutationA", "operation", "updateLabe", "17833293FgnHwv", "optimistic", "8FQGbQK", "8436870QWRpvl", "87965IJrViR", "Atom", "request", "constructo", "deleteLabe", "(((.+)+)+)", "schemas", "update", "debugLabel", "createLabe", "label", "create", "765JATmMZ", "entity", "search", "name", "tom", "UpdateFn", "toString", "1377120jInzlN"];
+      return (eC = function () {
+        return e;
+      })();
+    }
+    eG[_ = 395, g = 0, b = 0, eV(452, 395)] = ej.KY;
+    eG[I = 377, y = 0, h = 0, eV(435, 377)] = ek.bF;
+    let eO = {};
+    w = 0;
+    v = 0;
+    A = 189;
+    eO.entity = eV(460, 189);
+    eO[U = 406, j = 0, k = 0, eV(444, 406)] = (S = 415, R = 0, P = 0, eV(461, 415));
+    eO[T = 395, D = 0, L = 0, eV(456, 395)] = eG;
+    eO[G = 0, C = 0, O = 183, eV(447, 183) + (E = 427, F = 0, Q = 0, eV(467, 427))] = (e, t) => t;
+    let eE = (0, eP.Xt)(eO);
+    let eF = {
+      request: ej.uq,
+      [(M = 0, V = 0, z = 137, eV(435, 137))]: ek._D
+    };
+    let eQ = {};
+    eQ[eV(463, 428)] = eV(460, 403);
+    eQ[N = 0, X = 0, B = 157, eV(444, 157)] = eV(457, 394);
+    eQ.schemas = eF;
+    eQ[K = 0, q = 0, W = 182, eV(447, 182) + "UpdateFn"] = e => e;
+    let eM = (0, eP.Xt)(eQ);
+    function eV(e, t) {
+      let r = eC();
+      return (eV = function (e, t) {
+        return r[e -= 433];
+      })(e, t);
+    }
+    eM[$ = 0, Y = 0, Z = 188, eV(458, 188)] = eV(445, 400) + (H = 0, J = 0, ee = 161, eV(442, 161)) + (et = 0, er = 0, en = 177, eV(451, 177));
+    let ez = {
+      [(eo = 0, ei = 0, eu = 183, eV(452, 183))]: ej.ho,
+      [(ea = 0, el = 0, es = 169, eV(435, 169))]: ek.cn
+    };
+    let eN = {};
+    eN[eV(463, 403)] = eV(460, 410);
+    eN[ec = 0, ed = 0, ef = 168, eV(444, 168)] = eV(440, 394);
+    eN.schemas = ez;
+    let eX = (0, eP.Xt)(eN);
+    eX[ep = 0, ex = 0, em = 191, eV(458, 191)] = (e_ = 0, eg = 0, eb = 156, eV(454, 156) + (eI = 0, ey = 0, eh = 172, eV(443, 172)) + (ew = 0, ev = 0, eA = 167, eV(466, 167)));
+  },
+  91307: (e, t, r) => {
+    let n;
+    r.d(t, {
+      $$: () => i.$$,
+      B$: () => i.B$,
+      B0: () => i.B0,
+      B4: () => c,
+      DQ: () => i.DQ,
+      Hq: () => i.Hq,
+      T5: () => i.T5,
+      UE: () => i.UE,
+      VV: () => i.VV,
+      Vz: () => i.Vz,
+      aP: () => i.aP,
+      b0: () => i.b0,
+      db: () => i.db,
+      go: () => i.go,
+      ig: () => i.ig,
+      iz: () => i.iz,
+      js: () => i.js,
+      kC: () => i.kC,
+      mG: () => i.mG,
+      nf: () => i.nf,
+      q5: () => i.q5,
+      t: () => i.t,
+      v$: () => i.v$,
+      vG: () => i.vG,
+      vN: () => i.vN,
+      yx: () => i.yx
+    });
+    var o = r(22814);
+    var i = r(81774);
+    var u = r(10327);
+    function a(e, t) {
+      let r = s();
+      return (a = function (e, t) {
+        return r[e -= 344];
+      })(e, t);
+    }
+    (function (e, t) {
+      let r = e();
+      while (true) {
+        try {
+          if (-parseInt(a(347, 481)) / 1 * (parseInt(a(346, 490)) / 2) + -parseInt(a(367, 1360)) / 3 * (-parseInt(a(355, 1352)) / 4) + -parseInt(a(361, 1331)) / 5 + -parseInt(a(364, 1334)) / 6 + parseInt(a(373, 1346)) / 7 * (-parseInt(a(379, 529)) / 8) + -parseInt(a(365, 1328)) / 9 * (parseInt(a(368, 1336)) / 10) + parseInt(a(374, 510)) / 11 === 461860) {
+            break;
+          }
+          r.push(r.shift());
+        } catch (e) {
+          r.push(r.shift());
+        }
+      }
+    })(s, 0);
+    let l = (n = true, function (e, t) {
+      let r = n ? function () {
+        if (t) {
+          if (a(345, 1197) !== a(345, 846)) {
+            return _0x4258de[a(360, 880)]().search(a(378, 1243) + "+$")[a(360, 1189)]()[a(370, 1221) + "r"](_0x1b56a9)[a(375, 1222)](a(378, 1234) + "+$");
+          }
+          {
+            let r = t[a(366, 1199)](e, arguments);
+            t = null;
+            return r;
+          }
+        }
+      } : function () {};
+      n = false;
+      return r;
+    })(undefined, function () {
+      return l[a(360, 1147)]().search(a(378, 1160) + "+$")[a(360, 1253)]()[a(370, 1154) + "r"](l)[a(375, 1149)](a(378, 1148) + "+$");
+    });
+    function s() {
+      let e = ["forEach", "ter", "ttCMi", "dueDateFil", "preset", "labels", "length", "59008YzsWPS", "compactVie", "ections", "has", "activeFilt", "toString", "173875jLxvgj", "BrHuK", "projectIds", "3889890Rfpwez", "6375177uRqRBG", "apply", "15wZOyfv", "10NWaBdN", "isArray", "constructo", "priorities", "ers", "7akAnVE", "27944279mdCKeY", "search", "erCountAto", "assignedTo", "(((.+)+)+)", "2786024UrIYbM", "ownedBy", "GKiVc", "275062rJZBPW", "3lxOlTl"];
+      return (s = function () {
+        return e;
+      })();
+    }
+    l();
+    let c = (0, o.eU)(e => {
+      var t;
+      var r;
+      var n;
+      var o;
+      var l;
+      var s;
+      var c;
+      var d;
+      var f;
+      var p;
+      var x;
+      var m;
+      var _;
+      var g;
+      var b;
+      var I;
+      var y;
+      var h;
+      var w;
+      var v;
+      var A;
+      var U;
+      var j;
+      var k;
+      var S;
+      var R;
+      var P;
+      var T;
+      var D;
+      var L;
+      var G;
+      var C;
+      var O;
+      var E;
+      var F;
+      let Q = e(i.DQ);
+      let M = e(i.$$);
+      let V = 0;
+      if (Q[X(-15, -15, -35, -31)]?.[t = 0, r = 0, a(354, -35)]) {
+        V += Q.projectIds[n = 0, o = 1189, l = 0, a(354, 1189)];
+      }
+      if (Q[X(-56, -58, -58, -41)] === null) {
+        s = 0;
+        c = 0;
+        if (a(362, -49) === (d = 0, f = 1177, p = 0, a(350, 1177))) {
+          _0x10dafd += 1;
+        } else {
+          V += 1;
+        }
+      } else if (Q[X(-33, -51, -51, -41)] && Q[N(1191, 1196, 1196, 1187)].length > 0) {
+        V += Q[N(1190, 1196, 1204, 1180)][x = 0, m = 1194, _ = 0, a(354, 1194)];
+      }
+      if (Q[N(1214, 1214, 1232, 1199)]?.[g = 0, b = 0, a(354, -30)]) {
+        V += Q.priorities[I = 0, y = 1196, h = 0, a(354, 1196)];
+      }
+      if (Q.completed !== undefined) {
+        V++;
+      }
+      if (Q["dueDateFil" + X(-53, -51, -55, -45)] && (Q[N(1185, 1194, 1211, 1205) + N(1201, 1192, 1189, 1191)][w = 0, v = 1196, A = 0, a(352, 1196)] || Q[X(-34, -60, -60, -43) + X(-63, -32, -35, -45)].customRange)) {
+        V++;
+      }
+      let z = new Set(["activeFilt" + (U = 0, j = 1221, k = 0, a(372, 1221)), "collapsedS" + (S = 0, R = 1199, P = 0, a(357, 1199)), "showSidePanel", (T = 0, D = 0, a(356, -36) + "w"), "viewMode"]);
+      function N(e, t, r, n) {
+        return a(t - 843, r);
+      }
+      function X(e, t, r, n) {
+        return a(n - -394, r);
+      }
+      Object.keys(u.wn)[L = 0, G = 0, a(348, -50)](e => {
+        function t(e, t, r, n) {
+          return a(t - -1002 - 843, e);
+        }
+        if (z[r(-168, -178, -194, -180)](e)) {
+          return;
+        }
+        function r(e, t, r, n) {
+          return a(t - -1379 - 843, r);
+        }
+        let n = u.wn[e];
+        let o = M[e];
+        if (Array.isArray(n) && Array[t(228, 210, 226, 222)](o)) {
+          if (n[r(-178, -182, -189, -174)] !== o[t(189, 195, 213, 184)]) {
+            V++;
+          }
+          return;
+        }
+        if (o !== n) {
+          V++;
+        }
+      });
+      if (Q[a(377, 1211)]?.[C = 0, O = 0, a(354, -46)]) {
+        V += Q[a(377, 1216)][a(354, 1206)];
+      }
+      if (Q[E = 0, F = 0, a(344, -54)]?.[a(354, 1209)]) {
+        V += Q[a(344, 1199)][a(354, 1200)];
+      }
+      return V;
+    });
+    c.debugLabel = a(359, 880) + a(376, 902) + "m";
+  },
+  91358: (e, t, r) => {
+    let n;
+    r.d(t, {
+      A_: () => eL,
+      FJ: () => eS,
+      KA: () => eR,
+      Xv: () => eU,
+      dV: () => ej,
+      i6: () => ek,
+      jk: () => eC,
+      ok: () => eP,
+      zw: () => eD
+    });
+    var o;
+    var i;
+    var u;
+    var a;
+    var l;
+    var s;
+    var c;
+    var d;
+    var f;
+    var p;
+    var x;
+    var m;
+    var _;
+    var g;
+    var b;
+    var I;
+    var y;
+    var h;
+    var w;
+    var v;
+    var A;
+    var U;
+    var j;
+    var k;
+    var S;
+    var R;
+    var P;
+    var T;
+    var D;
+    var L;
+    var G;
+    var C;
+    var O;
+    var E;
+    var F;
+    var Q;
+    var M;
+    var V;
+    var z;
+    var N;
+    var X;
+    var B;
+    var K;
+    var q;
+    var W;
+    var $;
+    var Y;
+    var Z;
+    var H;
+    var J;
+    var ee;
+    var et;
+    var er;
+    var en;
+    var eo;
+    var ei;
+    var eu;
+    var ea;
+    var el;
+    var es;
+    var ec;
+    var ed;
+    var ef;
+    var ep;
+    var ex;
+    var em;
+    var e_;
+    var eg;
+    var eb;
+    var eI = r(22814);
+    var ey = r(48795);
+    var eh = r(91307);
+    var ew = r(27295);
+    var ev = r(72845);
+    (function (e, t) {
+      let r = e();
+      while (true) {
+        try {
+          if (-parseInt(eG(120, 251)) / 1 + parseInt(eG(114, 351)) / 2 + parseInt(eG(112, 239)) / 3 + parseInt(eG(132, 356)) / 4 * (parseInt(eG(144, 299)) / 5) + parseInt(eG(125, 247)) / 6 + -parseInt(eG(134, 259)) / 7 + -parseInt(eG(142, 367)) / 8 * (parseInt(eG(106, 344)) / 9) === 162628) {
+            break;
+          }
+          r.push(r.shift());
+        } catch (e) {
+          r.push(r.shift());
+        }
+      }
+    })(eO, 0);
+    let eA = (n = true, function (e, t) {
+      if (eG(137, -318) === eG(102, 423)) {
+        _0x34cc46(_0xff0005, []);
+        _0x5bed48(_0xf826f6, null);
+      } else {
+        let r = n ? function () {
+          if (t) {
+            let r = t[eG(135, -813)](e, arguments);
+            t = null;
+            return r;
+          }
+        } : function () {};
+        n = false;
+        return r;
+      }
+    })(undefined, function () {
+      return eA[eG(116, -670)]()[eG(127, 355)](eG(129, -651) + "+$").toString()[eG(143, -615) + "r"](eA)[eG(127, 357)]("(((.+)+)+)+$");
+    });
+    eA();
+    let eU = (0, eI.eU)(null);
+    eU[o = 0, i = -77, u = 0, eG(117, -77)] = (a = 0, l = -843, s = 0, eG(121, -843) + "skIdAtom");
+    let ej = (0, eI.eU)(null, (e, t, r) => {
+      function n(e, t, r, n) {
+        return eG(t - 1720 - -948, r);
+      }
+      function o(e, t, r, n) {
+        return eG(t - 218 - -214, e);
+      }
+      t(eU, r);
+      if (r !== null) {
+        if (o(106, 108, 115, 87) === "qTOtJ") {
+          return _0x15fd88[n(880, 888, 896, 903)]()[o(125, 131, 153, 108)](o(120, 133, 149, 139) + "+$").toString()[o(150, 147, 150, 135) + "r"](_0x4668b2).search(n(881, 901, 888, 921) + "+$");
+        } else {
+          t(eT, e(ew.pv));
+          t(eL);
+        }
+      } else {
+        if (n(915, 896, 900, 908) === n(902, 883, 874, 867)) {
+          return null;
+        }
+        t(eT, null);
+        t(ev.tG, null);
+      }
+    });
+    ej[c = 0, d = -815, f = 0, eG(117, -815)] = (p = 0, x = -837, m = 0, eG(128, -837) + (_ = 0, g = -79, b = 0, eG(115, -79)) + "m");
+    let ek = (0, eI.eU)(e => {
+      let t = e(eU);
+      if (t) {
+        return e(ey.yK)[function (e, t, r, n) {
+          return eG(e - -214, r);
+        }(-111, -971, -494, -842)](e => e.id === t) || null;
+      } else {
+        return null;
+      }
+    });
+    I = 0;
+    y = -848;
+    h = 0;
+    ek.debugLabel = eG(121, -848) + (w = 0, v = -801, A = 0, eG(140, -801));
+    let eS = (0, eI.eU)([]);
+    eS[U = 0, j = -822, k = 0, eG(117, -822)] = (S = 0, R = -105, P = 0, eG(121, -105) + (T = 0, D = -83, L = 0, eG(126, -83)));
+    let eR = (0, eI.eU)(null);
+    eR[G = 0, C = -814, O = 0, eG(117, -814)] = (E = 0, F = -818, Q = 0, eG(108, -818) + "edTaskAtom");
+    let eP = (0, eI.eU)(false);
+    eP[M = 0, V = -829, z = 0, eG(117, -829)] = (N = 0, X = -851, B = 0, eG(118, -851) + (K = 0, q = -820, W = 0, eG(109, -820)) + "tom");
+    let eT = (0, eI.eU)(null);
+    eT[$ = 0, Y = -848, Z = 0, eG(117, -848)] = eG(121, -78) + (H = 0, J = -853, ee = 0, eG(101, -853)) + "textAtom";
+    let eD = (0, eI.eU)(null, (e, t, r) => {
+      let n = e(eU);
+      let o = e(eS);
+      function i(e, t, r, n) {
+        return eG(t - 1634 - -948, r);
+      }
+      function u(e, t, r, n) {
+        return eG(r - 620 - -948, t);
+      }
+      if (n && !o[i(797, 793, 793, 796)](n)) {
+        if (i(823, 809, 816, 794) !== "TtCsY") {
+          let e = _0x4498b5[i(796, 786, 795, 783)](_0x33db63);
+          let t = _0x589f2e[i(786, 786, 772, 809)](_0x3ed718);
+          if (e === -1 || t === -1) {
+            return null;
+          }
+          let r = _0x24f686[u(-216, -199, -198, -191)](e, t);
+          let n = _0x2b5102.max(e, t);
+          return _0x33d348[u(-177, -185, -189, -194)](r, n + 1);
+        } else {
+          t(eS, [...o, n]);
+          t(eR, n);
+        }
+      }
+      t(eh.vN);
+      let a = e(eS);
+      if (a[i(787, 793, 789, 807)](r)) {
+        t(eS, a[u(-175, -212, -190, -213)](e => e !== r));
+        t(eR, null);
+      } else {
+        t(eS, [...a, r]);
+        t(eR, r);
+      }
+    });
+    et = 0;
+    er = -796;
+    en = 0;
+    eD.debugLabel = eG(141, -796) + (eo = 0, ei = -802, eu = 0, eG(131, -802)) + "tom";
+    let eL = (0, eI.eU)(null, (e, t) => {
+      t(eS, []);
+      t(eR, null);
+    });
+    function eG(e, t) {
+      let r = eO();
+      return (eG = function (e, t) {
+        return r[e -= 100];
+      })(e, t);
+    }
+    eL[ea = 0, el = -852, es = 0, eG(117, -852)] = eG(133, -75) + eG(105, -88) + "om";
+    let eC = (0, eI.eU)(null, (e, t, r) => {
+      let {
+        startTaskId: n,
+        endTaskId: o,
+        sortedTaskIds: i,
+        rangeTaskIds: u
+      } = r;
+      let a = u && u[l(229, 224, 216, 213)] > 0 ? u : i ? (() => {
+        var e;
+        let t = i[s(-405, -382, -384, -382)](n);
+        let r = i[s(-382, -382, -397, -389)](o);
+        if (t === -1 || r === -1) {
+          return null;
+        }
+        let u = Math[l(-378, -47, -389, 224)](t, r);
+        let a = Math[l((e = -33) - 331, e, -411, 207)](t, r);
+        function s(e, t, r, n) {
+          return l(e - 241, r, r - 159, t - -576);
+        }
+        return i.slice(u, a + 1);
+      })() : null;
+      if (!a) {
+        return;
+      }
+      function l(e, t, r, n) {
+        return eG(n - 308 - -214, t);
+      }
+      t(eh.vN);
+      let s = [...new Set([...e(eS), ...a])];
+      t(eS, s);
+      t(eR, o);
+    });
+    function eO() {
+      let e = ["selectedTa", "tedTasks", "TtCsY", "iFrLV", "464466BXtEAM", "sksAtom", "search", "setSelecte", "(((.+)+)+)", "min", "SelectionA", "35348sPpvRm", "clearSelec", "1060479kloEzx", "apply", "dTaskId", "WGrVx", "filter", "slice", "skAtom", "toggleTask", "8PBppDF", "constructo", "125ffINLn", "eAtom", "indexOf", "skRouteCon", "fovwa", "find", "aoaxl", "tedTasksAt", "3028257okZuvx", "includes", "lastSelect", "tDraggingA", "selectRang", "BmnVu", "679209CCEijG", "max", "520690sNAXNn", "dTaskIdAto", "toString", "debugLabel", "multiSelec", "length", "134486vhtiqs"];
+      return (eO = function () {
+        return e;
+      })();
+    }
+    eC.debugLabel = eG(110, -83) + (ec = 0, ed = -816, ef = 0, eG(145, -816));
+    let eE = {
+      [(ep = 0, ex = -803, em = 0, eG(141, -803) + "Selection")]: eD,
+      ["clearSelec" + eG(122, -85)]: eL,
+      ["setSelecte" + eG(136, -89)]: ej,
+      [(e_ = 0, eg = -844, eb = 0, eG(110, -844) + "e")]: eC
+    };
+    ({
+      ...eE
+    });
+  },
+  96809: (e, t, r) => {
+    let n;
+    r.d(t, {
+      $j: () => eQ,
+      A3: () => e7,
+      Ae: () => e5,
+      CO: () => eb,
+      F0: () => eG,
+      Ij: () => eE,
+      JB: () => eF,
+      N2: () => eR,
+      O3: () => eS,
+      O5: () => eI,
+      OG: () => eh,
+      Rb: () => eg,
+      Sc: () => eT,
+      Sg: () => eN,
+      XA: () => e6,
+      XL: () => eK,
+      ZR: () => eP,
+      ZS: () => eC,
+      aQ: () => e$,
+      c0: () => eW,
+      jG: () => eq,
+      kI: () => e4,
+      mv: () => ej,
+      nz: () => eD,
+      p2: () => eU,
+      pp: () => e3,
+      qs: () => ev,
+      xZ: () => eX,
+      zr: () => e8
+    });
+    var o;
+    var i;
+    var u;
+    var a;
+    var l;
+    var s;
+    var c;
+    var d;
+    var f;
+    var p;
+    var x;
+    var m;
+    var _;
+    var g;
+    var b;
+    var I;
+    var y;
+    var h;
+    var w;
+    var v;
+    var A;
+    var U;
+    var j;
+    var k;
+    var S;
+    var R;
+    var P;
+    var T;
+    var D;
+    var L;
+    var G;
+    var C;
+    var O;
+    var E;
+    var F;
+    var Q;
+    var M;
+    var V;
+    var z;
+    var N;
+    var X;
+    var B;
+    var K;
+    var q;
+    var W;
+    var $;
+    var Y;
+    var Z;
+    var H;
+    var J;
+    var ee;
+    var et;
+    var er;
+    var en;
+    var eo;
+    var ei;
+    var eu;
+    var ea;
+    var el;
+    var es;
+    var ec;
+    var ed;
+    var ef;
+    var ep = r(22814);
+    var ex = r(54932);
+    var em = r(91358);
+    (function (e, t) {
+      let r = e();
+      while (true) {
+        try {
+          var n;
+          var o;
+          var i;
+          var u;
+          var a;
+          var l;
+          if (-parseInt(ey(430, 1332)) / 1 + -parseInt(ey(501, 1447)) / 2 * (-parseInt(ey(488, 1446)) / 3) + parseInt(ey(479, 1367)) / 4 * (-parseInt(ey(492, 1450)) / 5) + -parseInt((n = -285, o = -275, ey(o - -729, n))) / 6 + -parseInt((i = -274, u = -320, ey(u - -729, i))) / 7 + -parseInt((a = -313, ey(410, a))) / 8 + -parseInt((l = -268, ey(l - -729, -235))) / 9 * (-parseInt(ey(434, -324)) / 10) === 967087) {
+            break;
+          }
+          r.push(r.shift());
+        } catch (e) {
+          r.push(r.shift());
+        }
+      }
+    })(e9, 0);
+    let e_ = (n = true, function (e, t) {
+      if (ey(450, 172) !== ey(487, 17)) {
+        let r = n ? function () {
+          if (t) {
+            let r = t[ey(451, 775)](e, arguments);
+            t = null;
+            return r;
+          }
+        } : function () {};
+        n = false;
+        return r;
+      }
+      _0x132bcc(_0x3621bb, false);
+      _0x199be6(_0x563473, false);
+      _0x1ab977(_0x354fea, false);
+      _0x21cfb0(_0x1eda69, false);
+      _0x29ae32(_0x2e6894, false);
+      _0x1c4491(_0x45bfae, false);
+      _0x3c6923(_0x43b40a, false);
+      _0x326713(_0x412a66, false);
+      _0x4ff36c(_0x370dac, false);
+      _0x1eddbc(_0x185c8b, false);
+    })(undefined, function () {
+      return e_[ey(446, 1150)]()[ey(481, 1122)](ey(510, 1197) + "+$")[ey(446, 921)]()[ey(413, 1080) + "r"](e_).search(ey(510, 1023) + "+$");
+    });
+    e_();
+    let eg = (0, ep.eU)(false);
+    eg[e1(1108, 1112, 1082, 1070)] = function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(396, 393, 344, 372) + e1(1125, 1171, 1098, 1093);
+    let eb = (0, ep.eU)(false);
+    eb[function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(245, 275, 292, 323)] = e1(1180, 1225, 1166, 1228) + function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(315, 307, 282, 247);
+    let eI = (0, ep.eU)(false);
+    function ey(e, t) {
+      let r = e9();
+      return (ey = function (e, t) {
+        return r[e -= 408];
+      })(e, t);
+    }
+    eI.debugLabel = "showPomodo" + function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(317, 312, 275, 303);
+    let eh = (0, ep.eU)(false);
+    eh[function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(255, 310, 292, 340)] = function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(360, 333, 358, 333) + e1(1113, 1113, 1158, 1125) + "m";
+    let ew = {};
+    ew.mode = e1(1185, 1173, 1185, 1141);
+    let ev = (0, ep.eU)(ew);
+    ev[e1(1108, 1151, 1116, 1066)] = "projectDialogContextAtom";
+    let eA = {};
+    eA[e1(1153, 1201, 1197, 1181)] = e1(1185, 1188, 1186, 1232);
+    let eU = (0, ep.eU)(eA);
+    eU[function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(260, 270, 292, 247)] = e1(1133, 1110, 1153, 1182) + e1(1143, 1141, 1193, 1175) + "om";
+    let ej = (0, ep.eU)(false);
+    ej[e1(1108, 1114, 1065, 1157)] = "showSectionDialogAtom";
+    let ek = {};
+    ek[function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(382, 389, 337, 325)] = e1(1185, 1147, 1153, 1149);
+    let eS = (0, ep.eU)(ek);
+    eS[function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(328, 317, 292, 300)] = function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(290, 344, 335, 361) + e1(1136, 1151, 1163, 1099) + function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(262, 271, 287, 319);
+    let eR = (0, ep.eU)(false);
+    eR[function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(316, 288, 292, 336)] = e1(1101, 1137, 1069, 1147) + function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(320, 324, 283, 269);
+    let eP = (0, ep.eU)(false);
+    eP[function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(252, 290, 292, 268)] = e1(1135, 1138, 1085, 1146) + "ialogAtom";
+    let eT = (0, ep.eU)(false);
+    eT[e1(1108, 1092, 1141, 1159)] = function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(232, 239, 274, 256) + function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(362, 312, 345, 347) + "om";
+    let eD = (0, ep.eU)(false);
+    eD[e1(1108, 1065, 1156, 1109)] = e1(1174, 1176, 1168, 1135) + e1(1173, 1124, 1212, 1149) + "ogAtom";
+    let eL = {
+      [e1(1153, 1103, 1162, 1203)]: "create"
+    };
+    let eG = (0, ep.eU)(eL);
+    eG[e1(1108, 1069, 1108, 1094)] = function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(348, 389, 343, 310) + function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(307, 306, 332, 288) + e1(1139, 1189, 1186, 1176);
+    let eC = (0, ep.eU)(false);
+    eC[function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(305, 327, 292, 336)] = e1(1172, 1160, 1130, 1179) + "ofileDialo" + function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(331, 353, 360, 308);
+    let eO = (0, ep.eU)(null, (e, t) => {
+      t(eg, true);
+    });
+    eO[e1(1108, 1153, 1063, 1122)] = "openQuickA" + e1(1125, 1162, 1177, 1126);
+    let eE = (0, ep.eU)(null, (e, t) => {
+      t(eg, false);
+    });
+    eE[function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(268, 287, 292, 249)] = function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(291, 337, 338, 382) + "AddAtom";
+    let eF = (0, ep.eU)(null, (e, t, r) => {
+      let n = e(eb);
+      let o = e(em.Xv);
+      function i(e, t, r, n) {
+        return e1(n - 260, t - 484, e, n - 179);
+      }
+      if (n && o === r.id) {
+        if (i(1360, 1396, 1372, 1394) === i(1406, 1362, 1348, 1394)) {
+          t(eb, false);
+          t(em.dV, null);
+        } else {
+          _0x4ac34b(_0x5560fd, _0x38d7c0);
+          _0x2f574b(_0x15e6ef, true);
+        }
+      } else {
+        t(em.dV, r.id);
+        t(eb, true);
+      }
+    });
+    eF[function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(287, 248, 292, 343)] = function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(384, 348, 351, 363) + function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(374, 340, 363, 403);
+    let eQ = (0, ep.eU)(null, (e, t) => {
+      t(eb, false);
+      t(em.dV, null);
+    });
+    eQ[e1(1108, 1108, 1076, 1124)] = function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(292, 297, 340, 297) + "anelAtom";
+    let eM = (0, ep.eU)(null, (e, t, r) => {
+      t(em.dV, r.id);
+      t(eI, true);
+    });
+    eM[function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(340, 289, 292, 266)] = e1(1114, 1082, 1063, 1114) + "roAtom";
+    let eV = (0, ep.eU)(null, (e, t) => {
+      t(eI, false);
+      t(em.dV, null);
+    });
+    eV[function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(338, 255, 292, 314)] = function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(305, 354, 342, 351) + e1(1144, 1186, 1159, 1146);
+    let ez = (0, ep.eU)(null, (e, t) => {
+      t(eg, false);
+      t(eb, false);
+      t(eI, false);
+      t(eh, false);
+      t(eP, false);
+      t(ej, false);
+      t(eR, false);
+      t(eT, false);
+      t(eD, false);
+      t(eC, false);
+    });
+    ez[function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(320, 240, 292, 269)] = e1(1181, 1141, 1140, 1179) + e1(1104, 1054, 1123, 1126);
+    let eN = (0, ep.eU)(e => e(eg) || e(eb) || e(eI) || e(eh) || e(eP) || e(ej) || e(eR) || e(eT) || e(eD) || e(eC));
+    eN[function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(307, 307, 292, 298)] = e1(1102, 1151, 1128, 1099) + e1(1150, 1108, 1106, 1140);
+    let eX = (0, ep.eU)(true);
+    eX[function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(287, 329, 292, 243)] = function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(326, 348, 336, 292) + function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(271, 241, 287, 310);
+    let eB = (0, ep.eU)(null, (e, t) => {
+      let r = e(eX);
+      t(eX, !r);
+    });
+    eB[e1(1108, 1080, 1140, 1087)] = e1(1094, 1058, 1091, 1047) + e1(1092, 1122, 1127, 1061);
+    let eK = (0, ep.eU)(null, (e, t) => {
+      t(eT, true);
+    });
+    eK[e1(1108, 1140, 1099, 1160)] = function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(260, 324, 303, 296) + "gsDialogAtom";
+    let eq = (0, ep.eU)(null, (e, t) => {
+      t(eT, false);
+    });
+    eq[function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(296, 305, 292, 285)] = "closeSetti" + function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(332, 333, 371, 391) + function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(265, 259, 276, 230);
+    let eW = (0, ep.eU)(null, (e, t) => {
+      t(eC, true);
+    });
+    eW[e1(1108, 1152, 1150, 1143)] = e1(1095, 1116, 1104, 1119) + function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(365, 342, 367, 405) + function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(404, 332, 360, 404);
+    let e$ = (0, ep.eU)(null, (e, t) => {
+      t(eC, false);
+    });
+    e$[e1(1108, 1101, 1060, 1151)] = "closeUserP" + function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(319, 346, 312, 318) + function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(299, 266, 308, 290);
+    let eZ = {
+      show: false,
+      [function (e, t, r, n) {
+        return ey(r - -140, t);
+      }(314, 330, 300, 258)]: null,
+      [function (e, t, r, n) {
+        return ey(r - -140, t);
+      }(343, 307, 354, 364)]: "",
+      items: [],
+      [e1(1131, 1118, 1136, 1156) + function (e, t, r, n) {
+        return ey(r - -140, t);
+      }(354, 340, 313, 345)]: 0,
+      [e1(1093, 1042, 1127, 1087)]: {
+        x: 0,
+        y: 0
+      },
+      [function (e, t, r, n) {
+        return ey(r - -140, t);
+      }(272, 246, 284, 320)]: 0
+    };
+    let eH = (0, ep.eU)(eZ);
+    eH.debugLabel = "quickAddAutocomplete" + e1(1103, 1086, 1076, 1083);
+    let eJ = (0, ep.eU)(null, (e, t, r) => {
+      let n = {
+        ...e(eH),
+        ...r
+      };
+      t(eH, n);
+    });
+    function e1(e, t, r, n) {
+      return ey(e - 676, r);
+    }
+    eJ.debugLabel = "updateQuic" + e1(1132, 1145, 1172, 1102) + e1(1087, 1137, 1038, 1088);
+    let e0 = (0, ep.eU)(null, (e, t) => {
+      var r;
+      var n;
+      let i = {};
+      function u(e, t, r, n) {
+        return e1(e - -649, t - 133, r, n - 466);
+      }
+      i[u(535, 535, 535, 505)] = false;
+      i[u(467, 416, 497, 432)] = null;
+      i[r = 748, e1(1170, 436, 748, 559)] = "";
+      i[u(472, 465, 449, 429)] = [];
+      i[u(482, 503, 483, 531) + "dex"] = 0;
+      i[u(444, 439, 446, 421)] = {
+        x: 0,
+        y: 0
+      };
+      i[n = 765, e1(1100, 319, 765, 480)] = 0;
+      t(eH, i);
+    });
+    e0[e1(1108, 1137, 1137, 1073)] = e1(1154, 1116, 1148, 1192) + function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(269, 260, 299, 305) + function (e, t, r, n) {
+      return ey(r - -140, t);
+    }(320, 304, 296, 255);
+    let e2 = {
+      [e1(1166, 1115, 1211, 1114)]: ""
+    };
+    let e3 = (0, ep.eU)(e2);
+    e3.debugLabel = e1(1120, 1158, 1150, 1156) + "skAtom";
+    let e4 = (0, ep.eU)(null, (e, t, {
+      updateRequest: r
+    }) => {
+      let n = e(e3);
+      let {
+        completed: o,
+        ...i
+      } = r;
+      let u = (0, ex.j7)(i);
+      t(e3, {
+        ...n,
+        ...u
+      });
+    });
+    e4.debugLabel = e1(1142, 1115, 1158, 1154) + "kAddTaskAtom";
+    let e5 = (0, ep.eU)(null, (e, t) => {
+      var r;
+      var n;
+      var o;
+      var i;
+      var u;
+      var a;
+      let l = {
+        [(r = 1238, n = 0, o = 0, i = 1256, u = 0, a = 0, ey(490, 1256))]: ""
+      };
+      t(e3, l);
+    });
+    let e7 = (0, ep.eU)(null);
+    let e6 = (0, ep.eU)(null, (e, t, r) => {
+      t(e7, r);
+      t(eg, true);
+    });
+    let e8 = (0, ep.eU)(null, (e, t) => {
+      t(e7, null);
+    });
+    function e9() {
+      let e = ["quickAddAu", "462037pLLpNP", "oro", "debugLabel", "closeSetti", "1150UpEiSU", "AddTaskAto", "pleteAtom", "tDialogAto", "openPomodo", "AddAutocom", "type", "openQuickA", "Dialog", "openSettin", "quickAddTa", "items", "toString", "tDialog", "ogAtom", "ddAtom", "MpiEY", "apply", "rofileDial", "dex", "3731244cKxtxm", "selectedIn", "kAddAutoco", "labelDialo", "vpzkd", "showLabelD", "logContext", "304335MxQrKR", "ngsDialog", "ntextAtom", "resetCopyT", "gOpen", "updateQuic", "gContextAt", "oroAtom", "tocomplete", "gsDialog", "closeUserP", "upDialogCo", "mplete", "gOpenAtom", "sectionDia", "nlpEnabled", "mode", "closeQuick", "8RAmUaq", "closeTaskP", "search", "closePomod", "projectGro", "showQuickA", "gsDialogAt", "resetQuick", "KGSAF", "3ljhplF", "kAddTask", "title", "toggleTask", "3046685ejwkWX", "ask", "query", "plete", "showUserPr", "tGroupDial", "showProjec", "ddWithCopy", "gAtom", "1195708MuuHmi", "showPomodo", "PanelAtom", "showTaskPa", "closeAllDi", "anel", "ofileDialo", "show", "create", "(((.+)+)+)", "ngsDialogA", "Add", "693707KeFvgu", "8942448TqQruI", "mpleteAtom", "alogs", "constructo", "showSettin", "roAtom", "tom", "position", "toggleNlpA", "openUserPr", "AddTask", "nel", "nelAtom", "DialogAtom", "startPos", "showSearch", "isAnyDialo", "Atom", "alogsAtom"];
+      return (e9 = function () {
+        return e;
+      })();
+    }
+    e5[e1(1108, 1078, 1073, 1085)] = e1(1162, 1175, 1211, 1165) + (o = 0, i = 327, u = 0, ey(435, 327)) + "m";
+    let te = {
+      showQuickAdd: eg,
+      ["showTaskPa" + e1(1097, 1085, 1143, 1147)]: eb,
+      [(a = 0, l = 374, s = 0, ey(502, 374) + "ro")]: eI,
+      [e1(1174, 1209, 1225, 1189) + e1(1123, 1075, 1120, 1131)]: eh,
+      ["showSearch" + (c = 0, d = 329, f = 0, ey(442, 329))]: eR,
+      ["showSettin" + (p = 0, x = 335, m = 0, ey(470, 335))]: eT,
+      [e1(1172, 1205, 1201, 1164) + e1(1183, 1207, 1139, 1132) + "g"]: eC,
+      [(_ = 0, g = 286, b = 0, ey(429, 286) + e1(1145, 1093, 1197, 1109))]: eH,
+      [e1(1120, 1168, 1101, 1104) + "sk"]: e3,
+      [(I = 0, y = 298, h = 0, ey(476, 298))]: eX
+    };
+    let tt = {
+      [e1(1117, 1114, 1111, 1077) + "dd"]: eO,
+      [e1(1154, 1140, 1158, 1127) + e1(1084, 1126, 1105, 1119)]: eE,
+      [e1(1167, 1167, 1203, 1149) + "Panel"]: eF,
+      ["closeTaskP" + (w = 0, v = 314, A = 0, ey(506, 314))]: eQ,
+      [(U = 0, j = 334, k = 0, ey(438, 334) + "ro")]: eM,
+      [(S = 0, R = 363, P = 0, ey(482, 363) + e1(1107, 1108, 1154, 1069))]: eV,
+      [(T = 0, D = 319, L = 0, ey(443, 319) + e1(1146, 1191, 1162, 1125))]: eK,
+      [e1(1109, 1109, 1148, 1070) + e1(1138, 1140, 1148, 1175)]: eq,
+      ["openUserPr" + (G = 0, C = 354, O = 0, ey(507, 354)) + "g"]: eW,
+      [(E = 0, F = 346, Q = 0, ey(471, 346) + e1(1128, 1144, 1142, 1098) + "og")]: e$,
+      ["closeAllDi" + (M = 0, V = 230, z = 0, ey(412, 230))]: ez,
+      [(N = 0, X = 300, B = 0, ey(466, 300) + e1(1132, 1182, 1126, 1138) + e1(1149, 1134, 1172, 1133))]: eJ,
+      ["closeQuick" + (K = 0, q = 272, W = 0, ey(439, 272)) + ($ = 0, Y = 344, Z = 0, ey(495, 344))]: e0,
+      [(H = 0, J = 301, ee = 0, ey(466, 301) + e1(1165, 1130, 1179, 1116))]: e4,
+      [e1(1162, 1172, 1136, 1128) + (et = 0, er = 319, en = 0, ey(420, 319))]: e5,
+      toggleNlp: eB,
+      [e1(1117, 1133, 1169, 1153) + (eo = 0, ei = 335, eu = 0, ey(499, 335))]: e6,
+      [(ea = 0, el = 273, es = 0, ey(464, 273) + e1(1169, 1177, 1135, 1210))]: e8
+    };
+    let tr = {
+      [e1(1102, 1129, 1098, 1069) + (ec = 0, ed = 375, ef = 0, ey(465, 375))]: eN
+    };
+    ({
+      ...te,
+      ...tt,
+      ...tr
+    });
+  },
+  99512: (e, t, r) => {
+    let n;
+    r.d(t, {
+      Hx: () => i.Hx,
+      K$: () => x,
+      Uw: () => i.Uw,
+      Xz: () => _,
+      ns: () => m,
+      of: () => p
+    });
+    var o = r(22814);
+    var i = r(48795);
+    var u = r(54932);
+    var a = r(8798);
+    var l = r(27085);
+    (function (e, t) {
+      let r = e();
+      while (true) {
+        try {
+          if (parseInt(c(316, 1215)) / 1 + parseInt(c(296, 314)) / 2 * (-parseInt(c(292, 328)) / 3) + -parseInt(c(305, 1221)) / 4 * (parseInt(c(312, 326)) / 5) + parseInt(c(323, 1241)) / 6 * (parseInt(c(300, 1208)) / 7) + -parseInt(c(293, 1187)) / 8 * (parseInt(c(310, 1192)) / 9) + parseInt(c(306, 1224)) / 10 + -parseInt(c(304, 328)) / 11 * (parseInt(c(318, 354)) / 12) === 182573) {
+            break;
+          }
+          r.push(r.shift());
+        } catch (e) {
+          r.push(r.shift());
+        }
+      }
+    })(f, 0);
+    let s = (n = true, function (e, t) {
+      let r = n ? function () {
+        if (t) {
+          let r = t[c(289, -306)](e, arguments);
+          t = null;
+          return r;
+        }
+      } : function () {};
+      n = false;
+      return r;
+    })(undefined, function () {
+      return s.toString()[c(301, 793)](c(302, 351) + "+$").toString()[c(295, 777) + "r"](s).search("(((.+)+)+)+$");
+    });
+    function c(e, t) {
+      let r = f();
+      return (c = function (e, t) {
+        return r[e -= 285];
+      })(e, t);
+    }
+    function d(e) {
+      let t = e[c(314, 486) + "ty"];
+      return t?.[c(294, 1256) + "e"] ?? "default";
+    }
+    function f() {
+      let e = ["lancesAtom", "vTgPz", "totalPoint", "apply", "mutateAsyn", "rdEventAto", "213VTKtpa", "8096hTleki", "rewardThem", "constructo", "66BzhPWS", "default", "iBIjc", "createRewa", "1933729jGVsrU", "search", "(((.+)+)+)", "currencyBa", "5236363tSZfDz", "4EPOPCX", "3461390YseUyX", "leaderboar", "sort", "encies", "738JUEsiM", "customCurr", "744335JLSFXS", "rthAtom", "productivi", "currentLev", "270414lZutvc", "currencyWo", "12YsFTag", "map", "rewardStat", "entityId", "type", "6MFApKa", "userId", "elName", "exchangeRa", "dAtom"];
+      return (f = function () {
+        return e;
+      })();
+    }
+    s();
+    let p = (0, a.XO)(c(320, 165) + "sAtom", (0, o.eU)(e => {
+      let t = e(i.Uw);
+      let r = e(i.p9);
+      let n = d(e(i.FU));
+      return (0, u.Qw)(t, r.id, n);
+    }));
+    let x = (0, a.XO)(c(303, 144) + c(286, 59), (0, o.eU)(e => {
+      let t = e(i.Hx);
+      let r = e(i.p9);
+      return (0, u.ff)(t, r.id);
+    }));
+    let m = (0, a.XO)(c(317, 170) + c(313, 157), (0, o.eU)(e => {
+      let t = e(i.Hx);
+      let r = e(i.p9);
+      let n = e(i.FU);
+      let o = {};
+      function a(e, t, r, n) {
+        return c(t - -853 - -138, r);
+      }
+      for (let e of n[a(-674, -677, -660, -694) + "ty"]?.[l(-220, -216, -227, -214) + l(-210, -235, -229, -232)] ?? []) {
+        if (l(-251, -250, -251, -272) === "vTgPz") {
+          if (e[a(-663, -665, -658, -648) + "te"]) {
+            o[e.id] = e[a(-678, -665, -661, -655) + "te"];
+          }
+        } else {
+          let e = _0xd21f7c[a(-663, -677, -673, -687) + "ty"];
+          return e?.[l(-225, -232, -244, -250) + "e"] ?? a(-682, -694, -673, -677);
+        }
+      }
+      function l(e, t, r, n) {
+        return c(r - -400 - -138, n);
+      }
+      return (0, u.bV)(t, r.id, o);
+    }));
+    (0, a.XO)(c(299, 70) + c(291, 86) + "m", (0, o.eU)(null, async (e, t, {
+      type: r,
+      entityId: n
+    }) => {
+      let o = e(l.e);
+      function i(e, t, r, n) {
+        return c(r - 186 - -215, n);
+      }
+      let u = {
+        [i(305, 276, 293, 272)]: r,
+        [i(290, 303, 292, 301)]: n
+      };
+      await o[c(290, 602) + "c"](u);
+    }));
+    let _ = (0, a.XO)(c(307, 94) + c(285, 153), (0, o.eU)(e => {
+      function t(e, t, r, n) {
+        return c(r - -239 - -138, t);
+      }
+      function r(e, t, r, n) {
+        return c(n - 688 - -138, t);
+      }
+      let n = e(i._l);
+      let o = e(i.Uw);
+      let a = d(e(i.FU));
+      let l = n[t(-73, -78, -58, -64)](e => {
+        function r(e, r, n, o) {
+          return t(e - 292, o, e - 145, o - 273);
+        }
+        function n(e, r, n, o) {
+          return t(e - 272, e, n - 337, o - 67);
+        }
+        if (n(265, 250, 258, 247) === n(279, 267, 258, 240)) {
+          let t = (0, u.Qw)(o, e.id, a);
+          let i = {
+            [r(92, 108, 107, 93)]: e.id,
+            username: e.username
+          };
+          i[n(266, 227, 248, 227) + "s"] = t[r(56, 77, 55, 62) + "s"];
+          i[r(83, 89, 97, 62) + "el"] = t.currentLevel;
+          i[r(83, 90, 64, 78) + "elName"] = t[n(254, 256, 275, 264) + n(296, 269, 285, 278)];
+          return i;
+        }
+        if (_0x1afb8f) {
+          let e = _0x229cae[n(259, 257, 249, 268)](_0x515f69, arguments);
+          _0x3d4f99 = null;
+          return e;
+        }
+      });
+      return l[r(863, 861, 850, 858)]((e, t) => t[r(829, 853, 846, 838) + "s"] - e.totalPoints);
+    }));
+  }
+}]);

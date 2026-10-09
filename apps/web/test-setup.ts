@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom"
 import { cleanup } from "@testing-library/react"
-import { afterEach, vi } from "vitest"
+import { afterEach, beforeEach, vi } from "vitest"
 import i18next from "i18next"
 import { initReactI18next } from "react-i18next"
 
@@ -209,4 +209,16 @@ Object.defineProperty(global, "HTMLAudioElement", {
 // Clean up after each test
 afterEach(() => {
   cleanup()
+})
+
+// Defense against cross-file fake-timer leakage: some test files call
+// vi.useFakeTimers() without restoring, and in full-suite runs the leaked
+// fake timers make real setTimeout waits (e.g. the 200ms sleeps in
+// quick-add-dialog.test.ts) hang until the test timeout, while waitFor —
+// which auto-advances fake timers — keeps working. That's why those tests
+// pass in isolation but time out in the full suite. Reset to real timers
+// BEFORE each test; files that want fake timers still enable them in their
+// own beforeEach, which runs after this one.
+beforeEach(() => {
+  vi.useRealTimers()
 })

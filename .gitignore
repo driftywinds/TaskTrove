@@ -35,12 +35,29 @@ next-env.d.ts
 storybook-static
 coverage/
 
-plans/
+# plans are local scratch … except the active reimplementation plan, which ships
+plans/*
+!plans/PLAN-pro-default.md
 
 dev-data/
 /data/
 apps/web/data/
 backups/
 
+# Pro overlay directories (empty mount points in this repo)
 *.pro/
-*.pro.*
+
+# --- Pro reimplementation (see FINDINGS.md §9) ---
+# Pro SOURCE files (e.g. *.pro.ts) are intentionally tracked now.
+# Legacy blanket ignore removed: it would swallow the Pro sources we author.
+
+# Deobfuscation workspace (tools/deob) is TRACKED ON PURPOSE:
+#   work/  = bundles extracted from the publicly distributed Pro Docker image
+#   out/   = webcrack deobfuscated output (the readable reference)
+# It is the reference material for the Pro reimplementation (tools/deob/README.md).
+# The global `out/` rule above would hide tools/deob/out — re-include it here
+# (a later rule wins in .gitignore):
+!tools/deob/out/
+# Only dependency/install artifacts inside it stay ignored:
+tools/deob/node_modules/
+tools/deob/package-lock.json

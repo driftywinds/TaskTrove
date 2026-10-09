@@ -1,0 +1,10 @@
+# Generated / vendored artifacts — never reformat
+tools/deob/
+
+# dependencies & build output (mirrors .gitignore)
+node_modules
+.next
+out/
+dist
+build
+coverage

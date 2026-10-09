@@ -1,0 +1,1 @@
+module.exports = typeof Reflect != "undefined" && Reflect.getPrototypeOf || null;

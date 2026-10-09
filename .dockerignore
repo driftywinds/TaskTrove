@@ -32,6 +32,10 @@ npm-debug.log
 docs
 plans
 
+# Deobfuscation reference material (tools/deob) — ~54 MB of extracted bundle
+# copies + deobfuscated output. Analysis-only; never needed inside the image.
+tools/deob
+
 # Vercel
 .vercel
 
