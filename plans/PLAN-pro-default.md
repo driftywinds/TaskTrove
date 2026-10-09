@@ -217,13 +217,52 @@ scheduled sync job listed in scheduler settings.
 
 ## Deliverables checklist
 
-- [ ] Phase 0 gates
-- [ ] Phase 1 schemas + migration
+- [x] Phase 0 gates (commit `1292e76`)
+- [x] Phase 1 schemas + migration (commit `0caea81`)
 - [ ] Phase 2 multi-user auth/API/UI + mobile login
 - [ ] Phase 3 rewards (API + settings + task UI)
 - [ ] Phase 4 people/assignees/assigned-to-\* views
-- [ ] Phase 5 table + stats views
+- [x] Phase 5 table + stats views (commit `c1c16b6`; owner/assignee columns await Phase 4 wiring)
 - [ ] Phase 6 reactions/color/roles/nav parity
 - [ ] Phase 7 calendar sync
 - [ ] Phase 8 verification
-- [ ] `FINDINGS.md` updated as phases land; `plans/` kept as record
+- [x] `FINDINGS.md` updated as phases land; `plans/` kept as record (in progress per phase)
+
+## Progress log (implementation)
+
+| Date | Landed | Evidence |
+| ---- | ------ | -------- |
+| Phase 0 | `isPro()` → true; 38 pro conditions repointed to default files; settings categories open; update-checker pinned to TaskTrove; base-expectation tests updated | typecheck + targeted tests green; commit `1292e76` |
+| Tooling | `tools/deob/decode-module.mjs` (rotation-solver + string-array inliner for any webpack module in the deobfuscated bundles); `tools/deob/PRO-SCHEMAS.md` (exact recovered contract) | commit `4c93af2` |
+| Phase 1 | Full Pro data model in `@tasktrove/types`: User role+preferences, Task ownerId/assignees/reward, Comment reactions, Project members, ViewState assignedTo/ownedBy filters; new rewards/calendar/reward-levels modules (7 themes × 10 levels, exact Pro names); settings extensions (calendarSync, calendarSyncSchedule, newTaskOwnership, productivity); DataFile with canonical `users` + union-tolerant reads (legacy single `user`, official Pro image array-under-`user`); `DEFAULT_MAX_USERS = 50` (no license logic); cron validator; migration v0.13.0; multi-user-aware auth/middleware/initial-setup/user-route reads | all package + web typecheck; lint clean; full package suites green; new pro-schema/migration/safe-file tests; commit `0caea81` |
+| Phase 5 | `StatsView` renders the analytics dashboard (Pro metric set: completed/streak/focus-time/productivity-score ≥70 trend); `TableView` on @tanstack/react-table with the full Pro column set, viewState-initialized sorting, completion toggle, sticky header, empty state; `@tanstack/react-table` added from catalog | component tests (7 + 3); commit `c1c16b6` |
+| Fixes | `.husky/pre-commit` was a JS file executed by `sh` (broke all commits) → proper sh no-op; previously-empty `safe-file-operations.test.ts` replaced with 13 real tests | commits above |
+
+Known non-blocking flake: `quick-add-dialog.test.tsx` (12 tests) fails only under full-suite parallelism on constrained Windows hosts (renders empty body; passes standalone; predates this work — resource-related).
+
+## Next steps — Phase 2 (multi-user auth/API/UI)
+
+1. **Contracts first**: re-extract exact route contracts from the pre-decoded bundles
+   (`tools/deob/out/routes_app_api_v1_user_route/decoded-50278.js`,
+   `routes_app_api_v1_mobile_login_route/decoded-65543.js`, module 1896 in
+   `routes_api_initial-setup_route/deobfuscated.js`, module 59451 in
+   `routes_app_api_v1_rewards_route/deobfuscated.js`, SSO headers via grep in
+   `server-chunks_middleware/deobfuscated.js`) — verbatim error messages, admin-guard
+   rules, user-limit constants, header names.
+2. **Auth** (`apps/web/auth.ts`): credentials provider iterates `getDataFileUsers`, verifies
+   username+password; JWT/session carry user `id` + `role`; `header-auth` provider for SSO
+   (`Remote-User`-style header set by proxy; signin page passes `headerAuthUser` — the
+   client form already supports it).
+3. **`/api/v1/user`**: POST (admin create; hash via existing bcrypt utils; duplicate-username
+   check; cap `DEFAULT_MAX_USERS`), PATCH (admin role/username/password updates, self-guard
+   rules), DELETE (admin, not-self, last-user protection); admin enforcement server-side
+   from session role.
+4. **`POST /api/v1/mobile/login`**: username/password → session tokens (contract per bundle).
+5. **UI**: `user-management-form.tsx` (users table, role badges, add/edit/delete dialogs);
+   atoms `usersQuery` + user mutation atoms; Settings → Users category renders.
+6. **i18n**: add missing keys to all 10 locales (`settings.categories.productivity/users`,
+   `mainNav.assignedToMe/assignedToOthers`, user-management strings) — Pro English source
+   strings are in the decoded bundles.
+
+Then Phase 3 (rewards), 4 (people), 6 (parity), 7 (calendar sync), 8 (verification:
+`pnpm build` standalone, frozen lockfile, first-run flow, structural Docker review).

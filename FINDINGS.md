@@ -6,6 +6,21 @@
 > **Status:** Investigation complete. Approved path: deobfuscate the public Pro image and
 > reimplement Pro into this repo (see [Chosen Approach](#2-chosen-approach--scope)). The
 > Pro creator gave the user written permission to deobfuscate/reimplement from the image.
+>
+> **Implementation status (updated as phases land):**
+> - ✅ Phase 0 gates (`isPro` → true, pro conditions repointed) — commit `1292e76`
+> - ✅ Phase 1 Pro data model + v0.13.0 migration (multi-user schema, rewards/currency/
+>   calendar/productivity schemas, union-tolerant reads incl. official Pro image files)
+>   — commit `0caea81`
+> - ✅ Phase 5 stats + table views — commit `c1c16b6`
+> - 🔄 Phase 2 (multi-user auth/API/UI + mobile login) next; see
+>   `plans/PLAN-pro-default.md` → "Next steps — Phase 2" for the task list
+> - ⬜ Phases 3 (rewards), 4 (people), 6 (parity), 7 (calendar sync), 8 (verification)
+>
+> **New tooling:** `tools/deob/decode-module.mjs` fully decodes any webpack module in the
+> deobfuscated bundles (solves the string-array rotation via the checksum IIFE and inlines
+> every decode call) — far beyond webcrack's output. `tools/deob/PRO-SCHEMAS.md` is the
+> authoritative decoded contract (schemas, themes/levels, DataFile quirks).
 
 ---
 
