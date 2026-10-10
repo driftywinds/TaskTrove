@@ -227,5 +227,57 @@
         "button": "Trigger Manual Backup Now"
       }
     }
+  },
+  "usersManagement": {
+    "title": "User Management",
+    "description": "Manage users and permissions",
+    "userLimit": "User limit",
+    "readOnly": "Only admins can manage users",
+    "you": "(You)",
+    "columns": {
+      "user": "User",
+      "role": "Role",
+      "tasks": "Tasks",
+      "projects": "Projects",
+      "actions": "Actions"
+    },
+    "roles": {
+      "admin": "Admin",
+      "user": "User"
+    },
+    "actions": {
+      "add": "Add user",
+      "edit": "Edit user",
+      "delete": "Delete user",
+      "cancel": "Cancel",
+      "create": "Create user",
+      "save": "Save changes",
+      "deleteConfirm": "Delete user"
+    },
+    "fields": {
+      "username": "Username",
+      "usernamePlaceholder": "Enter username",
+      "password": "Password",
+      "passwordPlaceholder": "Enter password",
+      "passwordKeepPlaceholder": "Leave blank to keep current password",
+      "role": "Role",
+      "roleHint": "Admins can manage users and permissions"
+    },
+    "addDialog": {
+      "title": "Add user",
+      "description": "Create a new user account for this TaskTrove instance."
+    },
+    "editDialog": {
+      "title": "Edit user",
+      "description": "Update the username, password, or role for this user."
+    },
+    "deleteDialog": {
+      "title": "Delete user",
+      "description": "Tasks, comments, and assignments belonging to this user will be cleaned up. This cannot be undone."
+    },
+    "errors": {
+      "usernameRequired": "Username is required",
+      "passwordRequired": "Password is required"
+    }
   }
 }

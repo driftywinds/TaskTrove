@@ -3,6 +3,9 @@ import { render, screen, fireEvent, TestJotaiProvider } from "@/test-utils"
 import { SettingsDialog } from "./settings-dialog"
 import { HydrateValues } from "@/test-utils/jotai-mocks"
 import { showSettingsDialogAtom, closeSettingsDialogAtom } from "@tasktrove/atoms/ui/dialogs"
+import { userAtom } from "@tasktrove/atoms/data/base/atoms"
+import { createUserId } from "@tasktrove/types/id"
+import type { User } from "@tasktrove/types/core"
 import {
   activeSettingsCategoryAtom,
   mobileSettingsDrawerOpenAtom,
@@ -63,13 +66,21 @@ describe("SettingsDialog", () => {
       open: boolean
       category: string
       drawerOpen: boolean
+      role: User["role"]
     }> = {},
   ) => {
+    const user: User = {
+      id: createUserId("11111111-1111-4111-8111-111111111111"),
+      username: "tester",
+      password: "hashed",
+      role: initial.role ?? "admin",
+    }
     const initialValues: HydrateValues = [
       [showSettingsDialogAtom, initial.open ?? true],
       [activeSettingsCategoryAtom, initial.category ?? "general"],
       [mobileSettingsDrawerOpenAtom, initial.drawerOpen ?? false],
       [closeSettingsDialogAtom, mockCloseDialog],
+      [userAtom, user],
     ]
     return render(
       <TestJotaiProvider initialValues={initialValues}>
@@ -233,5 +244,24 @@ describe("SettingsDialog", () => {
     expect(screen.getByRole("button", { name: /general/i })).toBeInTheDocument()
     expect(screen.getByRole("button", { name: /notifications/i })).toBeInTheDocument()
     expect(screen.getByRole("button", { name: /data/i })).toBeInTheDocument()
+  })
+
+  it("shows admin-only categories for admin users", () => {
+    renderWithAtoms({ open: true, role: "admin" })
+
+    expect(screen.getByRole("button", { name: /scheduler/i })).toBeInTheDocument()
+    expect(screen.getByRole("button", { name: /user management/i })).toBeInTheDocument()
+    expect(screen.getByRole("button", { name: /productivity/i })).toBeInTheDocument()
+  })
+
+  it("hides admin-only categories from non-admin users", () => {
+    renderWithAtoms({ open: true, role: "user" })
+
+    expect(screen.queryByRole("button", { name: /scheduler/i })).not.toBeInTheDocument()
+    expect(screen.queryByRole("button", { name: /user management/i })).not.toBeInTheDocument()
+
+    // Regular categories stay available, including productivity
+    expect(screen.getByRole("button", { name: /general/i })).toBeInTheDocument()
+    expect(screen.getByRole("button", { name: /productivity/i })).toBeInTheDocument()
   })
 })
