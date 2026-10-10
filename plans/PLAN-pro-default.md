@@ -239,7 +239,9 @@ scheduled sync job listed in scheduler settings.
   - [x] Typecheck + lint + tests green at phase close
 - [x] Phase 3 rewards (API + settings + task UI) — commit `fdf753d` (core engine complete;
       optional polish pending: wishlist "Redeem" button, currency quick-amounts)
-- [ ] Phase 4 people/assignees/assigned-to-\* views
+- [ ] Phase 4 people/assignees/assigned-to-\* views — core landed `70f34a1` (filter
+      plumbing + badges + management popovers); remaining: assigned-to-\* views, people
+      side-panel, table-view owner/assignee column wiring, newTaskOwnership on create
 - [x] Phase 5 table + stats views (commit `c1c16b6`; owner/assignee columns await Phase 4 wiring)
 - [ ] Phase 6 reactions/color/roles/nav parity
 - [ ] Phase 7 calendar sync

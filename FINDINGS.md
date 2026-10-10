@@ -37,7 +37,12 @@
 >   cap, custom-currency + wishlist managers, theme picker); task reward chip
 >   (Badge/Popover/Content) + header points-balance `RewardsBadge`. Optional polish not
 >   built: wishlist "Redeem" action button, currency-reward quick-amounts.
-> - ⬜ Phases 4 (people), 6 (parity), 7 (calendar sync), 8 (verification)
+> - 🔄 Phase 4 **people (core)** — commit `70f34a1`: `assignedTo`/`ownedBy` filter plumbing
+>   (FilterConfig + viewStateToFilterConfig + filterTasksByAssignee/Owner), AssigneeBadges,
+>   OwnerBadge, Assignee/Owner/People management popovers (wired into task-item/side-panel/
+>   quick-add). Remaining: assigned-to-me/assigned-to-others views, people side-panel,
+>   table-view owner/assignee column wiring, newTaskOwnership on create.
+> - ⬜ Phases 6 (parity), 7 (calendar sync), 8 (verification)
 >
 > **New tooling:** `tools/deob/decode-module.mjs` fully decodes any webpack module in the
 > deobfuscated bundles (solves the string-array rotation via the checksum IIFE and inlines
