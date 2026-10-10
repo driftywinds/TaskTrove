@@ -18,10 +18,17 @@ concurrency:
 
 env:
   NODE_VERSION: "22"
+  # Pin the test timezone, matching scripts/run-vitest.mjs. Several date-sensitive
+  # fixtures (recurring-task due dates, week-picker week-start) were authored in
+  # US Eastern local-time math and flip by a calendar day under other UTC offsets
+  # (verified: 3 recurring-task tests fail under Asia/Kolkata, pass under
+  # America/New_York). Pinning here keeps CI deterministic regardless of the
+  # runner image's shell timezone, for both the wrapped and direct vitest calls.
+  TZ: America/New_York
 
 jobs:
   verify:
-    name: Install, typecheck, lint & tests
+    name: Install, typecheck, lint & package tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -45,8 +52,48 @@ jobs:
       - name: Lint
         run: pnpm lint
 
-      - name: Tests
-        run: pnpm test
+      # The web app's test suite is sharded across the `web-tests` jobs below.
+      # Running every package except web here keeps this job fast and avoids
+      # the contended single-process run that trips quick-add's timing flake.
+      - name: Package tests
+        run: pnpm --filter '!web' -r --if-present run test
+
+  web-tests:
+    name: Web tests (shard ${{ matrix.shard }}/3)
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Install (frozen lockfile)
+        run: pnpm install --frozen-lockfile
+
+      # Drive run-vitest.mjs directly (mirrors the verified local invocation):
+      # the wrapper pins TZ, and --no-file-parallelism gives every test file the
+      # whole worker pool to itself, which removes the quick-add-dialog
+      # contention flake (its real-parser import + waitFor retry loops starve
+      # when DOM-heavy files share a pool) without skipping any test. Sharding
+      # only bounds per-job wall time; determinism comes from the flag.
+      - name: Web tests (shard ${{ matrix.shard }}/3)
+        run: >-
+          node ../../scripts/run-vitest.mjs run
+          --reporter=dot --no-coverage
+          --no-file-parallelism
+          --shard=${{ matrix.shard }}/3
+        working-directory: apps/web
 
   no-license-code:
     name: "Guard: no license / phone-home code"

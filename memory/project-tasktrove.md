@@ -26,9 +26,12 @@
 ## Gotchas
 - **Shell sandbox broken on W:\repos\TaskTrove**: every pwsh call needs
   sandbox_permissions=danger-full-access (grantWrite ACL fails, SetNamedSecurityInfoW err 5).
-- quick-add-dialog.test.tsx fails ONLY under full-suite parallelism on constrained Windows
-  hosts (~9-18 tests); passes standalone; pre-existing resource flake. Full web suite =
-  182/184 files green with it + 1 skip.
+- quick-add-dialog.test.tsx "Parsed Values Management" + recurring-task/week-picker date
+  tests are a UPSTREAM FLAKE FAMILY with two causes: (1) TZ-dependence (fail under
+  Asia/Kolkata, pass under America/New_York — CI must pin TZ); (2) quick-add timeouts under
+  shared worker pools (fix: --no-file-parallelism). Verified fully green: 184 files /
+  2449 tests with TZ=America/New_York + --no-file-parallelism. CI workflow
+  phase8-verify.yml pins both; web shards run via scripts/run-vitest.mjs directly.
 - Root scripts historically had POSIX `test -f` guards; fixed via
   scripts/run-pro-if-present.mjs. Use `pnpm -r --if-present run typecheck` (tsgo, NOT raw
   tsc — tsc surfaces pre-existing lib errors in app/api/v1/assets/route.test.ts).
