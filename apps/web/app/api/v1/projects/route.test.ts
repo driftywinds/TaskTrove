@@ -1,6 +1,6 @@
 import { DEFAULT_PROJECT_SECTION } from "@tasktrove/types/defaults"
 import type { Project } from "@tasktrove/types/core"
-import { createProjectId } from "@tasktrove/types/id"
+import { createProjectId, createUserId } from "@tasktrove/types/id"
 /**
  * Tests for the /api/projects endpoint
  *
@@ -576,5 +576,62 @@ describe("DELETE /api/projects", () => {
     }
     const writtenData = writeCall[0].data
     expect(writtenData.projects).toHaveLength(0) // Both existing projects should be deleted
+  })
+})
+
+describe("PATCH /api/projects membership invariants (recovered Pro contract)", () => {
+  const OWNER_ID = createUserId("11111111-1111-4111-8111-111111111111")
+  const MEMBER_ID = createUserId("22222222-2222-4222-8222-222222222222")
+
+  beforeEach(() => {
+    vi.clearAllMocks()
+    mockSafeReadDataFile.mockResolvedValue({
+      ...DEFAULT_EMPTY_DATA_FILE,
+      projects: [
+        {
+          id: TEST_PROJECT_ID_1,
+          name: "Private Project",
+          color: "#3b82f6",
+          sections: [DEFAULT_PROJECT_SECTION],
+          members: [OWNER_ID, MEMBER_ID],
+        },
+      ],
+    })
+    mockSafeWriteDataFile.mockResolvedValue(true)
+  })
+
+  const patch = async (body: unknown) => {
+    const request = new NextRequest("http://localhost:3000/api/projects", {
+      method: "PATCH",
+      body: JSON.stringify(body),
+      headers: { "Content-Type": "application/json" },
+    })
+    return PATCH(request)
+  }
+
+  it("rejects updates that strip the owner from the members list", async () => {
+    const response = await patch({ id: TEST_PROJECT_ID_1, members: [MEMBER_ID] })
+    const responseData = await response.json()
+
+    expect(response.status).toBe(400)
+    expect(responseData.error).toBe("Cannot remove owner. Transfer ownership first.")
+    expect(mockSafeWriteDataFile).not.toHaveBeenCalled()
+  })
+
+  it("allows making the project public (empty members)", async () => {
+    const response = await patch({ id: TEST_PROJECT_ID_1, members: [] })
+
+    expect(response.status).toBe(200)
+    const writeCall = mockSafeWriteDataFile.mock.calls[0]
+    if (!writeCall || !writeCall[0]) {
+      throw new Error("Expected mockSafeWriteDataFile to have been called with arguments")
+    }
+    expect(writeCall[0].data.projects[0]?.members).toEqual([])
+  })
+
+  it("allows appending members while keeping the owner first", async () => {
+    const response = await patch({ id: TEST_PROJECT_ID_1, members: [OWNER_ID, MEMBER_ID] })
+
+    expect(response.status).toBe(200)
   })
 })

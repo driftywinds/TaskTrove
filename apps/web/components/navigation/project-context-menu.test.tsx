@@ -38,6 +38,7 @@ interface MockDropdownContentProps {
 interface MockDropdownItemProps {
   children: React.ReactNode
   onClick?: () => void
+  onSelect?: (event: { preventDefault: () => void }) => void
   className?: string
 }
 
@@ -81,8 +82,15 @@ vi.mock("@/components/ui/custom/context-menu-dropdown", () => ({
       {children}
     </div>
   ),
-  DropdownMenuItem: ({ children, onClick, className }: MockDropdownItemProps) => (
-    <div data-testid="dropdown-item" onClick={onClick} className={className}>
+  DropdownMenuItem: ({ children, onClick, onSelect, className }: MockDropdownItemProps) => (
+    <div
+      data-testid="dropdown-item"
+      onClick={() => {
+        onClick?.()
+        onSelect?.({ preventDefault: () => {} })
+      }}
+      className={className}
+    >
       {children}
     </div>
   ),
@@ -115,6 +123,11 @@ vi.mock("@/components/dialogs/delete-confirm-dialog", () => ({
   ),
 }))
 
+vi.mock("@/components/dialogs/project-members-dialog", () => ({
+  ProjectMembersDialog: ({ project, open }: { project: { id: string }; open: boolean }) =>
+    open ? <div data-testid="members-dialog" data-project={project.id} /> : null,
+}))
+
 vi.mock("@/components/ui/custom/color-picker-floating", () => ({
   ColorPickerFloating: ({ onColorSelect, open, onClose }: MockColorPickerProps) =>
     open ? (
@@ -132,6 +145,7 @@ vi.mock("lucide-react", () => ({
   Trash2: () => <span data-testid="trash-icon" />,
   Palette: () => <span data-testid="palette-icon" />,
   FolderPlus: () => <span data-testid="folder-plus-icon" />,
+  Users: () => <span data-testid="users-icon" />,
 }))
 
 // Mock EntityContextMenu to test the onDelete callback
@@ -139,9 +153,11 @@ vi.mock("@/components/ui/custom/entity-context-menu", () => ({
   EntityContextMenu: ({
     onDelete,
     entityName,
+    renderAdditionalMenuItems,
   }: {
     onDelete: (deleteContainedResources?: boolean) => void
     entityName: string
+    renderAdditionalMenuItems?: () => React.ReactNode
   }) => (
     <div data-testid="entity-context-menu">
       <span>Entity: {entityName}</span>
@@ -151,6 +167,7 @@ vi.mock("@/components/ui/custom/entity-context-menu", () => ({
       <button onClick={() => onDelete(true)} data-testid="delete-with-resources">
         Delete with contained resources
       </button>
+      {renderAdditionalMenuItems?.()}
     </div>
   ),
 }))
@@ -405,6 +422,26 @@ describe("ProjectContextMenu", () => {
         expect(result.data[0]?.projectId).toBe(null)
         expect(result.data[1]?.projectId).toBe(null)
       }
+    })
+  })
+
+  describe("Members (project membership, Pro)", () => {
+    it("renders the Members menu item", () => {
+      render(<ProjectContextMenu {...defaultProps} />)
+
+      expect(screen.getByText("Members")).toBeInTheDocument()
+    })
+
+    it("opens the members dialog from the menu item", () => {
+      render(<ProjectContextMenu {...defaultProps} />)
+
+      fireEvent.click(screen.getByText("Members"))
+
+      expect(screen.getByTestId("members-dialog")).toBeInTheDocument()
+      expect(screen.getByTestId("members-dialog")).toHaveAttribute(
+        "data-project",
+        TEST_PROJECT_ID_1,
+      )
     })
   })
 })

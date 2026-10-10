@@ -1,11 +1,16 @@
 "use client"
 
+import { useState } from "react"
 import { useAtom, useSetAtom, useAtomValue } from "jotai"
+import { Users } from "lucide-react"
 import { EntityContextMenu } from "@/components/ui/custom/entity-context-menu"
+import { DropdownMenuItem } from "@/components/ui/custom/context-menu-dropdown"
+import { ProjectMembersDialog } from "@/components/dialogs/project-members-dialog"
 import { projectsAtom, tasksAtom } from "@tasktrove/atoms/data/base/atoms"
 import { projectAtoms, updateProjectAtom } from "@tasktrove/atoms/core/projects"
 import { updateTasksAtom, deleteTasksAtom } from "@tasktrove/atoms/core/tasks"
 import { startEditingProjectAtom, openProjectDialogAtom } from "@tasktrove/atoms/ui/navigation"
+import { useTranslation } from "@tasktrove/i18n"
 import type { Project } from "@tasktrove/types/core"
 import type { ProjectId, TaskId } from "@tasktrove/types/id"
 
@@ -35,6 +40,8 @@ export function ProjectContextMenu({
   const startEditing = useSetAtom(startEditingProjectAtom)
   const updateProject = useSetAtom(updateProjectAtom)
   const openProjectDialog = useSetAtom(openProjectDialogAtom)
+  const { t } = useTranslation("task")
+  const [membersOpen, setMembersOpen] = useState(false)
 
   // Find the project
   const project = projectsData.find((p: Project) => p.id === projectId)
@@ -86,21 +93,37 @@ export function ProjectContextMenu({
   }
 
   return (
-    <EntityContextMenu
-      id={projectId}
-      entityType="project"
-      entityName={project.name}
-      entityColor={project.color}
-      isVisible={isVisible}
-      onEdit={handleEdit}
-      onDelete={handleDelete}
-      onColorChange={handleColorChange}
-      onDuplicate={onDuplicate}
-      onAddAbove={handleAddAbove}
-      onAddBelow={handleAddBelow}
-      open={open}
-      onOpenChange={onOpenChange}
-      renderAdditionalMenuItems={renderAdditionalMenuItems}
-    />
+    <>
+      <EntityContextMenu
+        id={projectId}
+        entityType="project"
+        entityName={project.name}
+        entityColor={project.color}
+        isVisible={isVisible}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+        onColorChange={handleColorChange}
+        onDuplicate={onDuplicate}
+        onAddAbove={handleAddAbove}
+        onAddBelow={handleAddBelow}
+        open={open}
+        onOpenChange={onOpenChange}
+        renderAdditionalMenuItems={() => (
+          <>
+            <DropdownMenuItem
+              onSelect={(event) => {
+                event.preventDefault()
+                setMembersOpen(true)
+              }}
+            >
+              <Users className="h-3 w-3 mr-2" />
+              {t("project.members.title", "Members")}
+            </DropdownMenuItem>
+            {renderAdditionalMenuItems?.()}
+          </>
+        )}
+      />
+      <ProjectMembersDialog project={project} open={membersOpen} onOpenChange={setMembersOpen} />
+    </>
   )
 }

@@ -30,8 +30,8 @@
     "./date-filter-utils": "./src/date-filter-utils.ts",
     "./task-date-formatter": "./src/task-date-formatter.ts",
     "./project-permissions": {
-      "pro": "./src/project-permissions.pro.ts",
-      "default": "./src/project-permissions.pro.ts"
+      "pro": "./src/project-permissions.ts",
+      "default": "./src/project-permissions.ts"
     },
     "./version": "./src/version.ts",
     "./notification": "./src/notification.ts"
