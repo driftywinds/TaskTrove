@@ -40,14 +40,23 @@
 > - 🔄 Phase 4 **people (core)** — commit `70f34a1`: `assignedTo`/`ownedBy` filter plumbing
 >   (FilterConfig + viewStateToFilterConfig + filterTasksByAssignee/Owner), AssigneeBadges,
 >   OwnerBadge, Assignee/Owner/People management popovers (wired into task-item/side-panel/
->   quick-add). Remaining: assigned-to-me/assigned-to-others views, people side-panel,
->   table-view owner/assignee column wiring, newTaskOwnership on create.
+>   quick-add).
+> - ✅ Phase 4 **remainder**: `/assigned-to-me` + `/assigned-to-others` views (recovered
+>   atom semantics, nav items + counts + i18n in all 10 locales), People panel (Owner +
+>   Assignees collapsible sections behind a People popover in the task side panel, recovered
+>   `OH`/`OL`/`OP` contracts incl. Public/unknown-owner/admin-gating rules), Owner/Assignee
+>   filter sections + bulk assignee button (were stubs), table-view owner/assignee columns
+>   wired to the real users list, `newTaskOwnership` honored in `addTaskAtom`, `ownerId`
+>   made nullable (owner-clear via `null` → API `clearNullValues`) — **Phase 4 complete**.
 > - ⬜ Phases 6 (parity), 7 (calendar sync), 8 (verification)
 >
 > **New tooling:** `tools/deob/decode-module.mjs` fully decodes any webpack module in the
 > deobfuscated bundles (solves the string-array rotation via the checksum IIFE and inlines
-> every decode call) — far beyond webcrack's output. `tools/deob/PRO-SCHEMAS.md` is the
-> authoritative decoded contract (schemas, themes/levels, DataFile quirks).
+> every decode call) — far beyond webcrack's output. Generalized this run: tolerates
+> malformed alias matches, and its rotation/decoder/array detection no longer assumes the
+> `a`/`b`/`c` variable names, so it now also solves **client chunks** (e.g.
+> `decoded-41745.js`). `tools/deob/PRO-SCHEMAS.md` is the authoritative decoded contract
+> (schemas, themes/levels, DataFile quirks).
 >
 > **Added for Phase 2:** `tools/deob/decode-user-route.mjs` — family-2 decoder for
 > `/api/v1/user` route (module 50278, rotation 190, target `635102`). Produces

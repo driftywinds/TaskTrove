@@ -12,7 +12,7 @@ import {
   type SortingState,
 } from "@tanstack/react-table"
 import { Flag, Repeat } from "lucide-react"
-import { labelsAtom, settingsAtom } from "@tasktrove/atoms/data/base/atoms"
+import { labelsAtom, settingsAtom, usersAtom } from "@tasktrove/atoms/data/base/atoms"
 import { toggleTaskAtom } from "@tasktrove/atoms/core/tasks"
 import type { RouteContext } from "@tasktrove/atoms/ui/navigation"
 import type { Label, Project, Task, User, ViewState } from "@tasktrove/types/core"
@@ -29,13 +29,6 @@ interface TableViewProps {
   routeContext: RouteContext
   viewState: ViewState
 }
-
-/**
- * Placeholder for the Pro users list (multi-user lands in a later phase).
- * `getOwnerDisplay` already resolves usernames once a users list is wired in;
- * until then owner cells render "—".
- */
-const EMPTY_USERS: readonly User[] = []
 
 /**
  * Resolve the display name of the section a task belongs to.
@@ -73,6 +66,22 @@ function getOwnerDisplay(ownerId: Task["ownerId"], users: readonly User[]): stri
   }
   const owner = users.find((user) => user.id === ownerId)
   return owner ? owner.username : "Unknown user"
+}
+
+/**
+ * Resolve the display names of a task's assignees.
+ * Returns "—" when the task has no assignees or no users list to resolve against.
+ */
+function getAssigneesDisplay(assignees: Task["assignees"], users: readonly User[]): string {
+  if (!assignees || assignees.length === 0 || users.length === 0) {
+    return "—"
+  }
+  return assignees
+    .map((assigneeId) => {
+      const user = users.find((candidate) => candidate.id === assigneeId)
+      return user ? user.username : "Unknown user"
+    })
+    .join(", ")
 }
 
 /**
@@ -120,6 +129,7 @@ const DASH = "—"
 export function TableView({ tasks, project, viewState }: TableViewProps): React.ReactElement {
   const labels = useAtomValue(labelsAtom)
   const settings = useAtomValue(settingsAtom)
+  const users = useAtomValue(usersAtom)
   const toggleTask = useSetAtom(toggleTaskAtom)
 
   const preferDayMonthFormat = Boolean(settings.general.preferDayMonthFormat)
@@ -285,16 +295,26 @@ export function TableView({ tasks, project, viewState }: TableViewProps): React.
       },
       {
         id: "owner",
-        accessorFn: (row) => getOwnerDisplay(row.ownerId, EMPTY_USERS),
+        accessorFn: (row) => getOwnerDisplay(row.ownerId, users),
         header: ({ column }) => <ColumnHeader label="Owner" column={column} />,
         cell: ({ row }) => (
           <span className="whitespace-nowrap text-xs">
-            {getOwnerDisplay(row.original.ownerId, EMPTY_USERS)}
+            {getOwnerDisplay(row.original.ownerId, users)}
+          </span>
+        ),
+      },
+      {
+        id: "assignees",
+        accessorFn: (row) => getAssigneesDisplay(row.assignees, users),
+        header: ({ column }) => <ColumnHeader label="Assignees" column={column} />,
+        cell: ({ row }) => (
+          <span className="block max-w-48 truncate whitespace-nowrap text-xs">
+            {getAssigneesDisplay(row.original.assignees, users)}
           </span>
         ),
       },
     ],
-    [labelsById, project, preferDayMonthFormat, use24HourTime, toggleTask],
+    [labelsById, users, project, preferDayMonthFormat, use24HourTime, toggleTask],
   )
 
   const table = useReactTable({

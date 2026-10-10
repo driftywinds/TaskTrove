@@ -16,7 +16,7 @@ import {
   namedAtom,
   withErrorHandling,
 } from "@tasktrove/atoms/utils/atom-helpers";
-import { tasksAtom } from "@tasktrove/atoms/data/base/atoms";
+import { tasksAtom, userAtom } from "@tasktrove/atoms/data/base/atoms";
 import { currentRouteContextAtom } from "@tasktrove/atoms/ui/navigation";
 import { globalViewOptionsAtom } from "@tasktrove/atoms/ui/views";
 import { allGroupsAtom } from "@tasktrove/atoms/core/groups";
@@ -273,6 +273,67 @@ export const projectGroupTasksAtom = namedAtom(
   }),
 );
 
+/**
+ * Tasks assigned to the current user ("Assigned to Me" view).
+ *
+ * Recovered Pro contract (module 25748 `assignedToMeTasksAtom`,
+ * confirmed against the client build):
+ *   tasks.filter(t => t.assignees?.includes(currentUser.id))
+ */
+export const assignedToMeTasksAtom = namedAtom(
+  "assignedToMeTasksAtom",
+  atom((get) =>
+    withErrorHandling(
+      () => {
+        const activeTasks = get(activeTasksAtom);
+        const currentUser = get(userAtom);
+        get(appRefreshTriggerAtom); // Subscribe to refresh events
+        return activeTasks.filter((task: Task) =>
+          task.assignees?.includes(currentUser.id),
+        );
+      },
+      "assignedToMeTasksAtom",
+      [],
+    ),
+  ),
+);
+
+/**
+ * Tasks owned by the current user that are delegated to other people
+ * ("Assigned to Others" view).
+ *
+ * Recovered Pro contract (module 25748 `assignedToOthersTasksAtom`,
+ * confirmed against the client build):
+ *   tasks.filter(t =>
+ *     t.ownerId === currentUser.id &&
+ *     t.assignees && t.assignees.length > 0 &&
+ *     !t.assignees.includes(currentUser.id))
+ *
+ * Note the ownership condition — this is what the official Pro image
+ * ships (reproduced verbatim, not re-derived).
+ */
+export const assignedToOthersTasksAtom = namedAtom(
+  "assignedToOthersTasksAtom",
+  atom((get) =>
+    withErrorHandling(
+      () => {
+        const activeTasks = get(activeTasksAtom);
+        const currentUser = get(userAtom);
+        get(appRefreshTriggerAtom); // Subscribe to refresh events
+        return activeTasks.filter(
+          (task: Task) =>
+            task.ownerId === currentUser.id &&
+            task.assignees !== undefined &&
+            task.assignees.length > 0 &&
+            !task.assignees.includes(currentUser.id),
+        );
+      },
+      "assignedToOthersTasksAtom",
+      [],
+    ),
+  ),
+);
+
 // =============================================================================
 // BASE FILTERED TASKS FOR VIEW
 // =============================================================================
@@ -317,6 +378,10 @@ export const baseFilteredTasksAtom = namedAtom(
               return get(autoRolloverTasksAtom);
             case "all":
               return activeTasks;
+            case "assigned-to-me":
+              return get(assignedToMeTasksAtom);
+            case "assigned-to-others":
+              return get(assignedToOthersTasksAtom);
             default:
               // Unknown standard view, return all active tasks
               return activeTasks;

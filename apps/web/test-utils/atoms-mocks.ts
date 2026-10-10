@@ -205,6 +205,8 @@ vi.mock("@tasktrove/atoms/ui/views", () => {
     setViewOptionsAtom: mockSetViewOptionsAtom,
     updateViewStateAtom: mockUpdateViewStateAtom,
     getViewStateAtom,
+    peopleOwnerCollapsedAtom: createMockAtom("peopleOwnerCollapsedAtom", false),
+    peopleAssigneesCollapsedAtom: createMockAtom("peopleAssigneesCollapsedAtom", false),
   }
 })
 

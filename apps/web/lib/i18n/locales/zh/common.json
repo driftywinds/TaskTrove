@@ -43,6 +43,8 @@
   },
   "mainNav": {
     "allTasks": "所有任务",
+    "assignedToMe": "分配给我",
+    "assignedToOthers": "分配给他人",
     "calendar": "日历",
     "completed": "已完成",
     "habits": "习惯",

@@ -221,7 +221,7 @@ export function filterTasksByAssignee(
 export function filterTasksByOwner(tasks: Task[], owners: UserId[]): Task[] {
   if (owners.length === 0) return tasks;
   return tasks.filter(
-    (task) => task.ownerId !== undefined && owners.includes(task.ownerId),
+    (task) => task.ownerId != null && owners.includes(task.ownerId),
   );
 }
 

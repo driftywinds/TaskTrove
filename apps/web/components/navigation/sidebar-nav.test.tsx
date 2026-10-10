@@ -282,4 +282,16 @@ describe("SidebarNav", () => {
     expect(screen.getByText("Inbox")).toBeInTheDocument()
     expect(screen.getByText("Completed")).toBeInTheDocument()
   })
+
+  it("renders the assigned-to-me and assigned-to-others navigation items", () => {
+    render(<SidebarNav />, { wrapper: TestWrapper })
+
+    const assignedToMe = screen.getByRole("link", { name: /assigned to me/i })
+    expect(assignedToMe).toBeInTheDocument()
+    expect(assignedToMe).toHaveAttribute("href", "/assigned-to-me")
+
+    const assignedToOthers = screen.getByRole("link", { name: /assigned to others/i })
+    expect(assignedToOthers).toBeInTheDocument()
+    expect(assignedToOthers).toHaveAttribute("href", "/assigned-to-others")
+  })
 })

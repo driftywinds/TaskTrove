@@ -87,6 +87,20 @@ const tasksForCountsAtom = atom((get) => {
       result = result.filter((task: Task) => task.completed === activeFilters.completed)
     }
 
+    // Filter by assignee (Pro)
+    if (activeFilters.assignedTo?.length) {
+      const assignedTo = activeFilters.assignedTo
+      result = result.filter((task: Task) =>
+        task.assignees?.some((userId) => assignedTo.includes(userId)),
+      )
+    }
+
+    // Filter by owner (Pro)
+    if (activeFilters.ownedBy?.length) {
+      const ownedBy = activeFilters.ownedBy
+      result = result.filter((task: Task) => task.ownerId != null && ownedBy.includes(task.ownerId))
+    }
+
     // NOTE: We intentionally skip dueDateFilter here so counts show accurately
 
     // Status filtering removed

@@ -80,6 +80,9 @@ vi.mock("jotai", () => ({
     if (atom.debugLabel === "tasksAtom") {
       return []
     }
+    if (atom.debugLabel === "settingsAtom") {
+      return { general: {}, data: {}, uiSettings: {}, productivity: {} }
+    }
     return undefined
   }),
   useSetAtom: vi.fn(() => vi.fn()),

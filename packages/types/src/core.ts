@@ -261,8 +261,8 @@ export const TaskSchema = z.object({
   estimation: z.number().optional(),
   /** Tracking ID for linking tasks */
   trackingId: TaskIdSchema.optional(),
-  /** ID of the user who owns this task (Pro) */
-  ownerId: UserIdSchema.optional(),
+  /** ID of the user who owns this task (Pro). Null/absent = public (no owner) */
+  ownerId: UserIdSchema.nullable().optional(),
   /** IDs of users assigned to this task (Pro) */
   assignees: z.array(UserIdSchema).optional(),
   /** Currency reward attached to this task (Pro) */

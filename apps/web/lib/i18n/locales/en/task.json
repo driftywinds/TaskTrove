@@ -11,6 +11,13 @@
     "addTask": "Add task",
     "delete": "Delete"
   },
+  "assignee": {
+    "currentUserBadge": "You",
+    "invalid": {
+      "label": "Unknown user",
+      "tooltip": "Unknown user - click to remove"
+    }
+  },
   "comments": {
     "addAnotherComment": "Add another comment...",
     "addComment": "Add Comment",
@@ -28,6 +35,7 @@
     "activeOnly": "Active only",
     "allTasks": "All tasks",
     "apply": "Apply",
+    "assignees": "Assignees",
     "cancel": "Cancel",
     "clearAll": "Clear all",
     "completedOnly": "Completed only",
@@ -40,6 +48,7 @@
     "next7Days": "Next 7 days",
     "noLabels": "No labels",
     "noPriority": "No priority",
+    "owner": "Owner",
     "priority": "Priority",
     "priority1": "Priority 1",
     "priority2": "Priority 2",
@@ -68,6 +77,13 @@
     "createLabel": "Create \"{{name}}\"",
     "searchPlaceholder": "Search or create labels..."
   },
+  "owner": {
+    "invalid": {
+      "label": "Unknown owner",
+      "tooltip": "Unknown owner - click to clear"
+    },
+    "public": "Public"
+  },
   "placeholders": {
     "addDescription": "Add description...",
     "taskTitle": "Enter task title..."
@@ -75,7 +91,8 @@
   "people": {
     "assignees": {
       "title": "Assignees",
-      "empty": "No users yet."
+      "empty": "No users yet.",
+      "unassignAll": "Unassign all"
     },
     "owner": {
       "title": "Owner",

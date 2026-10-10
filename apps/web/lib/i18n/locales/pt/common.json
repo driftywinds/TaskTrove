@@ -43,6 +43,8 @@
   },
   "mainNav": {
     "allTasks": "Todas as Tarefas",
+    "assignedToMe": "Atribuído a mim",
+    "assignedToOthers": "Atribuído a outros",
     "calendar": "Calendário",
     "completed": "Concluídas",
     "habits": "Hábitos",

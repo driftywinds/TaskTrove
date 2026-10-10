@@ -154,6 +154,7 @@ export const DEFAULT_NULLABLE_UPDATE_FIELDS = [
   "recurring",
   "estimation",
   "projectId",
+  "ownerId",
 ] as const satisfies readonly NullableUpdateField[];
 
 export const preserveExplicitNulls = (

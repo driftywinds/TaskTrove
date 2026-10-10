@@ -43,6 +43,8 @@
   },
   "mainNav": {
     "allTasks": "すべてのタスク",
+    "assignedToMe": "自分に割り当て",
+    "assignedToOthers": "他の人に割り当て",
     "calendar": "カレンダー",
     "completed": "完了",
     "habits": "習慣",

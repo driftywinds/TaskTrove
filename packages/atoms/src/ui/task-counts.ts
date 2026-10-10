@@ -10,6 +10,8 @@ import { LabelIdSchema, GroupIdSchema } from "@tasktrove/types/id";
 import { projectsAtom, labelsAtom } from "@tasktrove/atoms/data/base/atoms";
 import {
   activeTasksAtom,
+  assignedToMeTasksAtom,
+  assignedToOthersTasksAtom,
   completedTasksAtom,
   todayTasksAtom,
   upcomingTasksAtom,
@@ -52,6 +54,10 @@ export function createBaseViewResolver(
     calendar: () => filterIncompleteOrArchived(get(calendarTasksAtom)),
     completed: () => completedTasks,
     habits: () => filterIncompleteOrArchived(get(autoRolloverTasksAtom)),
+    "assigned-to-me": () =>
+      filterIncompleteOrArchived(get(assignedToMeTasksAtom)),
+    "assigned-to-others": () =>
+      filterIncompleteOrArchived(get(assignedToOthersTasksAtom)),
   };
 
   return (viewId: ViewId) => {
@@ -211,6 +217,8 @@ export const taskCountsAtom = atom((get) => {
       completed: completedTasks.length,
       all: allCount,
       active: incompleteTasks.length,
+      "assigned-to-me": get(taskCountForViewAtom("assigned-to-me")),
+      "assigned-to-others": get(taskCountForViewAtom("assigned-to-others")),
     };
   } catch (error) {
     handleAtomError(error, "taskCountsAtom");
@@ -226,6 +234,8 @@ export const taskCountsAtom = atom((get) => {
       completed: 0,
       all: 0,
       active: 0,
+      "assigned-to-me": 0,
+      "assigned-to-others": 0,
     };
   }
 });

@@ -48,6 +48,7 @@ import {
   tasksAtom,
   taskByIdAtom,
   projectsAtom,
+  settingsAtom,
   userAtom,
 } from "@tasktrove/atoms/data/base/atoms";
 import {
@@ -96,8 +97,20 @@ export const addTaskAtom = namedAtom(
       // Play task creation sound immediately for instant feedback
       set(playSoundAtom, { soundType: "confirm" });
 
-      // taskData is already CreateTaskRequest type, no parsing needed
-      const createTaskData = taskData;
+      // taskData is already CreateTaskRequest type, no parsing needed.
+      // Recovered Pro contract (module 25748 addTaskAtom): a new task's owner
+      // defaults from settings.general.newTaskOwnership — "currentUser" (the
+      // default) assigns the acting user, "unassigned" leaves it public —
+      // unless the caller passed an explicit ownerId.
+      const settings = get(settingsAtom);
+      const ownership = settings.general.newTaskOwnership ?? "currentUser";
+      const ownerId =
+        taskData.ownerId !== undefined
+          ? taskData.ownerId
+          : ownership === "currentUser"
+            ? get(userAtom).id
+            : undefined;
+      const createTaskData: CreateTaskRequest = { ...taskData, ownerId };
 
       // Execute the mutation - this will handle optimistic updates and API persistence
       const result = await createTaskMutation.mutateAsync(createTaskData);
