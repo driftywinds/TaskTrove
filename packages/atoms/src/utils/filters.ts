@@ -8,7 +8,7 @@
  */
 
 import type { Task, ViewState, TaskPriority } from "@tasktrove/types/core";
-import type { ProjectId, LabelId } from "@tasktrove/types/id";
+import type { ProjectId, LabelId, UserId } from "@tasktrove/types/id";
 
 // =============================================================================
 // FILTER CONFIGURATION
@@ -51,6 +51,10 @@ export interface FilterConfig {
   };
   /** Filter by task status */
   status?: string[];
+  /** Filter by assignee user IDs (Pro) — matches tasks assigned to any of them */
+  assignedTo?: UserId[];
+  /** Filter by owner user IDs (Pro) — matches tasks owned by any of them */
+  ownedBy?: UserId[];
 }
 
 // =============================================================================
@@ -186,6 +190,39 @@ export function filterTasksByLabels(
   return tasks.filter((task) => {
     return task.labels.some((labelId) => labels.includes(labelId));
   });
+}
+
+/**
+ * Filters tasks by assignee user IDs (Pro)
+ * A task matches when it is assigned to at least one of the given users.
+ *
+ * @param tasks - Array of tasks to filter
+ * @param assignees - Array of user IDs whose assignments to include
+ * @returns Filtered array of tasks
+ */
+export function filterTasksByAssignee(
+  tasks: Task[],
+  assignees: UserId[],
+): Task[] {
+  if (assignees.length === 0) return tasks;
+  return tasks.filter((task) =>
+    task.assignees?.some((userId) => assignees.includes(userId)),
+  );
+}
+
+/**
+ * Filters tasks by owner user IDs (Pro)
+ * A task matches when its owner is one of the given users.
+ *
+ * @param tasks - Array of tasks to filter
+ * @param owners - Array of user IDs whose ownership to include
+ * @returns Filtered array of tasks
+ */
+export function filterTasksByOwner(tasks: Task[], owners: UserId[]): Task[] {
+  if (owners.length === 0) return tasks;
+  return tasks.filter(
+    (task) => task.ownerId !== undefined && owners.includes(task.ownerId),
+  );
 }
 
 /**
@@ -398,6 +435,16 @@ export function filterTasks(tasks: Task[], config: FilterConfig): Task[] {
     filtered = filterTasksByDueDate(filtered, config.dueDateFilter);
   }
 
+  // Apply assignee filter (Pro)
+  if (config.assignedTo) {
+    filtered = filterTasksByAssignee(filtered, config.assignedTo);
+  }
+
+  // Apply owner filter (Pro)
+  if (config.ownedBy) {
+    filtered = filterTasksByOwner(filtered, config.ownedBy);
+  }
+
   return filtered;
 }
 
@@ -423,5 +470,7 @@ export function viewStateToFilterConfig(viewState: ViewState): FilterConfig {
     priorities: viewState.activeFilters?.priorities,
     completed: viewState.activeFilters?.completed,
     dueDateFilter: viewState.activeFilters?.dueDateFilter,
+    assignedTo: viewState.activeFilters?.assignedTo,
+    ownedBy: viewState.activeFilters?.ownedBy,
   };
 }
