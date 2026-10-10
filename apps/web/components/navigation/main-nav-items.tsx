@@ -3,7 +3,17 @@
  * Defines the standard views shown in the sidebar
  */
 
-import { Inbox, Calendar, Clock, CheckSquare, ListTodo, Repeat, History } from "lucide-react"
+import {
+  Inbox,
+  Calendar,
+  Clock,
+  CheckSquare,
+  ListTodo,
+  Repeat,
+  History,
+  UserCheck,
+  Users,
+} from "lucide-react"
 export interface MainNavItem {
   id: string
   label: string
@@ -81,6 +91,20 @@ export function getMainNavItems({ taskCountsData, t }: MainNavItemsConfig): Main
       icon: <CheckSquare className="h-4 w-4" />,
       count: taskCountsData.completed || 0,
       href: "/completed",
+    },
+    {
+      id: "assigned-to-me",
+      label: t("common:mainNav.assignedToMe", "Assigned to Me"),
+      icon: <UserCheck className="h-4 w-4" />,
+      count: taskCountsData["assigned-to-me"] || 0,
+      href: "/assigned-to-me",
+    },
+    {
+      id: "assigned-to-others",
+      label: t("common:mainNav.assignedToOthers", "Assigned to Others"),
+      icon: <Users className="h-4 w-4" />,
+      count: taskCountsData["assigned-to-others"] || 0,
+      href: "/assigned-to-others",
     },
   ]
 }

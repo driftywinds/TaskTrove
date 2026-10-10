@@ -43,6 +43,8 @@
   },
   "mainNav": {
     "allTasks": "모든 작업",
+    "assignedToMe": "나에게 할당됨",
+    "assignedToOthers": "다른 사람에게 할당됨",
     "calendar": "달력",
     "completed": "완료됨",
     "habits": "습관",

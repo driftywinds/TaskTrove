@@ -60,13 +60,13 @@ function extractFunction(source, name) {
 }
 
 const rotRe =
-  /if \(([-+]?parseInt\([\s\S]*?)\) \{\s*break;\s*\}\s*c\.push\(c\.shift\(\)\);\s*\} catch \(a\) \{\s*c\.push\(c\.shift\(\)\);\s*\}\s*\}\s*\}\s*\)\((\w+), 0\);/g
+  /if \(([-+(]*\s*parseInt[\s\S]*?)\) \{\s*break;\s*\}\s*(\w+)\.push\(\2\.shift\(\)\);\s*\} catch \((\w+)\) \{\s*\2\.push\(\2\.shift\(\)\);\s*\}\s*\}\s*\}\s*\)\((\w+), 0\);/g
 
 let familiesSolved = 0
 
 for (const rotMatch of modSource.matchAll(rotRe)) {
   const checksumExpr = rotMatch[1]
-  const arrayName = rotMatch[2]
+  const arrayName = rotMatch[4]
   const targetMatch = /=== (-?\d+)/.exec(checksumExpr)
   if (!targetMatch) continue
   const checksumTarget = Number(targetMatch[1])
@@ -78,7 +78,7 @@ for (const rotMatch of modSource.matchAll(rotRe)) {
   let decoderName = null
   for (const name of calledNames) {
     const cand = new RegExp(
-      String.raw`function ${name}\(a, b\) \{\s*let c = (\w+)\(\);\s*return \(${name} = function \(a, b\) \{\s*return c\[a -= (\d+)\];`,
+      String.raw`function ${name}\((\w+), (\w+)\) \{\s*let (\w+) = (\w+)\(\);\s*return \(${name} = function \((\w+), (\w+)\) \{\s*return (\w+)\[(\w+) -= (\d+)\];`,
     ).exec(modSource)
     if (cand) {
       decMatch = cand
@@ -87,7 +87,7 @@ for (const rotMatch of modSource.matchAll(rotRe)) {
     }
   }
   if (!decMatch) continue
-  const offset = Number(decMatch[2])
+  const offset = Number(decMatch[9])
 
   const aliasRe = new RegExp(
     `function (\\w+)\\(([^)]*)\\) \\{\\s*return ${decoderName}\\(([^;]+)\\);\\s*\\}`,
@@ -110,8 +110,9 @@ for (const rotMatch of modSource.matchAll(rotRe)) {
     vm.createContext(sandbox)
     vm.runInContext(
       arrayFnSource.replace(
-        /return \(\w+ = function \(\) \{\s*return a;\s*\}\)\(\)/,
-        `return (${arrayName}_raw = function () { return a; })()`,
+        /return \((\w+) = function \(\) \{\s*return (\w+);\s*\}\)\(\)/,
+        (_m, _assignee, retVar) =>
+          `return (${arrayName}_raw = function () { return ${retVar}; })()`,
       ) +
         `\n${arrayName}();
          function ${decoderName}(a, b) {
@@ -123,7 +124,11 @@ for (const rotMatch of modSource.matchAll(rotRe)) {
     const raw = sandbox[`${arrayName}_raw`]()
     for (let i = 0; i < rotateCount; i++) raw.push(raw.shift())
     for (const alias of aliases) {
-      vm.runInContext(`function ${alias.name}(${alias.params}) { return ${alias.expr}; }`, sandbox)
+      try {
+        vm.runInContext(`function ${alias.name}(${alias.params}) { return ${alias.expr}; }`, sandbox)
+      } catch {
+        // malformed alias match (params/expr spanned extra tokens) — skip it
+      }
     }
     return sandbox
   }
@@ -154,10 +159,16 @@ for (const rotMatch of modSource.matchAll(rotRe)) {
     `function ${decoderName}(a, b) {
        let c = ${arrayName}_raw();
        return (${decoderName} = function (a, b) { return c[a -= ${offset}]; })(a, b);
-     }` +
-      aliases.map((a) => `\nfunction ${a.name}(${a.params}) { return ${a.expr}; }`).join(""),
+     }`,
     sandbox,
   )
+  for (const alias of aliases) {
+    try {
+      vm.runInContext(`function ${alias.name}(${alias.params}) { return ${alias.expr}; }`, sandbox)
+    } catch {
+      // malformed alias match — skip it
+    }
+  }
   console.error(
     `  family ${decoderName} (array ${arrayName}, offset ${offset}, ${aliases.length} aliases): rotation solved`,
   )

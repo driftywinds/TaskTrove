@@ -33,6 +33,7 @@ vi.mock("jotai", () => ({
     const label = String(atom?.debugLabel ?? "")
     if (label.includes("selectedTasks")) return mockSelectedTaskIds
     if (label.includes("tasksAtom")) return mockAllTasks
+    if (label.includes("usersAtom")) return []
     if (label.includes("userAtom"))
       return {
         id: createUserId(DEFAULT_UUID),

@@ -43,6 +43,8 @@
   },
   "mainNav": {
     "allTasks": "All Tasks",
+    "assignedToMe": "Assigned to Me",
+    "assignedToOthers": "Assigned to Others",
     "calendar": "Calendar",
     "completed": "Completed",
     "habits": "Habits",

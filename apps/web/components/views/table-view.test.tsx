@@ -1,11 +1,19 @@
+/* eslint-disable @typescript-eslint/consistent-type-assertions -- hydration bridges the read-only usersAtom with the writable hydration slot */
 import React from "react"
 import { describe, it, expect, vi, beforeEach } from "vitest"
+import type { WritableAtom } from "jotai"
 import { render, screen, fireEvent, within } from "@/test-utils"
-import { labelsAtom } from "@tasktrove/atoms/data/base/atoms"
-import type { Label, Project, Task, ViewState } from "@tasktrove/types/core"
+import { labelsAtom, usersAtom } from "@tasktrove/atoms/data/base/atoms"
+import type { Label, Project, Task, User, ViewState } from "@tasktrove/types/core"
 import type { RouteContext } from "@tasktrove/atoms/ui/navigation"
 import type { TaskId } from "@tasktrove/types/id"
-import { createTaskId, createLabelId, createProjectId, createGroupId } from "@tasktrove/types/id"
+import {
+  createTaskId,
+  createLabelId,
+  createProjectId,
+  createGroupId,
+  createUserId,
+} from "@tasktrove/types/id"
 import { TableView } from "./table-view"
 
 const { mockToggleTask } = vi.hoisted(() => ({
@@ -31,6 +39,14 @@ const SECTION_ID_1 = createGroupId("550e8400-e29b-41d4-a716-446655440401")
 const SECTION_ID_2 = createGroupId("550e8400-e29b-41d4-a716-446655440402")
 
 const mockLabels: Label[] = [{ id: LABEL_ID_1, name: "Bug", color: "#ef4444" }]
+
+const OWNER_USER_ID = createUserId("550e8400-e29b-41d4-a716-446655440501")
+const ASSIGNEE_USER_ID = createUserId("550e8400-e29b-41d4-a716-446655440502")
+
+const mockUsers: User[] = [
+  { id: OWNER_USER_ID, username: "owneruser", password: "hashed", role: "admin" },
+  { id: ASSIGNEE_USER_ID, username: "assigneetask", password: "hashed", role: "user" },
+]
 
 const createFixtureTask = (overrides: Partial<Task> & Pick<Task, "id" | "title">): Task => ({
   completed: false,
@@ -96,7 +112,10 @@ function renderTableView(overrides: Partial<Parameters<typeof TableView>[0]> = {
     ...overrides,
   }
   return render(<TableView {...props} />, {
-    initialAtomValues: [[labelsAtom, mockLabels]],
+    initialAtomValues: [
+      [labelsAtom, mockLabels],
+      [usersAtom as unknown as WritableAtom<User[], [User[]], void>, mockUsers],
+    ],
   })
 }
 
@@ -192,5 +211,30 @@ describe("TableView", () => {
 
     expect(screen.getByText("No tasks to display")).toBeInTheDocument()
     expect(screen.queryByRole("table")).not.toBeInTheDocument()
+  })
+
+  it("resolves owner and assignee usernames against the users list", () => {
+    renderTableView({
+      tasks: [
+        createFixtureTask({
+          id: TASK_ID_1,
+          title: "Owned and assigned",
+          ownerId: OWNER_USER_ID,
+          assignees: [ASSIGNEE_USER_ID],
+        }),
+      ],
+    })
+
+    expect(screen.getByRole("columnheader", { name: /owner/i })).toBeInTheDocument()
+    expect(screen.getByRole("columnheader", { name: /assignees/i })).toBeInTheDocument()
+    expect(screen.getByText("owneruser")).toBeInTheDocument()
+    expect(screen.getByText("assigneetask")).toBeInTheDocument()
+  })
+
+  it("renders dashes for tasks without owner or assignees", () => {
+    renderTableView({ tasks: [createFixtureTask({ id: TASK_ID_1, title: "Solo task" })] })
+
+    expect(screen.queryByText("owneruser")).not.toBeInTheDocument()
+    expect(screen.queryByText("assigneetask")).not.toBeInTheDocument()
   })
 })

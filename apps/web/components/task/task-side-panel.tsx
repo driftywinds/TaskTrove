@@ -17,7 +17,7 @@ import { TaskSchedulePopover } from "./task-schedule-popover"
 import { TaskScheduleTrigger } from "./task-schedule-trigger"
 import { PriorityPopover } from "./priority-popover"
 import { ProjectPopover } from "./project-popover"
-import { AssigneeManagementPopover } from "@/components/task/assignee-management-popover"
+import { PeoplePopover } from "@/components/task/people-panel"
 import { AssigneeBadges } from "@/components/task/assignee-badges"
 import { SubtaskContent } from "./subtask-content"
 import { LabelContent } from "./label-content"
@@ -165,9 +165,9 @@ function TaskPanelContent({
             />
           </TaskSchedulePopover>
 
-          {/* Assignment */}
+          {/* People (owner + assignees) */}
           {isPro() && (
-            <AssigneeManagementPopover task={task}>
+            <PeoplePopover task={task}>
               <button
                 type="button"
                 className={cn(
@@ -180,7 +180,7 @@ function TaskPanelContent({
                   <AssigneeBadges task={task} className="gap-1" />
                 </div>
               </button>
-            </AssigneeManagementPopover>
+            </PeoplePopover>
           )}
         </div>
       </div>

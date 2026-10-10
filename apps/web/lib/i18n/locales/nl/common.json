@@ -43,6 +43,8 @@
   },
   "mainNav": {
     "allTasks": "Alle taken",
+    "assignedToMe": "Aan mij toegewezen",
+    "assignedToOthers": "Aan anderen toegewezen",
     "calendar": "Kalender",
     "completed": "Voltooid",
     "habits": "Gewoontes",
