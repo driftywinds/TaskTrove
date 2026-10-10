@@ -17,8 +17,15 @@
 >   (module 50278, rotation 190, `decode-user-route.mjs`). All verbatim strings, admin
 >   guards, cascade logic, error messages, event names recovered. See
 >   `plans/PLAN-pro-default.md` → "Route contracts already extracted" for the full spec.
-> - 🔄 Phase 2 (multi-user auth/API/UI + mobile login) — implementation not yet started;
->   see PLAN-pro-default.md → "Next steps — Phase 2" for the detailed task breakdown
+> - ✅ Phase 2 **server + data layer** — commit `196cc4e`: `/api/v1/user` CRUD per the
+>   recovered Pro contract (verbatim messages, admin guards, delete cascade),
+>   `POST /api/v1/mobile/login`, multi-user credentials + header-auth SSO providers,
+>   role-carrying sessions, `authUser` middleware, client `usersQueryAtom` /
+>   `currentUserIdAtom` / `CurrentUserSync` + create/delete/update user mutations.
+>   69 dedicated tests; full suites green (only known quick-add parallelism flake).
+> - 🔄 Phase 2 remainder — **UI + i18n**: `user-management-form.tsx` (still a `null`
+>   stub), Settings → Users wiring, 10-locale keys; see `plans/PLAN-pro-default.md` →
+>   "Remaining work — Phase 2 (UI + i18n)"
 > - ⬜ Phases 3 (rewards), 4 (people), 6 (parity), 7 (calendar sync), 8 (verification)
 >
 > **New tooling:** `tools/deob/decode-module.mjs` fully decodes any webpack module in the
