@@ -278,6 +278,43 @@ export const GetUserResponseSchema = z.object({
 });
 
 /**
+ * GET /api/v1/user response schema - returns the users array (multi-user).
+ * The users are serialized under the `user` key, matching the official Pro
+ * image contract.
+ */
+export const GetUsersResponseSchema = z.object({
+  user: z.array(UserSerializationSchema),
+  meta: ApiResponseMetaSchema,
+});
+
+/**
+ * POST/PATCH /api/v1/user response schema (multi-user management)
+ */
+export const MutateUserResponseSchema = ApiResponseSchema.extend({
+  user: UserSchema,
+});
+
+/**
+ * DELETE /api/v1/user response schema
+ */
+export const DeleteUserResponseSchema = ApiResponseSchema.extend({
+  deletedUserId: UserSchema.shape.id,
+});
+
+/**
+ * POST /api/v1/mobile/login response schema
+ */
+export const MobileLoginResponseSchema = z.object({
+  token: z.string(),
+  user: z.object({
+    /** User id */
+    id: UserSchema.shape.id,
+    /** Username */
+    username: UserSchema.shape.username,
+  }),
+});
+
+/**
  * GET /api/v1/scheduler/jobs response schema - returns registered jobs
  */
 export const GetSchedulerJobsResponseSchema = z.object({
@@ -333,6 +370,10 @@ export type GetLabelsResponse = z.infer<typeof GetLabelsResponseSchema>;
 export type GetGroupsResponse = z.infer<typeof GetGroupsResponseSchema>;
 export type GetSettingsResponse = z.infer<typeof GetSettingsResponseSchema>;
 export type GetUserResponse = z.infer<typeof GetUserResponseSchema>;
+export type GetUsersResponse = z.infer<typeof GetUsersResponseSchema>;
+export type MutateUserResponse = z.infer<typeof MutateUserResponseSchema>;
+export type DeleteUserResponse = z.infer<typeof DeleteUserResponseSchema>;
+export type MobileLoginResponse = z.infer<typeof MobileLoginResponseSchema>;
 export type GetSchedulerJobsResponse = z.infer<
   typeof GetSchedulerJobsResponseSchema
 >;

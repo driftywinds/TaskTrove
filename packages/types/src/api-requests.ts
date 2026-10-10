@@ -211,7 +211,7 @@ export const LabelUpdateArraySerializationSchema = z.array(
 );
 
 /**
- * Schema for updating user via API
+ * Schema for updating user via API (self-profile editing)
  */
 export const UpdateUserRequestSchema = UserSchema.partial().extend({
   avatar: AvatarBase64Schema.nullable().optional(),
@@ -220,6 +220,52 @@ export const UpdateUserRequestSchema = UserSchema.partial().extend({
 
 // Serialization schemas for UpdateUser (colocated with request schema)
 export const UserUpdateSerializationSchema = UpdateUserRequestSchema;
+
+/**
+ * Schema for POST /api/v1/user (admin creates a new user)
+ * Password is received in plaintext and hashed server-side.
+ */
+export const CreateUserRequestSchema = z.object({
+  /** Username (case-insensitively unique) */
+  username: UserSchema.shape.username,
+  /** Plaintext password to hash server-side */
+  password: UserSchema.shape.password,
+  /** Role for the new user (defaults to "user") */
+  role: z.enum(["admin", "user"]).default("user"),
+  /** Avatar as data URL (png/jpg/webp) */
+  avatar: AvatarBase64Schema.optional(),
+});
+
+/**
+ * Schema for PATCH /api/v1/user (admin or self updates)
+ * - With `id`: admin targets another user (username/password/role/avatar).
+ * - Without `id`: self-update; role changes are admin-only (rejected elsewhere).
+ */
+export const AdminUpdateUserRequestSchema = z.object({
+  /** Target user id; omit to update the authenticated user */
+  id: UserSchema.shape.id.optional(),
+  username: UserSchema.shape.username.optional(),
+  password: UserSchema.shape.password.optional(),
+  role: z.enum(["admin", "user"]).optional(),
+  avatar: AvatarBase64Schema.nullable().optional(),
+  apiToken: UserSchema.shape.apiToken.nullable().optional(),
+});
+
+/**
+ * Schema for DELETE /api/v1/user (admin deletes a user)
+ */
+export const DeleteUserRequestSchema = z.object({
+  /** Id of the user to delete */
+  userId: UserSchema.shape.id,
+});
+
+/**
+ * Schema for POST /api/v1/mobile/login (mobile app session login)
+ */
+export const MobileLoginRequestSchema = z.object({
+  username: z.string().min(1, "Username is required"),
+  password: z.string().min(1, "Password is required"),
+});
 
 /**
  * Schema for initial setup request - setting password for first time
@@ -455,6 +501,14 @@ export type DeleteTaskRequest = z.infer<typeof DeleteTaskRequestSchema>;
 export type DeleteProjectRequest = z.infer<typeof DeleteProjectRequestSchema>;
 export type DeleteLabelRequest = z.infer<typeof DeleteLabelRequestSchema>;
 export type DeleteGroupRequest = z.infer<typeof DeleteGroupRequestSchema>;
+
+// User management request types (Phase 2 multi-user)
+export type CreateUserRequest = z.infer<typeof CreateUserRequestSchema>;
+export type AdminUpdateUserRequest = z.infer<
+  typeof AdminUpdateUserRequestSchema
+>;
+export type DeleteUserRequest = z.infer<typeof DeleteUserRequestSchema>;
+export type MobileLoginRequest = z.infer<typeof MobileLoginRequestSchema>;
 
 // Serialization types
 export type TaskCreateSerialization = z.infer<

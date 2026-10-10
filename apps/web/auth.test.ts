@@ -21,8 +21,13 @@ type CapturedAuthConfig = {
   callbacks?: CapturedCallbacks
 }
 
+type CapturedCredentialsProvider = {
+  id?: string
+  authorize: (credentials: unknown) => Promise<unknown>
+}
+
 let capturedOptions: CapturedAuthConfig | undefined
-let capturedAuthorize: ((credentials: unknown) => Promise<unknown>) | undefined
+let capturedProviders: CapturedCredentialsProvider[] = []
 
 const handlers = {
   GET: vi.fn(),
@@ -42,10 +47,10 @@ vi.mock("next-auth", () => ({
 }))
 
 vi.mock("next-auth/providers/credentials", () => ({
-  default: (config: { authorize: (credentials: unknown) => Promise<unknown> }) => {
-    capturedAuthorize = config.authorize
+  default: (config: CapturedCredentialsProvider) => {
+    capturedProviders.push(config)
     return {
-      id: "credentials",
+      id: config.id ?? "credentials",
       type: "credentials",
       ...config,
     }
@@ -63,11 +68,12 @@ vi.mock("@/lib/utils/safe-file-operations", () => ({
 // Unmock the auth module to test the real NextAuth configuration.
 vi.unmock("@/auth")
 
-const getAuthorize = () => {
-  if (!capturedAuthorize) {
-    throw new Error("Expected credentials authorize handler to be configured")
+const getAuthorize = (providerId = "credentials") => {
+  const provider = capturedProviders.find((entry) => entry.id === providerId)
+  if (!provider) {
+    throw new Error(`Expected ${providerId} credentials provider to be configured`)
   }
-  return capturedAuthorize
+  return provider.authorize
 }
 
 const getCallbacks = () => {
@@ -102,7 +108,7 @@ describe("auth module", () => {
   beforeEach(() => {
     vi.clearAllMocks()
     capturedOptions = undefined
-    capturedAuthorize = undefined
+    capturedProviders = []
     originalAuthSecret = process.env.AUTH_SECRET
   })
 
@@ -137,7 +143,7 @@ describe("auth module", () => {
     expect(capturedOptions?.secret).toBe("auth-disabled")
   })
 
-  it("authorizes with valid password", async () => {
+  it("authorizes with valid password and returns the real user identity", async () => {
     const { verifyPassword, safeReadUserFile } = await loadAuthModule("test-secret")
 
     safeReadUserFile.mockResolvedValue({
@@ -154,10 +160,10 @@ describe("auth module", () => {
     const result = await authorize({ password: "correct" })
 
     expect(verifyPassword).toHaveBeenCalledWith("correct", "hashed")
-    expect(result).toEqual({ id: "1", name: "Test User" })
+    expect(result).toEqual({ id: DEFAULT_UUID, name: "Test User", role: "admin" })
   })
 
-  it("always returns static id 1 for base auth", async () => {
+  it("returns the data-file user id (not a static id) for base auth", async () => {
     const { verifyPassword, safeReadUserFile } = await loadAuthModule("test-secret")
 
     safeReadUserFile.mockResolvedValue({
@@ -165,7 +171,7 @@ describe("auth module", () => {
         id: createUserId("f47ac10b-58cc-4372-a567-0e02b2c3d479"),
         username: "Another User",
         password: "hashed",
-        role: "admin",
+        role: "user",
       },
     })
     verifyPassword.mockReturnValue(true)
@@ -173,7 +179,115 @@ describe("auth module", () => {
     const authorize = getAuthorize()
     const result = await authorize({ password: "correct" })
 
-    expect(result).toEqual({ id: "1", name: "Another User" })
+    expect(result).toEqual({
+      id: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+      name: "Another User",
+      role: "user",
+    })
+  })
+
+  it("multi-user login matches by case-insensitive username", async () => {
+    const { verifyPassword, safeReadUserFile } = await loadAuthModule("test-secret")
+
+    safeReadUserFile.mockResolvedValue({
+      user: [
+        {
+          id: createUserId("11111111-1111-4111-8111-111111111111"),
+          username: "alice",
+          password: "hashed-alice",
+          role: "admin",
+        },
+        {
+          id: createUserId("22222222-2222-4222-8222-222222222222"),
+          username: "bob",
+          password: "hashed-bob",
+          role: "user",
+        },
+      ],
+    })
+    verifyPassword.mockImplementation(
+      (password: string | undefined, hash: string | undefined) =>
+        hash === `hashed-${String(password)}`,
+    )
+
+    const authorize = getAuthorize()
+
+    const alice = await authorize({ username: "ALICE", password: "alice" })
+    expect(alice).toEqual({
+      id: "11111111-1111-4111-8111-111111111111",
+      name: "alice",
+      role: "admin",
+    })
+    expect(verifyPassword).toHaveBeenCalledWith("alice", "hashed-alice")
+
+    const bob = await authorize({ username: "bob", password: "bob" })
+    expect(bob).toEqual({
+      id: "22222222-2222-4222-8222-222222222222",
+      name: "bob",
+      role: "user",
+    })
+
+    const wrongPassword = await authorize({ username: "bob", password: "nope" })
+    expect(wrongPassword).toBeNull()
+
+    const unknownUser = await authorize({ username: "carol", password: "x" })
+    expect(unknownUser).toBeNull()
+  })
+
+  it("requires a username when the data file has multiple users", async () => {
+    const { verifyPassword, safeReadUserFile } = await loadAuthModule("test-secret")
+
+    safeReadUserFile.mockResolvedValue({
+      user: [
+        {
+          id: createUserId("11111111-1111-4111-8111-111111111111"),
+          username: "alice",
+          password: "hashed",
+          role: "admin",
+        },
+        {
+          id: createUserId("22222222-2222-4222-8222-222222222222"),
+          username: "bob",
+          password: "hashed",
+          role: "user",
+        },
+      ],
+    })
+    verifyPassword.mockReturnValue(true)
+
+    const authorize = getAuthorize()
+    const result = await authorize({ password: "correct" })
+
+    expect(result).toBeNull()
+    expect(verifyPassword).not.toHaveBeenCalled()
+  })
+
+  it("header-auth provider signs in a provisioned remote user", async () => {
+    const { verifyPassword, safeReadUserFile } = await loadAuthModule("test-secret")
+
+    safeReadUserFile.mockResolvedValue({
+      user: [
+        {
+          id: createUserId("33333333-3333-4333-8333-333333333333"),
+          username: "sso-user",
+          password: "",
+          role: "admin",
+        },
+      ],
+    })
+    verifyPassword.mockReturnValue(true)
+
+    const authorizeHeaderAuth = getAuthorize("header-auth")
+
+    const known = await authorizeHeaderAuth({ remoteUser: "sso-user" })
+    expect(known).toEqual({
+      id: "33333333-3333-4333-8333-333333333333",
+      name: "sso-user",
+      role: "admin",
+    })
+
+    const unknown = await authorizeHeaderAuth({ remoteUser: "intruder" })
+    expect(unknown).toBeNull()
   })
 
   it("rejects when password is invalid", async () => {

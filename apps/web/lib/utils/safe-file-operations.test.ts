@@ -8,9 +8,9 @@ import {
   safeReadUserFile,
   safeWriteUserFile,
 } from "./safe-file-operations"
-import { DataFileSchema, UserFileSchema } from "@tasktrove/types/data-file"
+import { DataFileSchema, UserFileSchema, DataFile } from "@tasktrove/types/data-file"
 import { DEFAULT_EMPTY_DATA_FILE, DEFAULT_USER } from "@tasktrove/types/defaults"
-import { createUserId } from "@tasktrove/types/id"
+import { createUserId, createTaskId } from "@tasktrove/types/id"
 
 describe("safe-file-operations", () => {
   let tmpDir: string
@@ -48,11 +48,7 @@ describe("safe-file-operations", () => {
     })
 
     it("parses a valid data file", async () => {
-      await fs.writeFile(
-        filePath,
-        JSON.stringify(DEFAULT_EMPTY_DATA_FILE),
-        "utf-8",
-      )
+      await fs.writeFile(filePath, JSON.stringify(DEFAULT_EMPTY_DATA_FILE), "utf-8")
       const result = await safeReadDataFile({ filePath })
       expect(result).toBeDefined()
       expect(result?.edition).toBe("pro")
@@ -89,14 +85,14 @@ describe("safe-file-operations", () => {
     })
 
     it("serializes Date fields to ISO strings on write", async () => {
-      const data = {
+      const data: DataFile = {
         ...DEFAULT_EMPTY_DATA_FILE,
         tasks: [
           {
-            id: "12345678-1234-4234-8234-123456789abc",
+            id: createTaskId("12345678-1234-4234-8234-123456789abc"),
             title: "Dated task",
             completed: false,
-            priority: 2,
+            priority: 1,
             labels: [],
             subtasks: [],
             comments: [],
@@ -165,11 +161,7 @@ describe("safe-file-operations", () => {
 
   describe("safeWriteUserFile", () => {
     it("updates only the user field, preserving other data", async () => {
-      await fs.writeFile(
-        filePath,
-        JSON.stringify(DEFAULT_EMPTY_DATA_FILE),
-        "utf-8",
-      )
+      await fs.writeFile(filePath, JSON.stringify(DEFAULT_EMPTY_DATA_FILE), "utf-8")
 
       const updatedUser = { ...DEFAULT_USER, username: "renamed" }
       const writeSuccess = await safeWriteUserFile({
@@ -186,11 +178,7 @@ describe("safe-file-operations", () => {
     })
 
     it("rejects invalid user data", async () => {
-      await fs.writeFile(
-        filePath,
-        JSON.stringify(DEFAULT_EMPTY_DATA_FILE),
-        "utf-8",
-      )
+      await fs.writeFile(filePath, JSON.stringify(DEFAULT_EMPTY_DATA_FILE), "utf-8")
 
       const writeSuccess = await safeWriteUserFile({
         filePath,

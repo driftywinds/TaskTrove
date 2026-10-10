@@ -17,6 +17,8 @@ export interface RequestContext {
   startTime: number
   method: string
   endpoint: string
+  /** Acting user resolved by the auth middleware (see lib/middleware/auth.ts) */
+  authUser?: import("./auth").AuthenticatedUser
 }
 
 /**

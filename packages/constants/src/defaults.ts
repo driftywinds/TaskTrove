@@ -576,6 +576,12 @@ export const SETTINGS_QUERY_KEY = ["data", "settings"] as const;
 export const USER_QUERY_KEY = ["data", "user"] as const;
 
 /**
+ * Query key for the users list (multi-user, Pro).
+ * GET /api/v1/user returns every user under the `user` key.
+ */
+export const USERS_QUERY_KEY = ["data", "users"] as const;
+
+/**
  * Parent query key for invalidating all data queries at once.
  * Use this when you need to invalidate all resource queries simultaneously.
  * Due to TanStack Query's hierarchical invalidation, this will match all ["data", *] keys.
