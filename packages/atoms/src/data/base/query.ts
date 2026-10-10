@@ -28,7 +28,7 @@ import {
   GetLabelsResponseSchema,
   GetGroupsResponseSchema,
   GetSettingsResponseSchema,
-  GetUserResponseSchema,
+  GetUsersResponseSchema,
 } from "@tasktrove/types/api-responses";
 import {
   TaskSchema,
@@ -54,7 +54,7 @@ import {
   LABELS_QUERY_KEY,
   GROUPS_QUERY_KEY,
   SETTINGS_QUERY_KEY,
-  USER_QUERY_KEY,
+  USERS_QUERY_KEY,
 } from "@tasktrove/constants";
 import {
   DEFAULT_NOTIFICATION_SETTINGS,
@@ -274,20 +274,20 @@ async function fetchSettings(): Promise<UserSettings> {
   return UserSettingsSchema.parse(response.settings);
 }
 
-async function fetchUser(): Promise<User> {
+async function fetchUsers(): Promise<User[]> {
   if (typeof window === "undefined" || process.env.NODE_ENV === "test") {
-    log.info({ module: "test" }, "Test environment: Using test user");
-    return TEST_USER;
+    log.info({ module: "test" }, "Test environment: Using test users");
+    return [TEST_USER];
   }
 
   const response = await fetchAndValidate(
     API_ROUTES.V1_USER,
-    GetUserResponseSchema,
-    "user",
+    GetUsersResponseSchema,
+    "users",
   );
 
-  // Parse user to ensure proper types
-  return UserSchema.parse(response.user);
+  // Parse each user to ensure proper types
+  return response.user.map((user) => UserSchema.parse(user));
 }
 
 // =============================================================================
@@ -366,13 +366,13 @@ export const settingsQueryAtom = atomWithQuery(() => ({
 settingsQueryAtom.debugLabel = "settingsQueryAtom";
 
 /**
- * User query atom
- * Query key: USER_QUERY_KEY (["data", "user"])
- * Invalidate: queryClient.invalidateQueries({ queryKey: USER_QUERY_KEY })
+ * Users query atom (multi-user list)
+ * Query key: USERS_QUERY_KEY (["data", "users"])
+ * Invalidate: queryClient.invalidateQueries({ queryKey: USERS_QUERY_KEY })
  */
-export const userQueryAtom = atomWithQuery(() => ({
-  queryKey: USER_QUERY_KEY,
-  queryFn: fetchUser,
+export const usersQueryAtom = atomWithQuery(() => ({
+  queryKey: USERS_QUERY_KEY,
+  queryFn: fetchUsers,
   ...QUERY_CONFIG,
 }));
-userQueryAtom.debugLabel = "userQueryAtom";
+usersQueryAtom.debugLabel = "usersQueryAtom";

@@ -120,35 +120,39 @@ describe("Data Migration Utility", () => {
   })
 
   describe("v0.13.0 multi-user migration", () => {
-    const baseV0120Fixture = () =>
-      createJsonData({
-        tasks: [],
-        projects: [],
-        labels: [],
-        projectGroups: DEFAULT_EMPTY_DATA_FILE.projectGroups,
-        labelGroups: DEFAULT_EMPTY_DATA_FILE.labelGroups,
-        settings: {
-          data: {
-            autoBackup: { enabled: false, backupTime: "02:00", maxBackups: 5 },
-          },
-          notifications: { enabled: true, requireInteraction: true },
-          general: {
-            startView: "all",
-            soundEnabled: true,
-            linkifyEnabled: true,
-            markdownEnabled: true,
-            popoverHoverOpen: false,
-            preferDayMonthFormat: false,
-          },
-          uiSettings: {},
+    // Object form of the fixture so tests can spread and override fields
+    // (the JSON round-trip form returns `Json`, which is a union and cannot
+    // be spread).
+    const baseV0120FixtureData = (): Record<string, unknown> => ({
+      tasks: [],
+      projects: [],
+      labels: [],
+      projectGroups: DEFAULT_EMPTY_DATA_FILE.projectGroups,
+      labelGroups: DEFAULT_EMPTY_DATA_FILE.labelGroups,
+      settings: {
+        data: {
+          autoBackup: { enabled: false, backupTime: "02:00", maxBackups: 5 },
         },
-        user: {
-          id: "12345678-1234-4234-8234-123456789abc",
-          username: "base",
-          password: "hashed",
+        notifications: { enabled: true, requireInteraction: true },
+        general: {
+          startView: "all",
+          soundEnabled: true,
+          linkifyEnabled: true,
+          markdownEnabled: true,
+          popoverHoverOpen: false,
+          preferDayMonthFormat: false,
         },
-        version: "v0.12.0",
-      })
+        uiSettings: {},
+      },
+      user: {
+        id: "12345678-1234-4234-8234-123456789abc",
+        username: "base",
+        password: "hashed",
+      },
+      version: "v0.12.0",
+    })
+
+    const baseV0120Fixture = () => createJsonData(baseV0120FixtureData())
 
     it("migrates a v0.12.0 base file to users + role + pro defaults", async () => {
       const result = await migrateDataFile(baseV0120Fixture())
@@ -182,7 +186,7 @@ describe("Data Migration Utility", () => {
 
     it("moves an official Pro image users array from `user` to `users`", async () => {
       const proImageFixture = createJsonData({
-        ...baseV0120Fixture(),
+        ...baseV0120FixtureData(),
         user: [
           {
             id: "12345678-1234-4234-8234-123456789abc",
@@ -210,7 +214,7 @@ describe("Data Migration Utility", () => {
 
     it("keeps an existing canonical users array and adds roles", async () => {
       const fixture = createJsonData({
-        ...baseV0120Fixture(),
+        ...baseV0120FixtureData(),
         user: undefined,
         users: [
           {

@@ -17,7 +17,7 @@ import {
   projectsQueryAtom,
   labelsQueryAtom,
   settingsQueryAtom,
-  userQueryAtom,
+  usersQueryAtom,
 } from "@tasktrove/atoms/data/base/query";
 import type { Task, Project, Label, User } from "@tasktrove/types/core";
 import type { TaskId } from "@tasktrove/types/id";
@@ -186,20 +186,48 @@ export const settingsAtom = atom((get) => {
 settingsAtom.debugLabel = "settingsAtom";
 
 // =============================================================================
-// USER ATOM
+// USER ATOMS (multi-user)
 // =============================================================================
 
 /**
- * Current user data atom - unwraps user from userQueryAtom
- * Write: Updates user via API
+ * Id of the acting (session) user.
+ * Set by the web app from the NextAuth session; stays null when auth is
+ * disabled (single-user self-hosted default), in which case the first user
+ * in the data file acts as the current user.
+ */
+export const currentUserIdAtom = namedAtom(
+  "currentUserIdAtom",
+  atom<User["id"] | null>(null),
+);
+
+/**
+ * All users atom - unwraps the users list from usersQueryAtom
  *
- * @read Returns current user (default user if loading/error)
+ * @read Returns every user in the data file (single default user while loading)
+ */
+export const usersAtom = namedAtom(
+  "usersAtom",
+  atom((get): User[] => {
+    const query = get(usersQueryAtom);
+    return query.data ?? [DEFAULT_USER];
+  }),
+);
+
+/**
+ * Current user data atom - resolves the session user within the users list
+ * Write: Updates the current user's profile via API (self-update)
+ *
+ * @read Returns the session user, falling back to the first user
  * @write Accepts user update request and updates via API
  */
 export const userAtom = atom(
   (get): User => {
-    const query = get(userQueryAtom);
-    return query.data ?? DEFAULT_USER;
+    const users = get(usersAtom);
+    const currentUserId = get(currentUserIdAtom);
+    const current = currentUserId
+      ? users.find((user) => user.id === currentUserId)
+      : undefined;
+    return current ?? users[0] ?? DEFAULT_USER;
   },
   async (get, set, updateUserRequest: UpdateUserRequest) => {
     try {
@@ -216,18 +244,14 @@ export const userAtom = atom(
 );
 userAtom.debugLabel = "userAtom";
 
-export const usersAtom = namedAtom(
-  "usersAtom",
-  atom((get): User[] => {
-    const user = get(userAtom);
-    return [user];
-  }),
-);
-
+/**
+ * Selector atom for looking up a user by id (assignees, owners, people panel)
+ */
 export const userByIdAtom = namedAtom(
   "userByIdAtom",
-  atom((get) => {
-    const user = get(userAtom);
-    return user;
-  }),
+  atom(
+    (get) =>
+      (userId: User["id"]): User | undefined =>
+        get(usersAtom).find((user) => user.id === userId),
+  ),
 );

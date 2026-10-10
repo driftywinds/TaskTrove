@@ -12,7 +12,7 @@ import { ApiErrorCode } from "@tasktrove/types/api-errors"
 import { createGroupId } from "@tasktrove/types/id"
 import { createUserId } from "@tasktrove/types/id"
 import { DEFAULT_UUID } from "@tasktrove/constants"
-import { DEFAULT_DATA_VERSION } from "@tasktrove/types/defaults"
+import { DEFAULT_DATA_VERSION, DEFAULT_EMPTY_DATA_FILE } from "@tasktrove/types/defaults"
 import type { EnhancedRequest } from "./api-logger"
 import { createMockEnhancedRequest } from "@/lib/utils/test-helpers"
 import type { Session } from "next-auth"
@@ -36,6 +36,28 @@ import { auth } from "@/auth"
 // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
 const mockAuth = auth as ReturnType<typeof vi.fn>
 const mockSafeReadDataFile = vi.mocked(safeReadDataFile)
+
+/** Session user id used by session-authenticated tests (valid UUID format). */
+const TEST_SESSION_USER_ID = "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa"
+
+/**
+ * The middleware resolves the acting user's role from the data file on every
+ * session-authenticated request (mirrors the Pro contract: role checks read
+ * the data file, not stale session claims).
+ */
+function mockDataFileWithSessionUser(role: "admin" | "user" = "admin"): void {
+  mockSafeReadDataFile.mockResolvedValue({
+    ...DEFAULT_EMPTY_DATA_FILE,
+    users: [
+      {
+        id: createUserId(TEST_SESSION_USER_ID),
+        username: "test-user",
+        password: "hashed",
+        role,
+      },
+    ],
+  })
+}
 
 describe("withAuthentication", () => {
   const mockHandler = vi.fn()
@@ -70,11 +92,12 @@ describe("withAuthentication", () => {
       const mockSession: Session = {
         user: {
           name: "Test User",
-          id: "test-user-id",
+          id: TEST_SESSION_USER_ID,
         },
         expires: new Date(Date.now() + 86400000).toISOString(), // expires in 24 hours
       }
       mockAuth.mockResolvedValue(mockSession)
+      mockDataFileWithSessionUser()
 
       const wrappedHandler = withAuthentication(mockHandler)
       const response = await wrappedHandler(mockRequest)
@@ -92,11 +115,12 @@ describe("withAuthentication", () => {
       const mockSession: Session = {
         user: {
           name: "Test User",
-          id: "test-user-id",
+          id: TEST_SESSION_USER_ID,
         },
         expires: new Date(Date.now() + 86400000).toISOString(),
       }
       mockAuth.mockResolvedValue(mockSession)
+      mockDataFileWithSessionUser()
 
       const wrappedHandler = withAuthentication(mockHandler)
       await wrappedHandler(mockRequest)
@@ -133,6 +157,7 @@ describe("withAuthentication", () => {
         expires: new Date(Date.now() + 86400000).toISOString(),
       }
       mockAuth.mockResolvedValue(mockSession)
+      mockDataFileWithSessionUser()
 
       const wrappedHandler = withAuthentication(mockHandler)
       const response = await wrappedHandler(mockRequest)
@@ -155,6 +180,7 @@ describe("withAuthentication", () => {
         expires: new Date(Date.now() + 86400000).toISOString(),
       }
       mockAuth.mockResolvedValue(mockSession)
+      mockDataFileWithSessionUser()
 
       const wrappedHandler = withAuthentication(mockHandler)
       const response = await wrappedHandler(mockRequest)
@@ -234,11 +260,12 @@ describe("withAuthentication", () => {
       const mockSession: Session = {
         user: {
           name: "Test User",
-          id: "test-user-id",
+          id: TEST_SESSION_USER_ID,
         },
         expires: new Date(Date.now() + 86400000).toISOString(),
       }
       mockAuth.mockResolvedValue(mockSession)
+      mockDataFileWithSessionUser()
 
       // Simulate composition with logging middleware
       const loggingMiddleware = (handler: typeof mockHandler) => {
@@ -285,11 +312,12 @@ describe("withAuthentication", () => {
       const mockSession: Session = {
         user: {
           name: "Test User",
-          id: "test-user-id",
+          id: TEST_SESSION_USER_ID,
         },
         expires: new Date(Date.now() + 86400000).toISOString(),
       }
       mockAuth.mockResolvedValue(mockSession)
+      mockDataFileWithSessionUser()
 
       const customResponse = NextResponse.json({ custom: "data", count: 42 })
       mockHandler.mockResolvedValue(customResponse)
@@ -305,11 +333,12 @@ describe("withAuthentication", () => {
       const mockSession: Session = {
         user: {
           name: "Test User",
-          id: "test-user-id",
+          id: TEST_SESSION_USER_ID,
         },
         expires: new Date(Date.now() + 86400000).toISOString(),
       }
       mockAuth.mockResolvedValue(mockSession)
+      mockDataFileWithSessionUser()
 
       const handlerError = new Error("Handler error")
       mockHandler.mockRejectedValue(handlerError)
@@ -326,11 +355,12 @@ describe("withAuthentication", () => {
       const mockSession: Session = {
         user: {
           name: "Test User",
-          id: "test-user-id",
+          id: TEST_SESSION_USER_ID,
         },
         expires: new Date(Date.now() + 86400000).toISOString(),
       }
       mockAuth.mockResolvedValue(mockSession)
+      mockDataFileWithSessionUser()
 
       interface CustomResponse {
         data: string
@@ -653,11 +683,12 @@ describe("withAuthentication", () => {
       const mockSession: Session = {
         user: {
           name: "Test User",
-          id: "test-user-id",
+          id: TEST_SESSION_USER_ID,
         },
         expires: new Date(Date.now() + 86400000).toISOString(),
       }
       mockAuth.mockResolvedValue(mockSession)
+      mockDataFileWithSessionUser()
 
       const wrappedHandler = withAuthentication(mockHandler)
       const response = await wrappedHandler(mockRequestWithHeaders)
@@ -748,17 +779,19 @@ describe("withAuthentication", () => {
       const mockSession: Session = {
         user: {
           name: "Test User",
-          id: "test-user-id",
+          id: TEST_SESSION_USER_ID,
         },
         expires: new Date(Date.now() + 86400000).toISOString(),
       }
       mockAuth.mockResolvedValue(mockSession)
+      mockDataFileWithSessionUser()
 
       const wrappedHandler = withAuthentication(mockHandler, { allowApiToken: false })
       const response = await wrappedHandler(mockRequestWithHeaders)
 
-      // Should NOT check bearer token, should use session auth instead
-      expect(mockSafeReadDataFile).not.toHaveBeenCalled()
+      // Should NOT check bearer token (allowApiToken is false), but the
+      // session path still reads the data file once to resolve the user's role
+      expect(mockSafeReadDataFile).toHaveBeenCalledTimes(1)
       expect(mockAuth).toHaveBeenCalled()
       expect(mockHandler).toHaveBeenCalledWith(mockRequestWithHeaders)
 
