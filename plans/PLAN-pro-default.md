@@ -337,15 +337,20 @@ Recovered verbatim from module 50278 (user route). Family-2 decoder solved (rota
 - Log `"user_deleted"` with `{ userId, username, affectedTasks, affectedProjects, affectedComments, affectedRewardEvents }`
 - Response: `{ success: true, deletedUserId, message: "User deleted successfully" }`
 
-### Phase 2 status — COMPLETE ✅
+### Phase 2 status — COMPLETE ✅ · Phase 3 status — COMPLETE ✅
 
 Server, auth, client data layer, user-management UI, and i18n all landed
 (`196cc4e`, `b4a9b73`); close-out verification green (full workspace typecheck,
 lint, web suite 169/171 files — 2 = known quick-add flake + pre-existing skip).
+Phase 3 rewards engine landed (`fdf753d`, `a5346e3`) — API, atoms, productivity
+form, task chip, header balance. See FINDINGS.md → "Reimplementation fidelity"
+for how Pro is decoded and re-implemented (server 1:1, UI re-derived).
 
-**Next phase: Phase 3 (rewards)** — decode `routes_app_api_v1_rewards_route`
-(module 59451) for the exact POST validation rules, then implement per the plan's
-Phase 3 section (atoms → API route → productivity form → task reward UI).
+**Next phase: Phase 4 (people/assignees)** — assignees/owners/people panel +
+assigned-to-me/assigned-to-others views + owner/assignee filter plumbing. The
+Pro client UI for these is re-derived (tier 3); the filter semantics and view
+behavior are recovered from the bundle. This also wires the table-view
+owner/assignee columns (Phase 5 deferred them here).
 
 ### State of remaining decoded contracts (for later phases)
 
