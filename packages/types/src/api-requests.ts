@@ -26,6 +26,7 @@ import {
 import { AvatarBase64Schema } from "./constants";
 import { ProjectGroupSchema, LabelGroupSchema, GroupSchema } from "./group";
 import { UserSettingsSchema } from "./settings";
+import { RewardEventTypeSchema, CurrencyIdSchema } from "./rewards";
 
 // =============================================================================
 // CREATE REQUEST SCHEMAS
@@ -266,6 +267,35 @@ export const MobileLoginRequestSchema = z.object({
   username: z.string().min(1, "Username is required"),
   password: z.string().min(1, "Password is required"),
 });
+
+/**
+ * Schema for POST /api/v1/rewards (create a reward event).
+ *
+ * Contract recovered from the official Pro bundle (module 85425):
+ * - `entityId` is the entity (e.g. task) the reward is attached to.
+ * - `currencyId` + `amount` must be provided together (currency path) or
+ *   both omitted (points path).
+ * - `WISHLIST_REDEEMED` events must include `currencyId` + `amount`.
+ */
+export const CreateRewardEventRequestSchema = z
+  .object({
+    type: RewardEventTypeSchema,
+    entityId: z.string().uuid(),
+    currencyId: CurrencyIdSchema.optional(),
+    amount: z.number().int().optional(),
+  })
+  .refine(
+    (data) =>
+      (data.currencyId === undefined && data.amount === undefined) ||
+      (data.currencyId !== undefined && data.amount !== undefined),
+    { message: "currencyId and amount must be provided together" },
+  )
+  .refine(
+    (data) =>
+      data.type !== "WISHLIST_REDEEMED" ||
+      (data.currencyId !== undefined && data.amount !== undefined),
+    { message: "Wishlist redemptions must include currencyId and amount" },
+  );
 
 /**
  * Schema for initial setup request - setting password for first time
@@ -509,6 +539,9 @@ export type AdminUpdateUserRequest = z.infer<
 >;
 export type DeleteUserRequest = z.infer<typeof DeleteUserRequestSchema>;
 export type MobileLoginRequest = z.infer<typeof MobileLoginRequestSchema>;
+export type CreateRewardEventRequest = z.infer<
+  typeof CreateRewardEventRequestSchema
+>;
 
 // Serialization types
 export type TaskCreateSerialization = z.infer<

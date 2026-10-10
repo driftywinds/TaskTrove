@@ -172,6 +172,53 @@
       "tryAgain": "Try Again"
     }
   },
+  "productivity": {
+    "points": {
+      "title": "Points Rewards",
+      "description": "Earn points every time you complete a task.",
+      "enable": {
+        "label": "Enable Points Rewards",
+        "description": "Award points when you complete tasks to build streaks and levels."
+      },
+      "dailyCap": {
+        "label": "Daily Points Cap (0 = unlimited)",
+        "description": "Maximum points that can be earned per day."
+      }
+    },
+    "currency": {
+      "title": "Currency Rewards",
+      "description": "Reward tasks with custom currencies and redeem wishlist items.",
+      "enable": {
+        "label": "Enable Currency Rewards",
+        "description": "Attach currency rewards to tasks and redeem them for wishlist items."
+      }
+    },
+    "currencies": {
+      "title": "Custom Currencies",
+      "description": "Define the currencies used for task rewards.",
+      "defaultBadge": "Default",
+      "namePlaceholder": "New currency name",
+      "add": "Add",
+      "delete": "Delete currency"
+    },
+    "wishlist": {
+      "title": "Wishlist Items",
+      "description": "Items that can be redeemed with currency rewards.",
+      "empty": "No wishlist items yet.",
+      "coins": "coins",
+      "namePlaceholder": "Item name",
+      "valuePlaceholder": "Value",
+      "currency": "Currency",
+      "add": "Add",
+      "delete": "Delete wishlist item"
+    },
+    "themes": {
+      "title": "Reward Themes",
+      "description": "Choose how your progression levels are presented.",
+      "select": "Reward theme",
+      "level": "Lv"
+    }
+  },
   "scheduler": {
     "title": "Scheduler",
     "description": "Monitor and configure background jobs that keep your workspace healthy.",

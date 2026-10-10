@@ -158,6 +158,12 @@ export const STANDARD_VIEW_IDS = [
 /** Maximum number of users allowed on an instance (generous fixed cap; no license logic) */
 export const DEFAULT_MAX_USERS = 50;
 
+/**
+ * Points awarded per points-path reward event.
+ * Recovered from the Pro bundle: `Uo = 10` (module 33885).
+ */
+export const DEFAULT_REWARD_POINTS = 10;
+
 /** Standard view metadata for UI display */
 export const STANDARD_VIEW_METADATA: Record<
   (typeof STANDARD_VIEW_IDS)[number],
@@ -580,6 +586,12 @@ export const USER_QUERY_KEY = ["data", "user"] as const;
  * GET /api/v1/user returns every user under the `user` key.
  */
 export const USERS_QUERY_KEY = ["data", "users"] as const;
+
+/**
+ * Query key for reward events (Pro rewards).
+ * GET /api/v1/rewards returns rewardEvents + currencyRewardEvents.
+ */
+export const REWARDS_QUERY_KEY = ["data", "rewards"] as const;
 
 /**
  * Parent query key for invalidating all data queries at once.

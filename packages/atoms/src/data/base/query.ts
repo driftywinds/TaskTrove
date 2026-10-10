@@ -22,6 +22,10 @@ export { queryClientAtom };
 import type { Task, Project, Label, User } from "@tasktrove/types/core";
 import type { ProjectGroup, LabelGroup } from "@tasktrove/types/group";
 import type { UserSettings } from "@tasktrove/types/settings";
+import type {
+  RewardEvent,
+  CurrencyRewardEvent,
+} from "@tasktrove/types/rewards";
 import {
   GetTasksResponseSchema,
   GetProjectsResponseSchema,
@@ -29,6 +33,7 @@ import {
   GetGroupsResponseSchema,
   GetSettingsResponseSchema,
   GetUsersResponseSchema,
+  GetRewardsResponseSchema,
 } from "@tasktrove/types/api-responses";
 import {
   TaskSchema,
@@ -38,6 +43,10 @@ import {
 } from "@tasktrove/types/core";
 import { ProjectGroupSchema, LabelGroupSchema } from "@tasktrove/types/group";
 import { UserSettingsSchema } from "@tasktrove/types/settings";
+import {
+  RewardEventSchema,
+  CurrencyRewardEventSchema,
+} from "@tasktrove/types/rewards";
 import {
   createProjectId,
   createLabelId,
@@ -55,6 +64,7 @@ import {
   GROUPS_QUERY_KEY,
   SETTINGS_QUERY_KEY,
   USERS_QUERY_KEY,
+  REWARDS_QUERY_KEY,
 } from "@tasktrove/constants";
 import {
   DEFAULT_NOTIFICATION_SETTINGS,
@@ -290,6 +300,37 @@ async function fetchUsers(): Promise<User[]> {
   return response.user.map((user) => UserSchema.parse(user));
 }
 
+/**
+ * Reward events resource: both the points and currency event lists.
+ */
+export interface RewardsResource {
+  rewardEvents: RewardEvent[];
+  currencyRewardEvents: CurrencyRewardEvent[];
+}
+
+async function fetchRewards(): Promise<RewardsResource> {
+  if (typeof window === "undefined" || process.env.NODE_ENV === "test") {
+    log.info({ module: "test" }, "Test environment: Using test rewards");
+    return { rewardEvents: [], currencyRewardEvents: [] };
+  }
+
+  const response = await fetchAndValidate(
+    API_ROUTES.V1_REWARDS,
+    GetRewardsResponseSchema,
+    "rewards",
+  );
+
+  // Parse events to convert serialized timestamps back to Date objects
+  return {
+    rewardEvents: response.rewardEvents.map((event) =>
+      RewardEventSchema.parse(event),
+    ),
+    currencyRewardEvents: response.currencyRewardEvents.map((event) =>
+      CurrencyRewardEventSchema.parse(event),
+    ),
+  };
+}
+
 // =============================================================================
 // Query Configuration (DRY - shared config)
 // =============================================================================
@@ -376,3 +417,15 @@ export const usersQueryAtom = atomWithQuery(() => ({
   ...QUERY_CONFIG,
 }));
 usersQueryAtom.debugLabel = "usersQueryAtom";
+
+/**
+ * Rewards query atom (points + currency reward events)
+ * Query key: REWARDS_QUERY_KEY (["data", "rewards"])
+ * Invalidate: queryClient.invalidateQueries({ queryKey: REWARDS_QUERY_KEY })
+ */
+export const rewardsQueryAtom = atomWithQuery(() => ({
+  queryKey: REWARDS_QUERY_KEY,
+  queryFn: fetchRewards,
+  ...QUERY_CONFIG,
+}));
+rewardsQueryAtom.debugLabel = "rewardsQueryAtom";

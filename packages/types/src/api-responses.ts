@@ -22,6 +22,10 @@ import { ProjectGroupSchema, LabelGroupSchema, GroupSchema } from "./group";
 import { UserSettingsSchema } from "./settings";
 import { ApiErrorCodeSchema } from "./api-errors";
 import { DataFileSerializationSchema } from "./data-file";
+import {
+  RewardEventSerializationSchema,
+  CurrencyRewardEventSerializationSchema,
+} from "./rewards";
 
 // =============================================================================
 // SCHEDULER JOB SCHEMAS
@@ -315,6 +319,32 @@ export const MobileLoginResponseSchema = z.object({
 });
 
 /**
+ * GET /api/v1/rewards response schema - returns all reward events.
+ * Contract recovered from the official Pro bundle.
+ */
+export const GetRewardsResponseSchema = z.object({
+  rewardEvents: z.array(RewardEventSerializationSchema),
+  currencyRewardEvents: z.array(CurrencyRewardEventSerializationSchema),
+  meta: z.object({
+    count: z.number(),
+    timestamp: z.string(),
+  }),
+});
+
+/**
+ * POST /api/v1/rewards response schema - creates a reward event.
+ * Contract recovered from the official Pro bundle (module 85425 response
+ * schema: success, eventId, capped?, message?).
+ */
+export const CreateRewardEventResponseSchema = z.object({
+  success: z.boolean(),
+  eventId: z.string().uuid(),
+  /** Present when the daily point cap limited the award */
+  capped: z.boolean().optional(),
+  message: z.string().optional(),
+});
+
+/**
  * GET /api/v1/scheduler/jobs response schema - returns registered jobs
  */
 export const GetSchedulerJobsResponseSchema = z.object({
@@ -374,6 +404,10 @@ export type GetUsersResponse = z.infer<typeof GetUsersResponseSchema>;
 export type MutateUserResponse = z.infer<typeof MutateUserResponseSchema>;
 export type DeleteUserResponse = z.infer<typeof DeleteUserResponseSchema>;
 export type MobileLoginResponse = z.infer<typeof MobileLoginResponseSchema>;
+export type GetRewardsResponse = z.infer<typeof GetRewardsResponseSchema>;
+export type CreateRewardEventResponse = z.infer<
+  typeof CreateRewardEventResponseSchema
+>;
 export type GetSchedulerJobsResponse = z.infer<
   typeof GetSchedulerJobsResponseSchema
 >;

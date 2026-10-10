@@ -56,6 +56,7 @@ import {
   deleteTaskMutationAtom,
 } from "@tasktrove/atoms/mutations/tasks";
 import { updateProjectsMutationAtom } from "@tasktrove/atoms/mutations/projects";
+import { awardTaskCompletedPointsAtom } from "@tasktrove/atoms/mutations/rewards";
 import { recordOperationAtom } from "@tasktrove/atoms/core/history";
 import { getEffectiveDueDate } from "@tasktrove/utils";
 
@@ -406,6 +407,13 @@ export const toggleTaskAtom = atom(null, async (get, set, taskId: TaskId) => {
       { taskId, completed: willBeCompleted, module: "tasks" },
       `Task ${willBeCompleted ? "completed" : "uncompleted"}`,
     );
+
+    // Pro gamification: award points for completion (best-effort, never
+    // blocks the completion). The award atom no-ops when rewards are disabled
+    // or the daily cap is reached.
+    if (willBeCompleted) {
+      void set(awardTaskCompletedPointsAtom, taskId);
+    }
   } catch (error) {
     handleAtomError(error, "toggleTaskAtom");
     throw error; // Re-throw so the UI can handle the error

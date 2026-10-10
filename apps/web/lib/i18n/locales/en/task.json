@@ -121,6 +121,17 @@
     "30": "Last 30 days",
     "90": "Last 90 days"
   },
+  "rewards": {
+    "badge": {
+      "none": "—"
+    },
+    "popover": {
+      "currency": "Currency",
+      "amount": "Amount",
+      "amountPlaceholder": "0",
+      "save": "Save reward"
+    }
+  },
   "schedule": {
     "clear": "Clear",
     "clearTime": "Clear Time",
