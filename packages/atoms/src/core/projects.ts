@@ -7,7 +7,7 @@
  * - Current project selection remains localStorage-only as UI state
  */
 
-import { atom } from "jotai";
+import { atom, type Getter } from "jotai";
 import { v4 as uuidv4 } from "uuid";
 import {
   handleAtomError,
@@ -16,7 +16,7 @@ import {
   withErrorHandling,
 } from "@tasktrove/atoms/utils/atom-helpers";
 import type { Project, ProjectSection } from "@tasktrove/types/core";
-import type { ProjectId, GroupId, TaskId } from "@tasktrove/types/id";
+import type { ProjectId, GroupId, TaskId, UserId } from "@tasktrove/types/id";
 import type { UpdateProjectRequest } from "@tasktrove/types/api-requests";
 import {
   DEFAULT_INBOX_NAME,
@@ -34,7 +34,7 @@ import {
   getDefaultSectionId,
   ROOT_PROJECT_GROUP_ID,
 } from "@tasktrove/types/defaults";
-import { projectsAtom } from "@tasktrove/atoms/data/base/atoms";
+import { projectsAtom, userAtom } from "@tasktrove/atoms/data/base/atoms";
 import { groupsQueryAtom } from "@tasktrove/atoms/data/base/query";
 import {
   updateProjectsMutationAtom,
@@ -47,8 +47,16 @@ import {
 } from "@tasktrove/atoms/core/groups";
 import { deleteTasksAtom } from "@tasktrove/atoms/core/tasks";
 import { recordOperationAtom } from "@tasktrove/atoms/core/history";
-import { log } from "@tasktrove/atoms/utils/atom-helpers";
+import { log, toast } from "@tasktrove/atoms/utils/atom-helpers";
 import { clearNullValues } from "@tasktrove/utils";
+import {
+  addProjectMember,
+  canManageProject,
+  isProjectOwner,
+  makeProjectPublic,
+  removeProjectMember,
+  transferProjectOwnership,
+} from "@tasktrove/utils/project-permissions";
 
 // =============================================================================
 // BASE ATOMS
@@ -896,6 +904,149 @@ export const addProjectSectionAtPositionAtom = atom(
   },
 );
 addProjectSectionAtPositionAtom.debugLabel = "addProjectSectionAtPosition";
+
+// =============================================================================
+// PROJECT MEMBERSHIP (Pro)
+// =============================================================================
+// Reimplemented from the Pro bundle (module 25748 atoms + module 10326
+// helpers). Membership semantics: owner = members[0]; a project with no
+// members is public; only the owner (or an admin) can transfer ownership or
+// make a project public; members can add members and remove non-owners.
+
+function findProjectOrThrow(get: Getter, projectId: ProjectId): Project {
+  const project = get(projectsAtom).find((p: Project) => p.id === projectId);
+  if (!project) {
+    throw new Error(`Project ${projectId} not found`);
+  }
+  return project;
+}
+
+/**
+ * Adds a member to a project (Pro `addProjectMemberAtom`).
+ * Adding to a public project makes the new member the owner (first member).
+ */
+export const addProjectMemberAtom = namedAtom(
+  "addProjectMemberAtom",
+  atom(
+    null,
+    async (
+      get,
+      set,
+      { projectId, userId }: { projectId: ProjectId; userId: UserId },
+    ) => {
+      const project = findProjectOrThrow(get, projectId);
+      const updated = addProjectMember(project, userId);
+      if ((updated.members?.length ?? 0) === (project.members?.length ?? 0)) {
+        toast.info("User is already a member of this project");
+        return;
+      }
+      const updateProjectsMutation = get(updateProjectsMutationAtom);
+      await updateProjectsMutation.mutateAsync([updated]);
+      toast.success("Member added successfully");
+      log.info(
+        { projectId, userId, module: "projects" },
+        "Member added to project",
+      );
+    },
+  ),
+);
+
+/**
+ * Removes a member from a project (Pro `removeProjectMemberAtom`).
+ * The owner cannot be removed (soft guard + verbatim toast, like Pro);
+ * the helper's other verbatim errors (public project / last member) throw.
+ */
+export const removeProjectMemberAtom = namedAtom(
+  "removeProjectMemberAtom",
+  atom(
+    null,
+    async (
+      get,
+      set,
+      { projectId, userId }: { projectId: ProjectId; userId: UserId },
+    ) => {
+      const project = findProjectOrThrow(get, projectId);
+      if (isProjectOwner(project, userId)) {
+        toast.error("Cannot remove owner. Transfer ownership first.");
+        return;
+      }
+      const updated = removeProjectMember(project, userId);
+      const updateProjectsMutation = get(updateProjectsMutationAtom);
+      await updateProjectsMutation.mutateAsync([updated]);
+      toast.success("Member removed successfully");
+      log.info(
+        { projectId, userId, module: "projects" },
+        "Member removed from project",
+      );
+    },
+  ),
+);
+
+/**
+ * Transfers project ownership (Pro `transferProjectOwnershipAtom`).
+ * Guard: only the project owner or an admin (verbatim toast).
+ */
+export const transferProjectOwnershipAtom = namedAtom(
+  "transferProjectOwnershipAtom",
+  atom(
+    null,
+    async (
+      get,
+      set,
+      { projectId, userId }: { projectId: ProjectId; userId: UserId },
+    ) => {
+      const project = findProjectOrThrow(get, projectId);
+      const currentUser = get(userAtom);
+      if (!canManageProject(project, currentUser)) {
+        toast.error(
+          "Only the project owner or an admin can transfer ownership",
+        );
+        return;
+      }
+      const updated = transferProjectOwnership(project, userId);
+      const updateProjectsMutation = get(updateProjectsMutationAtom);
+      await updateProjectsMutation.mutateAsync([updated]);
+      toast.success("Ownership transferred");
+      log.info(
+        { projectId, userId, module: "projects" },
+        "Project ownership transferred",
+      );
+    },
+  ),
+);
+
+/**
+ * Makes a project public (Pro `makeProjectPublicAtom`).
+ * Guard: only the project owner or an admin (verbatim toast).
+ */
+export const makeProjectPublicAtom = namedAtom(
+  "makeProjectPublicAtom",
+  atom(
+    null,
+    async (
+      get,
+      set,
+      { projectId, userId }: { projectId: ProjectId; userId: UserId },
+    ) => {
+      const project = findProjectOrThrow(get, projectId);
+      const currentUser = get(userAtom);
+      if (!canManageProject(project, currentUser)) {
+        toast.error(
+          "Only the project owner or an admin can make project public",
+        );
+        return;
+      }
+      const updated = makeProjectPublic(project, userId);
+      const updateProjectsMutation = get(updateProjectsMutationAtom);
+      await updateProjectsMutation.mutateAsync([updated]);
+      toast.success("Project made public");
+      log.info(
+        { projectId, userId, module: "projects" },
+        "Project made public",
+      );
+    },
+  ),
+);
 
 // =============================================================================
 // EXPORTS

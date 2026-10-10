@@ -48,26 +48,33 @@
 >   filter sections + bulk assignee button (were stubs), table-view owner/assignee columns
 >   wired to the real users list, `newTaskOwnership` honored in `addTaskAtom`, `ownerId`
 >   made nullable (owner-clear via `null` → API `clearNullValues`) — **Phase 4 complete**.
-> - 🔄 Phase 6 **parity (part 1)**: comment reactions (`CommentReactions` +
+> - ✅ Phase 6 **parity (part 1)**: comment reactions (`CommentReactions` +
 >   `AddReactionButton` — recovered fixed 10-emoji palette, grouping, per-user toggle,
 >   tooltip usernames, `comment-react-button-<id>` test id), `CustomColorPicker` (recovered
 >   HSL SV-area + hue slider + hex input + Clear/Apply incl. exact `hexToHsl`/`hslToHex`
 >   helpers), nav `RoleBadge` (outline "Admin" badge for admins, null otherwise), removed
 >   the group "Members" coming-soon slot (Pro groups have **no** members — confirmed in
 >   data model, i18n, and bundle), dropped the "exclusive Pro feature" copy from the
->   coming-soon modal. Remaining parity chunk: **project member management** (recovered Pro
->   dialog: add/remove members, make owner, leave, public ⇔ no members; needs
->   `ProjectSchema.ownerId` + server guards such as "Only the owner can make a project
->   public" / "Cannot remove last member"), plus the scheduler `calendar-refresh` row
->   (lands with Phase 7).
-> - ⬜ Phases 6b (project members), 7 (calendar sync), 8 (verification)
+>   coming-soon modal.
+> - ✅ Phase 6b **project member management**: full recovery of module 10326 (membership
+>   helpers — **owner is `members[0]`**, public ⇔ no members, `canManage` = owner|admin,
+>   all guard strings verbatim) + module 25748's four write atoms and the members dialog;
+>   implemented as pure helpers (`@tasktrove/utils/project-permissions`), atoms
+>   (add/remove/transfer/make-public), the `ProjectMembersDialog` (add-member Select,
+>   Owner/Member badges, `(You)`, leave/remove/make-owner gating, public notice + Make
+>   Public panel), and the project context-menu "Members" item. API PATCH additionally
+>   enforces the owner-preservation invariant server-side (documented deviation — Pro
+>   enforces client-side only). **Phase 6 complete** (scheduler `calendar-refresh` row
+>   remains deferred to Phase 7 with its job).
+> - ⬜ Phases 7 (calendar sync), 8 (verification)
 >
 > **New tooling:** `tools/deob/decode-module.mjs` fully decodes any webpack module in the
 > deobfuscated bundles (solves the string-array rotation via the checksum IIFE and inlines
 > every decode call) — far beyond webcrack's output. Generalized this run: tolerates
 > malformed alias matches, and its rotation/decoder/array detection no longer assumes the
 > `a`/`b`/`c` variable names, so it now also solves **client chunks** (e.g.
-> `decoded-41745.js`). `tools/deob/PRO-SCHEMAS.md` is the authoritative decoded contract
+> `decoded-41745.js`) and small single-family modules (e.g. `decoded-10326.js`).
+> `tools/deob/PRO-SCHEMAS.md` is the authoritative decoded contract
 > (schemas, themes/levels, DataFile quirks).
 >
 > **Added for Phase 2:** `tools/deob/decode-user-route.mjs` — family-2 decoder for
@@ -494,26 +501,26 @@ Also fixed while making the repo committable on Windows:
 
 ## Appendix — Key File Index
 
-| Path                                                                                 | Why it matters                                                         |
-| ------------------------------------------------------------------------------------ | ---------------------------------------------------------------------- |
-| `apps/web/lib/utils/env.ts`                                                          | Pro master switch (`isPro`, `isMobileApp`, `isAndroid`, `isIos`)       |
-| `apps/web/proxy.ts`                                                                  | Base request pipeline; the slot where Pro's license gate lives         |
-| `packages/*/package.json`                                                            | `"pro"` export conditions (~30 gated exports)                          |
-| `pnpm-workspace.yaml`                                                                | `modules.pro/*` globs; catalog (incl. `@tanstack/react-table`)         |
-| `apps/web/Dockerfile`                                                                | Standalone distroless build; no build args needed for Pro flag         |
-| `selfhost/docker-compose-pro.yml`                                                    | Official Pro image reference                                           |
-| `scripts/generate-icons.py`                                                          | Proof of `apps/mobile.pro/android` + `web.pro`/`import.pro`/`docs.pro` |
-| `apps/web/components/views/{table,stats}-view.tsx`                                   | Pro views shipped as `null` stubs                                      |
-| `apps/web/components/dialogs/settings-forms/{user-management,productivity}-form.tsx` | Pro settings stubs                                                     |
-| `packages/atoms/src/mutations/rewards.ts`                                            | Throws until Pro rewards atoms implemented                             |
-| `packages/atoms/src/ui/settings.ts`                                                  | `isValidCategory` blocks `productivity`/`users`                        |
-| `apps/web/components/debug/stub-indicator.tsx`                                       | Stub marker for all Pro components                                     |
-| `tools/deob/deob-all.ps1`                                                            | Batch deobfuscation pipeline (re-runnable)                             |
-| `tools/deob/out/server-chunks_6315/deobfuscated.js`                                  | Keygen license module (reference for what NOT to build)                |
-| `tools/deob/out/server-chunks_9069/deobfuscated.js`                                  | Scheduler bootstrap: backup + calendar-refresh + license-check         |
-| `tools/deob/out/server-chunks_middleware/deobfuscated.js`                            | Request flow incl. `/error` license redirect                           |
-| `tools/deob/out/routes_api_v1_rewards_route/deobfuscated.js`                         | Rewards API contract                                                   |
-| `tools/deob/out/server-chunks_1752/deobfuscated.js`                                  | Pro DataFile/settings/calendar schemas                                 |
+| Path                                                         | Why it matters                                                           |
+| ------------------------------------------------------------ | ------------------------------------------------------------------------ |
+| `apps/web/lib/utils/env.ts`                                  | Pro master switch (`isPro`, `isMobileApp`, `isAndroid`, `isIos`)         |
+| `apps/web/proxy.ts`                                          | Base request pipeline; the slot where Pro's license gate lived           |
+| `packages/*/package.json`                                    | `"pro"` export conditions (~30 gated exports, repointed to defaults)     |
+| `pnpm-workspace.yaml`                                        | `modules.pro/*` globs; catalog (incl. `@tanstack/react-table`)           |
+| `apps/web/Dockerfile`                                        | Standalone distroless build; no build args needed for Pro flag           |
+| `selfhost/docker-compose-pro.yml`                            | Official Pro image reference                                             |
+| `scripts/generate-icons.py`                                  | Proof of `apps/mobile.pro/android` + `web.pro`/`import.pro`/`docs.pro`   |
+| `packages/utils/src/project-permissions.ts`                  | Membership helpers, verbatim from module 10326 (owner = `members[0]`)    |
+| `apps/web/components/dialogs/project-members-dialog.tsx`     | Project members dialog (recovered Pro contract)                          |
+| `packages/atoms/src/data/tasks/filters.ts`                   | Assigned-to-me / assigned-to-others view atoms (recovered semantics)     |
+| `apps/web/components/task/people-panel.tsx`                  | Task People panel (Owner + Assignees sections, recovered `OP`/`OH`/`OL`) |
+| `tools/deob/deob-all.ps1`                                    | Batch deobfuscation pipeline (re-runnable)                               |
+| `tools/deob/out/server-chunks_6315/deobfuscated.js`          | Keygen license module (reference for what NOT to build)                  |
+| `tools/deob/out/server-chunks_9069/deobfuscated.js`          | Scheduler bootstrap: backup + calendar-refresh + license-check           |
+| `tools/deob/out/server-chunks_middleware/deobfuscated.js`    | Request flow incl. `/error` license redirect                             |
+| `tools/deob/out/routes_api_v1_rewards_route/deobfuscated.js` | Rewards API contract                                                     |
+| `tools/deob/out/server-chunks_1752/decoded-10326.js`         | Project membership helper contract (fully decoded)                       |
+| `tools/deob/out/server-chunks_1320/decoded-25748.js`         | Atoms module: filters, addTask ownership, reactions, members dialog      |
 
 ---
 

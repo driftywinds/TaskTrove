@@ -225,6 +225,25 @@ async function updateProjects(
     updates.map((update) => [update.id, update]),
   )
 
+  // Project membership invariants (recovered Pro contract, module 10326:
+  // the owner is members[0]). The Pro image enforces these client-side only;
+  // enforcing them here as well is a documented defensive deviation so API
+  // clients cannot strip ownership or corrupt the members list.
+  for (const update of updates) {
+    if (update.members === undefined) continue
+    const existing = fileData.projects.find((project: Project) => project.id === update.id)
+    if (!existing) continue
+    const existingOwner = existing.members?.[0]
+    if (existingOwner && update.members.length > 0 && !update.members.includes(existingOwner)) {
+      return createErrorResponse(
+        "Cannot remove owner. Transfer ownership first.",
+        "The project owner must remain a member, or the project must be made public (empty members).",
+        400,
+        ApiErrorCode.VALIDATION_ERROR,
+      )
+    }
+  }
+
   // Update projects using merge logic (similar to tasks PATCH endpoint)
   const finalProjects = fileData.projects.map((project: Project) => {
     const update = updateMap.get(project.id)

@@ -106,6 +106,27 @@
     "priority3": "Priority 3"
   },
   "project": {
+    "members": {
+      "actions": "Actions",
+      "addMember": "Add Member",
+      "addPlaceholder": "Select user to add...",
+      "description": "Manage who can view and edit this project.",
+      "empty": "No members in this project",
+      "leaveProject": "Leave project",
+      "makeOwner": "Make owner",
+      "makePublic": "Make Public",
+      "makePublicDescription": "Remove all members and make this project accessible to everyone. Anyone can view, but only members can edit.",
+      "makePublicTitle": "Make project public",
+      "member": "Member",
+      "owner": "Owner",
+      "publicNotice": "This project is public. Add members to make it private.",
+      "removeMember": "Remove member",
+      "role": "Role",
+      "title": "Members",
+      "user": "User",
+      "username": "Username",
+      "you": "(You)"
+    },
     "noProject": "No Project (Inbox)"
   },
   "reactions": {

@@ -112,6 +112,16 @@ if (typeof window !== "undefined") {
     Object.defineProperty(window, "DragEvent", { value: DragEventPolyfill, writable: true })
   }
 
+  // Radix Select/ScrollArea need pointer capture + scrolling APIs that jsdom
+  // does not implement; without these the select never opens in tests.
+  if (typeof Element.prototype.hasPointerCapture !== "function") {
+    Element.prototype.hasPointerCapture = () => false
+    Element.prototype.releasePointerCapture = () => undefined
+  }
+  if (typeof Element.prototype.scrollIntoView !== "function") {
+    Element.prototype.scrollIntoView = () => undefined
+  }
+
   // Mock window.matchMedia
   Object.defineProperty(window, "matchMedia", {
     writable: true,
