@@ -22,6 +22,36 @@
 
 ---
 
+> [!WARNING]
+>
+> ## ⚠️ Purpose of This Fork
+>
+> **This repository exists for a single goal: to restore full feature parity with
+> the original _TaskTrove Pro_ — the paid edition that was locked behind the
+> developer's servers and license enforcement — and to permanently remove those
+> shackles.**
+>
+> - **Everything is unlocked, forever.** Every Pro feature is reimplemented here
+>   as plain, self-hosted code: no license keys, no machine-ID binding, no
+>   activation servers, no phone-home. Every self-hosted user gets every feature,
+>   on every instance, with no strings attached.
+> - **This is a finite project, not an ongoing product.** Development stops the
+>   moment this fork reaches **stability and complete feature parity with
+>   TaskTrove Pro, without show-stopping bugs**. New features, redesigns, and a
+>   long-term roadmap are explicitly out of scope.
+> - **The work is done with the original creator's blessing.** The Pro edition was
+>   created by the maintainer of upstream TaskTrove, who has given written
+>   permission to deobfuscate the publicly distributed Pro image and
+>   reimplement it here. The deobfuscated reference material and reconstruction
+>   notes live in [`tools/deob/`](./tools/deob/) and [FINDINGS.md](./FINDINGS.md);
+>   the parity plan lives in [plans/PLAN-pro-default.md](./plans/PLAN-pro-default.md).
+> - **Handover welcome.** Once parity and stability are achieved, active
+>   development of this fork is not planned. If you would like to take over the
+>   project and carry it into active development, please get in touch — I will
+>   be happy to hand it over to you.
+
+---
+
 ## ✨ Features
 
 | **Feature**                   | **Description**                                                                       |
