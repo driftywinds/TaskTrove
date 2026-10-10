@@ -39,10 +39,7 @@
 >   moment this fork reaches **stability and complete feature parity with
 >   TaskTrove Pro, without show-stopping bugs**. New features, redesigns, and a
 >   long-term roadmap are explicitly out of scope.
-> - **The work is done with the original creator's blessing.** The Pro edition was
->   created by the maintainer of upstream TaskTrove, who has given written
->   permission to deobfuscate the publicly distributed Pro image and
->   reimplement it here. The deobfuscated reference material and reconstruction
+> - The deobfuscated reference material and reconstruction
 >   notes live in [`tools/deob/`](./tools/deob/) and [FINDINGS.md](./FINDINGS.md);
 >   the parity plan lives in [plans/PLAN-pro-default.md](./plans/PLAN-pro-default.md).
 > - **Handover welcome.** Once parity and stability are achieved, active
