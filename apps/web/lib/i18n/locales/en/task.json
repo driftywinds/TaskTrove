@@ -72,6 +72,16 @@
     "addDescription": "Add description...",
     "taskTitle": "Enter task title..."
   },
+  "people": {
+    "assignees": {
+      "title": "Assignees",
+      "empty": "No users yet."
+    },
+    "owner": {
+      "title": "Owner",
+      "empty": "No users yet."
+    }
+  },
   "priority": {
     "noPriority": "No priority",
     "priority1": "Priority 1",
