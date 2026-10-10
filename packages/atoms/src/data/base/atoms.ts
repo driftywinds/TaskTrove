@@ -18,6 +18,8 @@ import {
   labelsQueryAtom,
   settingsQueryAtom,
   usersQueryAtom,
+  rewardsQueryAtom,
+  type RewardsResource,
 } from "@tasktrove/atoms/data/base/query";
 import type { Task, Project, Label, User } from "@tasktrove/types/core";
 import type { TaskId } from "@tasktrove/types/id";
@@ -254,4 +256,21 @@ export const userByIdAtom = namedAtom(
       (userId: User["id"]): User | undefined =>
         get(usersAtom).find((user) => user.id === userId),
   ),
+);
+
+// =============================================================================
+// REWARDS ATOM (PRO)
+// =============================================================================
+
+/**
+ * Rewards data atom - unwraps reward events from rewardsQueryAtom
+ *
+ * @read Returns both reward event lists (empty while loading/error)
+ */
+export const rewardsAtom = namedAtom(
+  "rewardsAtom",
+  atom((get): RewardsResource => {
+    const query = get(rewardsQueryAtom);
+    return query.data ?? { rewardEvents: [], currencyRewardEvents: [] };
+  }),
 );
