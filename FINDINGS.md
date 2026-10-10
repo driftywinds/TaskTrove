@@ -29,7 +29,15 @@
 >   add/edit/delete dialogs with the recovered self-guards, non-admin read-only),
 >   settings-dialog `adminOnly` filtering by session role, English i18n keys.
 >   **Phase 2 complete.** Next: Phase 3 (rewards).
-> - ⬜ Phases 3 (rewards), 4 (people), 6 (parity), 7 (calendar sync), 8 (verification)
+> - ✅ Phase 3 **rewards engine** — commit `fdf753d`: `/api/v1/rewards` GET+POST per
+>   recovered contract (points = fixed 10, currency path, WISHLIST_REDEEMED guard);
+>   `rewardsQueryAtom`/`rewardsAtom`, real `createRewardEventMutationAtom`, and
+>   `awardTaskCompletedPointsAtom` wired into `toggleTaskAtom` (no-ops when disabled or
+>   daily cap reached); full Productivity settings form (points/currency toggles, daily
+>   cap, custom-currency + wishlist managers, theme picker); task reward chip
+>   (Badge/Popover/Content) + header points-balance `RewardsBadge`. Optional polish not
+>   built: wishlist "Redeem" action button, currency-reward quick-amounts.
+> - ⬜ Phases 4 (people), 6 (parity), 7 (calendar sync), 8 (verification)
 >
 > **New tooling:** `tools/deob/decode-module.mjs` fully decodes any webpack module in the
 > deobfuscated bundles (solves the string-array rotation via the checksum IIFE and inlines
