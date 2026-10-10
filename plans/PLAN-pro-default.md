@@ -219,7 +219,7 @@ scheduled sync job listed in scheduler settings.
 
 - [x] Phase 0 gates (commit `1292e76`)
 - [x] Phase 1 schemas + migration (commit `0caea81`)
-- [ ] Phase 2 multi-user auth/API/UI + mobile login
+- [x] Phase 2 multi-user auth/API/UI + mobile login (commits `196cc4e`, `b4a9b73`)
   - [x] Route contract extraction (module 50278 fully decoded)
   - [x] `apps/web/auth.ts` — multi-user credentials provider, role in JWT, header-auth SSO provider
   - [x] `POST /api/v1/user` — admin create with duplicate check, user limit
@@ -236,7 +236,7 @@ scheduled sync job listed in scheduler settings.
   - [x] i18n keys — `usersManagement.*` (settings) + `categories.users/productivity`
         (dialogs) in `en` (repo convention: English is the only full namespace; other
         9 locales have `common.json` only and fall back to English)
-  - [ ] Typecheck + lint + tests green (re-verify at phase close)
+  - [x] Typecheck + lint + tests green at phase close
 - [ ] Phase 3 rewards (API + settings + task UI)
 - [ ] Phase 4 people/assignees/assigned-to-\* views
 - [x] Phase 5 table + stats views (commit `c1c16b6`; owner/assignee columns await Phase 4 wiring)
@@ -256,10 +256,11 @@ scheduled sync job listed in scheduler settings.
 | Fixes                       | `.husky/pre-commit` was a JS file executed by `sh` (broke all commits) → proper sh no-op; previously-empty `safe-file-operations.test.ts` replaced with 13 real tests                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | commits above                                                                                                                                                                                                  |
 | Phase 2 contracts           | Extracted full `/api/v1/user` GET/POST/PATCH/DELETE contracts from `decoded-50278.js` using family-2 decoder (`decode-user-route.mjs`, rotation 190, target `635102`). Recovered all verbatim strings: error messages (`"Admins can't delete self"`, `"Cannot change own role"`, `"User limit reached"`, `"Username already exists"`, `"Cannot delete self"`), admin guards, user-limit logic, avatar/password processing, cascade cleanup on delete (tasks→ownerId nil, assignees filter, comments reactions filter, projects→members filter, rewardEvents filter), business event names (`user_created`, `user_updated`, `user_deleted`, `users_fetched`), response shapes (`user: User[]` with `meta.count`).                                                                                                                                                                                                                                                                                                                                             | tools/deob/decode-user-route.mjs + decoded-50278.js (passes 2)                                                                                                                                                 |
 | Phase 2 server + data layer | `/api/v1/user` GET/POST/PATCH/DELETE per recovered contract (verbatim messages, admin guards from session-resolved role, fixed `DEFAULT_MAX_USERS` cap, full delete cascade incl. `currencyRewardEvents`); `POST /api/v1/mobile/login` (7-day JWT, `AUTH_SECRET` missing → 500, invalid → 401); multi-user credentials login (case-insensitive username, legacy username-less path only for single-user files) + `header-auth` SSO provider; session/JWT carry real user id + `role`; auth middleware attaches `authUser {id, role}` resolved from the data file per request (+ `getAuthUser()` helper, auth-disabled fallback = first user); `CreateUserRequestSchema`/`AdminUpdateUserRequestSchema`/`DeleteUserRequestSchema`/`MobileLoginRequestSchema` + response schemas; client: `USERS_QUERY_KEY`, `usersQueryAtom` (replaces `userQueryAtom`), real `usersAtom`, `currentUserIdAtom` + `CurrentUserSync` (NextAuth session → atoms), user mutations retargeted to users array (update/create/delete); `userByIdAtom` repurposed as id→user selector | full workspace typecheck; lint clean (web/atoms/constants/types); web suite 168/170 files green (2 = known quick-add flake + pre-existing skip), atoms 577 green; 69 dedicated Phase 2 tests; commit `196cc4e` |
+| Phase 2 UI + i18n           | `UserManagementForm` replaces the `null` stub: users table (avatar/username/role badge/`(You)` marker/task+project counts), user-limit line, admin-only Add/Edit/Delete dialogs (inline validation; edit hides role control for self per "Admins can't change own role"; delete disabled for self + last user; mutation failure keeps dialog open), non-admin read-only view; settings-dialog now enforces `adminOnly` (scheduler + users hidden from non-admins); `usersManagement.*` + `categories.users/productivity` English i18n; atoms-mocks `isValidCategory` updated to real Phase 0 behavior                                                                                                                                                                                                                                                                                                                                                                                                                                                        | full workspace typecheck; lint clean; web suite 169/171 files green (2 = known quick-add flake + pre-existing skip); 24/24 targeted UI tests; commit `b4a9b73`                                                 |
 
 Known non-blocking flake: `quick-add-dialog.test.tsx` (12 tests) fails only under full-suite parallelism on constrained Windows hosts (renders empty body; passes standalone; predates this work — resource-related).
 
-## Next steps — Phase 2 (multi-user auth/API/UI)
+## Route contracts (Phase 2 — COMPLETE, kept as reference)
 
 ### Route contracts already extracted
 
@@ -334,13 +335,15 @@ Recovered verbatim from module 50278 (user route). Family-2 decoder solved (rota
 - Log `"user_deleted"` with `{ userId, username, affectedTasks, affectedProjects, affectedComments, affectedRewardEvents }`
 - Response: `{ success: true, deletedUserId, message: "User deleted successfully" }`
 
-### Remaining work — Phase 2 (UI + i18n)
+### Phase 2 status — COMPLETE ✅
 
-Server, auth, client data layer, and the user-management UI are done. Only the
-phase-close verification remains:
+Server, auth, client data layer, user-management UI, and i18n all landed
+(`196cc4e`, `b4a9b73`); close-out verification green (full workspace typecheck,
+lint, web suite 169/171 files — 2 = known quick-add flake + pre-existing skip).
 
-1. **Phase 2 close-out**: full `pnpm -r typecheck:base`, lint changed packages, full
-   `pnpm test`, prettier on changed files, then tick the checklist and commit.
+**Next phase: Phase 3 (rewards)** — decode `routes_app_api_v1_rewards_route`
+(module 59451) for the exact POST validation rules, then implement per the plan's
+Phase 3 section (atoms → API route → productivity form → task reward UI).
 
 ### State of remaining decoded contracts (for later phases)
 
