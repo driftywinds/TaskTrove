@@ -48,6 +48,9 @@
     "currentTheme": "Current theme: {{theme}}. Click to cycle themes.",
     "openSidebar": "Open sidebar"
   },
+  "rewards": {
+    "pointsLabel": "pts"
+  },
   "standardViews": {
     "all": {
       "description": "See every task across all projects and labels in one view",
