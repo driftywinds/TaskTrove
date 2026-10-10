@@ -1,0 +1,153 @@
+# Phase 8 verification pipeline for this fork. Heavy checks (Next.js standalone
+# build, Docker image build, first-run smoke test) run here so contributors do
+# not need a powerful local machine. Calendar sync (Phase 7) is intentionally
+# deferred; this workflow verifies everything shipped in Phases 0-6.
+
+name: Phase 8 Verification
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: phase8-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: "22"
+
+jobs:
+  verify:
+    name: Install, typecheck, lint & tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Install (frozen lockfile)
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck
+        run: pnpm -r --if-present run typecheck
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Tests
+        run: pnpm test
+
+  no-license-code:
+    name: "Guard: no license / phone-home code"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Scan source for license-enforcement markers
+        run: |
+          set -euo pipefail
+          # The reference material in tools/deob intentionally contains these
+          # strings; application source must never reintroduce them.
+          if grep -rInE 'api\.keygen\.sh|LICENSE_KEY|MACHINE_ID|/etc/machine-id' \
+            --include='*.ts' --include='*.tsx' --include='*.js' --include='*.mjs' \
+            --include='*.json' \
+            --exclude-dir=node_modules \
+            --exclude-dir=.next \
+            apps packages scripts; then
+            echo "::error::License-enforcement markers found in source. This fork keeps every Pro feature unlocked with no phone-home."
+            exit 1
+          fi
+          echo "OK: no license/phone-home markers in application source."
+
+  build:
+    name: Next.js standalone build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Install (frozen lockfile)
+        run: pnpm install --frozen-lockfile
+
+      - name: Build (same step the Dockerfile runs)
+        run: pnpm build
+
+  docker:
+    name: Docker image build + first-run smoke test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build image (no push)
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./apps/web/Dockerfile
+          platforms: linux/amd64
+          push: false
+          load: true
+          tags: tasktrove:phase8
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: First-run smoke test (fresh data dir, no license env)
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/tasktrove-data"
+          docker run -d --name smoke -p 3000:3000 \
+            -v "$RUNNER_TEMP/tasktrove-data:/app/data" \
+            tasktrove:phase8
+
+          echo "--- wait for the server ---"
+          for i in $(seq 1 60); do
+            if curl -fsS http://localhost:3000/api/health > health-before.json 2>/dev/null; then
+              break
+            fi
+            sleep 2
+          done
+          test -f health-before.json
+          echo "health (before setup): $(cat health-before.json)"
+          jq -e '.status == "needs_initialization"' health-before.json
+          jq -e '.edition == "pro"' health-before.json
+
+          echo "--- complete first-run setup via API ---"
+          curl -fsS -X POST http://localhost:3000/api/initial-setup \
+            -H "Content-Type: application/json" \
+            -d '{"password":"phase8-smoke-passw0rd","username":"smoke-admin"}' \
+            > initial-setup.json
+          echo "initial-setup: $(cat initial-setup.json)"
+
+          echo "--- health after setup ---"
+          curl -fsS http://localhost:3000/api/health > health-after.json
+          echo "health (after setup): $(cat health-after.json)"
+          jq -e '.status == "healthy"' health-after.json
+          jq -e '.edition == "pro"' health-after.json
+
+          echo "--- container logs ---"
+          docker logs smoke
+          docker rm -f smoke
