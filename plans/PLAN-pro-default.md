@@ -220,17 +220,19 @@ scheduled sync job listed in scheduler settings.
 - [x] Phase 0 gates (commit `1292e76`)
 - [x] Phase 1 schemas + migration (commit `0caea81`)
 - [ ] Phase 2 multi-user auth/API/UI + mobile login
-  - [ ] Route contract extraction
-  - [ ] `apps/web/auth.ts` — multi-user credentials provider, role in JWT
-  - [ ] `POST /api/v1/user` — admin create with duplicate check, user limit
-  - [ ] `PATCH /api/v1/user` — admin update with self-guard rules
-  - [ ] `DELETE /api/v1/user` — admin delete with cascade (tasks/comments/reactions/members)
-  - [ ] `GET /api/v1/user` — return full users array (session user first)
-  - [ ] `POST /api/v1/mobile/login` — username/password -> session tokens
+  - [x] Route contract extraction (module 50278 fully decoded)
+  - [x] `apps/web/auth.ts` — multi-user credentials provider, role in JWT, header-auth SSO provider
+  - [x] `POST /api/v1/user` — admin create with duplicate check, user limit
+  - [x] `PATCH /api/v1/user` — admin update with self-guard rules
+  - [x] `DELETE /api/v1/user` — admin delete with cascade (tasks/comments/reactions/members)
+  - [x] `GET /api/v1/user` — returns full users array (Pro contract)
+  - [x] `POST /api/v1/mobile/login` — 7-day JWT for the mobile app
+  - [x] Client data layer — `usersQueryAtom`, `usersAtom`, `currentUserIdAtom` +
+        `CurrentUserSync` (session→atoms), create/delete/update user mutations
   - [ ] `user-management-form.tsx` — users table, role badges, add/edit/delete dialogs
-  - [ ] Settings → Users category renders (atoms/query)
+  - [ ] Settings → Users category renders (form wiring)
   - [ ] i18n keys for 10 locales
-  - [ ] Typecheck + lint + tests green
+  - [ ] Typecheck + lint + tests green (green at each checkpoint; re-verify at phase close)
 - [ ] Phase 3 rewards (API + settings + task UI)
 - [ ] Phase 4 people/assignees/assigned-to-\* views
 - [x] Phase 5 table + stats views (commit `c1c16b6`; owner/assignee columns await Phase 4 wiring)
@@ -249,6 +251,7 @@ scheduled sync job listed in scheduler settings.
 | Phase 5 | `StatsView` renders the analytics dashboard (Pro metric set: completed/streak/focus-time/productivity-score ≥70 trend); `TableView` on @tanstack/react-table with the full Pro column set, viewState-initialized sorting, completion toggle, sticky header, empty state; `@tanstack/react-table` added from catalog | component tests (7 + 3); commit `c1c16b6` |
 | Fixes | `.husky/pre-commit` was a JS file executed by `sh` (broke all commits) → proper sh no-op; previously-empty `safe-file-operations.test.ts` replaced with 13 real tests | commits above |
 | Phase 2 contracts | Extracted full `/api/v1/user` GET/POST/PATCH/DELETE contracts from `decoded-50278.js` using family-2 decoder (`decode-user-route.mjs`, rotation 190, target `635102`). Recovered all verbatim strings: error messages (`"Admins can't delete self"`, `"Cannot change own role"`, `"User limit reached"`, `"Username already exists"`, `"Cannot delete self"`), admin guards, user-limit logic, avatar/password processing, cascade cleanup on delete (tasks→ownerId nil, assignees filter, comments reactions filter, projects→members filter, rewardEvents filter), business event names (`user_created`, `user_updated`, `user_deleted`, `users_fetched`), response shapes (`user: User[]` with `meta.count`). | tools/deob/decode-user-route.mjs + decoded-50278.js (passes 2) |
+| Phase 2 server + data layer | `/api/v1/user` GET/POST/PATCH/DELETE per recovered contract (verbatim messages, admin guards from session-resolved role, fixed `DEFAULT_MAX_USERS` cap, full delete cascade incl. `currencyRewardEvents`); `POST /api/v1/mobile/login` (7-day JWT, `AUTH_SECRET` missing → 500, invalid → 401); multi-user credentials login (case-insensitive username, legacy username-less path only for single-user files) + `header-auth` SSO provider; session/JWT carry real user id + `role`; auth middleware attaches `authUser {id, role}` resolved from the data file per request (+ `getAuthUser()` helper, auth-disabled fallback = first user); `CreateUserRequestSchema`/`AdminUpdateUserRequestSchema`/`DeleteUserRequestSchema`/`MobileLoginRequestSchema` + response schemas; client: `USERS_QUERY_KEY`, `usersQueryAtom` (replaces `userQueryAtom`), real `usersAtom`, `currentUserIdAtom` + `CurrentUserSync` (NextAuth session → atoms), user mutations retargeted to users array (update/create/delete); `userByIdAtom` repurposed as id→user selector | full workspace typecheck; lint clean (web/atoms/constants/types); web suite 168/170 files green (2 = known quick-add flake + pre-existing skip), atoms 577 green; 69 dedicated Phase 2 tests; commit `196cc4e` |
 
 Known non-blocking flake: `quick-add-dialog.test.tsx` (12 tests) fails only under full-suite parallelism on constrained Windows hosts (renders empty body; passes standalone; predates this work — resource-related).
 
@@ -323,49 +326,41 @@ Recovered verbatim from module 50278 (user route). Family-2 decoder solved (rota
 - Log `"user_deleted"` with `{ userId, username, affectedTasks, affectedProjects, affectedComments, affectedRewardEvents }`
 - Response: `{ success: true, deletedUserId, message: "User deleted successfully" }`
 
-### Implementation order
+### Remaining work — Phase 2 (UI + i18n)
 
-1. **Auth module** (`apps/web/auth.ts`):
-   - Rewrite `getCurrentUser()` to iterate `getDataFileUsers()`, find by `id`
-   - Credentials provider: accept `username` + `password`, verify via `verifyPassword()`, return `{ id, name, role }`
-   - JWT callback: attach `role` to token + session
-   - Add `headerAuth` provider: read `Remote-User` header, skip if not set, authenticate user by username (SSO proxy mode)
+Server, auth, and the client data layer are done (commit `196cc4e`). What's left:
 
-2. **Middleware** (`apps/web/lib/middleware/auth.ts`):
-   - Extend `withAuthentication` to pass `session.user.role` to handlers
-   - Make `isValidBearerToken` return the matched user (for admin checks on api-token calls)
-
-3. **`/api/v1/user` route** — full rewrite:
-   - GET: return all users (`getDataFileUsers`), session-user-first ordering, meta
-   - POST: session-admin check, body validation, duplicate+limit checks, password hash, avatar process, append, write, response
-   - PATCH: admin check for cross-user, self-update role guard, merge + write
-   - DELETE: admin check, cascade 4 loops, write, response
-
-4. **User management form** (`apps/web/components/dialogs/settings-forms/user-management-form.tsx`):
-   - Fetch users list via atom/query
-   - Table: username, avatar, role badge (`admin`/`user`), task/project counts, `(You)` marker
-   - Add dialog: username, password, role selector
-   - Edit dialog: username, password (optional), role (self-guard: hide role for self)
-   - Delete: confirm dialog with cascade summary, `(You)` → "Save" → fail if self
-
-5. **Mobile login** (`apps/web/app/api/v1/mobile/login/route.ts`):
-   - POST accepts `{ username, password }`
-   - Validate via `verifyPassword`, return session token
-   - Response: `{ success: true, token, user: { id, username, role } }`
-
-6. **i18n** (`packages/i18n/src/locales/*/settings.json`, `main-nav.json`):
-   - Add `"settings.categories.productivity"`, `"settings.categories.users"`
-   - Add `"mainNav.assignedToMe"`, `"mainNav.assignedToOthers"`
-   - Add user-management strings (add dialog, edit dialog, role labels, `(You)`)
-
-7. **Settings → Users** category: ensure `isValidCategory("users")` returns true (Phase 0 already done), ensure the form renders (stub delivery now).
+1. **User management form** (`apps/web/components/dialogs/settings-forms/user-management-form.tsx`,
+   currently a `null` stub):
+   - Fetch via `usersAtom`; mutations via `createUserMutationAtom` / `updateUserMutationAtom`
+     / `deleteUserMutationAtom` (already implemented)
+   - Table: avatar, username, role badge (`admin`/`user`), task + project counts, `(You)`
+     marker on the session user (`currentUserIdAtom`)
+   - Add dialog: username, password, role selector (admin only — mirror guards client-side,
+     server enforces regardless)
+   - Edit dialog: username, optional password, role (hide/disable role for self per
+     `"Admins can't change own role"`)
+   - Delete: confirm dialog; disabled for self (`"Admins can't delete self"`); show cascade
+     summary; only admins see create/edit/delete actions at all
+   - Respect `DEFAULT_MAX_USERS` cap in the add dialog (disable + `"User limit reached"`)
+2. **Settings → Users wiring**: find how `settings-dialog` maps categories → form components
+   and render `UserManagementForm` for `users` (`isValidCategory("users")` already true
+   since Phase 0). Task/project counts need `tasksAtom`/`projectsAtom` (both exist).
+3. **i18n** (`packages/i18n/src/locales/*` — 10 locales): `settings.categories.users`,
+   `settings.categories.productivity`, `mainNav.assignedToMe/assignedToOthers`, and the
+   user-management strings (add/edit/delete dialog labels, role names, `(You)`). Pro
+   English strings are in the decoded bundles / i18n chunks.
+4. **Tests**: `user-management-form.test.tsx` (table render, role badge, add/edit/delete
+   flows, self-guard, non-admin read-only) + settings-dialog category test update.
+5. **Phase 2 close-out**: full `pnpm -r typecheck:base`, lint changed packages, full
+   `pnpm test`, then tick the checklist and commit.
 
 ### State of remaining decoded contracts (for later phases)
 
 | File | Module | Status |
 | ---- | ------ | ------ |
-| `routes_app_api_v1_user_route/decoded-50278.js` | 50278 (GET/POST/PATCH/DELETE) | ✅ Fully decoded (family 2 solved, rotation 190) |
-| `routes_app_api_v1_mobile_login_route/decoded-65543.js` | 65543 (mobile login) | ⬜ Still partially obfuscated (no decoder family solved yet) |
+| `routes_app_api_v1_user_route/decoded-50278.js` | 50278 (GET/POST/PATCH/DELETE) | ✅ Fully decoded (family 2 solved, rotation 190) — implemented in `196cc4e` |
+| `routes_app_api_v1_mobile_login_route/decoded-65543.js` | 65543 (mobile login) | ✅ Contract recovered (7-day JWT, 500/400/401 paths) — implemented in `196cc4e`; full decoder not yet solved (not needed) |
 | `routes_api_initial-setup_route/deobfuscated.js` | 1896 (initial-setup handler) | ⬜ Not decoded (failed `original module is empty` error) |
 | `routes_app_api_v1_rewards_route/deobfuscated.js` | 59451 (rewards API) | ⬜ Not decoded for Phase 3 |
 | `server-chunks_middleware/deobfuscated.js` | headers/auth | ⬜ Need SSO header name extraction |
