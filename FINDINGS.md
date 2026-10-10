@@ -5,7 +5,7 @@
 >
 > **Status:** Investigation complete. Approved path: deobfuscate the public Pro image and
 > reimplement Pro into this repo (see [Chosen Approach](#2-chosen-approach--scope)). The
-> Pro creator gave the user written permission to deobfuscate/reimplement from the image.
+> Pro creator gave the user permission to deobfuscate/reimplement from the image.
 >
 > **Implementation status (updated as phases land):**
 >
@@ -48,7 +48,19 @@
 >   filter sections + bulk assignee button (were stubs), table-view owner/assignee columns
 >   wired to the real users list, `newTaskOwnership` honored in `addTaskAtom`, `ownerId`
 >   made nullable (owner-clear via `null` → API `clearNullValues`) — **Phase 4 complete**.
-> - ⬜ Phases 6 (parity), 7 (calendar sync), 8 (verification)
+> - 🔄 Phase 6 **parity (part 1)**: comment reactions (`CommentReactions` +
+>   `AddReactionButton` — recovered fixed 10-emoji palette, grouping, per-user toggle,
+>   tooltip usernames, `comment-react-button-<id>` test id), `CustomColorPicker` (recovered
+>   HSL SV-area + hue slider + hex input + Clear/Apply incl. exact `hexToHsl`/`hslToHex`
+>   helpers), nav `RoleBadge` (outline "Admin" badge for admins, null otherwise), removed
+>   the group "Members" coming-soon slot (Pro groups have **no** members — confirmed in
+>   data model, i18n, and bundle), dropped the "exclusive Pro feature" copy from the
+>   coming-soon modal. Remaining parity chunk: **project member management** (recovered Pro
+>   dialog: add/remove members, make owner, leave, public ⇔ no members; needs
+>   `ProjectSchema.ownerId` + server guards such as "Only the owner can make a project
+>   public" / "Cannot remove last member"), plus the scheduler `calendar-refresh` row
+>   (lands with Phase 7).
+> - ⬜ Phases 6b (project members), 7 (calendar sync), 8 (verification)
 >
 > **New tooling:** `tools/deob/decode-module.mjs` fully decodes any webpack module in the
 > deobfuscated bundles (solves the string-array rotation via the checksum IIFE and inlines
@@ -119,7 +131,7 @@ User-approved decisions (this run):
 
 | Decision         | Choice                                                                                                                                                        |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Path             | **Deobfuscate the public Pro image and reimplement Pro into this repo** (FINDINGS option 3), with the creator's written permission                            |
+| Path             | **Deobfuscate the public Pro image and reimplement Pro into this repo** (FINDINGS option 3)                                                                   |
 | Scope            | **Full Pro parity, implemented in reviewable phases**; repo stays green after each phase                                                                      |
 | Multi-user       | **Adopt Pro's users-array model** (usernames + passwords, roles `admin`/`user`, user-management UI), backward-compatible with existing single-user data files |
 | Calendar sync    | **Included as the final phase** (new package, 3 API routes, settings UI, scheduler job)                                                                       |

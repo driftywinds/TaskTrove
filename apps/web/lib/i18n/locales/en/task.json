@@ -108,6 +108,10 @@
   "project": {
     "noProject": "No Project (Inbox)"
   },
+  "reactions": {
+    "addReaction": "Add reaction",
+    "unknownUser": "Unknown"
+  },
   "recurring": {
     "adaptive": "Adaptive",
     "apply": "Apply",

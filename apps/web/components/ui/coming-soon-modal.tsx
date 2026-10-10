@@ -15,15 +15,11 @@ interface ComingSoonModalProps {
   isOpen: boolean
   onClose: () => void
   featureName: string
+  /** Retained for caller compatibility; every feature is Pro now, so the copy is identical. */
   proOnly?: boolean
 }
 
-export function ComingSoonModal({
-  isOpen,
-  onClose,
-  featureName,
-  proOnly = false,
-}: ComingSoonModalProps) {
+export function ComingSoonModal({ isOpen, onClose, featureName }: ComingSoonModalProps) {
   const handleSignUp = () => {
     window.open("https://mailing.tasktrove.io/", "_blank", "noopener,noreferrer")
   }
@@ -97,19 +93,9 @@ export function ComingSoonModal({
               }
             `}</style>
             <p className="text-muted-foreground max-w-sm mx-auto leading-relaxed pt-2">
-              {proOnly ? (
-                <>
-                  This exclusive Pro feature is coming soon.
-                  <br />
-                  Join our mailing list to get news and updates about TaskTrove Pro!
-                </>
-              ) : (
-                <>
-                  We're working hard on this feature.
-                  <br />
-                  Join our mailing list to get news and updates about TaskTrove!
-                </>
-              )}
+              We're working hard on this feature.
+              <br />
+              Join our mailing list to get news and updates about TaskTrove!
             </p>
           </div>
 
