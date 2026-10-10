@@ -66,7 +66,24 @@
 >   enforces the owner-preservation invariant server-side (documented deviation — Pro
 >   enforces client-side only). **Phase 6 complete** (scheduler `calendar-refresh` row
 >   remains deferred to Phase 7 with its job).
-> - ⬜ Phases 7 (calendar sync), 8 (verification)
+> - ⬜ Phase 7 (calendar sync) — **deferred by decision** until verification passes.
+> - 🔄 Phase 8 **verification (local pass complete, CI armed)**: full workspace
+>   typecheck + lint green; atoms 597 / utils 404 / types 25 (incl. a new full
+>   official-Pro-image data-file fixture exercising every Phase 4–6 schema: `ownerId:
+null`, assignees, comment reactions, project members, currencyRewardEvents,
+>   calendar-sync settings) / web 182/184 files green (1 = known quick-add flake);
+>   `pnpm install --frozen-lockfile` clean; `/api/health` test now asserts
+>   `edition: "pro"`; license-marker scan of app source clean; Dockerfile + compose +
+>   turbo surfaces untouched vs upstream (only the documented `.dockerignore` and
+>   Phase 5 lockfile importer entries differ). Heavy checks moved to **GitHub
+>   Actions** (`.github/workflows/phase8-verify.yml`): frozen-lockfile install,
+>   typecheck, lint, full tests, **Next standalone build**, **Docker image build +
+>   first-run smoke test** (fresh data dir → `needs_initialization` →
+>   `POST /api/initial-setup` → `healthy`, asserting `edition: "pro"` throughout, no
+>   license env), plus a standing **no-license-code guard** that fails the build if
+>   `api.keygen.sh` / `LICENSE_KEY` / `MACHINE_ID` ever re-enter source. The upstream
+>   `docker-build-deploy.yml` is guarded to `dohsimpson/TaskTrove` so it no longer
+>   fails fork pushes.
 >
 > **New tooling:** `tools/deob/decode-module.mjs` fully decodes any webpack module in the
 > deobfuscated bundles (solves the string-array rotation via the checksum IIFE and inlines

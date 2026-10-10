@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - github-actions  # For testing workflow changes
+      - github-actions # For testing workflow changes
 
 env:
   REGISTRY: ghcr.io
@@ -12,12 +12,16 @@ env:
 
 jobs:
   build-and-push:
+    # Upstream pipeline: pushes to ghcr.io/dohsimpson/tasktrove and needs the
+    # maintainer's secrets. On forks this would fail every push, so it is
+    # restricted to the upstream repository (forks use phase8-verify.yml).
+    if: github.repository == 'dohsimpson/TaskTrove'
     runs-on: ubuntu-latest
     outputs:
       EXISTS: ${{ steps.check-version.outputs.EXISTS }}
       VERSION: ${{ steps.package-version.outputs.VERSION }}
       IMAGE_DIGEST: ${{ steps.build.outputs.digest }}
-    
+
     permissions:
       contents: read
       packages: write
@@ -97,7 +101,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
-        
+
       - name: Deploy to demo instance
         uses: actions-hub/kubectl@master
         env:
@@ -127,7 +131,7 @@ jobs:
             /^## / && $0 ~ version {flag=1;next}
             /^## / && flag {exit}
             flag' CHANGELOG.md)
-          
+
           if [ -z "$notes" ]; then
             echo "No changelog found for version $VERSION, using auto-generated notes"
             echo "USE_AUTO_NOTES=true" >> $GITHUB_OUTPUT

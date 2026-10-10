@@ -109,6 +109,9 @@ describe("/api/health", () => {
     const data = await response.json()
 
     expect(data.status).toBe("healthy")
+    // Phase 8 first-run contract: every build reports edition "pro" with no
+    // license environment required.
+    expect(data.edition).toBe("pro")
     expect(mockSafeReadDataFile).toHaveBeenCalledTimes(1)
   })
 })
