@@ -48,6 +48,24 @@
 > `/api/v1/user` route (module 50278, rotation 190, target `635102`). Produces
 > `decoded-50278.js` with fully inlined strings.
 
+## Reimplementation fidelity (how "Pro" is what we build?)
+
+We decode the actual Pro runtime logic, understand each branch, and reimplement it as
+clean Pro code. The fidelity is not uniform — here is the honest spectrum:
+
+| Tier                               | What                                                                                                                                                     | Fidelity                                                                                                                                                                                                                                                                                                                                                                            |
+| ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **1. Server API routes**           | `/api/v1/user` CRUD, `/api/v1/rewards`, `/api/v1/mobile/login`, initial-setup                                                                            | **Near 1:1.** Guards, ordering, verbatim error strings, business-event names, and cascade side-effects are reproduced exactly. Tests assert the recovered strings (e.g. `"Admins can't delete self"`, `"Only admins can create users"`, `"User limit reached"`, `"Reward event created successfully"`).                                                                             |
+| **2. Approved deviations**         | User cap (fixed 50 vs Pro's Keygen license seat count), data storage (canonical `users` key, accepts both on read), auth plumbing (this repo's NextAuth) | **Intentional per approved scope** (no license enforcement, no machine ID, no Keygen). Documented, not accidental.                                                                                                                                                                                                                                                                  |
+| **3. Client UI**                   | User-management form, productivity form, reward chip, badges                                                                                             | **Functionally equivalent, re-derived.** Pro's client is compiled React — its exact JSX/component internals are not recoverable as clean source. We recover the i18n strings, component inventory, and _observable behavior_ (fields, guards, messages) and rebuild with this repo's conventions (SettingsCard, atoms, Zod). Behavior + strings match; pixels/structure may differ. |
+| **4. Partially decoded internals** | mobile-login, initial-setup, calendar-sync                                                                                                               | **Contract-level.** Request/response shapes, error paths, and behavior recovered from structure + strings; not every internal line. Behavior we ship matches. Calendar-sync engine (Phase 7) is written from the recovered store schema, not a literal port.                                                                                                                        |
+
+**Why re-implement instead of paste:** the obfuscated JS is unusable as source (mangled
+identifiers, control-flow flattening, anti-debug self-defending checks) and this repo has
+strict conventions (Zod-first, branded UUIDs, no `any`, atoms). Correct approach: decode
+behavior → write clean code that reproduces it → verify with tests asserting exact
+recovered strings/flows.
+
 ---
 
 ## 1. What This Project Is
