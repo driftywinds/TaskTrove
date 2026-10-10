@@ -9,6 +9,7 @@ import { Database, X, Bell, Settings, Menu, Palette, Clock, Users, Trophy } from
 // Future icons (not used yet):
 // import { Link, Target, Code } from "lucide-react"
 import { showSettingsDialogAtom, closeSettingsDialogAtom } from "@tasktrove/atoms/ui/dialogs"
+import { userAtom } from "@tasktrove/atoms/data/base/atoms"
 import {
   activeSettingsCategoryAtom,
   navigateToSettingsCategoryAtom,
@@ -120,6 +121,11 @@ function SettingsContent() {
   // Get active category info
   const activeCategoryInfo = settingsCategories.find((cat) => cat.id === activeCategory)
 
+  // Admin-only categories (scheduler, users) are hidden from non-admins
+  const currentUser = useAtomValue(userAtom)
+  const isAdmin = currentUser.role === "admin"
+  const visibleCategories = settingsCategories.filter((category) => !category.adminOnly || isAdmin)
+
   const renderCategoryContent = () => {
     switch (activeCategory) {
       case "general":
@@ -153,7 +159,7 @@ function SettingsContent() {
         <Separator />
         <div className="p-4">
           <div className="space-y-2">
-            {settingsCategories.map((category) => (
+            {visibleCategories.map((category) => (
               <Button
                 key={category.id}
                 variant={activeCategory === category.id ? "default" : "ghost"}
@@ -198,7 +204,7 @@ function SettingsContent() {
             {/* Settings Categories */}
             <div className="p-4">
               <div className="space-y-2">
-                {settingsCategories.map((category) => (
+                {visibleCategories.map((category) => (
                   <Button
                     key={category.id}
                     variant="ghost"

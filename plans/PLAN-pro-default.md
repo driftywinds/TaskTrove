@@ -229,10 +229,14 @@ scheduled sync job listed in scheduler settings.
   - [x] `POST /api/v1/mobile/login` — 7-day JWT for the mobile app
   - [x] Client data layer — `usersQueryAtom`, `usersAtom`, `currentUserIdAtom` +
         `CurrentUserSync` (session→atoms), create/delete/update user mutations
-  - [ ] `user-management-form.tsx` — users table, role badges, add/edit/delete dialogs
-  - [ ] Settings → Users category renders (form wiring)
-  - [ ] i18n keys for 10 locales
-  - [ ] Typecheck + lint + tests green (green at each checkpoint; re-verify at phase close)
+  - [x] `user-management-form.tsx` — users table, role badges, add/edit/delete dialogs,
+        `(You)` marker, user limit, task/project counts, admin-only actions
+  - [x] Settings → Users category renders (already wired in settings-dialog; `adminOnly`
+        categories now actually filtered by session role)
+  - [x] i18n keys — `usersManagement.*` (settings) + `categories.users/productivity`
+        (dialogs) in `en` (repo convention: English is the only full namespace; other
+        9 locales have `common.json` only and fall back to English)
+  - [ ] Typecheck + lint + tests green (re-verify at phase close)
 - [ ] Phase 3 rewards (API + settings + task UI)
 - [ ] Phase 4 people/assignees/assigned-to-\* views
 - [x] Phase 5 table + stats views (commit `c1c16b6`; owner/assignee columns await Phase 4 wiring)
@@ -243,14 +247,14 @@ scheduled sync job listed in scheduler settings.
 
 ## Progress log (implementation)
 
-| Date | Landed | Evidence |
-| ---- | ------ | -------- |
-| Phase 0 | `isPro()` → true; 38 pro conditions repointed to default files; settings categories open; update-checker pinned to TaskTrove; base-expectation tests updated | typecheck + targeted tests green; commit `1292e76` |
-| Tooling | `tools/deob/decode-module.mjs` (rotation-solver + string-array inliner for any webpack module in the deobfuscated bundles); `tools/deob/PRO-SCHEMAS.md` (exact recovered contract) | commit `4c93af2` |
-| Phase 1 | Full Pro data model in `@tasktrove/types`: User role+preferences, Task ownerId/assignees/reward, Comment reactions, Project members, ViewState assignedTo/ownedBy filters; new rewards/calendar/reward-levels modules (7 themes × 10 levels, exact Pro names); settings extensions (calendarSync, calendarSyncSchedule, newTaskOwnership, productivity); DataFile with canonical `users` + union-tolerant reads (legacy single `user`, official Pro image array-under-`user`); `DEFAULT_MAX_USERS = 50` (no license logic); cron validator; migration v0.13.0; multi-user-aware auth/middleware/initial-setup/user-route reads | all package + web typecheck; lint clean; full package suites green; new pro-schema/migration/safe-file tests; commit `0caea81` |
-| Phase 5 | `StatsView` renders the analytics dashboard (Pro metric set: completed/streak/focus-time/productivity-score ≥70 trend); `TableView` on @tanstack/react-table with the full Pro column set, viewState-initialized sorting, completion toggle, sticky header, empty state; `@tanstack/react-table` added from catalog | component tests (7 + 3); commit `c1c16b6` |
-| Fixes | `.husky/pre-commit` was a JS file executed by `sh` (broke all commits) → proper sh no-op; previously-empty `safe-file-operations.test.ts` replaced with 13 real tests | commits above |
-| Phase 2 contracts | Extracted full `/api/v1/user` GET/POST/PATCH/DELETE contracts from `decoded-50278.js` using family-2 decoder (`decode-user-route.mjs`, rotation 190, target `635102`). Recovered all verbatim strings: error messages (`"Admins can't delete self"`, `"Cannot change own role"`, `"User limit reached"`, `"Username already exists"`, `"Cannot delete self"`), admin guards, user-limit logic, avatar/password processing, cascade cleanup on delete (tasks→ownerId nil, assignees filter, comments reactions filter, projects→members filter, rewardEvents filter), business event names (`user_created`, `user_updated`, `user_deleted`, `users_fetched`), response shapes (`user: User[]` with `meta.count`). | tools/deob/decode-user-route.mjs + decoded-50278.js (passes 2) |
+| Date                        | Landed                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Evidence                                                                                                                                                                                                       |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Phase 0                     | `isPro()` → true; 38 pro conditions repointed to default files; settings categories open; update-checker pinned to TaskTrove; base-expectation tests updated                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | typecheck + targeted tests green; commit `1292e76`                                                                                                                                                             |
+| Tooling                     | `tools/deob/decode-module.mjs` (rotation-solver + string-array inliner for any webpack module in the deobfuscated bundles); `tools/deob/PRO-SCHEMAS.md` (exact recovered contract)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | commit `4c93af2`                                                                                                                                                                                               |
+| Phase 1                     | Full Pro data model in `@tasktrove/types`: User role+preferences, Task ownerId/assignees/reward, Comment reactions, Project members, ViewState assignedTo/ownedBy filters; new rewards/calendar/reward-levels modules (7 themes × 10 levels, exact Pro names); settings extensions (calendarSync, calendarSyncSchedule, newTaskOwnership, productivity); DataFile with canonical `users` + union-tolerant reads (legacy single `user`, official Pro image array-under-`user`); `DEFAULT_MAX_USERS = 50` (no license logic); cron validator; migration v0.13.0; multi-user-aware auth/middleware/initial-setup/user-route reads                                                                                                                                                                                                                                                                                                                                                                                                                               | all package + web typecheck; lint clean; full package suites green; new pro-schema/migration/safe-file tests; commit `0caea81`                                                                                 |
+| Phase 5                     | `StatsView` renders the analytics dashboard (Pro metric set: completed/streak/focus-time/productivity-score ≥70 trend); `TableView` on @tanstack/react-table with the full Pro column set, viewState-initialized sorting, completion toggle, sticky header, empty state; `@tanstack/react-table` added from catalog                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | component tests (7 + 3); commit `c1c16b6`                                                                                                                                                                      |
+| Fixes                       | `.husky/pre-commit` was a JS file executed by `sh` (broke all commits) → proper sh no-op; previously-empty `safe-file-operations.test.ts` replaced with 13 real tests                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | commits above                                                                                                                                                                                                  |
+| Phase 2 contracts           | Extracted full `/api/v1/user` GET/POST/PATCH/DELETE contracts from `decoded-50278.js` using family-2 decoder (`decode-user-route.mjs`, rotation 190, target `635102`). Recovered all verbatim strings: error messages (`"Admins can't delete self"`, `"Cannot change own role"`, `"User limit reached"`, `"Username already exists"`, `"Cannot delete self"`), admin guards, user-limit logic, avatar/password processing, cascade cleanup on delete (tasks→ownerId nil, assignees filter, comments reactions filter, projects→members filter, rewardEvents filter), business event names (`user_created`, `user_updated`, `user_deleted`, `users_fetched`), response shapes (`user: User[]` with `meta.count`).                                                                                                                                                                                                                                                                                                                                             | tools/deob/decode-user-route.mjs + decoded-50278.js (passes 2)                                                                                                                                                 |
 | Phase 2 server + data layer | `/api/v1/user` GET/POST/PATCH/DELETE per recovered contract (verbatim messages, admin guards from session-resolved role, fixed `DEFAULT_MAX_USERS` cap, full delete cascade incl. `currencyRewardEvents`); `POST /api/v1/mobile/login` (7-day JWT, `AUTH_SECRET` missing → 500, invalid → 401); multi-user credentials login (case-insensitive username, legacy username-less path only for single-user files) + `header-auth` SSO provider; session/JWT carry real user id + `role`; auth middleware attaches `authUser {id, role}` resolved from the data file per request (+ `getAuthUser()` helper, auth-disabled fallback = first user); `CreateUserRequestSchema`/`AdminUpdateUserRequestSchema`/`DeleteUserRequestSchema`/`MobileLoginRequestSchema` + response schemas; client: `USERS_QUERY_KEY`, `usersQueryAtom` (replaces `userQueryAtom`), real `usersAtom`, `currentUserIdAtom` + `CurrentUserSync` (NextAuth session → atoms), user mutations retargeted to users array (update/create/delete); `userByIdAtom` repurposed as id→user selector | full workspace typecheck; lint clean (web/atoms/constants/types); web suite 168/170 files green (2 = known quick-add flake + pre-existing skip), atoms 577 green; 69 dedicated Phase 2 tests; commit `196cc4e` |
 
 Known non-blocking flake: `quick-add-dialog.test.tsx` (12 tests) fails only under full-suite parallelism on constrained Windows hosts (renders empty body; passes standalone; predates this work — resource-related).
@@ -261,7 +265,8 @@ Known non-blocking flake: `quick-add-dialog.test.tsx` (12 tests) fails only unde
 
 Recovered verbatim from module 50278 (user route). Family-2 decoder solved (rotation 190, `aH(a,b) = as[a-199]`, target `635102`). See `tools/deob/out/routes_app_api_v1_user_route/decoded-50278.js`.
 
-**GET /api/v1/user** *(handler at, line 209)*:
+**GET /api/v1/user** _(handler at, line 209)_:
+
 - Read data file → fail 500 `DATA_FILE_READ_ERROR`
 - Parse DataFile schema → fail 500 `DATA_FILE_VALIDATION_ERROR`
 - **Reads `dataFile["user"]`** (the canonical users array at key `"user"` in Pro image — our Phase 1 reads `getDataFileUsers()` which handles both `user`/`users` keys)
@@ -271,7 +276,8 @@ Recovered verbatim from module 50278 (user route). Family-2 decoder solved (rota
 - Cache headers: `no-cache, no-store, must-revalidate`, `Pragma: no-cache`, `Expires: 0`
 - Middleware: `withMutexProtection(withApiLogging(withAuthentication(at, {endpoint, module}), {allowApiToken: true}))`
 
-**POST /api/v1/user** *(handler ax, line 282)*:
+**POST /api/v1/user** _(handler ax, line 282)_:
+
 - Session check: `!session?.user?.id` → 401 `AUTHENTICATION_REQUIRED` / `"Authentication required"` / `"You must be authenticated to access this resource"`
 - Current user = `dataFile.users.find(session.user.id)` → 404 `"User not found"` / `"Authenticated user not found in data file"`
 - Role check: `currentUser.role !== "admin"` → 403 `"Permission denied"` / `"Only admins can create users"` / `PERMISSION_DENIED`
@@ -287,7 +293,8 @@ Recovered verbatim from module 50278 (user route). Family-2 decoder solved (rota
 - Response: `{ success: true, user: newUser, message: "User created successfully" }`
 - Middleware: same chain as GET
 
-**PATCH /api/v1/user** *(handler aB, line 388)*:
+**PATCH /api/v1/user** _(handler aB, line 388)_:
+
 - Session check → 401
 - Read data file → 500
 - Current user = `users.find(session.id)` → 404 `"User not found"` / `"Authenticated user not found in data file"`
@@ -310,7 +317,8 @@ Recovered verbatim from module 50278 (user route). Family-2 decoder solved (rota
 - Serialize user → fail 500 `DATA_FILE_VALIDATION_ERROR`
 - Response: `{ success: true, user: serialized, message: "User updated successfully" }`
 
-**DELETE /api/v1/user** *(handler aF, line 570)*:
+**DELETE /api/v1/user** _(handler aF, line 570)_:
+
 - Session check → 401
 - Read data file → 500
 - Current user = `users.find(session.id)` → 404 → role check: `currentUser.role !== "admin"` → 403 `"Permission denied"` / `"Only admins can delete users"` / `PERMISSION_DENIED`
@@ -328,43 +336,22 @@ Recovered verbatim from module 50278 (user route). Family-2 decoder solved (rota
 
 ### Remaining work — Phase 2 (UI + i18n)
 
-Server, auth, and the client data layer are done (commit `196cc4e`). What's left:
+Server, auth, client data layer, and the user-management UI are done. Only the
+phase-close verification remains:
 
-1. **User management form** (`apps/web/components/dialogs/settings-forms/user-management-form.tsx`,
-   currently a `null` stub):
-   - Fetch via `usersAtom`; mutations via `createUserMutationAtom` / `updateUserMutationAtom`
-     / `deleteUserMutationAtom` (already implemented)
-   - Table: avatar, username, role badge (`admin`/`user`), task + project counts, `(You)`
-     marker on the session user (`currentUserIdAtom`)
-   - Add dialog: username, password, role selector (admin only — mirror guards client-side,
-     server enforces regardless)
-   - Edit dialog: username, optional password, role (hide/disable role for self per
-     `"Admins can't change own role"`)
-   - Delete: confirm dialog; disabled for self (`"Admins can't delete self"`); show cascade
-     summary; only admins see create/edit/delete actions at all
-   - Respect `DEFAULT_MAX_USERS` cap in the add dialog (disable + `"User limit reached"`)
-2. **Settings → Users wiring**: find how `settings-dialog` maps categories → form components
-   and render `UserManagementForm` for `users` (`isValidCategory("users")` already true
-   since Phase 0). Task/project counts need `tasksAtom`/`projectsAtom` (both exist).
-3. **i18n** (`packages/i18n/src/locales/*` — 10 locales): `settings.categories.users`,
-   `settings.categories.productivity`, `mainNav.assignedToMe/assignedToOthers`, and the
-   user-management strings (add/edit/delete dialog labels, role names, `(You)`). Pro
-   English strings are in the decoded bundles / i18n chunks.
-4. **Tests**: `user-management-form.test.tsx` (table render, role badge, add/edit/delete
-   flows, self-guard, non-admin read-only) + settings-dialog category test update.
-5. **Phase 2 close-out**: full `pnpm -r typecheck:base`, lint changed packages, full
-   `pnpm test`, then tick the checklist and commit.
+1. **Phase 2 close-out**: full `pnpm -r typecheck:base`, lint changed packages, full
+   `pnpm test`, prettier on changed files, then tick the checklist and commit.
 
 ### State of remaining decoded contracts (for later phases)
 
-| File | Module | Status |
-| ---- | ------ | ------ |
-| `routes_app_api_v1_user_route/decoded-50278.js` | 50278 (GET/POST/PATCH/DELETE) | ✅ Fully decoded (family 2 solved, rotation 190) — implemented in `196cc4e` |
-| `routes_app_api_v1_mobile_login_route/decoded-65543.js` | 65543 (mobile login) | ✅ Contract recovered (7-day JWT, 500/400/401 paths) — implemented in `196cc4e`; full decoder not yet solved (not needed) |
-| `routes_api_initial-setup_route/deobfuscated.js` | 1896 (initial-setup handler) | ⬜ Not decoded (failed `original module is empty` error) |
-| `routes_app_api_v1_rewards_route/deobfuscated.js` | 59451 (rewards API) | ⬜ Not decoded for Phase 3 |
-| `server-chunks_middleware/deobfuscated.js` | headers/auth | ⬜ Need SSO header name extraction |
-| `server-chunks_1752/decoded-85119.js` | DataFile/settings schemas | ✅ Already decoded in Phase 1 |
+| File                                                    | Module                        | Status                                                                                                                    |
+| ------------------------------------------------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `routes_app_api_v1_user_route/decoded-50278.js`         | 50278 (GET/POST/PATCH/DELETE) | ✅ Fully decoded (family 2 solved, rotation 190) — implemented in `196cc4e`                                               |
+| `routes_app_api_v1_mobile_login_route/decoded-65543.js` | 65543 (mobile login)          | ✅ Contract recovered (7-day JWT, 500/400/401 paths) — implemented in `196cc4e`; full decoder not yet solved (not needed) |
+| `routes_api_initial-setup_route/deobfuscated.js`        | 1896 (initial-setup handler)  | ⬜ Not decoded (failed `original module is empty` error)                                                                  |
+| `routes_app_api_v1_rewards_route/deobfuscated.js`       | 59451 (rewards API)           | ⬜ Not decoded for Phase 3                                                                                                |
+| `server-chunks_middleware/deobfuscated.js`              | headers/auth                  | ⬜ Need SSO header name extraction                                                                                        |
+| `server-chunks_1752/decoded-85119.js`                   | DataFile/settings schemas     | ✅ Already decoded in Phase 1                                                                                             |
 
 Then Phase 3 (rewards), 4 (people), 6 (parity), 7 (calendar sync), 8 (verification:
 `pnpm build` standalone, frozen lockfile, first-run flow, structural Docker review).

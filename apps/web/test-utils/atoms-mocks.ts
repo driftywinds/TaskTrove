@@ -491,8 +491,18 @@ vi.mock("@tasktrove/atoms/ui/settings", () => {
   })
   toggleMobileSettingsDrawerAtom.debugLabel = "toggleMobileSettingsDrawerAtom"
 
+  // Mirrors SETTINGS_CATEGORIES in @tasktrove/atoms/ui/settings (Phase 0:
+  // productivity and users are valid Pro categories enabled by default)
   const isValidCategory = (id: string) =>
-    ["general", "notifications", "data", "appearance", "scheduler"].includes(id)
+    [
+      "general",
+      "notifications",
+      "data",
+      "appearance",
+      "scheduler",
+      "productivity",
+      "users",
+    ].includes(id)
 
   return {
     activeSettingsCategoryAtom,

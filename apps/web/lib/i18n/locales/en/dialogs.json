@@ -159,6 +159,14 @@
       "notifications": {
         "description": "Notification settings",
         "title": "Notifications"
+      },
+      "productivity": {
+        "description": "Rewards, gamification, and productivity features",
+        "title": "Productivity"
+      },
+      "users": {
+        "description": "Manage users and permissions",
+        "title": "User Management"
       }
     },
     "description": "Configure TaskTrove application settings and preferences",
