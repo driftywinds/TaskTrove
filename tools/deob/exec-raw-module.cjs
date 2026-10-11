@@ -165,4 +165,4 @@ function loadModule(id) {
   return executeModule(text, id);
 }
 
-module.exports = { mk, store, requested, sliceModule, executeModule, loadModule, findModuleFile };
+module.exports = { mk, store, natives, requested, sliceModule, executeModule, loadModule, findModuleFile };
