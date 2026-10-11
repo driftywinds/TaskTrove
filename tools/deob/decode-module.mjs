@@ -18,7 +18,9 @@ if (!file || !moduleId) {
 const src = readFileSync(file, "utf8")
 
 // --- isolate module source -------------------------------------------------
-const modStartRe = new RegExp(`(^|\\n)\\s*${moduleId}: \\(`, "m")
+// Handles both pretty-printed server chunks (newline + "ID: (") and the
+// single-line app-route chunks where modules are comma-delimited ("ID:(").
+const modStartRe = new RegExp(`(^|[,\\n{])\\s*${moduleId}:\\s*\\(`, "m")
 const startMatch = modStartRe.exec(src)
 if (!startMatch) {
   console.error(`module ${moduleId} not found`)
@@ -26,7 +28,7 @@ if (!startMatch) {
 }
 const bodyStart = startMatch.index + startMatch[0].length
 const rest = src.slice(bodyStart)
-const nextMod = /^ {2,4}\d+: \(/m.exec(rest)
+const nextMod = /(?:^\s{2,4}\d+: \(|[,{]\d+:\s*(?:\(|[A-Za-z_$][\w$]*\s*=>))/m.exec(rest)
 let modSource = nextMod ? rest.slice(0, nextMod.index) : rest
 
 // --- helpers ---------------------------------------------------------------
@@ -60,25 +62,25 @@ function extractFunction(source, name) {
 }
 
 const rotRe =
-  /if \(([-+(]*\s*parseInt[\s\S]*?)\) \{\s*break;\s*\}\s*(\w+)\.push\(\2\.shift\(\)\);\s*\} catch \((\w+)\) \{\s*\2\.push\(\2\.shift\(\)\);\s*\}\s*\}\s*\}\s*\)\((\w+), 0\);/g
+  /if\s*\(([-+(]*\s*parseInt[\s\S]*?)\)\s*(?:\{\s*)?break;[\s\S]*?catch\s*\((\w+)\)\s*\{[\s\S]*?\}\s*\}*\s*\((\w+),\s*0\);/g
 
 let familiesSolved = 0
 
 for (const rotMatch of modSource.matchAll(rotRe)) {
   const checksumExpr = rotMatch[1]
-  const arrayName = rotMatch[4]
-  const targetMatch = /=== (-?\d+)/.exec(checksumExpr)
+  const arrayName = rotMatch[3]
+  const targetMatch = /===\s*(-?\d+)/.exec(checksumExpr)
   if (!targetMatch) continue
   const checksumTarget = Number(targetMatch[1])
   // evaluate just the LHS of the comparison
-  const lhsExpr = checksumExpr.replace(/\s*=== -?\d+\s*$/, "")
+  const lhsExpr = checksumExpr.replace(/\s*===\s*-?\d+\s*$/, "")
 
   const calledNames = [...new Set([...checksumExpr.matchAll(/(\w+)\(/g)].map((x) => x[1]))]
   let decMatch = null
   let decoderName = null
   for (const name of calledNames) {
     const cand = new RegExp(
-      String.raw`function ${name}\((\w+), (\w+)\) \{\s*let (\w+) = (\w+)\(\);\s*return \(${name} = function \((\w+), (\w+)\) \{\s*return (\w+)\[(\w+) -= (\d+)\];`,
+      String.raw`function ${name}\((\w+)\s*,\s*(\w+)\)\s*\{\s*let (\w+)\s*=\s*(\w+)\(\);\s*return\s*\(\s*${name}\s*=\s*function\s*\((\w+)\s*,\s*(\w+)\)\s*\{\s*return\s+(\w+)\[(\w+)\s*-=\s*(\d+)\]`,
     ).exec(modSource)
     if (cand) {
       decMatch = cand
@@ -90,7 +92,7 @@ for (const rotMatch of modSource.matchAll(rotRe)) {
   const offset = Number(decMatch[9])
 
   const aliasRe = new RegExp(
-    `function (\\w+)\\(([^)]*)\\) \\{\\s*return ${decoderName}\\(([^;]+)\\);\\s*\\}`,
+    `function\\s+(\\w+)\\s*\\(([^)]*)\\)\\s*\\{\\s*return\\s+${decoderName}\\s*\\(([^;}]+)\\);?\\s*\\}`,
     "g",
   )
   const aliases = []
@@ -110,7 +112,7 @@ for (const rotMatch of modSource.matchAll(rotRe)) {
     vm.createContext(sandbox)
     vm.runInContext(
       arrayFnSource.replace(
-        /return \((\w+) = function \(\) \{\s*return (\w+);\s*\}\)\(\)/,
+        /return\s*\(\s*(\w+)\s*=\s*function\s*\(\)\s*\{\s*return\s+(\w+)\s*;?\s*\}\)\(\)/,
         (_m, _assignee, retVar) =>
           `return (${arrayName}_raw = function () { return ${retVar}; })()`,
       ) +
@@ -182,7 +184,7 @@ for (const rotMatch of modSource.matchAll(rotRe)) {
     pass++
     // wrapper IIFEs: function (a, b, c, d) { return bW(EXPR); }(1, 2, 3, 4)
     modSource = modSource.replace(
-      /function \(([^)]*)\) \{\s*return (\w+\([^;]*?\));\s*\}\s*\(([-\d,\s]+)\)/g,
+      /function\s*\(([^)]*)\)\s*\{\s*return\s+(\w+\([^;]*?\))\s*;?\s*\}\s*\(([-\d,\s]+)\)/g,
       (full, params, expr, args) => {
         try {
           const fn = vm.runInContext(`(function (${params}) { return ${expr}; })`, sandbox)

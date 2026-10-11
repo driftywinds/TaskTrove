@@ -201,11 +201,15 @@ Part 2 (project member management):
 - ⬜ Scheduler `calendar-refresh` row — lands with Phase 7's scheduler job (**no license
   row**, ever).
 
-## Phase 7 — Calendar sync — ⏸ **DEFERRED BY DECISION**
+## Phase 7 — Calendar sync — 🔄 **IN PROGRESS** (user assent 2026-10-11)
 
-> Paused before starting. Phase 8 verification runs first (with the heavy build
-> checks on GitHub Actions); calendar sync resumes after that passes. _(Phase 8 has since
-> passed CI green; Phase 7 is the final phase and is awaiting the go-ahead.)_
+> **P7a contract recovery — COMPLETE.** All three calendar routes + engine decoded
+> (FINDINGS §5.5 corrected, §5.5b added; artifacts in `tools/deob/out/routes/`). Key
+> architecture: in-memory singleton cache (`globalThis.__tasktrove__`), remote is source of
+> truth, store rebuilt by syncs — no calendar data file. Decoder (`decode-module.mjs`)
+> generalized for single-line app-route chunks + minified rotations.
+> **P7b next**: `packages/calendar-sync` (tsdav via catalog + ICS `Ev`/`Ze` + `TU` service +
+> adapter semantics above).
 
 - **New package** `packages/calendar-sync` (`@tasktrove/calendar-sync`): CalDAV client on
   `tsdav` + `ical.js`/`ics` (add to catalog: `ical.js`, `ics`, `tsdav`) — discovery,
