@@ -472,9 +472,9 @@ start, end, summary, description, location, timezone, uid, allDay}` → **update
   `withTransaction`.
 - `discover` (`AO`): tsdav discovery → `{rootUrl, serverUrl, …}` merged into `{success:true,
 serverUrl…}` response.
-- **P7a part 2 — remaining decode targets**: `pushLocalChanges` internals, `Ev`/`Ze` exact
-  ICS emit/parse behavior, discover response's exact copied keys, client-side calendar atoms.
-  _(Event request schemas: DONE — see §5.5c.)_
+- **P7a part 2 — remaining decode targets**: discover response's exact copied keys,
+  client-side calendar atoms, and one flag (route title key — see §5.5d).
+  _(Event request schemas: DONE — §5.5c; ICS/sync contracts: DONE — §5.5d.)_
 
 ### 5.5c Event request schemas — EXECUTED from original code (Phase 7a)
 
@@ -509,6 +509,52 @@ such contracts must be verified by **executing the raw module slice in a vm** wi
 `(id) => real-zod-if-zod-else-chainable-proxy` require (see probe). The §5.5b engine
 contracts were decoded from modules whose rotation-family calls were NOT inlined into the
 checksum (safe); any future mismatch → re-verify via execution.
+
+### 5.5d Calendar-sync ICS + sync contracts — EXECUTED (Phase 7a)
+
+All executed from original code via `tools/deob/exec-raw-module.cjs` (raw-slice loader:
+paren/brace-safe slicing, webpack `n()`-thunk interop, non-enumerable export copying,
+named-arrow module heads, shared vm context) + `tools/deob/probe-7147.cjs`:
+
+- **`Ev` (event → ICS), actual output:**
+  ```text
+  BEGIN:VCALENDAR
+  VERSION:2.0
+  CALSCALE:GREGORIAN
+  PRODID:tasktrove-calendar-sync
+  X-PUBLISHED-TTL:PT1H
+  BEGIN:VEVENT
+  UID:<uid>   DTSTAMP:<now UTC basic>   DTSTART:20260115T100000Z (timed, UTC basic+Z)
+  DTEND:20260115T110000Z  |  allDay: DTSTART;VALUE=DATE:20260115 + DTEND;VALUE=DATE:…
+  DESCRIPTION:… (embedded newlines → \n)   LOCATION:…
+  END:VEVENT   END:VCALENDAR
+  ```
+  ⚠ **flag to resolve in P7a**: `Ev` reads its summary from input key **`title`** (probe:
+  passing `summary` omits SUMMARY entirely). Verify the events-route's built-object key is
+  `title` (route execution probe pending) — if the route passes `summary`, Pro drops
+  summaries on create/update and our port must replicate vs fix consciously.
+- **`Ze` (ICS → fields), actual outputs**: timed → `{start: ISO-UTC, end: ISO-UTC,
+timezone: "UTC", summary, description ("\\n"-unescaped), location, uid, allDay:false}`;
+  allDay (`DTSTART;VALUE=DATE`) → dates parsed at **local midnight** → ISO-UTC,
+  `timezone: "floating"`, absent fields → `null`.
+- **`TU.syncFromRemote(account)`**: `persistence.listCalendars(account.userId, "caldav")`
+  → `withTransaction(fn)` → `client.syncCalendars({oldCalendars: [{url, ctag, syncToken,
+displayName, timezone}], detailedResult: true})` → returns the 6-counter summary
+  `{createdCalendars, updatedCalendars, deletedCalendars, createdObjects, updatedObjects,
+deletedObjects}`. §5.5b's calendar-record/VEVENT-filter/update flows confirmed executing.
+- **`TU.pushLocalChanges({calendar, changes, client, now})`** — actual tsdav calls:
+  - created → `client.createCalendarObject({calendar: {url, displayName, timezone},
+iCalString, filename})` (filename = URL basename, fallback `event.ics`)
+  - updated → `client.updateCalendarObject({calendarObject: {url absolutized, data, etag}})`
+  - deleted → `client.deleteCalendarObject({calendarObject: {url}})`
+  - responses are **fetch-style**: code checks `.ok`, reads `headers.get("etag")`, reads
+    body text on failure (`await resp.text()`), errors include `resp.status`
+  - ends with `persistence.updateCalendarMetadata(calendarId, {updatedAt: now.toISOString()})`;
+    returns the 6-counter summary (counts per processed change).
+- Loader gotchas fixed (standing notes for future probes): webpack `c.n()` returns a
+  **thunk** (unwrap on call); CJS `module.exports` copies need `getOwnPropertyNames`
+  (defineProperty exports are non-enumerable); module heads include named arrows
+  (`id:a=>`); balance-check braces only (parens/brackets occur inside string literals).
 
 ### 5.6 Pro UI inventory (from client chunks + i18n strings)
 

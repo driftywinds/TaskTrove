@@ -203,17 +203,19 @@ Part 2 (project member management):
 
 ## Phase 7 — Calendar sync — 🔄 **IN PROGRESS** (user assent 2026-10-11)
 
-> **P7a contract recovery — DONE (part 1 + schemas).** All three calendar routes + engine
-> decoded (FINDINGS §5.5 corrected, §5.5b added; artifacts in `tools/deob/out/routes/`).
-> Event request schemas recovered **by executing the original module** — FINDINGS §5.5c
-> (exact superRefine messages, zod 4.1.11). Verification technique:
-> `tools/deob/probe-85425-raw.cjs` (raw slice + chainable-proxy require + real zod).
-> Key architecture: in-memory singleton cache (`globalThis.__tasktrove__`), remote is source
-> of truth, store rebuilt by syncs — no calendar data file.
-> **P7a part 2 remaining**: `pushLocalChanges` internals, `Ev`/`Ze` ICS emit/parse, discover
-> response keys, client calendar atoms (probe technique ready for each).
-> **P7b next**: `packages/calendar-sync` (tsdav via catalog + ICS `Ev`/`Ze` + `TU` service +
-> adapter semantics above).
+> **P7a contract recovery — schemas + ICS/sync DONE.** Routes+engine decoded (§5.5b),
+> event schemas executed (§5.5c), **ICS emit/parse + TU sync/push contracts executed from
+> original code** (§5.5d — `Ev` ICS format, `Ze` parse semantics incl. allDay local-midnight
+>
+> - `timezone:"floating"`, tsdav call shapes with fetch-style responses, 6-counter summary).
+>   Verification toolchain: `tools/deob/exec-raw-module.cjs` + `probe-7147.cjs`.
+>   Key architecture: in-memory singleton cache (`globalThis.__tasktrove__`), remote is source
+>   of truth, store rebuilt by syncs — no calendar data file.
+>   **P7a part 2 remaining**: discover route response keys (route-execution probe), route
+>   **title-key flag** (does the events route pass `title` or `summary` to `Ev`? §5.5d ⚠),
+>   client calendar atoms.
+>   **P7b next**: `packages/calendar-sync` (tsdav via catalog + ICS Ev/Ze + `TU` service +
+>   adapter semantics above).
 
 - **New package** `packages/calendar-sync` (`@tasktrove/calendar-sync`): CalDAV client on
   `tsdav` + `ical.js`/`ics` (add to catalog: `ical.js`, `ics`, `tsdav`) — discovery,
