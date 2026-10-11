@@ -86,6 +86,12 @@ null`, assignees, comment reactions, project members, currencyRewardEvents,
 >   share a worker pool. CI pins `TZ: America/New_York` workflow-wide and runs the web
 >   suite with `--no-file-parallelism`; **full suite verified 0 failures** under that
 >   config.
+>   **Staging verified by the user** on the published `ghcr.io/driftywinds/tasktrove:edge`
+>   multi-arch image (amd64+arm64, `docker-publish.yml`): fresh-instance first-run flow
+>   confirmed working — `needs_initialization` → Initialize banner → file created →
+>   routes live. Documented behavior kept as upstream designed it (inline non-blocking
+>   banner; pre-init `/api/v1/*` 500 "File reading failed" is base-repo behavior, and
+>   health `needs_initialization` doubles as proof the data-dir write-test passes).
 > - ⬜ Phase 7 (calendar sync) — the final phase; **awaiting user go-ahead**.
 >
 > **New tooling:** `tools/deob/decode-module.mjs` fully decodes any webpack module in the
