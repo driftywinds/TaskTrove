@@ -472,9 +472,43 @@ start, end, summary, description, location, timezone, uid, allDay}` → **update
   `withTransaction`.
 - `discover` (`AO`): tsdav discovery → `{rootUrl, serverUrl, …}` merged into `{success:true,
 serverUrl…}` response.
-- client request schemas (module 85425 `Hz`/`Kq`/`ce`) + `pushLocalChanges` internals +
-  client-side calendar atoms: **remaining decode targets for P7a part 2** (field lists
-  already recovered from the handler builders above).
+- **P7a part 2 — remaining decode targets**: `pushLocalChanges` internals, `Ev`/`Ze` exact
+  ICS emit/parse behavior, discover response's exact copied keys, client-side calendar atoms.
+  _(Event request schemas: DONE — see §5.5c.)_
+
+### 5.5c Event request schemas — EXECUTED from original code (Phase 7a)
+
+Module 85425 (`Hz`/`Kq`/`ce`) recovered **by executing the ORIGINAL raw module in a vm**
+(`tools/deob/probe-85425-raw.cjs`: raw slice + chainable-proxy require + the workspace's real
+zod 4.1.11) — outputs below are the actual messages, not reconstruction:
+
+```ts
+// Hz = POST /api/v1/calendar/events  (create)
+{ calendarId?: string, title: string.min(1), start: string, end: string,
+  description?: string, location?: string, timezone?: string, allDay?: boolean }
+  .superRefine(eventRefine)
+// Kq = PATCH (update): same fields + url: string().url() (REQUIRED) + etag?: string
+// ce = DELETE: { calendarId?: string, url: string().url(), etag?: string }
+```
+
+`eventRefine` (verbatim, executed):
+
+- `allDay: true` → `start`/`end` must match `/^\d{4}-\d{2}-\d{2}$/`, else custom issues:
+  - `"Start date must be a YYYY-MM-DD string for all-day events."` → path `start`
+  - `"End date must be a YYYY-MM-DD string for all-day events."` → path `end`
+- otherwise → `start`/`end` must satisfy `z.string().datetime()`, else custom issues:
+  - `"Start time must be an ISO datetime string."` → path `start`
+  - `"End time must be an ISO datetime string."` → path `end`
+- zod defaults: missing required → `"Invalid input: expected string, received undefined"`.
+
+**⚠ Decoder lesson (critical for all rotation-obfuscated modules):** when
+`decode-module.mjs` inlines rotation-checksum calls into literals, the runtime rotation
+freezes (often at 0 iterations) and **every array-derived string in the module becomes
+garbage** — apparent "field names" like `RGNSN`/`hJbyz` are the tell. Corrected decoding of
+such contracts must be verified by **executing the raw module slice in a vm** with
+`(id) => real-zod-if-zod-else-chainable-proxy` require (see probe). The §5.5b engine
+contracts were decoded from modules whose rotation-family calls were NOT inlined into the
+checksum (safe); any future mismatch → re-verify via execution.
 
 ### 5.6 Pro UI inventory (from client chunks + i18n strings)
 
@@ -668,3 +702,8 @@ Replaced all hook files with Node.js pass-through no-ops:
 | `.husky/_/pre-rebase`    | `#!/usr/bin/env sh` sourcing `h` | `#!/usr/bin/env node` → `process.exit(0)` |
 
 **Result:** Commits now complete instantly (sub-second). All checks are bypassed.
+
+> **Note:** the pre-§5.5c decoded-85425-event-schemas.js artifact was REMOVED as
+> unreliable (rotation frozen by checksum-inlining → corrupted strings). Ground truth =
+> executing the raw module via ools/deob/probe-85425-raw.cjs; raw source stays at
+> ools/deob/work/server-chunks/4934.js.

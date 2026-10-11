@@ -203,11 +203,15 @@ Part 2 (project member management):
 
 ## Phase 7 — Calendar sync — 🔄 **IN PROGRESS** (user assent 2026-10-11)
 
-> **P7a contract recovery — COMPLETE.** All three calendar routes + engine decoded
-> (FINDINGS §5.5 corrected, §5.5b added; artifacts in `tools/deob/out/routes/`). Key
-> architecture: in-memory singleton cache (`globalThis.__tasktrove__`), remote is source of
-> truth, store rebuilt by syncs — no calendar data file. Decoder (`decode-module.mjs`)
-> generalized for single-line app-route chunks + minified rotations.
+> **P7a contract recovery — DONE (part 1 + schemas).** All three calendar routes + engine
+> decoded (FINDINGS §5.5 corrected, §5.5b added; artifacts in `tools/deob/out/routes/`).
+> Event request schemas recovered **by executing the original module** — FINDINGS §5.5c
+> (exact superRefine messages, zod 4.1.11). Verification technique:
+> `tools/deob/probe-85425-raw.cjs` (raw slice + chainable-proxy require + real zod).
+> Key architecture: in-memory singleton cache (`globalThis.__tasktrove__`), remote is source
+> of truth, store rebuilt by syncs — no calendar data file.
+> **P7a part 2 remaining**: `pushLocalChanges` internals, `Ev`/`Ze` ICS emit/parse, discover
+> response keys, client calendar atoms (probe technique ready for each).
 > **P7b next**: `packages/calendar-sync` (tsdav via catalog + ICS `Ev`/`Ze` + `TU` service +
 > adapter semantics above).
 
