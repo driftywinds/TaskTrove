@@ -13,7 +13,15 @@
 
 - Phases 0-6 complete (gates, schemas/migration, multi-user, rewards, people/assignees,
   stats+table views, reactions/colorpicker/RoleBadge, project member management).
-- Phase 7 (calendar sync) is the ONLY remaining phase — DEFERRED, awaiting user go-ahead.
+- Phase 7 (calendar sync) = the ONLY remaining phase — STARTED 2026-10-11 (user assent).
+  P7a recovery done: routes+engine decoded to tools/deob/out/routes/decoded-\*.js; FINDINGS
+  §5.5b = the contract. CRITICAL: Pro calendar state is an IN-MEMORY process singleton
+  (globalThis.**tasktrove**, module 29276 BY) — no calendar data file; remote is source of
+  truth; cache rebuilt by syncs (schedule runOnInit re-warms after restart). GET /api/v1/
+  calendar = state; POST = run sync; events POST/PATCH/DELETE push local changes in-request;
+  NO GET /events. Remaining decode targets: schema module 85425, pushLocalChanges internals,
+  client calendar atoms. decode-module.mjs handles single-line route chunks + minified
+  rotations (dir is prettier-ignored: use --ignore-path override to format artifacts).
 - Phase 8 (verification) is COMPLETE: CI all green on driftywinds/TaskTrove
   (.github/workflows/phase8-verify.yml) — typecheck, lint, TZ-pinned serial tests,
   Next standalone build, Docker image build + first-run smoke test, no-license guard.

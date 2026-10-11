@@ -107,6 +107,36 @@ null`, assignees, comment reactions, project members, currencyRewardEvents,
 > `/api/v1/user` route (module 50278, rotation 190, target `635102`). Produces
 > `decoded-50278.js` with fully inlined strings.
 
+## Pro feature parity tally (tasktrove.io/#features vs Pro image vs this fork)
+
+Marketing table parsed 2026-10-11 (23 rows; "Pro features are included in both
+Self-hosted Pro and Hosted"). **Parity target remains the Pro image itself** (the
+inventory in this doc), not the marketing table — the table is coarser and partially
+stale in both directions.
+
+**Free-tier rows (12) — all inherited from base, all present:** unlimited tasks/projects ·
+quick add (NL) · subtasks · kanban · filtering & sorting · search · compact view ·
+recurring tasks · calendar view · focus timer · API access · i18n.
+
+**Pro-exclusive rows — shipped tier:**
+
+| Marketing feature                | In Pro image?                                    | Fork status                                                                                                      |
+| -------------------------------- | ------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------- |
+| Multi-user collaboration         | ✅                                               | ✅ Phase 2 (users API, admin roles, sessions/JWT, UserManagementForm) + Phase 6b (project membership, canManage) |
+| Mobile apps (server contract)    | ✅ `/api/v1/mobile/login` (7-day JWT)            | ✅ Phase 2 verbatim — official app binaries are upstream's; verify against our server in final sweep             |
+| Custom themes                    | ✅ themes/levels + custom color picker           | ✅ Phase 1 gates + Phase 6 CustomColorPicker — confirm in final sweep                                            |
+| External calendar sync           | ✅                                               | ⏸ **Phase 7 — the only remaining shipped feature**                                                              |
+| Perpetual license (1 yr updates) | n/a (license purchase)                           | 🚫 superseded — no license at all, everything unlocked forever                                                   |
+| Advanced analytics               | partially — stats/table views ARE in the image   | ✅ Phase 5 (StatsView + TableView); marketing "Coming soon" is stale                                             |
+| Advanced filter views            | partially — pro filter sections ARE in the image | ✅ Phase 4 (pro filter sections, assigned views); marketing stale                                                |
+
+**Pro-exclusive rows — announced but NOT in the image** (upstream vapor; out of parity
+scope, document only): smart scheduling · plugin ecosystem · desktop apps.
+
+**Hosted-only row:** managed hosting (N/A for a self-hosted fork).
+
+**Net: the single outstanding Pro feature is External calendar sync (Phase 7).**
+
 ## Reimplementation fidelity (how "Pro" is what we build?)
 
 We decode the actual Pro runtime logic, understand each branch, and reimplement it as
@@ -370,20 +400,81 @@ descriptions "See tasks assigned directly to you" / "…to other teammates").
 
 ### 5.5 Pro API surface (routes deobfuscated)
 
-| Route                                | Contract (recovered)                                                                                                                                                                                                                                                                                                                                    |
-| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `GET /api/v1/rewards`                | → `{ rewardEvents, currencyRewardEvents, meta: { count, timestamp } }`, no-store cache headers, `allowApiToken: true`                                                                                                                                                                                                                                   |
-| `POST /api/v1/rewards`               | body validated by Zod (`type` e.g. `WISHLIST_REDEEMED` requires `currencyId`+`amount`; points path uses `points` default const); appends event, writes data file, logs `reward_event_created` / `currency_reward_event_created`, → `{ success, eventId, message }`                                                                                      |
-| `GET/POST /api/v1/calendar`          | calendar credential CRUD (schema of §5.4), Zod-validated, `Invalid JSON in request body`, `Validation failed`                                                                                                                                                                                                                                           |
-| `POST /api/v1/calendar/discover`     | CalDAV discovery against a server URL                                                                                                                                                                                                                                                                                                                   |
-| `GET/POST /api/v1/calendar/events`   | fetch/refresh external events (ical parsing, `REVALIDATED` cache header)                                                                                                                                                                                                                                                                                |
-| `GET/PATCH/DELETE/POST /api/v1/user` | session + **role admin** required for mutations (`Admins can't delete self` guard, `403` for non-admin); create user: hash password (`Failed to hash password…`), avatar data-URL validation (`Invalid avatar format…`, png/jpg/webp), duplicate username check, **license-derived user limit** → `400 "User limit reached"`; returns users with `role` |
-| `POST /api/v1/mobile/login`          | username+password → mobile session tokens (`Invalid credentials`, `generate session tokens`)                                                                                                                                                                                                                                                            |
-| groups/projects routes               | extended with `members`/`ownerId` semantics + activity log messages (ownership transfer, member add/remove, "Only the project owner or an admin can…")                                                                                                                                                                                                  |
-| `/api/initial-setup`                 | returns `{ users, isPro }`; setup allowed while no user has a password set                                                                                                                                                                                                                                                                              |
+| Route                                       | Contract (recovered)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| ------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `GET /api/v1/rewards`                       | → `{ rewardEvents, currencyRewardEvents, meta: { count, timestamp } }`, no-store cache headers, `allowApiToken: true`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `POST /api/v1/rewards`                      | body validated by Zod (`type` e.g. `WISHLIST_REDEEMED` requires `currencyId`+`amount`; points path uses `points` default const); appends event, writes data file, logs `reward_event_created` / `currency_reward_event_created`, → `{ success, eventId, message }`                                                                                                                                                                                                                                                                                                                                         |
+| `GET/POST /api/v1/calendar`                 | **Corrected by Phase 7a decode:** GET → engine state `sq()` → `{calendars, objects, summary, lastSyncedAt}`; POST → run full sync now (`GX()`) → same shape. NOT credential CRUD (credentials live in settings). `allowApiToken: true`                                                                                                                                                                                                                                                                                                                                                                     |
+| `POST /api/v1/calendar/discover`            | validate `{serverUrl(url,"Invalid server URL"), username(min 1), password(min 1), accountType?: enum[caldav,carddav], allowInsecure?: boolean}` → `https.Agent({rejectUnauthorized:false})` when insecure → package discovery → `{success, …, message:"Successfully discovered …"}`; 400 `"Invalid request"` + issues joined `"; "`; 500 `"Calendar discovery failed"`                                                                                                                                                                                                                                     |
+| `POST/PATCH/DELETE /api/v1/calendar/events` | **No GET** (read path = GET `/api/v1/calendar`). create: `{calendarId?, title, description?, location?, start, end, timezone?, allDay?}` → ICS via `Ev` → `ay({calendarId, changes:{created:[{url:uuid+".ics", data, etag:""}]}})`; update: preserves `uid` by parsing existing ICS (`Ze`) → `changes.updated:[{url, etag: body.etag ?? existing.etag ?? "", data}]`; delete: `changes.deleted:[{url}]`; each responds `{…sq(), summary: pushResult}`. Errors: `"Calendar event update failed"` etc.; 400 when no calendars yet, 404 `"Calendar not found"` / `"Unable to resolve … the requested event."` |
+| `GET/PATCH/DELETE/POST /api/v1/user`        | session + **role admin** required for mutations (`Admins can't delete self` guard, `403` for non-admin); create user: hash password (`Failed to hash password…`), avatar data-URL validation (`Invalid avatar format…`, png/jpg/webp), duplicate username check, **license-derived user limit** → `400 "User limit reached"`; returns users with `role`                                                                                                                                                                                                                                                    |
+| `POST /api/v1/mobile/login`                 | username+password → mobile session tokens (`Invalid credentials`, `generate session tokens`)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| groups/projects routes                      | extended with `members`/`ownerId` semantics + activity log messages (ownership transfer, member add/remove, "Only the project owner or an admin can…")                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `/api/initial-setup`                        | returns `{ users, isPro }`; setup allowed while no user has a password set                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 
 Auth middleware options: `allowApiToken: true` for v1 routes — **already present in base**
 ([lib/middleware/auth.ts](apps/web/lib/middleware/auth.ts) checks `dataFile.user.apiToken`).
+
+### 5.5b Calendar sync engine — fully decoded (Phase 7a)
+
+Artifacts: `tools/deob/out/routes/decoded-{65160-calendar-crud,7097-calendar-discover,5876-calendar-events,5639-calendar-service,43729-calendar-store,7147-caldav-discovery,29276-store-registry}.js`
+(decoder generalized this run: single-line app-route chunks, minified rotations, arrow
+require-proxies — see `decode-module.mjs`).
+
+**State container (KEY ARCHITECTURAL FACT):** `BY(key, factory)` (module 29276) =
+`globalThis.__tasktrove__[key] ??= factory()` — a **process-global, in-memory singleton**
+with **no file I/O anywhere in the engine**. The calendars/objects/summary/lastSyncedAt
+store is an **ephemeral cache rebuilt by syncs**, never written to disk. Durability:
+
+- credentials → `settings.data.calendarSync[]` (data file) ✓
+- calendar data → **remote is source of truth**: local mutations are pushed to the CalDAV
+  server _within the same request_ (`ay` awaited before responding); after a restart the
+  cache is empty until the next sync (`POST /api/v1/calendar` or the scheduler's
+  `calendar-refresh` cron — `CalendarSyncSchedule.runOnInit` re-warms at boot).
+
+**Module 43729 (`GX`=sync, `sq`=state, `ay`=push):**
+
+- `S()` = enabled connections: read settings → `settings.data.calendarSync ?? defaults`
+  → Zod array-validate (invalid → `logger.warn({module:"calendar-sync", issues},
+"Invalid calendar sync settings; skipping")` → `[]`) → `.filter(c => c.enabled !== false)`
+  → per-conn defaults `{authMethod:"Basic", defaultTimezone:"UTC", allowInsecure:false}`.
+- `GX()` = run sync: for each connection (timeout-wrapped `AbortController`, ms from
+  module 27293 `sW`): client = tsdav client `{serverUrl: conn.serverUrl.replace(/\/+$/,"/"),
+credentials:{username,password}, authMethod, defaultAccountType:"caldav", fetchOptions:
+{agent?: https.Agent({rejectUnauthorized:false}) when allowInsecure, signal}}`; account =
+  `{account:{id: conn.id, username, password, enabled:true, source:"caldav"}, source,
+headers:{}, client, defaultTimezone, now}`; `service.syncFromRemote(account)` → accumulates
+  the 6 summary counters; per-conn failure → throw `"Calendar sync failed for <name>: <msg>"`;
+  all-zero → `logger.warn(…, "Calendar sync completed with zero changes and no data")`;
+  success → `logger.info(…, "Calendar sync completed")`; state.lastSyncedAt =
+  now.toISOString(); returns `{calendars, objects, summary, lastSyncedAt}`; outer catch logs
+  `{module:"calendar-sync", error}` `"Calendar sync failed"` and rethrows.
+- Adapter class (persistence): in-memory `Map`s `calendars` + `calendarObjects`;
+  methods `withTransaction(fn)` (pass-through `fn(null)`), `listCalendars(userId, source)`
+  (`filter(c => c.userId===userId && c.source===source)`), `insertCalendars` (set by id),
+  `updateCalendarMetadata` (merge), `deleteCalendars(ids)`, `listCalendarObjects(calendarId)`,
+  `insertCalendarObjects` (set by id), `upsertCalendarObject(url, obj)` (merge-or-create with
+  full §5.4 record shape incl. `etag:"", data:""` fallbacks), `deleteCalendarObjects(urls)`,
+  `deleteCalendarObjectsByCalendarIds(ids)`.
+
+**Module 7147 (`@tasktrove/calendar-sync` package: `TU`=service, `s3`=tsdav, `Ev`=event→ICS,
+`Ze`=ICS→fields, `AO`=discover):**
+
+- `TU.syncFromRemote(account)`: `now = account.now ?? new Date()` → old calendars from
+  persistence → `client.syncCalendars({oldCalendars, detailedResult:true})` → **deletions**
+  (count objects per calendar, `deleteCalendarObjectsByCalendarIds` + `deleteCalendarsByUrls`,
+  `deletedCalendars +=`) → **creations**: calendar record `{id: uuid, userId, timezone:
+cal.timezone || account.defaultTimezone || "UTC", name: typeof cal.displayName === "string"
+? cal.displayName : "Remote calendar", source, ctag ?? "", syncToken ?? "", url, credentialId:
+account.account.id, createdAt: now, updatedAt: now}` + `fetchCalendarObjects({calendar})`
+  → `.filter(data includes VEVENT)` → object records `{id: uuid, calendarId, url, etag:"", data,
+start, end, summary, description, location, timezone, uid, allDay}` → **updates** — all inside
+  `withTransaction`.
+- `discover` (`AO`): tsdav discovery → `{rootUrl, serverUrl, …}` merged into `{success:true,
+serverUrl…}` response.
+- client request schemas (module 85425 `Hz`/`Kq`/`ce`) + `pushLocalChanges` internals +
+  client-side calendar atoms: **remaining decode targets for P7a part 2** (field lists
+  already recovered from the handler builders above).
 
 ### 5.6 Pro UI inventory (from client chunks + i18n strings)
 
