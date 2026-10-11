@@ -569,8 +569,7 @@ Mobile app itself is out of scope; the mobile **login API route** is part of Pha
 
 ## 8. The Official Pro Image (Inspected)
 
-`ghcr.io/dohsimpson/tasktrove-pro:latest` — publicly pullable; extracted at
-`<temp>/tasktrove-pro/rootfs`.
+`ghcr.io/dohsimpson/tasktrove-pro:latest` — publicly pullable; extracted to a local temp directory (`<temp>/tasktrove-pro/rootfs`).
 
 - Distroless nodejs22 running `apps/web.pro/server.js` (standalone Next 16.0.10 build)
 - Contents: compiled `.next` output only — **no TypeScript source** (turbo prune kept

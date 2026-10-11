@@ -62,3 +62,6 @@ backups/
 # Only dependency/install artifacts inside it stay ignored:
 tools/deob/node_modules/
 tools/deob/package-lock.json
+
+# session memory (never publish - may contain local paths)
+memory/
