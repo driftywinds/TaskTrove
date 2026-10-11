@@ -204,7 +204,8 @@ Part 2 (project member management):
 ## Phase 7 — Calendar sync — ⏸ **DEFERRED BY DECISION**
 
 > Paused before starting. Phase 8 verification runs first (with the heavy build
-> checks on GitHub Actions); calendar sync resumes after that passes.
+> checks on GitHub Actions); calendar sync resumes after that passes. _(Phase 8 has since
+> passed CI green; Phase 7 is the final phase and is awaiting the go-ahead.)_
 
 - **New package** `packages/calendar-sync` (`@tasktrove/calendar-sync`): CalDAV client on
   `tsdav` + `ical.js`/`ics` (add to catalog: `ical.js`, `ics`, `tsdav`) — discovery,
@@ -225,7 +226,21 @@ Part 2 (project member management):
 **Exit criteria:** add a CalDAV connection → discover → events appear on calendar →
 scheduled sync job listed in scheduler settings.
 
-## Phase 8 — Verification & Docker compatibility — 🔄 **LOCAL PASS COMPLETE · CI ARMED**
+## Phase 8 — Verification & Docker compatibility — ✅ **COMPLETE — CI ALL GREEN**
+
+CI run on `driftywinds/TaskTrove` (`phase8-verify.yml`): typecheck · lint · full tests
+(TZ-pinned, serial files) · Next standalone build · Docker image build + first-run smoke
+test (`needs_initialization` → `POST /api/initial-setup` → `healthy`, `edition: "pro"`
+end-to-end) · no-license-code guard — **all jobs green**.
+
+Follow-up deliverables (testing infrastructure, per user request):
+
+- `.github/workflows/docker-publish.yml` — multi-arch (amd64+arm64) images published to
+  `ghcr.io/driftywinds/tasktrove:edge` (+ immutable `sha-<short>` tags, optional manual
+  extra tag).
+- `selfhost/docker-compose.staging.yml` + `selfhost/.env.example` — staging host stack
+  (container `tasktrove-staging`, data dir `./data-staging`, `TASKTROVE_IMAGE` /
+  `TASKTROVE_PORT` overridable, `.env.example` un-ignored in git).
 
 | Check           | Result                                                                                                                                                                                                                                                                                                                           |
 | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -286,8 +301,10 @@ The inherited upstream `docker-build-deploy.yml` is now guarded with
 - [x] Phase 5 table + stats views (commit `c1c16b6`; owner/assignee columns await Phase 4 wiring)
 - [x] Phase 6 parity (parts 1+2: reactions/color/roles/nav + project members; scheduler
       `calendar-refresh` row deferred to Phase 7 with its job)
-- [ ] Phase 7 calendar sync (deferred — resume after Phase 8 passes)
-- [ ] Phase 8 verification (local pass complete; CI run on `phase8-verify.yml`)
+- [x] Phase 8 verification — **CI all green** (typecheck, lint, TZ-pinned serial tests,
+      standalone build, Docker image build + first-run smoke, license guard); follow-ups
+      landed: multi-arch `docker-publish.yml` + staging compose/env files
+- [ ] Phase 7 calendar sync (final phase — **awaiting user go-ahead**)
 - [x] `FINDINGS.md` updated as phases land; `plans/` kept as record (in progress per phase)
 
 ## Progress log (implementation)

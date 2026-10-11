@@ -1,6 +1,7 @@
 # TaskTrove Pro-Parity Fork (W:\repos\TaskTrove)
 
 ## Mission & stop condition
+
 - Fork of dohsimpson/TaskTrove restoring full parity with the server-locked TaskTrove Pro,
   with all license shackles removed (no Keygen, no machine-ID, no phone-home). Creator gave
   written permission. Development STOPS once stability + parity reached (no show-stopping
@@ -9,21 +10,29 @@
   bundles, tracked in git).
 
 ## Phase status (as of 2026-10-10)
+
 - Phases 0-6 complete (gates, schemas/migration, multi-user, rewards, people/assignees,
   stats+table views, reactions/colorpicker/RoleBadge, project member management).
-- Phase 7 (calendar sync) DEFERRED by user decision.
-- Phase 8 (verification) local pass done; heavy checks run in GitHub Actions
-  (.github/workflows/phase8-verify.yml) on origin = driftywinds/TaskTrove (user's fork).
-  User supplies CI failure logs.
+- Phase 7 (calendar sync) is the ONLY remaining phase — DEFERRED, awaiting user go-ahead.
+- Phase 8 (verification) is COMPLETE: CI all green on driftywinds/TaskTrove
+  (.github/workflows/phase8-verify.yml) — typecheck, lint, TZ-pinned serial tests,
+  Next standalone build, Docker image build + first-run smoke test, no-license guard.
+- Testing infra (per user request): .github/workflows/docker-publish.yml builds/pushes
+  multi-arch (amd64+arm64) images to ghcr.io/driftywinds/tasktrove:edge (+ sha-<short>).
+  Staging host stack: selfhost/docker-compose.staging.yml + selfhost/.env.example
+  (container tasktrove-staging, data dir ./data-staging, TASKTROVE_IMAGE/TASKTROVE_PORT
+  overridable; .env.example un-ignored via .gitignore negation).
 
 ## Tooling
+
 - tools/deob/decode-module.mjs <file> <moduleId> [out] — decodes obfuscated webpack modules
   (solves string-array rotation via checksum IIFE). Generalized: handles client chunks and
-  small single-family modules. Commit decoded-*.js artifacts as reference.
+  small single-family modules. Commit decoded-\*.js artifacts as reference.
 - isPro() is hardcoded true in apps/web/lib/utils/env.ts; pro export conditions repointed
   to default files.
 
 ## Gotchas
+
 - **Shell sandbox broken on W:\repos\TaskTrove**: every pwsh call needs
   sandbox_permissions=danger-full-access (grantWrite ACL fails, SetNamedSecurityInfoW err 5).
 - quick-add-dialog.test.tsx "Parsed Values Management" + recurring-task/week-picker date
@@ -35,7 +44,7 @@
 - Root scripts historically had POSIX `test -f` guards; fixed via
   scripts/run-pro-if-present.mjs. Use `pnpm -r --if-present run typecheck` (tsgo, NOT raw
   tsc — tsc surfaces pre-existing lib errors in app/api/v1/assets/route.test.ts).
-- eslint-config allowDefaultProject reserves *.pro.ts for ABSENT pro files; a real .pro.ts
+- eslint-config allowDefaultProject reserves \*.pro.ts for ABSENT pro files; a real .pro.ts
   file fails lint — use plain .ts (project-permissions.ts precedent).
 - Radix Select in jsdom: test-setup.ts has pointer-capture/scrollIntoView polyfills; drive
   with @testing-library/user-event.

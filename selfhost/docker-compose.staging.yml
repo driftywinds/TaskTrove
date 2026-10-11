@@ -1,0 +1,25 @@
+# Staging stack for testing this fork's own images.
+#
+# Images are built by .github/workflows/docker-publish.yml and published to
+# GitHub Container Registry (ghcr.io/driftywinds/tasktrove).
+#
+# Usage:
+#   1. cp .env.example .env      (then set AUTH_SECRET — see the file)
+#   2. docker compose -f docker-compose.staging.yml up -d
+#   3. open http://localhost:3000 and complete the first-run setup
+#
+# This file is separate from docker-compose.yml / docker-compose-pro.yml on
+# purpose: it uses its own container name and its own data directory
+# (./data-staging) so a staging test can never touch production data.
+
+services:
+  tasktrove:
+    image: ${TASKTROVE_IMAGE:-ghcr.io/driftywinds/tasktrove:edge}
+    container_name: tasktrove-staging
+    ports:
+      - "${TASKTROVE_PORT:-3000}:3000"
+    volumes:
+      - ./data-staging:/app/data
+    env_file:
+      - .env
+    restart: unless-stopped
