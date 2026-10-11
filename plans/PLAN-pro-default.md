@@ -242,6 +242,22 @@ Follow-up deliverables (testing infrastructure, per user request):
   (container `tasktrove-staging`, data dir `./data-staging`, `TASKTROVE_IMAGE` /
   `TASKTROVE_PORT` overridable, `.env.example` un-ignored in git).
 
+Staging test log (user-driven, 2026-10-11):
+
+- **Multi-arch publish run #1 succeeded** in ~80 s — expected, not too fast: the amd64
+  builder layers were 100% GHA-cache hits (the verification workflow had just built the
+  same tree), and arm64 only adds the thin runner stage because the Dockerfile pins all
+  build stages to `$BUILDPLATFORM` (Next build runs natively once, shared by both
+  targets). Published `edge` + `sha-72e2009`, both platforms, index digest
+  `sha256:09df223d…`.
+- **First-run incident**: fresh instance → every `/api/v1/*` 500s "File reading failed"
+  because `data.json` doesn't exist until initialized. **Not a permissions problem** —
+  health 200 `needs_initialization` proves the directory write-test passed; the log shows
+  no init call ever happened. The gate is the inline (non-blocking) "First Time Setup
+  Required" banner; the user saw it and resolved via Initialize. **Decision: keep
+  upstream UX** (no blocking-gate change). Pre-init 500s are base-repo designed behavior;
+  `safeReadDataFile` has no default fallback by design.
+
 | Check           | Result                                                                                                                                                                                                                                                                                                                           |
 | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Typecheck       | ✅ `pnpm -r --if-present run typecheck` green across all 13 projects (root POSIX issue long fixed via `run-pro-if-present.mjs`)                                                                                                                                                                                                  |

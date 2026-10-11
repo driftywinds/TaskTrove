@@ -50,3 +50,13 @@
   with @testing-library/user-event.
 - Upstream .github/workflows/docker-build-deploy.yml guarded with
   `if: github.repository == 'dohsimpson/TaskTrove'` (pushes to upstream registry).
+- **First-run on a fresh instance (Docker staging incident 2026-10-11)**: a fresh data dir
+  means NO data.json → `/api/health` = `needs_initialization` (200) and EVERY
+  `/api/v1/*` route 500s with "File reading failed" BY DESIGN (`safeReadDataFile` returns
+  undefined → routes fatal). The UI gate is the inline "First Time Setup Required"
+  StartupAlert banner in main-content — NON-BLOCKING, so the app looks usable while
+  everything 500s. User must click Initialize (POST /api/data/initialize) or POST
+  /api/initial-setup first (CI smoke does the latter). Directory write-test passes even
+  when file absent (health 200 needs_initialization proves /app/data is writable — not a
+  permissions problem). USER SAW THE BANNER and chose KEEP UPSTREAM UX (no blocking-gate
+  change); resolution = click Initialize.
