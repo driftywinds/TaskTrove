@@ -713,16 +713,38 @@ async function deleteUser(
     return nextTask
   })
 
+  let ownershipBlockedDelete: NextResponse<ErrorResponse> | null = null
   const projects = fileData.projects.map((project) => {
     if (project.members !== undefined && project.members.includes(userId)) {
+      const remainingMembers = project.members.filter((member) => member !== userId);
+      // Preserve Pro's ownership invariant: the project owner IS members[0].
+      // If the user being deleted owns a project that STILL has other members,
+      // deleting it would silently transfer ownership without their consent.
+      // (The PATCH guard in /v1/projects already rejects this for direct edits;
+      // replicate it for the user-delete cascade. A single-member project is
+      // allowed through — removing the only member just makes it public.)
+      if (project.members[0] === userId && remainingMembers.length > 0) {
+        ownershipBlockedDelete = ownershipBlockedDelete ??
+          createErrorResponse(
+            "Cannot remove owner. Transfer ownership first.",
+            "User owns at least one project with other members; transfer project ownership before deleting them.",
+            400,
+            ApiErrorCode.VALIDATION_ERROR,
+          )
+        return project // keep the project unchanged; the delete will be rejected below
+      }
       affectedProjects = affectedProjects + 1
       return {
         ...project,
-        members: project.members.filter((member) => member !== userId),
+        members: remainingMembers, // only reaches here when user is NOT the owner
       }
     }
     return project
   })
+
+  if (ownershipBlockedDelete) {
+    return ownershipBlockedDelete as NextResponse<ErrorResponse>
+  }
 
   const rewardEvents = fileData.rewardEvents.filter((event) => {
     if (event.userId === userId) {

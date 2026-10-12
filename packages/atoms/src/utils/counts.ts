@@ -10,7 +10,7 @@
 import { isToday, isPast, isFuture } from "date-fns";
 import type { Task, Project, Label } from "@tasktrove/types/core";
 import type { ProjectId, LabelId } from "@tasktrove/types/id";
-import { shouldTaskBeInInbox } from "@tasktrove/utils";
+import { shouldTaskBeInInbox, getEffectiveDueDate } from "@tasktrove/utils";
 import { filterTasksByCompleted } from "./filters";
 
 // =============================================================================
@@ -75,15 +75,19 @@ function filterInboxTasks(tasks: Task[], projectIds: Set<ProjectId>): Task[] {
  */
 function filterTodayTasks(tasks: Task[]): Task[] {
   return tasks.filter((task) => {
-    if (!task.dueDate) return false;
+    // Use the rolled-over due date for autoRollover tasks so counts match the
+    // lists (data/tasks/filters.ts). Raw dueDate is wrong for them — they don't
+    // show overdue even when the stored dueDate is past.
+    const dueDate = getEffectiveDueDate(task);
+    if (!dueDate) return false;
 
     // Always include tasks due exactly today
-    if (isToday(task.dueDate)) {
+    if (isToday(dueDate)) {
       return true;
     }
 
     // Include overdue tasks (past but not today)
-    if (isPast(task.dueDate) && !isToday(task.dueDate)) {
+    if (isPast(dueDate) && !isToday(dueDate)) {
       return true;
     }
 
@@ -97,9 +101,10 @@ function filterTodayTasks(tasks: Task[]): Task[] {
  */
 function filterUpcomingTasks(tasks: Task[]): Task[] {
   return tasks.filter((task) => {
-    if (!task.dueDate) return false;
+    const dueDate = getEffectiveDueDate(task);
+    if (!dueDate) return false;
     // Upcoming = future tasks that are not today (i.e. tomorrow onwards)
-    return isFuture(task.dueDate) && !isToday(task.dueDate);
+    return isFuture(dueDate) && !isToday(dueDate);
   });
 }
 
@@ -109,8 +114,9 @@ function filterUpcomingTasks(tasks: Task[]): Task[] {
  */
 function filterOverdueTasks(tasks: Task[]): Task[] {
   return tasks.filter((task) => {
-    if (!task.dueDate) return false;
-    return isPast(task.dueDate) && !isToday(task.dueDate) && !task.completed;
+    const dueDate = getEffectiveDueDate(task);
+    if (!dueDate) return false;
+    return isPast(dueDate) && !isToday(dueDate) && !task.completed;
   });
 }
 

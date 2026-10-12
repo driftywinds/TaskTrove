@@ -34,6 +34,8 @@ import {
   DEFAULT_SECTION_NAME,
   DEFAULT_UUID,
   PROJECTS_QUERY_KEY,
+  GROUPS_QUERY_KEY,
+  TASKS_QUERY_KEY,
   getRandomPaletteColor,
 } from "@tasktrove/constants";
 import { clearNullValues } from "@tasktrove/utils";
@@ -191,6 +193,11 @@ export const deleteProjectMutationAtom = createEntityMutation<
     request: ProjectDeleteSerializationSchema,
     response: DeleteProjectResponseSchema,
   },
+  // The default is ["data", "projects"] + ["data", "groups"] — we additionally
+  // invalidate TASKS so the tasks cache refreshes. Tasks that referenced the
+  // deleted project otherwise linger with a stale projectId until an unrelated
+  // invalidation runs (CODE_REVIEW.md finding #2).
+  invalidateQueryKeys: [PROJECTS_QUERY_KEY, GROUPS_QUERY_KEY, TASKS_QUERY_KEY],
   // Auto-generates test response and optimistic update!
 });
 deleteProjectMutationAtom.debugLabel = "deleteProjectMutationAtom";

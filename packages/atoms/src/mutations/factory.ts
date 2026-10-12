@@ -24,9 +24,12 @@ import { API_ROUTES } from "@tasktrove/types/constants";
 /**
  * Generic mutation context for rollback operations
  */
-export interface MutationContext<TData = unknown, TVariables = unknown> {
+interface MutationContext<TData = unknown, TVariables = unknown> {
   previousData: unknown;
   variables?: TVariables;
+  // An optimistic entity carries an id so a failed mutation can remove just
+  // that entry from the cache rather than restoring the whole cached state
+  // (which would also roll back unrelated concurrent optimistic updates).
   optimisticData?: TData;
 }
 
@@ -349,6 +352,36 @@ export function createMutation<
       // Rollback - restore previous resource array
       const queryClient = get(queryClientAtom);
       if (context?.previousData !== undefined) {
+        const optData = context.optimisticData;
+        const hasOptId =
+          optData !== null &&
+          typeof optData === "object" &&
+          "id" in optData &&
+          typeof optData.id === "string";
+        if (hasOptId && Array.isArray(context.previousData)) {
+          // Remove/replace only the optimistic entity so a failed mutation doesn't
+          // silently erase OTHER concurrently-applied optimistic updates (CODE_REVIEW
+          // #3). Falls back to the full snapshot when the optimistic id isn't usable.
+          const current = queryClient.getQueryData(resourceQueryKey);
+          if (Array.isArray(current)) {
+            const optimisticId = optData.id;
+            queryClient.setQueryData(
+              resourceQueryKey,
+              current.filter((item: unknown) => {
+                if (
+                  typeof item !== "object" ||
+                  item === null ||
+                  !("id" in item)
+                ) {
+                  return true;
+                }
+                const itemId = item.id;
+                return itemId !== optimisticId;
+              }),
+            );
+            return;
+          }
+        }
         queryClient.setQueryData(resourceQueryKey, context.previousData);
       }
     },

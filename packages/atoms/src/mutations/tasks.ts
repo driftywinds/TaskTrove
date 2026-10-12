@@ -451,8 +451,17 @@ export const createTaskMutationAtomBase = createMutation<
   defaultResourceValue: [],
   responseSchema: CreateTaskResponseSchema,
   serializationSchema: TaskCreatePayloadSchema,
-  testResponseFactory: () => {
-    const taskId = createTaskId(uuidv4());
+  testResponseFactory: (taskPayload: TaskCreatePayload) => {
+    // Return the id the caller submitted (if any) — subsequently the client's
+    // section-assignment and history-tracking reference the SAME id that the
+    // optimistic cache wrote, avoiding a fake id that exists only on one side.
+    // (Previously returned a fresh uuid via `createTaskId(uuidv4())`, breaking
+    // that linkage after the test refetch.) CODE_REVIEW finding #5.
+    const submittedId =
+      "id" in taskPayload && typeof taskPayload.id === "string"
+        ? taskPayload.id
+        : undefined;
+    const taskId = submittedId ? createTaskId(submittedId) : createTaskId(uuidv4());
     return {
       success: true,
       taskIds: [taskId],

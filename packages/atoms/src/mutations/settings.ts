@@ -55,8 +55,11 @@ export const updateSettingsMutationAtom = createMutation<
     variables: UpdateSettingsRequest,
     oldSettings: UserSettings,
   ): UserSettings => {
-    void oldSettings;
-    return variables.settings;
+    // Merge onto the existing settings object rather than replacing it — the
+    // mutation payload is canonical, and dropping unknown keys (Pro-extension
+    // keys written by another client) would leave the file drifting until a
+    // refetch. (CODE_REVIEW #9-ish, scoped creep in)
+    return { ...oldSettings, ...variables.settings };
   },
 });
 updateSettingsMutationAtom.debugLabel = "updateSettingsMutationAtom";

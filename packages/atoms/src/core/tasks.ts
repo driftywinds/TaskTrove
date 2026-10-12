@@ -7,7 +7,6 @@ import {
   GroupId,
   ViewId,
   ProjectId,
-  createTaskId,
   createProjectId,
   createCommentId,
 } from "@tasktrove/types/id";
@@ -18,14 +17,7 @@ import {
 } from "@tasktrove/types/api-requests";
 import { CommentUpdateRequest } from "@tasktrove/types/api-requests";
 import { getDefaultSectionId } from "@tasktrove/types/defaults";
-import {
-  DEFAULT_TASK_PRIORITY,
-  DEFAULT_TASK_TITLE,
-  DEFAULT_TASK_COMPLETED,
-  DEFAULT_TASK_SUBTASKS,
-  DEFAULT_TASK_COMMENTS,
-  DEFAULT_RECURRING_MODE,
-} from "@tasktrove/constants";
+import { DEFAULT_TASK_TITLE } from "@tasktrove/constants";
 import {
   handleAtomError,
   namedAtom,
@@ -943,7 +935,7 @@ reorderTaskInViewAtom.debugLabel = "reorderTaskInViewAtom";
  */
 export const addTaskToViewAtom = atom(
   null,
-  (
+  async (
     get,
     set,
     params: {
@@ -953,68 +945,50 @@ export const addTaskToViewAtom = atom(
     },
   ) => {
     try {
-      const tasks = get(tasksAtom);
-
-      // Create the new task first
-      const newTask: Task = {
-        id: createTaskId(uuidv4()),
-        description: params.taskData.description,
-        completed: DEFAULT_TASK_COMPLETED,
-        priority: params.taskData.priority || DEFAULT_TASK_PRIORITY,
-        dueDate: params.taskData.dueDate,
-        projectId: params.taskData.projectId || INBOX_PROJECT_ID,
-        labels: params.taskData.labels || [],
-        subtasks: DEFAULT_TASK_SUBTASKS,
-        comments: DEFAULT_TASK_COMMENTS,
-        createdAt: new Date(),
-        ...params.taskData,
-        title: params.taskData.title || DEFAULT_TASK_TITLE,
-        recurringMode: params.taskData.recurringMode || DEFAULT_RECURRING_MODE,
-      };
-
-      // Add task to tasks array
-      const tasksWithNew = [...tasks, newTask];
-      set(tasksAtom, tasksWithNew);
-
-      // Add to section.items instead of project.taskOrder
-      // Always add to default section - UI can move tasks between sections later
-      const projects = get(projectsAtom);
-      const projectId = newTask.projectId || INBOX_PROJECT_ID;
-      const project = projects.find((p) => p.id === projectId);
-
-      if (project) {
-        const defaultSectionId = getDefaultSectionId(project);
-        if (!defaultSectionId) {
-          log.warn(
-            { projectId, module: "tasks" },
-            "No default section found for project in addTaskToViewAtom",
-          );
-          return;
-        }
-
-        const updatedSections = addTaskToSection(
-          newTask.id,
-          defaultSectionId,
-          params.position,
-          project.sections,
-        );
-
-        const updatedProjects = projects.map((p) =>
-          p.id === projectId ? { ...p, sections: updatedSections } : p,
-        );
-        set(projectsAtom, updatedProjects);
-
-        log.info(
-          {
-            taskId: newTask.id,
-            taskTitle: newTask.title,
-            projectId,
-            sectionId: defaultSectionId,
-            module: "tasks",
-          },
-          "Task added to project",
+      // Create via the create mutation so the task persists server-side.
+      // (CODE_REVIEW #1: set(tasksAtom, [...tasks, newTask]) routes to the UPDATE
+      // endpoint — PATCHing an id that doesn't exist — so the new task existed
+      // only in the optimistic cache and vanished on refetch.)
+      const createTaskMutation = get(createTaskMutationAtom);
+      const result = await createTaskMutation.mutateAsync(params.taskData);
+      const newTaskId = result.taskIds[0];
+      if (!newTaskId) {
+        throw new Error(
+          "Failed to create task in addTaskToViewAtom: no task ID returned",
         );
       }
+
+      // Place the task in the default section's items
+      const projects = get(projectsAtom);
+      const projectId = params.taskData.projectId ?? INBOX_PROJECT_ID;
+      const project = projects.find((p) => p.id === projectId);
+
+      if (!project) {
+        log.warn(
+          { projectId, module: "tasks" },
+          "No project found for new task in addTaskToViewAtom",
+        );
+        return;
+      }
+
+      const defaultSectionId = getDefaultSectionId(project);
+      if (!defaultSectionId) {
+        log.warn(
+          { projectId, module: "tasks" },
+          "No default section found for project in addTaskToViewAtom",
+        );
+        return;
+      }
+
+      const updateProjectsMutation = get(updateProjectsMutationAtom);
+      await updateProjectsMutation.mutateAsync([
+        { id: projectId, sections: addTaskToSection(newTaskId, defaultSectionId, params.position, project.sections) },
+      ]);
+
+      log.info(
+        { taskId: newTaskId, sectionId: defaultSectionId, projectId, module: "tasks" },
+        "Task added to section via addTaskToViewAtom",
+      );
     } catch (error) {
       handleAtomError(error, "addTaskToViewAtom");
     }
