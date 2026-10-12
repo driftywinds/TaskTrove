@@ -1,0 +1,43 @@
+{
+  "name": "@tasktrove/calendar-sync",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "pro": "./src/index.ts",
+      "default": "./src/index.ts"
+    },
+    "./types": "./src/types.ts",
+    "./ics": "./src/ics.ts",
+    "./adapter": "./src/adapter.ts",
+    "./service": "./src/service.ts",
+    "./store": "./src/store.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "typecheck:base": "tsgo --noEmit",
+    "typecheck": "pnpm typecheck:base",
+    "check": "pnpm typecheck && pnpm lint && pnpm test",
+    "test:base": "node ../../scripts/run-vitest.mjs run --reporter=dot --no-coverage --config vitest.config.ts",
+    "test": "pnpm test:base"
+  },
+  "dependencies": {
+    "@tasktrove/types": "workspace:*",
+    "@tasktrove/utils": "workspace:*",
+    "tsdav": "catalog:",
+    "uuid": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@repo/vitest-config": "workspace:*",
+    "@types/node": "catalog:",
+    "@types/uuid": "catalog:",
+    "@typescript/native-preview": "catalog:",
+    "eslint": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}

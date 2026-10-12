@@ -203,19 +203,22 @@ Part 2 (project member management):
 
 ## Phase 7 — Calendar sync — 🔄 **IN PROGRESS** (user assent 2026-10-11)
 
-> **P7a contract recovery — schemas + ICS/sync DONE.** Routes+engine decoded (§5.5b),
-> event schemas executed (§5.5c), **ICS emit/parse + TU sync/push contracts executed from
-> original code** (§5.5d — `Ev` ICS format, `Ze` parse semantics incl. allDay local-midnight
->
-> - `timezone:"floating"`, tsdav call shapes with fetch-style responses, 6-counter summary).
->   Verification toolchain: `tools/deob/exec-raw-module.cjs` + `probe-7147.cjs`.
->   Key architecture: in-memory singleton cache (`globalThis.__tasktrove__`), remote is source
->   of truth, store rebuilt by syncs — no calendar data file.
->   **P7a part 2 remaining**: discover route response keys (route-execution probe), route
->   **title-key flag** (does the events route pass `title` or `summary` to `Ev`? §5.5d ⚠),
->   client calendar atoms.
->   **P7b next**: `packages/calendar-sync` (tsdav via catalog + ICS Ev/Ze + `TU` service +
->   adapter semantics above).
+> **P7a contract recovery — COMPLETE.** Routes+engine decoded (§5.5b), event schemas
+> executed (§5.5c), ICS emit/parse + TU sync/push contracts executed (§5.5d), events-route
+> POST probe executed — **title-key flag RESOLVED**: the route builds its object with
+> `title` and `Ev` reads `title`; both consistent (§5.5d note updated).
+> Verification toolchain: `tools/deob/exec-raw-module.cjs` + probes
+> (`probe-7147.cjs`, `probe-5876-route.cjs`).
+> Key architecture: in-memory singleton cache (`globalThis.__tasktrove__`), remote is
+> source of truth, store rebuilt by syncs — no calendar data file.
+> **P7b COMPLETE**: `packages/calendar-sync` shipped — types.ts (executed shapes incl.
+> verbatim superRefine messages), ics.ts (Ev/Ze byte-exact vs executed output), adapter.ts
+> (in-memory persistence, executed method surface), service.ts (TU: syncFromRemote +
+> pushLocalChanges with executed call order + fetch-style errors), store.ts (process-global
+> singleton). **16 contract tests green; typecheck+lint clean**; wired into the workspace
+> (catalog: `tsdav ^2.4.0` — the only new dep; Ev/Ze are dependency-free).
+> **P7c next**: API routes `/api/v1/calendar` (GET state / POST sync), `/calendar/discover`,
+> `/calendar/events` (POST/PATCH/DELETE per §5.5 routes contract).
 
 - **New package** `packages/calendar-sync` (`@tasktrove/calendar-sync`): CalDAV client on
   `tsdav` + `ical.js`/`ics` (add to catalog: `ical.js`, `ics`, `tsdav`) — discovery,
