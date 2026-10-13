@@ -75,6 +75,7 @@
     "@tasktrove/scheduler": "workspace:*",
     "@tasktrove/types": "workspace:*",
     "@tasktrove/utils": "workspace:*",
+    "@tasktrove/calendar-sync": "workspace:*",
     "@uidotdev/usehooks": "catalog:",
     "accept-language": "catalog:",
     "archiver": "catalog:",

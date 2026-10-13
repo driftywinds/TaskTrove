@@ -562,6 +562,9 @@ importers:
       '@tasktrove/atoms':
         specifier: workspace:*
         version: link:../../packages/atoms
+      '@tasktrove/calendar-sync':
+        specifier: workspace:*
+        version: link:../../packages/calendar-sync
       '@tasktrove/constants':
         specifier: workspace:*
         version: link:../../packages/constants

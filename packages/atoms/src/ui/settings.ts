@@ -7,7 +7,8 @@ export type SettingsCategoryId =
   | "appearance"
   | "scheduler"
   | "productivity"
-  | "users";
+  | "users"
+  | "calendar";
 
 // Constants for base settings categories
 export const SETTINGS_CATEGORIES = [
@@ -18,6 +19,7 @@ export const SETTINGS_CATEGORIES = [
   "scheduler",
   "productivity",
   "users",
+  "calendar",
 ] as const;
 
 // Type guard

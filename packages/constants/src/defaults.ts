@@ -613,6 +613,12 @@ export const DEFAULT_BACKUP_TIME = "02:00";
 /** Default auto backup run-on-init behavior */
 export const DEFAULT_AUTO_BACKUP_RUN_ON_INIT = false;
 
+/** Default calendar sync cron expression (daily at 4:00 AM) */
+export const DEFAULT_CALENDAR_SYNC_CRON = "0 4 * * *";
+
+/** Default calendar sync run-on-init behavior */
+export const DEFAULT_CALENDAR_SYNC_RUN_ON_INIT = false;
+
 /** Default maximum number of backup files to keep (-1 for unlimited) */
 export const DEFAULT_MAX_BACKUPS = -1;
 

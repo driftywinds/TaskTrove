@@ -19,3 +19,5 @@ export type {
 } from "./service";
 export { buildIcsPayload, parseIcsFields } from "./ics";
 export { getCalendarSyncStore, getCalendarSyncState } from "./store";
+export { discoverCalendars } from "./discover";
+export { createSyncClient } from "./client";

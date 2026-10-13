@@ -102,6 +102,7 @@ export interface IcsEventInput {
   end: string | null;
   description?: string | null;
   location?: string | null;
+  timezone?: string | null;
   allDay: boolean;
 }
 

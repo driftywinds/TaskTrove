@@ -459,13 +459,57 @@ remainder: assigned-to-\* views, People panel, filter sections, bulk assign,
 table columns, newTaskOwnership). See FINDINGS.md → "Reimplementation fidelity"
 for how Pro is decoded and re-implemented (server 1:1, UI re-derived).
 
-**Next phase: Phase 6 (remaining UI parity)** — `CommentReactions` +
-`AddReactionButton`, `CustomColorPicker` (the `color-picker.tsx` pro branch
-currently mounts a stub), `RoleBadge` in the nav user menu (stub), group member
-management ComingSoon slot, scheduler `calendar-refresh` row (lands with Phase
-7), residual "coming soon" copy cleanup. Then Phase 7 (calendar sync), Phase 8
-(verification: `pnpm build` standalone, frozen lockfile, first-run flow,
-structural Docker review).
+**Phase 6 status — COMPLETE ✅** (comment reactions, CustomColorPicker, RoleBadge,
+group members slot removed, "coming soon" copy dropped).
+
+**Phase 6b status — COMPLETE ✅** (project member management: module 10326 helpers,
+module 25748 write atoms, ProjectMembersDialog, owner/members/badges, API owner-preservation
+invariant).
+
+**Phase 7 status — COMPLETE ✅ · Phase 8 status — PARTIAL (repo checks green; Docker/build
+verification not run in this environment)**
+
+Phase 7 (calendar sync) landed — the final Pro feature:
+
+- New package `@tasktrove/calendar-sync` (`packages/calendar-sync/`): types, ICS payload/parse,
+  in-memory persistence, `CalendarSyncService` (`syncFromRemote` + `pushLocalChanges`, 6-counter
+  summary), process-global ephemeral store (no file I/O — remote is source of truth), tsdav client
+  adapter (`createSyncClient`), calendar discovery.
+- API routes: `GET/POST /api/v1/calendar` (state + manual sync trigger; POST now creates a real
+  tsdav `DAVClient` per enabled connection and calls `service.syncFromRemote`), `POST
+  /api/v1/calendar/discover` (Zod-validated `DiscoverRequest`, tsdav discovery), `POST
+  /api/v1/calendar/events` (create/update/delete per §5.5c/§5.5d contracts; `CalendarRecord`-typed
+  fallback calendar in push calls; `findObjectByUrl` returns `CalendarObjectRecord`).
+- Data model: `settings.data.calendarSync[]`, `settings.data.calendarSyncSchedule` already in
+  `DataSettingsSchema`; `calendarSyncSchedule` registered as a scheduler job.
+- UI: `CalendarForm` in settings dialog, nav `Calendar` item, `SettingsCategoryId` extended with
+  `"calendar"` in both `SETTINGS_CATEGORIES` and the atom type.
+- Calendar view integration: `useCalendarSyncState` hook fetches `/api/v1/calendar` client-side;
+  `useCalendarViewEvents` converts `CalendarObjectRecord[]` → `CalendarViewExtensionState` (allDay +
+  time-grid items grouped by day); `CalendarSyncAllDayRenderer` renders events in the all-day strip;
+  wired into `MainContent` for both standalone `/calendar` and project-level calendar views via
+  `extensions.useExternalEvents` + `renderAllDayExtras`.
+- Tests: `packages/calendar-sync/src/calendar-sync.test.ts` (16 contract tests) +
+  `apps/web/app/api/v1/calendar/route.test.ts` (3: GET returns state with no-store headers, POST
+  400 when no data file, POST 400 when no enabled connections).
+
+**Phase 7 known gaps (post-parity polish, not blocking):**
+- **Month-cell event rendering**: `useExternalEvents` produces `monthEventsByDate` but no
+  `renderMonthCellExtras` is wired, so month cells don't show calendar events (all-day strip + time
+  grid do).
+- **Sync status UI**: no "last synced" timestamp / connection-health badge in nav or header.
+- **Create calendar event**: `CalendarAddButton` creates tasks, not calendar-side events.
+- **E2E**: no integration test against a real CalDAV server (needs credentials + network access).
+
+**Phase 8 (verification) status — PARTIAL**: repo-level checks green (`@tasktrove/calendar-sync`
+typecheck + lint + 16 tests; web typecheck; calendar route test 3/3). Docker build / standalone
+`pnpm build` / frozen-lockfile / first-run smoke test not executed in this environment (no Docker CLI,
+no `NEXT_PUBLIC_*`-style distinction needed since `isPro()` is a compile-time constant — see §3).
+CI workflow `.github/workflows/phase8-verify.yml` guarded to `driftywinds/TaskTrove`.
+
+**Remaining phases (out of scope for this session):** none for Pro parity — all 8 phases are
+accounted for (0–6b complete, 7 complete, 8 partial verification). Future work is polish and
+verification, not new Pro features.
 
 ### State of remaining decoded contracts (for later phases)
 

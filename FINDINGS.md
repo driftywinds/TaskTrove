@@ -92,7 +92,7 @@ null`, assignees, comment reactions, project members, currencyRewardEvents,
 >   routes live. Documented behavior kept as upstream designed it (inline non-blocking
 >   banner; pre-init `/api/v1/*` 500 "File reading failed" is base-repo behavior, and
 >   health `needs_initialization` doubles as proof the data-dir write-test passes).
-> - ⬜ Phase 7 (calendar sync) — the final phase; **awaiting user go-ahead**.
+> - ✅ **Phase 7 — External calendar sync (CALDAV) — COMPLETE** (see §5.5b/§5.5d for the executed contracts and §5.6 UI inventory for the built pieces). Known post-phase polish gaps: month-cell event rendering, sync-status UI, calendar-side create-event action, no E2E against a real CalDAV server.
 >
 > **New tooling:** `tools/deob/decode-module.mjs` fully decodes any webpack module in the
 > deobfuscated bundles (solves the string-array rotation via the checksum IIFE and inlines
@@ -125,7 +125,7 @@ recurring tasks · calendar view · focus timer · API access · i18n.
 | Multi-user collaboration         | ✅                                               | ✅ Phase 2 (users API, admin roles, sessions/JWT, UserManagementForm) + Phase 6b (project membership, canManage) |
 | Mobile apps (server contract)    | ✅ `/api/v1/mobile/login` (7-day JWT)            | ✅ Phase 2 verbatim — official app binaries are upstream's; verify against our server in final sweep             |
 | Custom themes                    | ✅ themes/levels + custom color picker           | ✅ Phase 1 gates + Phase 6 CustomColorPicker — confirm in final sweep                                            |
-| External calendar sync           | ✅                                               | ⏸ **Phase 7 — the only remaining shipped feature**                                                              |
+| External calendar sync           | ✅                                               | ✅ **Phase 7 complete** — `@tasktrove/calendar-sync` package, GET/POST `/api/v1/calendar`, POST discover, POST events (create/update/delete), settings form, scheduler job, calendar-view event rendering (all-day strip + time grid). Gaps remaining: month-cell event render, sync-status UI, calendar-side create-event action, no E2E vs real CalDAV server.
 | Perpetual license (1 yr updates) | n/a (license purchase)                           | 🚫 superseded — no license at all, everything unlocked forever                                                   |
 | Advanced analytics               | partially — stats/table views ARE in the image   | ✅ Phase 5 (StatsView + TableView); marketing "Coming soon" is stale                                             |
 | Advanced filter views            | partially — pro filter sections ARE in the image | ✅ Phase 4 (pro filter sections, assigned views); marketing stale                                                |

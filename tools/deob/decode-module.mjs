@@ -127,7 +127,10 @@ for (const rotMatch of modSource.matchAll(rotRe)) {
     for (let i = 0; i < rotateCount; i++) raw.push(raw.shift())
     for (const alias of aliases) {
       try {
-        vm.runInContext(`function ${alias.name}(${alias.params}) { return ${alias.expr}; }`, sandbox)
+        vm.runInContext(
+          `function ${alias.name}(${alias.params}) { return ${decoderName}(${alias.expr}); }`,
+          sandbox,
+        )
       } catch {
         // malformed alias match (params/expr spanned extra tokens) — skip it
       }
@@ -166,7 +169,10 @@ for (const rotMatch of modSource.matchAll(rotRe)) {
   )
   for (const alias of aliases) {
     try {
-      vm.runInContext(`function ${alias.name}(${alias.params}) { return ${alias.expr}; }`, sandbox)
+      vm.runInContext(
+        `function ${alias.name}(${alias.params}) { return ${decoderName}(${alias.expr}); }`,
+        sandbox,
+      )
     } catch {
       // malformed alias match — skip it
     }

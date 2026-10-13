@@ -5,9 +5,9 @@ import { useAtomValue, useSetAtom } from "jotai"
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
-import { Database, X, Bell, Settings, Menu, Palette, Clock, Users, Trophy } from "lucide-react"
+import { Database, X, Bell, Settings, Menu, Palette, Clock, Users, Trophy, Calendar, Link2 } from "lucide-react"
 // Future icons (not used yet):
-// import { Link, Target, Code } from "lucide-react"
+// import { Target, Code } from "lucide-react"
 import { showSettingsDialogAtom, closeSettingsDialogAtom } from "@tasktrove/atoms/ui/dialogs"
 import { userAtom } from "@tasktrove/atoms/data/base/atoms"
 import {
@@ -26,6 +26,7 @@ import { AppearanceForm } from "@/components/dialogs/settings-forms/appearance-f
 import { SchedulerJobsForm } from "@/components/dialogs/settings-forms/scheduler-form"
 import { ProductivityForm } from "@/components/dialogs/settings-forms/productivity-form"
 import { UserManagementForm } from "@/components/dialogs/settings-forms/user-management-form"
+import { CalendarForm } from "@/components/dialogs/settings-forms/calendar-form"
 // import { ApiForm } from "./settings-forms/api-form"
 
 // Settings category configuration
@@ -93,6 +94,15 @@ function SettingsContent() {
       ),
       adminOnly: true,
     },
+    {
+      id: "calendar",
+      title: t("settings.categories.calendar.title", "Calendar Sync"),
+      icon: Calendar,
+      description: t(
+        "settings.categories.calendar.description",
+        "Connect CalDAV calendars for external sync",
+      ),
+    },
   ]
 
   // Conditionally add Pro-only categories when available via atoms
@@ -142,6 +152,8 @@ function SettingsContent() {
         return <ProductivityForm />
       case "users":
         return <UserManagementForm />
+      case "calendar" as const:
+        return <CalendarForm />
       // case "api":
       //   return <ApiForm />
       default:

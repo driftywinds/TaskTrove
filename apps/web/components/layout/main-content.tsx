@@ -12,6 +12,10 @@ import type { Project } from "@tasktrove/types/core"
 import type { VoiceCommand } from "@tasktrove/types/voice-commands"
 import { KanbanBoard } from "@/components/views/kanban-board"
 import { CalendarView } from "@/components/views/calendar-view"
+import { useCalendarSyncState } from "@/hooks/use-calendar-sync-state"
+import { useCalendarViewEvents } from "@/hooks/use-calendar-view-events"
+import { CalendarSyncAllDayRenderer } from "@/components/calendar/calendar-sync-event-renderer"
+import type { CalendarObjectRecord } from "@tasktrove/calendar-sync/types"
 import { TableView } from "@/components/views/table-view"
 import { StatsView } from "@/components/views/stats-view"
 import { AnalyticsDashboard } from "@/components/analytics/analytics-dashboard"
@@ -36,6 +40,7 @@ export function MainContent({ onVoiceCommand }: MainContentProps): React.ReactEl
   const currentViewState = useAtomValue(currentViewStateAtom)
   const routeContext = useAtomValue(currentRouteContextAtom)
   const filteredTasks = useAtomValue(filteredTasksAtom)
+  const { state: calendarSyncState } = useCalendarSyncState()
 
   // Extract values from atoms
   const { viewMode } = currentViewState
@@ -56,7 +61,20 @@ export function MainContent({ onVoiceCommand }: MainContentProps): React.ReactEl
 
       case "calendar":
         // Calendar view always shows tasks in calendar format
-        return <CalendarView tasks={filteredTasks} onDateClick={() => {}} />
+        const calendarEvents: CalendarObjectRecord[] = calendarSyncState?.objects ?? []
+        return (
+          <CalendarView
+            tasks={filteredTasks}
+            onDateClick={() => {}}
+            externalEvents={calendarEvents}
+            extensions={{
+              useExternalEvents: ({ externalEvents, calendarDays, viewMode }) =>
+                useCalendarViewEvents({ objects: externalEvents as CalendarObjectRecord[], calendarDays, viewMode }),
+              renderAllDayExtras: ({ events, ...rest }) =>
+                <CalendarSyncAllDayRenderer events={events as CalendarObjectRecord[]} {...rest} />,
+            }}
+          />
+        )
 
       case "voice":
         return (
@@ -117,7 +135,18 @@ export function MainContent({ onVoiceCommand }: MainContentProps): React.ReactEl
 
           case "calendar":
             return (
-              <CalendarView tasks={filteredTasks} onDateClick={() => {}} project={projectForView} />
+              <CalendarView
+                tasks={filteredTasks}
+                onDateClick={() => {}}
+                project={projectForView}
+                externalEvents={calendarSyncState?.objects ?? []}
+                extensions={{
+                  useExternalEvents: ({ externalEvents, calendarDays, viewMode }) =>
+                    useCalendarViewEvents({ objects: externalEvents as CalendarObjectRecord[], calendarDays, viewMode }),
+                renderAllDayExtras: ({ events, ...rest }) =>
+                  <CalendarSyncAllDayRenderer events={events as CalendarObjectRecord[]} {...rest} />,
+              }}
+            />
             )
 
           case "table":

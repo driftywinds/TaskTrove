@@ -12,7 +12,8 @@
     "./ics": "./src/ics.ts",
     "./adapter": "./src/adapter.ts",
     "./service": "./src/service.ts",
-    "./store": "./src/store.ts"
+    "./store": "./src/store.ts",
+    "./discover": "./src/discover.ts"
   },
   "scripts": {
     "lint": "eslint .",
